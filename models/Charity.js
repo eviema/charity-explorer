@@ -1,11 +1,14 @@
-const mongoose = require('mongoose');
-const { Schema } = mongoose;
 
-const charitySchema = new Schema({
-    ABN: Number,
-    name: String
+const mongoose = require("mongoose");
+const keys = require("./config/keys");
+
+mongoose.connect(keys.mongoURI);
+
+// Create charity schema
+let charitySchema = mongoose.Schema({
+  id: Number,
+  name: String
 });
 
-module.exports = mongoose.model('Charities', charitySchema);
-
-
+// Store song documents in a collection called "songs" if it doesn't exist
+module.exports = mongoose.model("charities", charitySchema);
