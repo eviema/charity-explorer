@@ -37,7 +37,7 @@ class Landing extends Component {
           alt=""
         />
         <Mask className="flex-center">
-          <div className="mx-5 h1-responsive pb-2 white-text d-flex flex-column justify-content-center" >
+          <div className="mx-5 h1-responsive pb-2 white-text" >
             <div style={{textShadow: "1px 1px 8px #212121"}}>
               <p>Want to donate to a charity in Melbourne</p>
               <p>but not sure which charitable cause to start with?</p>
