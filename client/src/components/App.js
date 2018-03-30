@@ -10,6 +10,7 @@ import DashboardAct from './DashboardAct';
 import DashboardLoc from './DashboardLoc';
 import About from './About';
 import Contact from './Contact';
+import Footer from './Footer';
 
 class App extends Component {
 
@@ -29,6 +30,7 @@ class App extends Component {
                         <Route path="/charities/dashboardLoc" component={DashboardLoc} />
                         <Route path="/about" component={About}/>
                         <Route path="/contact" component={Contact}/>
+                        <Footer />
                     </div>
                 </BrowserRouter>
             </div>
