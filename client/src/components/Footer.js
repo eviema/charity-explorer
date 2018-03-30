@@ -2,6 +2,10 @@ import React from 'react';
 import { Col, Container, Row } from "mdbreact";
 
 const Footer = () => {
+    if (window.location.pathname === "/charitySearch") {
+        return <div />
+    }
+
     return(
         <footer className="page-footer stylish-color-dark font-small">
             <Container className="py-5">
