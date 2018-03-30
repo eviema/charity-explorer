@@ -36,16 +36,17 @@ class Landing extends Component {
           style={imgStyle}
           alt=""
         />
-        <Mask className="flex-center">
-          <div className="mx-5 h1-responsive pb-2 white-text" >
-            <div style={{textShadow: "1px 1px 8px #212121"}}>
-              <p>Want to donate to a charity in Melbourne</p>
-              <p>but not sure which charitable cause to start with?</p>
-            </div>   
-            <Button className="mt-3" onClick={this.handleOnClickToExplore}>
-                Click to explore
-            </Button>
-          </div>
+        <Mask className="d-flex flex-column align-items-center justify-content-center p-5">
+            <div className="m-2"> 
+              <div className="h1-responsive pb-2 white-text" style={{textShadow: "1px 1px 8px #212121"}}>
+                <span>A little goes a long way.</span><br />
+                <span>Check out how you can help charities</span><br />
+                <span>around your neighbourhood.</span><br />
+              </div>   
+              <Button className="mt-3" onClick={this.handleOnClickToExplore}>
+                  Click to explore charitable causes
+              </Button>
+            </div>           
         </Mask>
       </View>
     );
