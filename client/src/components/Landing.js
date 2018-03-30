@@ -23,7 +23,7 @@ class Landing extends Component {
     }
 
     var imgStyle = {
-      backgroundImage: "url(https://images.unsplash.com/photo-1469398718052-b9d13df0d7c9?ixlib=rb-0.3.5&s=493aae8f396a54b911da2f8cb2806865&auto=format&fit=crop&w=1051&q=80)",
+      backgroundImage: "url(https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=9e3cd6ce6496c9c05cbf1b6cda8be0f9&auto=format&fit=crop&w=1050&q=80)",
       backgroundRepeat: "repeat-y",
       backgroundSize: "cover",
       backgroundPosition: "center",
