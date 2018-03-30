@@ -155,7 +155,7 @@ class CharitySearch extends Component {
             backgroundAttachment: "fixed",
             backgroundSize: "cover",
             backgroundPosition: "center",
-            height: "70vh",
+            height: "75vh",
         }
 
         var searchBoxStyle = {
@@ -211,7 +211,7 @@ class CharitySearch extends Component {
                 
                 <div className="mx-5 px-3 my-5">
 
-                    <div style={{color:"white"}}>
+                    <div className="mb-3" style={{color:"white"}}>
                         {this.state.doneCharitySearch && this.state.charities.length > 0 &&
                             <h5>
                                 Found {this.state.charities.length} charities for you:
