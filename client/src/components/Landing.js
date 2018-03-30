@@ -23,7 +23,7 @@ class Landing extends Component {
     }
 
     var imgStyle = {
-      backgroundImage: "url(https://images.unsplash.com/photo-1469398718052-b9d13df0d7c9?ixlib=rb-0.3.5&s=493aae8f396a54b911da2f8cb2806865&auto=format&fit=crop&w=1051&q=80)",
+      backgroundImage: "url(https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=9e3cd6ce6496c9c05cbf1b6cda8be0f9&auto=format&fit=crop&w=1050&q=80)",
       backgroundRepeat: "repeat-y",
       backgroundSize: "cover",
       backgroundPosition: "center",
@@ -36,16 +36,17 @@ class Landing extends Component {
           style={imgStyle}
           alt=""
         />
-        <Mask className="flex-center">
-          <div className="mx-5 h1-responsive pb-2 white-text d-flex flex-column justify-content-center" >
-            <div style={{textShadow: "1px 1px 8px #212121"}}>
-              <p>Want to donate to a charity in Melbourne</p>
-              <p>but not sure which charitable cause to start with?</p>
-            </div>   
-            <Button className="mt-3" onClick={this.handleOnClickToExplore}>
-                Click to explore
-            </Button>
-          </div>
+        <Mask className="d-flex flex-column align-items-center justify-content-center p-5">
+            <div className="m-2"> 
+              <div className="h1-responsive pb-2 white-text" style={{textShadow: "1px 1px 8px #212121"}}>
+                <span>A little goes a long way.</span><br />
+                <span>Check out how you can help charities</span><br />
+                <span>around your neighbourhood.</span><br />
+              </div>   
+              <Button className="mt-3" onClick={this.handleOnClickToExplore}>
+                  Click to explore charitable causes
+              </Button>
+            </div>           
         </Mask>
       </View>
     );

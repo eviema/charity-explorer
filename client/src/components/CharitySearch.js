@@ -4,7 +4,7 @@ import 'react-select/dist/react-select.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import spinner from '../assets/spinner.gif';
-import { Button, Card, CardBody, CardImage, CardTitle, CardText } from 'mdbreact';
+import { Button, Card, CardBody, CardImage, CardTitle, CardText, Breadcrumb, BreadcrumbItem, Container, Col, Row } from 'mdbreact';
 
 class CharitySearch extends Component {
     constructor(props) {
@@ -155,7 +155,7 @@ class CharitySearch extends Component {
             backgroundAttachment: "fixed",
             backgroundSize: "cover",
             backgroundPosition: "center",
-            height: "70vh",
+            height: "75vh",
         }
 
         var searchBoxStyle = {
@@ -166,6 +166,10 @@ class CharitySearch extends Component {
 
         return(
             <div style={pageStyle}>
+                <Breadcrumb>
+                    <BreadcrumbItem><a href="/home"><i class="fa fa-home fa-lg"></i></a></BreadcrumbItem>
+                    <BreadcrumbItem active>Search for charities</BreadcrumbItem>
+                </Breadcrumb>
                 <form className="pt-5 mx-4" > 
                     <div className="my-5"></div>
                     <div style={searchBoxStyle} className="m-5">
@@ -197,7 +201,7 @@ class CharitySearch extends Component {
                             Search for Charities!
                         </Button>
                         {this.state.loading && 
-                                <img src={spinner} alt="loading..." style={{height: 30, paddingLeft:30}}/>
+                                <img src={spinner} className="mt-5" alt="loading..." style={{height: 30, paddingLeft:30}}/>
                         }
                     </div>
                                        
@@ -207,7 +211,7 @@ class CharitySearch extends Component {
                 
                 <div className="mx-5 px-3 my-5">
 
-                    <div style={{color:"white"}}>
+                    <div className="mb-3" style={{color:"white"}}>
                         {this.state.doneCharitySearch && this.state.charities.length > 0 &&
                             <h5>
                                 Found {this.state.charities.length} charities for you:
@@ -230,6 +234,35 @@ class CharitySearch extends Component {
                     <ul className="row card-group list-unstyled">{charityListItems}</ul>
 
                 </div>
+
+                <footer className="page-footer stylish-color-dark font-small">
+                    <Container className="py-5">
+                    <Row className="text-center d-flex justify-content-center">
+                        <Col md="2">
+                            <h6 className="title font-weight-bold"><a href="/home">Home</a></h6>
+                        </Col>
+                        <Col md="2">
+                            <h6 className="title font-weight-bold"><a href="/charities/dashboardAct">Charitable causes</a></h6>
+                        </Col>
+                        <Col md="2">
+                            <h6 className="title font-weight-bold"><a href="/charitySearch">Charities</a></h6>
+                        </Col>
+                        {/* <Col md="2">
+                            <h6 className="title font-weight-bold"><a href="/about">About</a></h6>
+                        </Col> */}
+                        <Col md="2">
+                            <h6 className="title font-weight-bold"><a href="/contact">Contact</a></h6>
+                        </Col>
+                    </Row>
+                    </Container>
+                    <div className="footer-copyright text-center py-4">
+                        <Container fluid>
+                            &copy; {(new Date().getFullYear())} DonateNow
+                            <br />
+                            Powered by ACE Solutions
+                        </Container>
+                    </div>
+                </footer>
                 
             </div>
             

@@ -38,7 +38,6 @@ class DashboardAct extends Component {
                         </Button>
                     </Link>
                 </div> */}
-                <div className="my-3 py-3"></div>
                 <Breadcrumb>
                     <BreadcrumbItem><a href="/home"><i class="fa fa-home fa-lg"></i></a></BreadcrumbItem>
                     <BreadcrumbItem active>Charitable Causes</BreadcrumbItem>
@@ -76,7 +75,7 @@ class DashboardAct extends Component {
                 </div>
                 <div className="row my-5 d-flex justify-content-center">
                     <Button className="mt-5" onClick={this.handleOnClickToSearch}>
-                        Search for charities based on your cause of interest and suburb
+                        Search for charities
                     </Button>
                 </div>
                   
