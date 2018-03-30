@@ -38,7 +38,6 @@ class DashboardAct extends Component {
                         </Button>
                     </Link>
                 </div> */}
-                <div className="my-3 py-3"></div>
                 <Breadcrumb>
                     <BreadcrumbItem><a href="/home"><i class="fa fa-home fa-lg"></i></a></BreadcrumbItem>
                     <BreadcrumbItem active>Charitable Causes</BreadcrumbItem>
