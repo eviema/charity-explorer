@@ -75,7 +75,7 @@ class DashboardAct extends Component {
                 </div>
                 <div className="row my-5 d-flex justify-content-center">
                     <Button className="mt-5" onClick={this.handleOnClickToSearch}>
-                        Search for charities based on your cause of interest and suburb
+                        Search for charities
                     </Button>
                 </div>
                   
