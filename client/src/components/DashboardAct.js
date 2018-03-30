@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Iframe from "react-iframe";
 import { Redirect } from 'react-router';
-import { Link } from 'react-router-dom';
 import { Button, Card, CardImage, CardBody, CardText, Breadcrumb, BreadcrumbItem } from 'mdbreact';
 
 class DashboardAct extends Component {
