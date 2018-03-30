@@ -28,7 +28,7 @@ class App extends Component {
                         <Route path="/charity/:ABN" component={Charity} />
                         <Route path="/charities/dashboardAct" component={DashboardAct} />
                         <Route path="/charities/dashboardLoc" component={DashboardLoc} />
-                        <Route path="/about" component={About}/>
+                        {/* <Route path="/about" component={About}/> */}
                         <Route path="/contact" component={Contact}/>
                         <Footer />
                     </div>
