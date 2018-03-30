@@ -8,6 +8,8 @@ import CharitySearch from './CharitySearch';
 import Charity from './Charity';
 import DashboardAct from './DashboardAct';
 import DashboardLoc from './DashboardLoc';
+import About from './About';
+import Contact from './Contact';
 
 class App extends Component {
 
@@ -19,12 +21,14 @@ class App extends Component {
                     <div className="container-fluid" style={{padding:0}}>
                         <Header style={{position:"relative"}}/>
                         <Route exact={true} path="/" component={AdminLogin} />
-                        <Route exact={true} path="/home" component={Landing} /> 
+                        <Route path="/home" component={Landing} /> 
                         {/* <Route exact={true} path="/" component={Landing} /> */}
-                        <Route exact={true} path="/charitySearch" component={CharitySearch} />
+                        <Route path="/charitySearch" component={CharitySearch} />
                         <Route path="/charity/:ABN" component={Charity} />
                         <Route path="/charities/dashboardAct" component={DashboardAct} />
                         <Route path="/charities/dashboardLoc" component={DashboardLoc} />
+                        <Route path="/about" component={About}/>
+                        <Route path="/contact" component={Contact}/>
                     </div>
                 </BrowserRouter>
             </div>
