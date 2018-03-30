@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import Iframe from "react-iframe";
 import { Redirect } from 'react-router';
-import { Link } from 'react-router-dom';
-import { Button, Card, CardImage, CardBody, CardText } from 'mdbreact';
+import { Button, Card, CardImage, CardBody, CardText, Breadcrumb, BreadcrumbItem } from 'mdbreact';
 
 class DashboardAct extends Component {
 
@@ -40,6 +39,10 @@ class DashboardAct extends Component {
                     </Link>
                 </div> */}
                 <div className="my-3 py-3"></div>
+                <Breadcrumb>
+                    <BreadcrumbItem><a href="/home"><i class="fa fa-home fa-lg"></i></a></BreadcrumbItem>
+                    <BreadcrumbItem active>Charitable Causes</BreadcrumbItem>
+                </Breadcrumb>
                 <div className="mt-5 mx-5">
                     <Card cascade>
                         <CardImage tag="div">
@@ -53,6 +56,7 @@ class DashboardAct extends Component {
                                 <br />
                                 However, the Donations and Government grands that go to charities for <strong>housing activities</strong> still remain one of the <strong>least</strong>.
                                 <br />
+
                                 <hr />
                                 Below is a list of charitable causes that are supported by charities in Greater Melbourne, along with the total amount of donations and government grants received by each charity in 2016.
                                 <br />

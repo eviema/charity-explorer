@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Button } from 'mdbreact';
 import { Redirect } from 'react-router';
-import { Link } from 'react-router-dom';
 
 class AdminLogin extends Component {
     constructor(props) {
@@ -80,7 +79,7 @@ class AdminLogin extends Component {
                             />
                     </label>                    
                     <p></p>
-                    <Button className="mt-5" onClick={this.handleOnClickToLogin}>
+                    <Button className="mt-3" onClick={this.handleOnClickToLogin}>
                         Login
                     </Button>
                     
