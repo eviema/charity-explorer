@@ -4,7 +4,7 @@ import 'react-select/dist/react-select.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import spinner from '../assets/spinner.gif';
-import { Button, Card, CardBody, CardImage, CardTitle, CardText } from 'mdbreact';
+import { Button, Card, CardBody, CardImage, CardTitle, CardText, Breadcrumb, BreadcrumbItem } from 'mdbreact';
 
 class CharitySearch extends Component {
     constructor(props) {
@@ -166,6 +166,10 @@ class CharitySearch extends Component {
 
         return(
             <div style={pageStyle}>
+                <Breadcrumb>
+                    <BreadcrumbItem><a href="/home"><i class="fa fa-home fa-lg"></i></a></BreadcrumbItem>
+                    <BreadcrumbItem active>Search for charities</BreadcrumbItem>
+                </Breadcrumb>
                 <form className="pt-5 mx-4" > 
                     <div className="my-5"></div>
                     <div style={searchBoxStyle} className="m-5">
