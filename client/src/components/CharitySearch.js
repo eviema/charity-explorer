@@ -138,10 +138,10 @@ class CharitySearch extends Component {
                         <CardText>
                             {charity.desc.length <= 200 ? charity.desc : charity.desc.slice(0,200).concat("... ")}
                             <br />
-                            <Button href={`/charity/${charity.ABN}`} >
+                            {/* <Button href={`/charity/${charity.ABN}`} >
                                 Learn more 
                                 <i class="fa fa-angle-double-right pl-2"></i>
-                            </Button>                            
+                            </Button> */}                            
                         </CardText>
                     </CardBody>
                 </Card>
