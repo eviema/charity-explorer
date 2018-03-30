@@ -20,7 +20,7 @@ class App extends Component {
             <div>
                 <BrowserRouter> 
                     <div className="container-fluid" style={{padding:0}}>
-                        <Header style={{position:"relative"}}/>
+                        <Header />
                         <Route exact={true} path="/" component={AdminLogin} />
                         <Route path="/home" component={Landing} /> 
                         {/* <Route exact={true} path="/" component={Landing} /> */}
