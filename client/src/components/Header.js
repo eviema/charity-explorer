@@ -50,7 +50,7 @@ class Header extends Component {
                     <strong>DonateNow</strong>
                 </NavbarBrand>
                 { !this.state.isWideEnough && <NavbarToggler onClick = { this.onClick } />}
-                <Collapse isOpen = { this.state.collapse } navbar>
+                <Collapse isOpen = { this.state.collapse } navbar style={{background:"rgba(96, 125, 139,0.95)"}}>
                     <NavbarNav right>
                         <NavItem>
                             <a className="nav-link" href="/home">Home<span className="sr-only">(current)</span></a>
