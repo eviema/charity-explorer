@@ -42,6 +42,13 @@ class Header extends Component {
         : {
             background: "rgba(96, 125, 139,1)",
           };
+    
+    var navItemBackgroundStyle = 
+        this.state.collapse === true
+          ? {
+            background:"rgba(96, 125, 139,0.95)"
+          }
+          : {}
 
     return (
         <Router>
@@ -50,7 +57,7 @@ class Header extends Component {
                     <strong>DonateNow</strong>
                 </NavbarBrand>
                 { !this.state.isWideEnough && <NavbarToggler onClick = { this.onClick } />}
-                <Collapse isOpen = { this.state.collapse } navbar>
+                <Collapse isOpen = { this.state.collapse } navbar style={navItemBackgroundStyle}>
                     <NavbarNav right>
                         <NavItem>
                             <a className="nav-link" href="/home">Home<span className="sr-only">(current)</span></a>

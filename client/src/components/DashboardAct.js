@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Iframe from "react-iframe";
 import { Redirect } from 'react-router';
-import { Button, Card, CardImage, CardBody, CardText, Breadcrumb, BreadcrumbItem } from 'mdbreact';
+import { Button, Card, CardImage, CardBody, CardTitle, CardText, Breadcrumb, BreadcrumbItem } from 'mdbreact';
 
 class DashboardAct extends Component {
 
@@ -42,7 +42,7 @@ class DashboardAct extends Component {
                     <BreadcrumbItem><a href="/home"><i class="fa fa-home fa-lg"></i></a></BreadcrumbItem>
                     <BreadcrumbItem active>Charitable Causes</BreadcrumbItem>
                 </Breadcrumb>
-                <div className="mt-5 mx-5">
+                <div className="mx-3">
                     <Card cascade>
                         <CardImage tag="div">
                             <div className="view #26c6da cyan lighten-1 p-3">
@@ -52,20 +52,28 @@ class DashboardAct extends Component {
                         <CardBody color="#757575 grey darken-1">
                             <CardText>
                                 There are <strong>19,696 homeless people</strong> living in Greater Melbourne. This number has increased by 13% since 2011... 
-                                <br />
+                                <p />
                                 However, the Donations and Government grands that go to charities for <strong>housing activities</strong> still remain one of the <strong>least</strong>.
                                 <br />
 
                                 <hr />
-                                Below is a list of charitable causes that are supported by charities in Greater Melbourne, along with the total amount of donations and government grants received by each charity in 2016.
+                                <CardTitle>You can help!</CardTitle>
+                                Below is <strong>a list of charitable causes</strong> that are supported by charities in Greater Melbourne. 
                                 <br />
-                                Wondering if the cause you're interested in is supported by charities in your suburb? Select your suburb on the right, and you'll see all the causes available there. 
+                                The less donations they have received in 2016, the higher they are up on the list, the more they need your attention. 
+                                <p />
+                                Wondering if the cause you're interested in is supported by charities <strong>in your suburb</strong>? 
                                 <br />
-                                Want to search for charities for a cause in a suburb? There will be a button below the graph that takes you to the search page. 
+                                Select your suburb on the right, and you'll see all the causes available there. 
+                                <p />
+                                Ready to search for charities for a cause in your suburb? 
+                                <br />
+                                <Button onClick={this.handleOnClickToSearch}>
+                                    Click to search for charities
+                                </Button>
                             </CardText>
                         </CardBody>
-                    </Card>
-                    
+                    </Card>         
                 </div>
                 <div style={{height:"80vh", width: "70vw"}}>
                     <Iframe url="https://public.tableau.com/views/BookMainActivity/Dashboard1?:embed=y&:display_count=yes&:showVizHome=no"

@@ -150,16 +150,16 @@ class CharitySearch extends Component {
         );
 
         var pageStyle = {
-            backgroundImage: "url(https://images.unsplash.com/photo-1518398046578-8cca57782e17?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=959228001844e0370bcb348f9d1e000a&auto=format&fit=crop&w=1050&q=80)",
+            background: "url(https://images.unsplash.com/photo-1514395462725-fb4566210144?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=c669e38dae80f85c8f713d178c3eca6e&auto=format&fit=crop&w=1051&q=80)",
             backgroundRepeat: "no-repeat",
             backgroundAttachment: "fixed",
             backgroundSize: "cover",
             backgroundPosition: "center",
-            height: "75vh",
+            height: "80vh",
         }
 
         var searchBoxStyle = {
-            background: "rgba(236, 239, 241, 0.75)",
+            background: "rgba(236, 239, 241, 0.85)",
             padding: "2rem",
             margin: "2rem",
         }
@@ -170,9 +170,9 @@ class CharitySearch extends Component {
                     <BreadcrumbItem><a href="/home"><i class="fa fa-home fa-lg"></i></a></BreadcrumbItem>
                     <BreadcrumbItem active>Search for charities</BreadcrumbItem>
                 </Breadcrumb>
-                <form className="pt-5 mx-4" > 
+                <form className="pt-3 mx-2" > 
                     <div className="my-5"></div>
-                    <div style={searchBoxStyle} className="m-5">
+                    <div style={searchBoxStyle} className="m-3">
                         <div className="row">
                             <div className="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-6">
                                 <h5 className="mb-3 h5">Which charitable cause has personal significance to you? </h5>         
@@ -203,33 +203,36 @@ class CharitySearch extends Component {
                         {this.state.loading && 
                                 <img src={spinner} className="mt-5" alt="loading..." style={{height: 30, paddingLeft:30}}/>
                         }
+
+                        <p />
+                        {this.state.doneCharitySearch && this.state.charities.length === 0 &&
+                        this.state.cause !== '' && this.state.location !== '' &&
+                            <h6>
+                                Sorry, no charities supporting {this.state.cause.value} in {this.state.location.value}.
+                                <p />
+                                Please modify your search.
+                            </h6>
+                        }
+                        {this.state.doneCharitySearch && this.state.charities.length === 0 &&
+                        this.state.cause === '' && this.state.location === '' &&
+                            <h6>
+                                Choose a cause and a location so that we can find the right charities for you!
+                            </h6>
+                        }
+
                     </div>
                                        
                 </form>
                 
                 <p></p>
                 
-                <div className="mx-5 px-3 my-5">
+                <div className="mx-3 px-3 my-5">
 
-                    <div className="mb-3" style={{color:"white"}}>
-                        {this.state.doneCharitySearch && this.state.charities.length > 0 &&
-                            <h5>
-                                Found {this.state.charities.length} charities for you:
-                            </h5>
-                        }
-                        {this.state.doneCharitySearch && this.state.charities.length === 0 &&
-                        this.state.cause !== '' && this.state.location !== '' &&
-                            <h5>
-                                Sorry, there are no charities that support {this.state.cause.value} in {this.state.location.value}
-                            </h5>
-                        }
-                        {this.state.doneCharitySearch && this.state.charities.length === 0 &&
-                        this.state.cause === '' && this.state.location === '' &&
-                            <h5>
-                                Choose a cause and a location so that we can find the right charities for you!
-                            </h5>
-                        }
-                    </div>    
+                    {/* {this.state.doneCharitySearch && this.state.charities.length > 0 &&
+                        <h5 className="mb-3 p-2" style={{color:"#000", background:"rgba(29, 233, 182, 0.85)"}}>
+                            Found {this.state.charities.length} charities for you:
+                        </h5>
+                    }   */ } 
 
                     <ul className="row card-group list-unstyled">{charityListItems}</ul>
 

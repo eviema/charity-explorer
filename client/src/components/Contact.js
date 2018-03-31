@@ -26,14 +26,15 @@ class Contact extends Component {
                     <BreadcrumbItem active>Contact us</BreadcrumbItem>
                 </Breadcrumb>
                 
-                <form className="mx-5 px-5 py-5">
-                    <p>If you have any questions or concerns, feel free to drop us an email.</p>
-                    <p>We'd love to hear from you!</p>
-                    <p className="h5 text-center my-4">Write to us</p>
+                <form className="mx-5 py-5">
+                    <p className="h5 text-center my-4">We'd love to hear from you!</p>
+                    <p className="text-center">If you have any questions or concerns, feel free to drop us an email.</p>
+                    
                     <Input label="Your name" icon="user" group type="email" validate error="wrong" success="right"/>
                     <Input label="Your email" icon="envelope" group type="email" validate error="wrong" success="right"/>
                     <Input label="Subject" icon="tag" group type="email" validate error="wrong" success="right"/>
                     <Input type="textarea" label="Your message" icon="pencil"/>
+                
                     <div className="text-center">
                         <Button color="#01579b light-blue darken-4" onClick={this.handleOnClickToSend}>
                             Send 
