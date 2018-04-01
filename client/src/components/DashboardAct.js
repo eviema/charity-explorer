@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Iframe from "react-iframe";
 import { Redirect } from 'react-router';
-import { Button, Card, CardImage, CardBody, CardTitle, CardText, Breadcrumb, BreadcrumbItem } from 'mdbreact';
+import { Card, CardImage, CardBody, CardTitle, CardText, Breadcrumb, BreadcrumbItem } from 'mdbreact';
 
 class DashboardAct extends Component {
 
@@ -66,25 +66,26 @@ class DashboardAct extends Component {
                                 <br />
                                 Select your suburb on the right, and you'll see all the causes available there. 
                                 <p />
-                                Ready to search for charities for a cause in your suburb? 
+                                Ready to search for charities that support a cause in your suburb? 
                                 <br />
-                                <Button onClick={this.handleOnClickToSearch}>
-                                    Click to search for charities
-                                </Button>
+                                <a className="btn btn-default" onClick={this.handleOnClickToSearch}>
+                                    Click to begin
+                                </a>
                             </CardText>
                         </CardBody>
                     </Card>         
                 </div>
-                <div style={{height:"80vh", width: "70vw"}}>
+                <div style={{height:"100vh", width: "70vw"}}>
                     <Iframe url="https://public.tableau.com/views/BookMainActivity/Dashboard1?:embed=y&:display_count=yes&:showVizHome=no"
                             className="mt-3">
                         <param name="filter" value=":original_view=yes" />
                     </Iframe>   
                 </div>
+                <p />
                 <div className="row my-5 d-flex justify-content-center">
-                    <Button className="mt-5" onClick={this.handleOnClickToSearch}>
-                        Search for charities
-                    </Button>
+                    <a className="btn btn-default" onClick={this.handleOnClickToSearch}>
+                        Click to search for charities
+                    </a>
                 </div>
                   
             </div>
