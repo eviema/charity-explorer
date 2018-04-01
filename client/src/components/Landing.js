@@ -55,16 +55,16 @@ class Landing extends Component {
           </div>  
         </div>
 
-        <div className="row d-flex justify-content-center mt-5">
+        {/* 6 cause example cards */}
+        <div className="row d-flex justify-content-center mt-5 mb-3 mx-4 px-2">
           <p className="h4-responsive" style={{color:"#839094"}}>Which charitable cause do you feel connected to?</p>
-          {/* 8 cause example cards */}
         </div>
 
         <div className="row d-flex justify-content-center">
             <Card cascade className="m-1 p-0 col-11 col-sm-5 col-md-4 col-lg-3 col-xl-3">
                 <CardImage className="img-fluid" src="https://images.unsplash.com/photo-1414445092210-ee1a2da44ad7?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=fc60cb957d2181ee66d78261b51b22ad&auto=format&fit=crop&w=1047&q=80"/>
                 <CardBody className="w-100" style={causeCardStyle}>
-                    <strong>Animal Protection</strong>
+                    <strong>Animal protection</strong>
                     <CardText>
                       Lorem ipsum dolor sit amet.                      
                     </CardText>
@@ -121,6 +121,43 @@ class Landing extends Component {
           <a className="btn btn-outline-default" onClick={this.handleOnClickToExplore}>
               See more charitable causes
           </a>
+        </div>
+
+        {/* how DonateNow helps */}
+        <div className="row d-flex align-items-center justify-content-center text-center py-5 px-4" style={{color:"#839094", background:"#f5f9fb"}}>
+          <p className="col-12 h4-responsive">What is DonateNow?</p>
+          <p className="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-6 h6-responsive">
+            DonateNow is an online information hub for Melburnians to explore charitable causes, find charities of interest nearby, and grab contact details of charities to "donate now". 
+          </p>
+          <div className="row pt-4 d-flex align-items-center justify-content-center text-center">
+            <div className="m-2 col-8 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+              <img src="https://images.unsplash.com/photo-1497030947858-3f40f1508e84?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=c55e1e5d309a69171693ada3128a36f7&auto=format&fit=crop&w=1050&q=80"
+                  alt="contact"
+                  style={{borderRadius: "50%", maxHeight:"80%", maxWidth: "80%"}} />
+              <p className="font-weight-bold mt-4 mb-2">
+                Explore charitable causes
+              </p>
+              <p>Choose a cause that has personal significance to you</p>
+            </div>
+            <div className="m-2 col-8 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+              <img src="https://images.unsplash.com/45/eDLHCtzRR0yfFtU0BQar_sylwiabartyzel_themap.jpg?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=2110dad38a593cd7986276d92748d27b&auto=format&fit=crop&w=1057&q=80"
+                  alt="contact"
+                  style={{borderRadius: "50%", maxHeight:"80%", maxWidth: "80%"}} />
+              <p className="font-weight-bold mt-4 mb-2">
+                Find charities nearby
+              </p>
+              <p>Select your local area and search for charities</p>
+            </div>
+            <div className="m-2 col-8 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+              <img src="https://images.unsplash.com/photo-1457317680121-ef12e98979e8?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a41dc0dcd19e2358b1acb5e17b298aed&auto=format&fit=crop&w=1050&q=80"
+                  alt="contact"
+                  style={{borderRadius: "50%", maxHeight:"80%", maxWidth: "80%"}} />
+              <p className="font-weight-bold mt-4 mb-2">
+                Contact charities
+              </p>
+              <p>Contact charities to discuss how you can help</p>
+            </div>
+          </div>
         </div>
         
       </div>
