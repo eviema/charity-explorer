@@ -21,8 +21,8 @@ class Contact extends Component {
         return(
             <div>
     
-                <Breadcrumb>
-                    <BreadcrumbItem><a href="/home"><i class="fa fa-home fa-lg"></i></a></BreadcrumbItem>
+                <Breadcrumb className="small">
+                    <BreadcrumbItem><a href="/home"><i class="fa fa-home"></i></a></BreadcrumbItem>
                     <BreadcrumbItem active>Contact us</BreadcrumbItem>
                 </Breadcrumb>
                 
@@ -36,7 +36,7 @@ class Contact extends Component {
                     <Input type="textarea" label="Your message" icon="pencil"/>
                 
                     <div className="text-center">
-                        <button className="btn btn-info" type="submit" onClick={this.handleOnClickToSend}>
+                        <button className="btn btn-info" type="button" onClick={this.handleOnClickToSend}>
                             Send 
                             <Fa icon="paper-plane-o" className="ml-1"/>
                         </button>
