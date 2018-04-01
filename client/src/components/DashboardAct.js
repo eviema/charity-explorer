@@ -39,8 +39,8 @@ class DashboardAct extends Component {
                     </Link>
                 </div> */}
                 <Breadcrumb>
-                    <BreadcrumbItem><a href="/home"><i class="fa fa-home fa-lg"></i></a></BreadcrumbItem>
-                    <BreadcrumbItem active>Charitable Causes</BreadcrumbItem>
+                    <BreadcrumbItem><a href="/home"><i class="fa fa-home"></i></a></BreadcrumbItem>
+                    <BreadcrumbItem active className="small">Explore charitable causes</BreadcrumbItem>
                 </Breadcrumb>
                 <div className="mx-3">
                     <Card cascade>
