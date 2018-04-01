@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from 'react-router';
-import { Button, View, Mask } from "mdbreact";
+import { View, Mask } from "mdbreact";
 
 class Landing extends Component {
 
@@ -43,9 +43,9 @@ class Landing extends Component {
                 <span>Check out how you can help charities</span><br />
                 <span>around your neighbourhood.</span><br />
               </div>   
-              <Button className="mt-3" onClick={this.handleOnClickToExplore}>
+              <a className="btn btn-default mt-3" onClick={this.handleOnClickToExplore}>
                   Click to explore charitable causes
-              </Button>
+              </a>
             </div>           
         </Mask>
       </View>
