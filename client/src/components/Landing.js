@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Redirect } from 'react-router';
-import { View, Mask } from "mdbreact";
 
 class Landing extends Component {
 
@@ -30,25 +29,19 @@ class Landing extends Component {
       height: "100vh",
     }
     return (
-      <View>
-        <img
-          className="d-block w-100 img-fluid"
-          style={imgStyle}
-          alt=""
-        />
-        <Mask className="d-flex flex-column align-items-center justify-content-center p-5">
-            <div className="m-2"> 
-              <div className="h1-responsive pb-2 white-text" style={{textShadow: "1px 1px 8px #212121"}}>
-                <span>A little goes a long way.</span><br />
-                <span>Check out how you can help charities</span><br />
-                <span>around your neighbourhood.</span><br />
-              </div>   
-              <a className="btn btn-default mt-3" onClick={this.handleOnClickToExplore}>
-                  Click to explore charitable causes
-              </a>
-            </div>           
-        </Mask>
-      </View>
+      <div className="d-flex flex-column align-items-center justify-content-center p-5" 
+           style={imgStyle}>
+        <div className="m-2"> 
+            <div className="h1-responsive pb-2 white-text" style={{textShadow: "1px 1px 8px #212121"}}>
+              <span>A little goes a long way.</span><br />
+              <span>Check out how you can help charities</span><br />
+              <span>around your neighbourhood.</span><br />
+            </div>   
+            <a className="btn btn-default mt-3" onClick={this.handleOnClickToExplore}>
+                Click to explore charitable causes
+            </a>
+        </div>  
+      </div>
     );
   }
   
