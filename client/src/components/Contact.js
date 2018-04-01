@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Breadcrumb, BreadcrumbItem, Input, Button, Fa } from 'mdbreact';
+import { Breadcrumb, BreadcrumbItem, Input, Fa } from 'mdbreact';
 
 class Contact extends Component {
 
@@ -36,10 +36,10 @@ class Contact extends Component {
                     <Input type="textarea" label="Your message" icon="pencil"/>
                 
                     <div className="text-center">
-                        <Button color="#01579b light-blue darken-4" onClick={this.handleOnClickToSend}>
+                        <button className="btn btn-info" type="submit" onClick={this.handleOnClickToSend}>
                             Send 
                             <Fa icon="paper-plane-o" className="ml-1"/>
-                        </Button>
+                        </button>
                         {
                             this.state.sendClicked &&
                             <p className="mt-4">
