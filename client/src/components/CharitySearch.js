@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import spinner from '../assets/spinner.gif';
 import { Card, CardBody, CardImage, CardTitle, CardText, Breadcrumb, BreadcrumbItem, Container, Col, Row } from 'mdbreact';
 
@@ -166,8 +165,9 @@ class CharitySearch extends Component {
 
         return(
             <div style={pageStyle}>
-                <Breadcrumb>
-                    <BreadcrumbItem><a href="/home"><i class="fa fa-home fa-lg"></i></a></BreadcrumbItem>
+                <Breadcrumb className="small">
+                    <BreadcrumbItem><a href="/home"><i class="fa fa-home"></i></a></BreadcrumbItem>
+                    <BreadcrumbItem><a href="/charities/dashboardAct">Explore charitable causes</a></BreadcrumbItem>
                     <BreadcrumbItem active>Search for charities</BreadcrumbItem>
                 </Breadcrumb>
                 <form className="pt-3 mx-2" > 
@@ -181,10 +181,10 @@ class CharitySearch extends Component {
                                     value={valueCause}
                                     onChange={this.handleInputChangeOfCause}
                                     options={this.state.causes} />
-                                <Link to="/charities/dashboardAct"
-                                    className="my-2 w-50 small" style={{color:"#01579B", textShadow: "1px 1px 8px #fff"}}>
+                                <a href="/charities/dashboardAct"
+                                    className="my-2 w-50 small" style={{textShadow: "1px 1px 8px #fff"}}>
                                     Still unsure about which cause to choose? Click here to continue exploring...
-                                </Link> 
+                                </a> 
 
                                 <h5 className="my-3 h5">And your location?</h5>
                                 <Select name="location"
