@@ -4,7 +4,7 @@ import 'react-select/dist/react-select.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import spinner from '../assets/spinner.gif';
-import { Button, Card, CardBody, CardImage, CardTitle, CardText, Breadcrumb, BreadcrumbItem, Container, Col, Row } from 'mdbreact';
+import { Card, CardBody, CardImage, CardTitle, CardText, Breadcrumb, BreadcrumbItem, Container, Col, Row } from 'mdbreact';
 
 class CharitySearch extends Component {
     constructor(props) {
@@ -138,10 +138,10 @@ class CharitySearch extends Component {
                         <CardText>
                             {charity.desc.length <= 200 ? charity.desc : charity.desc.slice(0,200).concat("... ")}
                             <br />
-                            {/* <Button href={`/charity/${charity.ABN}`} >
+                            {/* <a className="btn btn-default" href={`/charity/${charity.ABN}`} >
                                 Learn more 
                                 <i class="fa fa-angle-double-right pl-2"></i>
-                            </Button> */}                            
+                            </a> */}                            
                         </CardText>
                     </CardBody>
                 </Card>
@@ -195,11 +195,10 @@ class CharitySearch extends Component {
                             </div>
                         </div>
                         
-                        <Button rounded color="cyan"
-                                type="submit" onClick={this.handleSubmit}
-                                className="mt-5 col-8 col-sm-8 col-md-4 col-lg-3 col-xl-3">
-                            Search for Charities!
-                        </Button>
+                        <button type="submit" onClick={this.handleSubmit}
+                            className="btn btn-default mt-5 col-8 col-sm-8 col-md-4 col-lg-3 col-xl-3">
+                            Search for Charities
+                        </button>
                         {this.state.loading && 
                                 <img src={spinner} className="mt-5" alt="loading..." style={{height: 30, paddingLeft:30}}/>
                         }
