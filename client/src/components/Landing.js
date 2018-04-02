@@ -118,7 +118,7 @@ class Landing extends Component {
         </div>
 
         {/* cause intro title */}
-        <div className="row d-flex justify-content-center mt-5 mb-3 mx-4 px-2">
+        <div id="exploreCauses" className="row d-flex justify-content-center mt-5 mb-3 mx-4 px-2">
           <p className="h4-responsive" style={{color:"#839094"}}>Which charitable cause do you feel connected to?</p>
         </div>
 
@@ -188,7 +188,7 @@ class Landing extends Component {
         </div>
 
         {/* charity intro */}
-        <div className="row d-flex align-items-center justify-content-center text-center py-5 px-4" style={{color:"#839094", background:"#f5f9fb"}}>
+        <div id="findCharity" className="row d-flex align-items-center justify-content-center text-center py-5 px-4" style={{color:"#839094", background:"#f5f9fb"}}>
           
           <div className="col-12 col-sm-10 col-md-4 col-lg-4 col-xl-4">
             <img src={magnifyingGlass} alt="magnifying glass"/>
