@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from 'react-router';
 import { Card, CardBody, CardImage, CardText } from 'mdbreact';
+import landingBackground from '../assets/landingBackground.jpg';
 
 class Landing extends Component {
 
@@ -23,7 +24,7 @@ class Landing extends Component {
     }
 
     var imgStyle = {
-          backgroundImage: "url(https://images.unsplash.com/photo-1461532257246-777de18cd58b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=f22ff39dea3ee983d6725400e16f8fef&auto=format&fit=crop&w=1055&q=80)",
+          backgroundImage: `url(${landingBackground})`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           backgroundAttachment: "fixed",
