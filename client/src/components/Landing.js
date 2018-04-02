@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Redirect } from 'react-router';
 import { Card, CardBody, CardImage, CardText } from 'mdbreact';
 import landingBackground from '../assets/landingBackground.jpg';
+import magnifyingGlass from '../assets/landingMagnify.png';
 
 class Landing extends Component {
 
@@ -71,7 +72,7 @@ class Landing extends Component {
           <div className="pt-4 col-12 col-sm-12 col-md-8 col-lg-6 col-xl-6"> 
               <div className="p-4 white-text" style={{textShadow: "1px 1px 8px #212121"}}>
                 <p className="h1-responsive font-weight-bold mt-4">Make a difference today</p>
-                <p className="h3-responsive">Help charities around your neighbourhood</p>
+                <p className="h3-responsive">Help a charity around your neighbourhood</p>
               </div>   
               <a className="btn btn-default mt-2 mx-4" onClick={this.handleOnClickToExplore}>
                   Click to explore
@@ -79,7 +80,7 @@ class Landing extends Component {
           </div>  
         </div>
 
-        {/* how DonateNow helps */}
+        {/* what is DonateNow */}
         <div className="row d-flex align-items-center justify-content-center text-center py-5 px-4" style={{color:"#839094", background:"#f5f9fb"}}>
           <p className="col-12 h4-responsive">What is DonateNow?</p>
           <p className="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-6 h6-responsive">
@@ -100,18 +101,18 @@ class Landing extends Component {
                   alt="contact"
                   style={{borderRadius: "50%", maxHeight:"80%", maxWidth: "80%"}} />
               <p className="font-weight-bold mt-4 mb-2">
-                Find charities nearby
+                Find a charity nearby
               </p>
-              <p>Search for charities around your location</p>
+              <p>Search for the right charity around your location</p>
             </div>
             <div className="m-2 col-8 col-sm-6 col-md-3 col-lg-3 col-xl-3">
               <img src="https://images.unsplash.com/photo-1457317680121-ef12e98979e8?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a41dc0dcd19e2358b1acb5e17b298aed&auto=format&fit=crop&w=1050&q=80"
                   alt="contact"
                   style={{borderRadius: "50%", maxHeight:"80%", maxWidth: "80%"}} />
               <p className="font-weight-bold mt-4 mb-2">
-                Contact charities
+                Contact the charity 
               </p>
-              <p>Contact charities to discuss how you can help</p>
+              <p>Contact the charity to discuss how you can help</p>
             </div>
           </div>
         </div>
@@ -125,56 +126,56 @@ class Landing extends Component {
         <div className="row d-flex justify-content-center">
             <Card cascade className="m-1 p-0 col-11 col-sm-5 col-md-4 col-lg-3 col-xl-3">
                 <CardImage className="img-fluid" src="https://images.unsplash.com/photo-1414445092210-ee1a2da44ad7?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=fc60cb957d2181ee66d78261b51b22ad&auto=format&fit=crop&w=1047&q=80"/>
-                <CardBody className="w-100" style={causeCardStyle}>
+                <CardBody className="w-100 py-2 px-3" style={causeCardStyle}>
                     <strong>Animal protection</strong>
-                    {/* <CardText>
-                      e.g. return animals to the wild                      
-                    </CardText> */}
+                    <CardText>
+                      e.g. return threatened species to the wild                      
+                    </CardText>
                 </CardBody>
             </Card>
             <Card cascade className="m-1 p-0 col-11 col-sm-5 col-md-4 col-lg-3 col-xl-3">
                 <CardImage className="img-fluid" src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=1005f3d059e15847f5b8e818aafe7b51&auto=format&fit=crop&w=1050&q=80"/>
-                <CardBody className="w-100" style={causeCardStyle}>
+                <CardBody className="w-100 py-2 px-3" style={causeCardStyle}>
                     <strong>Employment and training</strong>
-                    {/* <CardText>
-                      e.g.                       
-                    </CardText> */}
+                    <CardText>
+                      e.g. connect skilled refugees to employers                      
+                    </CardText>
                 </CardBody>
             </Card>
             <Card cascade className="m-1 p-0 col-11 col-sm-5 col-md-4 col-lg-3 col-xl-3">
                 <CardImage className="img-fluid" src="https://images.unsplash.com/photo-1516156008625-3a9d6067fab5?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=47b4b88e2825332da6fb93898562051c&auto=format&fit=crop&w=1050&q=80"/>
-                <CardBody className="w-100" style={causeCardStyle}>
+                <CardBody className="w-100 py-2 px-3" style={causeCardStyle}>
                     <strong>Housing activities</strong>
-                    {/* <CardText>
-                      Lorem ipsum dolor sit amet.                      
-                    </CardText> */}
+                    <CardText>
+                      e.g. help homeless people seek public housing                      
+                    </CardText>
                 </CardBody>
             </Card>
             <Card cascade className="m-1 p-0 col-11 col-sm-5 col-md-4 col-lg-3 col-xl-3">
                 <CardImage className="img-fluid" src="https://images.unsplash.com/photo-1436450412740-6b988f486c6b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=d9650eba888682af890003d78342a832&auto=format&fit=crop&w=1050&q=80"/>
-                <CardBody className="w-100" style={causeCardStyle}>
+                <CardBody className="w-100 py-2 px-3" style={causeCardStyle}>
                     <strong>Law and legal services</strong>
-                    {/* <CardText>
-                      Lorem ipsum dolor sit amet.                      
-                    </CardText> */}
+                    <CardText>
+                      e.g. free legal help for vulnerable young people                      
+                    </CardText>
                 </CardBody>
             </Card>
             <Card cascade className="m-1 p-0 col-11 col-sm-5 col-md-4 col-lg-3 col-xl-3">
                 <CardImage className="img-fluid" src="https://images.unsplash.com/photo-1473679408190-0693dd22fe6a?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=07f30b88f84b35ccd38d0645732f7659&auto=format&fit=crop&w=1050&q=80"/>
-                <CardBody className="w-100" style={causeCardStyle}>
+                <CardBody className="w-100 py-2 px-3" style={causeCardStyle}>
                     <strong>Crisis intervention</strong>
-                    {/* <CardText>
-                      Lorem ipsum dolor sit amet.                      
-                    </CardText> */}
+                    <CardText>
+                      e.g. help children impacted by abuse and neglect                     
+                    </CardText>
                 </CardBody>
             </Card>
             <Card cascade className="m-1 p-0 col-11 col-sm-5 col-md-4 col-lg-3 col-xl-3">
                 <CardImage className="img-fluid" src="https://images.unsplash.com/photo-1453847668862-487637052f8a?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=71b0722e782981af817242fdda624736&auto=format&fit=crop&w=1055&q=80"/>
-                <CardBody className="w-100" style={causeCardStyle}>
+                <CardBody className="w-100 py-2 px-3" style={causeCardStyle}>
                     <strong>Research</strong>
-                    {/* <CardText>
-                      Lorem ipsum dolor sit amet.                      
-                    </CardText> */}
+                    <CardText>
+                      e.g. raise funds for cancer research by shaving                     
+                    </CardText>
                 </CardBody>
             </Card>
         </div>
@@ -186,13 +187,58 @@ class Landing extends Component {
           </a>
         </div>
 
-        {/* charity intro title */}
-        <div>
+        {/* charity intro */}
+        <div className="row d-flex align-items-center justify-content-center text-center py-5 px-4" style={{color:"#839094", background:"#f5f9fb"}}>
+          
+          <div className="col-12 col-sm-10 col-md-4 col-lg-4 col-xl-4">
+            <img src={magnifyingGlass} alt="magnifying glass"/>
+            <p className="h4-responsive mt-4">Discover the right charity for you</p>
+            <p className="h6-responsive">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus id bibendum metus, eu mattis nibh.</p>
+          </div>
+
+          <div className="col-12 col-sm-10 col-md-6 col-lg-6 col-xl-6 text-left">
+            
+            <div className="row d-flex align-items-center justify-content-center ">
+            
+              <div className="col-12 col-sm-12 col-md-10 col-lg-6 col-xl-6">
+                <p className="font-weight-bold mt-4 mb-2">
+                  In your suburb
+                </p>
+                <p className="small">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus id bibendum metus, eu mattis nibh. Mauris magna augue, auctor facilisis metus eu.</p>
+              </div>
+            
+              <div className="col-12 col-sm-12 col-md-10 col-lg-6 col-xl-6">
+                <p className="font-weight-bold mt-4 mb-2">
+                  For your cause
+                </p>
+                <p className="small">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus id bibendum metus, eu mattis nibh. Mauris magna augue, auctor facilisis metus eu.</p>
+              </div>
+
+            </div>
+            
+            <div className="row d-flex align-items-center justify-content-center">
+            
+              <div className="col-12 col-sm-12 col-md-10 col-lg-6 col-xl-6">
+                <p className="font-weight-bold mt-4 mb-2">
+                  Financially transparent  
+                </p>
+                <p className="small">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus id bibendum metus, eu mattis nibh. Mauris magna augue, auctor facilisis metus eu.</p>
+              </div>
+            
+              <div className="col-12 col-sm-12 col-md-10 col-lg-6 col-xl-6">
+                <p className="font-weight-bold mt-4 mb-2">
+                  Recently active 
+                </p>
+                <p className="small">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus id bibendum metus, eu mattis nibh. Mauris magna augue, auctor facilisis metus eu.</p>
+            
+              </div>
+
+            </div>
+
+          </div>
 
         </div>
-
-        
-        
+ 
       </div>
       
     );
