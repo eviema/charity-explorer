@@ -8,8 +8,20 @@ class Landing extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      exploreClicked: false
+      exploreClicked: false,
+      isMobileDevice: false,
     }
+  }
+
+  componentDidMount() {
+    window.addEventListener("resize", this.resize.bind(this));
+    this.resize();
+  }
+
+  resize() {
+    this.setState({
+      isMobileDevice: window.innerWidth <= 768
+    });
   }
 
   handleOnClickToExplore = () => {
@@ -23,14 +35,25 @@ class Landing extends Component {
       return <Redirect push to="/charities/dashboardAct" />;
     }
 
-    var imgStyle = {
+    var imgStyle = this.state.isMobileDevice 
+      ? {
+          backgroundImage: `url(${landingBackground})`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundAttachment: "scroll",
+          backgroundPosition: "center",
+          height: "80vh",
+          width: "100vw"
+        }
+      :{
           backgroundImage: `url(${landingBackground})`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           backgroundAttachment: "fixed",
           backgroundPosition: "center",
           height: "80vh",
-        }
+          width: "100vw"
+      }
     
     var causeCardStyle = {
       position:"absolute", 
