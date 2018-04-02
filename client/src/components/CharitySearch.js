@@ -4,6 +4,7 @@ import 'react-select/dist/react-select.css';
 import axios from 'axios';
 import spinner from '../assets/spinner.gif';
 import { Card, CardBody, CardImage, CardTitle, CardText, Breadcrumb, BreadcrumbItem, Container, Col, Row } from 'mdbreact';
+import searchBackground from '../assets/searchBackground.jpg';
 
 class CharitySearch extends Component {
     constructor(props) {
@@ -16,6 +17,7 @@ class CharitySearch extends Component {
             charities: [],
             doneCharitySearch: false,
             loading: false,
+            isMobileDevice: false,
         }
         this.handleInputChangeOfCause = this.handleInputChangeOfCause.bind(this);
         this.handleInputChangeOfLocation = this.handleInputChangeOfLocation.bind(this);
@@ -60,6 +62,16 @@ class CharitySearch extends Component {
             .catch(function(e) {
                 console.log("ERROR", e);
             });
+
+        window.addEventListener("resize", this.resize.bind(this));
+        this.resize();
+
+    }
+
+    resize() {
+        this.setState({
+          isMobileDevice: window.innerWidth <= 768
+        });
     }
 
     handleInputChangeOfCause = (cause) => {
@@ -148,14 +160,22 @@ class CharitySearch extends Component {
             </li>
         );
 
-        var pageStyle = {
-            background: "url(https://images.unsplash.com/photo-1514395462725-fb4566210144?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=c669e38dae80f85c8f713d178c3eca6e&auto=format&fit=crop&w=1051&q=80)",
-            backgroundRepeat: "no-repeat",
-            backgroundAttachment: "fixed",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            height: "80vh",
-        }
+        var pageStyle = this.state.isMobileDevice 
+            ? {
+                background: `url(${searchBackground})`,
+                backgroundRepeat: "no-repeat",
+                backgroundAttachment: "scroll",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                height: "80vh",
+            } : {
+                background: `url(${searchBackground})`,
+                backgroundRepeat: "no-repeat",
+                backgroundAttachment: "fixed",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                height: "80vh",
+            }
 
         var searchBoxStyle = {
             background: "rgba(236, 239, 241, 0.85)",
