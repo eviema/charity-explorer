@@ -53,14 +53,13 @@ class Landing extends Component {
           backgroundPosition: "center",
           height: "80vh",
           width: "100vw"
-      }
-    
-    
+    };
+     
     var causeCardStyle = {
       position:"absolute", 
       bottom:"0", 
       background: "rgba(236, 239, 241, 0.85)"
-    }
+    };
 
 
     return (
@@ -84,7 +83,7 @@ class Landing extends Component {
         <div className="row d-flex align-items-center justify-content-center text-center py-5 px-4" style={{color:"#839094", background:"#f5f9fb"}}>
           <p className="col-12 h4-responsive">What is DonateNow?</p>
           <p className="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-6 h6-responsive">
-            DonateNow is an online information hub for Melburnians to explore charitable causes, find local charities, and grab their contact details to "donate now". 
+            DonateNow is an online information hub for Melburnians to explore local charitable causes, find charities nearby, and contact them to "donate now". 
           </p>
           <div className="row pt-4 d-flex align-items-center justify-content-center text-center">
             <div className="m-2 col-8 col-sm-6 col-md-3 col-lg-3 col-xl-3">
@@ -94,7 +93,7 @@ class Landing extends Component {
               <p className="font-weight-bold mt-4 mb-2">
                 Explore charitable causes
               </p>
-              <p>Choose a cause that has personal significance to you</p>
+              <p>Choose a local cause that needs your attention</p>
             </div>
             <div className="m-2 col-8 col-sm-6 col-md-3 col-lg-3 col-xl-3">
               <img src="https://images.unsplash.com/45/eDLHCtzRR0yfFtU0BQar_sylwiabartyzel_themap.jpg?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=2110dad38a593cd7986276d92748d27b&auto=format&fit=crop&w=1057&q=80"
@@ -103,7 +102,7 @@ class Landing extends Component {
               <p className="font-weight-bold mt-4 mb-2">
                 Find charities nearby
               </p>
-              <p>Select your local area and search for charities</p>
+              <p>Search for charities around your location</p>
             </div>
             <div className="m-2 col-8 col-sm-6 col-md-3 col-lg-3 col-xl-3">
               <img src="https://images.unsplash.com/photo-1457317680121-ef12e98979e8?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a41dc0dcd19e2358b1acb5e17b298aed&auto=format&fit=crop&w=1050&q=80"
@@ -183,9 +182,16 @@ class Landing extends Component {
         {/* see more causes button */}
         <div className="row d-flex justify-content-center mt-3 mb-5">
           <a className="btn btn-outline-default" onClick={this.handleOnClickToExplore}>
-              See more charitable causes
+              See more in your local area 
           </a>
         </div>
+
+        {/* charity intro title */}
+        <div>
+
+        </div>
+
+        
         
       </div>
       
