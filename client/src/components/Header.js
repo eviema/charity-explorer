@@ -38,9 +38,11 @@ class Header extends Component {
             background: "rgba(0, 0, 0, 0)",
             width: "100%",
             boxShadow: "none",
+            padding: "2rem"
           }
         : {
             background: "rgba(96, 125, 139,1)",
+            padding: "1rem"
           };
     
     var navItemBackgroundStyle = 
