@@ -10,8 +10,12 @@ class Landing extends Component {
     super(props);
     this.state = {
       exploreClicked: false,
+      searchClicked: false,
       isMobileDevice: false,
     }
+
+    this.handleOnClickToExplore = this.handleOnClickToExplore.bind(this);
+    this.handleOnClickToSearch = this.handleOnClickToSearch.bind(this);
   }
 
   componentDidMount() {
@@ -31,9 +35,19 @@ class Landing extends Component {
     });
   }
 
+  handleOnClickToSearch = () => {
+    this.setState({
+      searchClicked: true
+    });
+  }
+
   render() {
     if (this.state.exploreClicked) {
       return <Redirect push to="/charities/dashboardAct" />;
+    }
+
+    if (this.state.searchClicked) {
+      return <Redirect push to="/charitySearch" />
     }
 
     var imgStyle = this.state.isMobileDevice 
@@ -84,7 +98,7 @@ class Landing extends Component {
         <div className="row d-flex align-items-center justify-content-center text-center py-5 px-4" style={{color:"#839094", background:"#f5f9fb"}}>
           <p className="col-12 h4-responsive">What is DonateNow?</p>
           <p className="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-6 h6-responsive">
-            DonateNow is an online information hub for Melburnians to explore local charitable causes, find charities nearby, and contact them to "donate now". 
+            DonateNow is an online information hub for Melburnians to explore local charitable causes, find charities nearby, and contact charities to "donate now". 
           </p>
           <div className="row pt-4 d-flex align-items-center justify-content-center text-center">
             <div className="m-2 col-8 col-sm-6 col-md-3 col-lg-3 col-xl-3">
@@ -188,49 +202,99 @@ class Landing extends Component {
         </div>
 
         {/* charity intro */}
-        <div id="findCharity" className="row d-flex align-items-center justify-content-center text-center py-5 px-4" style={{color:"#839094", background:"#f5f9fb"}}>
+        <div id="findCharity" className="row d-flex align-items-stretch justify-content-center text-center py-5 px-4" style={{color:"#839094", background:"#f5f9fb"}}>
           
           <div className="col-12 col-sm-10 col-md-4 col-lg-4 col-xl-4">
-            <img src={magnifyingGlass} alt="magnifying glass"/>
-            <p className="h4-responsive mt-4">Discover the right charity for you</p>
-            <p className="h6-responsive">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus id bibendum metus, eu mattis nibh.</p>
+            <img src={magnifyingGlass} alt="magnifying glass" className="py-3"/>
+            <p className="h4-responsive">Discover the right charity for you</p>
+            <p className="h6-responsive">Have a local cause you want to support but not sure which charity to go to? Wondering if a charity has been making good use of donations?</p>
+            <a className="btn btn-outline-info" onClick={this.handleOnClickToSearch}>
+              Click to start searching
+            </a>
           </div>
 
           <div className="col-12 col-sm-10 col-md-6 col-lg-6 col-xl-6 text-left">
             
             <div className="row d-flex align-items-center justify-content-center ">
             
-              <div className="col-12 col-sm-12 col-md-10 col-lg-6 col-xl-6">
-                <p className="font-weight-bold mt-4 mb-2">
-                  In your suburb
-                </p>
-                <p className="small">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus id bibendum metus, eu mattis nibh. Mauris magna augue, auctor facilisis metus eu.</p>
+              <div className="col-12 col-sm-12 col-md-10 col-lg-6 col-xl-6 mt-4">
+                
+                <div className="row d-flex align-items-stretch justify-content-center ">
+                
+                  <div className="col-1">
+                    <i className="fa fa-map-pin fa-lg cyan-text" aria-hidden="true"></i>
+                  </div>
+                
+                  <div className="col-10">
+                    <p className="font-weight-bold mb-2">
+                      In your suburb
+                    </p>
+                    <p className="small">It's easy to search for charities that support a cause in your suburb. Don't worry if there is none - we'll show you the nearest charities around your suburb.</p>
+                  </div>
+                
+                </div>
+              
               </div>
             
-              <div className="col-12 col-sm-12 col-md-10 col-lg-6 col-xl-6">
-                <p className="font-weight-bold mt-4 mb-2">
-                  For your cause
-                </p>
-                <p className="small">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus id bibendum metus, eu mattis nibh. Mauris magna augue, auctor facilisis metus eu.</p>
+              <div className="col-12 col-sm-12 col-md-10 col-lg-6 col-xl-6 mt-4">
+                
+                <div className="row d-flex align-items-stretch justify-content-center ">
+                  
+                  <div className="col-1">
+                    <i class="fa fa-heartbeat fa-lg cyan-text"></i>
+                  </div>
+                
+                  <div className="col-10">
+                    <p className="font-weight-bold mb-2">
+                      For your cause
+                    </p>
+                    <p className="small">Only the charities that support your cause as their main activity will be displayed. You can also do additional filtering based on target populations. </p>
+                  </div>
+                
+                </div>
+                                
               </div>
 
             </div>
             
             <div className="row d-flex align-items-center justify-content-center">
             
-              <div className="col-12 col-sm-12 col-md-10 col-lg-6 col-xl-6">
-                <p className="font-weight-bold mt-4 mb-2">
-                  Financially transparent  
-                </p>
-                <p className="small">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus id bibendum metus, eu mattis nibh. Mauris magna augue, auctor facilisis metus eu.</p>
+              <div className="col-12 col-sm-12 col-md-10 col-lg-6 col-xl-6 mt-4">
+                
+                <div className="row d-flex align-items-stretch justify-content-center ">
+                  
+                  <div className="col-1">
+                    <i class="fa fa-dollar fa-lg cyan-text" aria-hidden="true"></i>
+                  </div>
+                
+                  <div className="col-10">
+                    <p className="font-weight-bold mb-2">
+                      Financially transparent  
+                    </p>
+                    <p className="small">You'll be able to check how much each charity gets from donations and grants, versus how much of it reaches the charity's beneficiaries.</p>
+                  </div>
+                
+                </div>
+                
               </div>
             
-              <div className="col-12 col-sm-12 col-md-10 col-lg-6 col-xl-6">
-                <p className="font-weight-bold mt-4 mb-2">
-                  Recently active 
-                </p>
-                <p className="small">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus id bibendum metus, eu mattis nibh. Mauris magna augue, auctor facilisis metus eu.</p>
-            
+              <div className="col-12 col-sm-12 col-md-10 col-lg-6 col-xl-6 mt-4">
+                
+                <div className="row d-flex align-items-stretch justify-content-center ">
+                    
+                  <div className="col-1">
+                    <i class="fa fa-facebook-square fa-lg cyan-text" aria-hidden="true"></i>
+                  </div>
+                
+                  <div className="col-10">
+                    <p className="font-weight-bold mb-2">
+                      Recently active 
+                    </p>
+                    <p className="small">Every charity selected for you has conducted activites during the past year. Learn more about their recent activities via social media feed.</p>
+                  </div>
+                
+                </div>
+              
               </div>
 
             </div>
