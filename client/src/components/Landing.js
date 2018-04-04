@@ -236,9 +236,9 @@ class Landing extends Component {
               src="https://images.unsplash.com/photo-1473679408190-0693dd22fe6a?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=07f30b88f84b35ccd38d0645732f7659&auto=format&fit=crop&w=1050&q=80"
             />
             <CardBody className="w-100 py-2 px-3" style={causeCardStyle}>
-              <strong>Crisis intervention</strong>
+              <strong>Mental health and crisis intervention</strong>
               <CardText>
-                e.g. help children impacted by abuse and neglect
+                e.g. help children impacted by abuse
               </CardText>
             </CardBody>
           </Card>
