@@ -10,7 +10,6 @@ require('./models/Charity');
 require('./models/Cause');
 require('./models/Location');
 require('./routes/charityRoute')(app);
-require('./routes/visualRoute')(app);
 
 if (process.env.NODE_ENV === 'production') {
     // Express will serve up production assets, 
