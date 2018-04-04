@@ -56,7 +56,7 @@ class Landing extends Component {
           backgroundSize: "cover",
           backgroundAttachment: "scroll",
           backgroundPosition: "center",
-          height: "90vh",
+          height: "80vh",
           width: "100vw"
         }
       : {
@@ -65,7 +65,7 @@ class Landing extends Component {
           backgroundSize: "cover",
           backgroundAttachment: "fixed",
           backgroundPosition: "center",
-          height: "80vh",
+          height: "85vh",
           width: "100vw"
         };
 
