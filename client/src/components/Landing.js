@@ -328,7 +328,7 @@ class Landing extends Component {
                     <p className="small">
                       Only the charities that support your cause as their main
                       activity will be displayed. You can also do additional
-                      filtering based on target populations.{" "}
+                      filtering by target populations.
                     </p>
                   </div>
                 </div>
