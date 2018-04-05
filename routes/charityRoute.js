@@ -16,6 +16,35 @@ module.exports = (app) => {
     );
 
     app.get(
+        '/api/charitiesByLoc/:location',
+        async (req, res) => {
+            var location = req.params.location;
+            var locationArray = location.split(" VIC ");
+            const charitiesAllMatched = await Charity.find(
+                {
+                    Town_City: locationArray[0],
+                    Postcode: locationArray[1],
+                }
+            );
+            res.send(charitiesAllMatched);
+        }
+    );
+
+    app.get(
+        '/api/charitiesByAct/:cause',
+        async (req, res) => {
+            var causeParam = req.params.cause;
+            var cause = causeParam.trim();
+            const charitiesAllMatched = await Charity.find(
+                {
+                    Main_Activity: cause,
+                }
+            );
+            res.send(charitiesAllMatched);
+        }
+    );
+
+    app.get(
         '/api/charities/:location/:cause',
         async (req, res) => {
             var location = req.params.location;
