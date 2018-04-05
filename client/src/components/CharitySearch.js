@@ -8,10 +8,24 @@ import searchBackground from '../assets/searchBackground.jpg';
 
 class CharitySearch extends Component {
     constructor(props) {
+
         super(props);
+
+        const causeCurrent = props.location.state !== undefined 
+        ? {
+            value: props.location.state.cause,
+            label: props.location.state.cause
+        } : {};
+
+        const locationCurrent = props.location.state !== undefined 
+        ? {
+            value: props.location.state.location,
+            label: props.location.state.location
+        } : {};
+        
         this.state = {
-            cause: '',
-            location: '',
+            cause: causeCurrent,
+            location: locationCurrent,
             causes: [],
             locations: [],
             charities: [],
@@ -25,16 +39,24 @@ class CharitySearch extends Component {
     }
 
     componentDidMount() {
+        
         axios.get('/api/causes-all')
             .then((res) => {
                 var mainActivities = [];
                 res.data.forEach((entry) => {
-                    mainActivities.push(
-                        {
-                            value: entry["Main_Activity"],
-                            label: entry["Main_Activity"]
-                        }
-                    );
+                    var currentCause = entry["Main_Activity"];
+                    var found = mainActivities.some((cause) => {
+                        return cause.value === currentCause;
+                    });
+                    if (!found) {
+                        mainActivities.push(
+                            {
+                                value: currentCause,
+                                label: currentCause
+                            }
+                        );
+                    }
+                    
                 })
                 this.setState({
                     causes: mainActivities
@@ -48,10 +70,11 @@ class CharitySearch extends Component {
             .then((res) => {
                 var locationsData = [];
                 res.data.forEach((entry) => {
+                    var locationString = entry["Town_City"] + " " + entry["State"] + " " + entry["Postcode"];
                     locationsData.push(
                         {
-                            value: entry["Town_City"] + " " + entry["State"] + " " + entry["Postcode"],
-                            label: entry["Town_City"] + " " + entry["State"] + " " + entry["Postcode"]
+                            value: locationString,
+                            label: locationString
                         }
                     );
                 })
@@ -186,7 +209,7 @@ class CharitySearch extends Component {
         return(
             <div style={pageStyle}>
                 <Breadcrumb className="small" style={{background:"none"}}>
-                    <BreadcrumbItem><a href="/home"><i class="fa fa-home"></i></a></BreadcrumbItem>
+                    <BreadcrumbItem><a href="/home"><i className="fa fa-home"></i></a></BreadcrumbItem>
                     <BreadcrumbItem><a href="/charities/dashboardAct">Explore charitable causes</a></BreadcrumbItem>
                     <BreadcrumbItem active>Search for charities</BreadcrumbItem>
                 </Breadcrumb>
