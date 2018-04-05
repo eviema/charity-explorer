@@ -31,16 +31,16 @@ module.exports = (app) => {
     );
 
     app.get(
-        '/api/charitiesByAct/:cause',
+        '/api/causes/:cause',
         async (req, res) => {
             var causeParam = req.params.cause;
             var cause = causeParam.trim();
-            const charitiesAllMatched = await Charity.find(
+            const causesMatched = await Cause.find(
                 {
                     Main_Activity: cause,
                 }
             );
-            res.send(charitiesAllMatched);
+            res.send(causesMatched);
         }
     );
 
