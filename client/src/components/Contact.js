@@ -22,7 +22,7 @@ class Contact extends Component {
             <div>
     
                 <Breadcrumb className="small">
-                    <BreadcrumbItem><a href="/home"><i class="fa fa-home"></i></a></BreadcrumbItem>
+                    <BreadcrumbItem><a href="/home"><i className="fa fa-home"></i></a></BreadcrumbItem>
                     <BreadcrumbItem active>Contact us</BreadcrumbItem>
                 </Breadcrumb>
                 
