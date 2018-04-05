@@ -320,7 +320,7 @@ class Landing extends Component {
               <div className="col-12 col-sm-12 col-md-10 col-lg-6 col-xl-6 mt-4">
                 <div className="row d-flex align-items-stretch justify-content-center ">
                   <div className="col-1">
-                    <i class="fa fa-heartbeat fa-lg cyan-text" />
+                    <i className="fa fa-heartbeat fa-lg cyan-text" />
                   </div>
 
                   <div className="col-10">
@@ -340,7 +340,7 @@ class Landing extends Component {
                 <div className="row d-flex align-items-stretch justify-content-center ">
                   <div className="col-1">
                     <i
-                      class="fa fa-dollar fa-lg cyan-text"
+                      className="fa fa-dollar fa-lg cyan-text"
                       aria-hidden="true"
                     />
                   </div>
@@ -362,7 +362,7 @@ class Landing extends Component {
                 <div className="row d-flex align-items-stretch justify-content-center ">
                   <div className="col-1">
                     <i
-                      class="fa fa-facebook-square fa-lg cyan-text"
+                      className="fa fa-facebook-square fa-lg cyan-text"
                       aria-hidden="true"
                     />
                   </div>
