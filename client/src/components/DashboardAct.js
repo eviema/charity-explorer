@@ -21,6 +21,7 @@ class DashboardAct extends Component {
       causeGrants: 0,
       barClicked: false,
       loading: false,
+      redirecting: false,
     };
     this.handleOnClickToSearch = this.handleOnClickToSearch.bind(this);
     this.handleInputChangeOfLocation = this.handleInputChangeOfLocation.bind(this);
@@ -146,7 +147,8 @@ class DashboardAct extends Component {
 
   handleOnClickToSearch() {
     this.setState({
-        searchCharityClicked: true
+        searchCharityClicked: true,
+        redirecting: true
     });
   }
 
@@ -258,6 +260,9 @@ class DashboardAct extends Component {
                                     There are <strong>{this.state.causeCharityCount} charities</strong> supporting {this.state.causeName} in {this.state.locationCurrent}.
                                 </p>
                                 <button className="btn btn-info" type="button" onClick={this.handleOnClickToSearch}>See complete charity list</button>
+                                {this.state.redirecting && 
+                                    <img src={spinner} alt="redirecting..." style={{height: 30, paddingLeft:30}}/>
+                                }
                             </CardBody>
                         </Card>
 
