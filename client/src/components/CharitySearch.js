@@ -208,7 +208,7 @@ class CharitySearch extends Component {
 
         return(
             <div style={pageStyle}>
-                <Breadcrumb className="small" style={{background:"none", textShadow: "1px 1px 8px #fff"}}>
+                <Breadcrumb className="small">
                     <BreadcrumbItem><a href="/home"><i className="fa fa-home"></i></a></BreadcrumbItem>
                     <BreadcrumbItem><a href="/charities/dashboardAct">Explore charitable causes</a></BreadcrumbItem>
                     <BreadcrumbItem active>Search for charities</BreadcrumbItem>
