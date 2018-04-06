@@ -48,7 +48,7 @@ module.exports = (app) => {
         '/api/charities/:location/:cause',
         async (req, res) => {
             
-            const charitiesAllMatched = [];
+            var charitiesAllMatched = [];
             var location = req.params.location;
             
             if (location === 'Greater Melbourne') {
