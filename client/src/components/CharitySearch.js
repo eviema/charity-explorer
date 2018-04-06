@@ -69,6 +69,12 @@ class CharitySearch extends Component {
         axios.get('/api/locations-all')
             .then((res) => {
                 var locationsData = [];
+                locationsData.push(
+                    {
+                        value: 'Greater Melbourne',
+                        label: 'Greater Melbourne'
+                    }
+                );
                 res.data.forEach((entry) => {
                     var locationString = entry["Town_City"] + " " + entry["State"] + " " + entry["Postcode"];
                     locationsData.push(
