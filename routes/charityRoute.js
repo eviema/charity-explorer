@@ -47,15 +47,28 @@ module.exports = (app) => {
     app.get(
         '/api/charities/:location/:cause',
         async (req, res) => {
+            
+            const charitiesAllMatched = [];
             var location = req.params.location;
-            var locationArray = location.split(" VIC ");
-            const charitiesAllMatched = await Charity.find(
-                {
-                    Town_City: locationArray[0],
-                    Postcode: locationArray[1],
-                    Main_Activity: req.params.cause
-                }
-            );
+            
+            if (location === 'Greater Melbourne') {
+                charitiesAllMatched = await Charity.find(
+                    {
+                        Main_Activity: req.params.cause
+                    }
+                );
+            }
+            else {
+                var locationArray = location.split(" VIC ");
+                charitiesAllMatched = await Charity.find(
+                    {
+                        Town_City: locationArray[0],
+                        Postcode: locationArray[1],
+                        Main_Activity: req.params.cause
+                    }
+                );
+            }
+                        
             res.send(charitiesAllMatched);
         }
     );
