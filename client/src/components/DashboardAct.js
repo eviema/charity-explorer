@@ -169,9 +169,9 @@ class DashboardAct extends Component {
     const data = this.state.causesByLocation;
 
     return (
-      <div className="container-fluid">
+      <div className="container-fluid" style={{padding: "0"}}>
         
-        <Breadcrumb className="small" style={{background:"none"}}>
+        <Breadcrumb className="small">
             <BreadcrumbItem>
                 <a href="/home"><i className="fa fa-home" /></a>
             </BreadcrumbItem>
