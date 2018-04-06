@@ -1,6 +1,29 @@
 import React, { Component } from "react";
+import {
+  Navbar,
+  NavbarBrand,
+  NavbarNav,
+  NavbarToggler,
+  Collapse,
+  NavItem
+} from "mdbreact";
+import { BrowserRouter as Router } from "react-router-dom";
 
 class Header extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            collapse: false,
+            isWideEnough: false,
+        };
+    this.onClick = this.onClick.bind(this);
+    }
+
+    onClick(){
+        this.setState({
+            collapse: !this.state.collapse,
+        });
+    }
 
   render() {
     if (window.location.pathname === "/") {
@@ -21,27 +44,43 @@ class Header extends Component {
             background: "rgba(96, 125, 139,1)",
             padding: "1rem"
           };
+    
+    var navItemBackgroundStyle = 
+        this.state.collapse === true
+          ? {
+            background:"rgba(96, 125, 139,0.95)",
+            padding: "1rem"
+          }
+          : {}
 
     return (
-        <header className="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar" style={headerStyle}>
-            <a className="navbar-brand mr-2 mr-md-2" href="/home">DonateNow</a>
-            <div className="navbar-nav-scroll">
-                <ul className="navbar-nav bd-navbar-nav flex-row">
-                    <li className="nav-item">
-                        <a className="nav-link" href="/home">Home</a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="/charities/dashboardAct">Charitable causes</a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="/charitySearch">Charities</a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="/contact">Contact</a>
-                    </li>
-                </ul>
-            </div>
-        </header>
+        <Router>
+            <Navbar dark expand="md" scrolling className="sticky-top" style={headerStyle}>
+                <NavbarBrand href="/home">
+                    <strong>DonateNow</strong>
+                </NavbarBrand>
+                { !this.state.isWideEnough && <NavbarToggler onClick = { this.onClick } />}
+                <Collapse isOpen = { this.state.collapse } navbar style={navItemBackgroundStyle}>
+                    <NavbarNav right>
+                        <NavItem>
+                            <a className="nav-link" href="/home">Home<span className="sr-only">(current)</span></a>
+                        </NavItem>
+                        <NavItem>
+                            <a className="nav-link" href="/charities/dashboardAct">Charitable causes</a>
+                        </NavItem>
+                        <NavItem>
+                            <a className="nav-link" href="/charitySearch">Charities</a>
+                        </NavItem>
+                        {/* <NavItem>
+                            <a className="nav-link" href="/about">About</a>
+                        </NavItem> */}
+                        <NavItem>
+                            <a className="nav-link" href="/contact">Contact</a>
+                        </NavItem>
+                    </NavbarNav>
+                </Collapse>
+            </Navbar>
+        </Router>
     );
   }
 }
