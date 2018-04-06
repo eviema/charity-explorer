@@ -258,7 +258,16 @@ class DashboardAct extends Component {
                                     In 2016, charities supporting {this.state.causeName} in {this.state.locationCurrent} received <strong>${this.state.causeDonations} donations and bequests</strong> and <strong>${this.state.causeGrants} government grants</strong>.
                                 </p>
                                 <p>
-                                    There are <strong>{this.state.causeCharityCount} charities</strong> supporting {this.state.causeName} in {this.state.locationCurrent}.
+                                    There 
+                                    {
+                                        this.state.causeCharityCount !== 1 && 
+                                        <span> are <strong>{this.state.causeCharityCount} charities </strong></span>
+                                    }
+                                    {
+                                        this.state.causeCharityCount === 1 && 
+                                        <span> is <strong>{this.state.causeCharityCount} charity </strong></span>
+                                    }
+                                    supporting {this.state.causeName} in {this.state.locationCurrent}.
                                 </p>
                                 <button className="btn btn-info" type="button" onClick={this.handleOnClickToSearch}>See complete charity list</button>
                                 {this.state.redirecting && 
