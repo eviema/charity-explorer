@@ -269,7 +269,7 @@ class DashboardAct extends Component {
                                     }
                                     supporting {this.state.causeName} in {this.state.locationCurrent}.
                                 </p>
-                                <button className="btn btn-info" type="button" onClick={this.handleOnClickToSearch}>See complete charity list</button>
+                                <button className="btn btn-outline-info" type="button" onClick={this.handleOnClickToSearch}>See complete charity list</button>
                                 {this.state.redirecting && 
                                     <img src={spinner} alt="redirecting..." style={{height: 30, paddingLeft:30}}/>
                                 }
