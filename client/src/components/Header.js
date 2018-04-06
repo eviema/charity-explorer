@@ -46,9 +46,9 @@ class Header extends Component {
           };
     
     var navItemBackgroundStyle = 
-        this.state.collapse === true
+        this.state.collapse
           ? {
-            background:"rgba(96, 125, 139,0.95)",
+            background:"rgba(96, 125, 139, 1)",
             padding: "1rem"
           }
           : {}
