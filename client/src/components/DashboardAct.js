@@ -182,18 +182,17 @@ class DashboardAct extends Component {
 
         {/* title: causes in location */}
         <div className="row d-flex align-items-center justify-content-center py-1 mx-2">
-            <p className="h4-responsive mb-0">You are viewing charitable causes in&nbsp;
+            
+            <p className="col-11 col-sm-11 col-md-10 col-lg-8 col-xl-8 h4-responsive mb-0 text-center">
+                You are viewing charitable causes in&nbsp;
                 <strong>
                     {this.state.locationCurrent === '' && <span>Greater Melbourne</span>}
-                    {this.state.locationCurrent !== '' && <span>{this.state.locationCurrent}</span>}
+                    {this.state.locationCurrent !== '' && this.state.loading && <span>...</span>}
+                    {this.state.locationCurrent !== '' && !this.state.loading && <span>{this.state.locationCurrent}</span>}
                 </strong>
-            </p> 
-            <div className="col-1">
-                {this.state.loading && 
-                    <img src={spinner} alt="loading..." style={{height: 30, paddingLeft:30}}/>
-                }
-            </div>
-            <div className="col-10 col-sm-10 col-md-8 col-lg-5 col-xl-3 small py-1 px-1">
+            </p>
+            
+            <div className="col-10 col-sm-10 col-md-8 col-lg-6 col-xl-6 small py-1 px-1">
                 <div className="row d-flex align-items-center justify-content-center">
                     <span className="mr-2">Change location: </span>
                     <select 
@@ -203,8 +202,10 @@ class DashboardAct extends Component {
                         onChange={this.handleInputChangeOfLocation}>
                         {this.state.locationsAll.map(location => <option key={location} value={location}>{location}</option>)}
                     </select>
-                </div> 
-                
+                    {this.state.loading && 
+                        <img src={spinner} alt="loading..." style={{height: 20, paddingLeft: 20}}/>
+                    }
+                </div>    
             </div>
                         
         </div>
