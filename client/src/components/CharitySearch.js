@@ -110,14 +110,16 @@ class CharitySearch extends Component {
         });
     }
 
-    handleInputChangeOfCause = (cause) => {
+    handleInputChangeOfCause = (chosenCause) => {
+        const cause = chosenCause === null ? {} : chosenCause;
         this.setState({ 
             cause,
             doneCharitySearch: false
         });
     }
 
-    handleInputChangeOfLocation = (location) => {
+    handleInputChangeOfLocation = (chosenLocation) => {
+        const location = chosenLocation === null ? {} : chosenLocation;
         this.setState({ 
             location,
             doneCharitySearch: false 
@@ -126,41 +128,44 @@ class CharitySearch extends Component {
 
     handleSubmit(event) {
 
-        this.setState({
-            loading: true,
-            doneCharitySearch: false,
-        });
-
-        axios.get('/api/charities/' 
-                + this.state.location.value + '/' 
-                + this.state.cause.value)
-            .then((res) => {
-                var charitiesMatched = [];
-                res.data.forEach((entry) => {
-                    charitiesMatched.push(
-                        {
-                            ABN: entry["ABN"],
-                            name: entry["Charity_Name"],
-                            desc: entry["Charity_activities_and_outcomes_helped_achieve_charity_purpose"],
-                            suburb: entry["Town_City"],
-                            postcode: entry["Postcode"],
-                            cause: entry["Main_Activity"],
-                            amtDonations: entry["Donations_and_bequests"],
-                            amtGovGrants: entry["Government_grants"],
-                        }
-                    );
-                })
-                this.setState({
-                    charities: charitiesMatched,
-                    doneCharitySearch: true,
-                    loading: false
-                });
-            })
-            .catch(function(e) {
-                console.log("ERROR", e);
+        if (this.state.cause !== {} || this.state.location !== {}) {
+            this.setState({
+                loading: true,
+                doneCharitySearch: false,
             });
+    
+            axios.get('/api/charities/' 
+                    + this.state.location.value + '/' 
+                    + this.state.cause.value)
+                .then((res) => {
+                    var charitiesMatched = [];
+                    res.data.forEach((entry) => {
+                        charitiesMatched.push(
+                            {
+                                ABN: entry["ABN"],
+                                name: entry["Charity_Name"],
+                                desc: entry["Charity_activities_and_outcomes_helped_achieve_charity_purpose"],
+                                suburb: entry["Town_City"],
+                                postcode: entry["Postcode"],
+                                cause: entry["Main_Activity"],
+                                amtDonations: entry["Donations_and_bequests"],
+                                amtGovGrants: entry["Government_grants"],
+                            }
+                        );
+                    })
+                    this.setState({
+                        charities: charitiesMatched,
+                        doneCharitySearch: true,
+                        loading: false
+                    });
+                })
+                .catch(function(e) {
+                    console.log("ERROR", e);
+                });
+        }
 
         event.preventDefault();
+     
     }
 
     handleClickOnPageNumber(currentPageNumber) {        
@@ -184,6 +189,8 @@ class CharitySearch extends Component {
 
         var { location } = this.state;
         var valueLocation = location && location.value;
+        
+        console.log(valueCause, valueLocation);
 
         const { charities, currentPage, charitiesPerPage } = this.state;
 
@@ -222,21 +229,7 @@ class CharitySearch extends Component {
         for (let i = 1; i <= Math.ceil(charities.length * 1.0 / charitiesPerPage); i++) {
             pageNumbers.push(i);
         }
-
-        const renderErrorMessage = 
-            (valueCause !== undefined && valueLocation !== undefined) 
-            ? 
-            <h6>
-                Sorry, no charities supporting {this.state.cause.value} in {this.state.location.value}.
-                <p />
-                Please modify your search.
-            </h6>
-            : 
-            <h6>
-                Please choose a cause and a location so that we can find the right charity for you!
-            </h6>
-            ;
-
+        
         var pageStyle = this.state.isMobileDevice 
             ? {
                 background: `url(${searchBackground})`,
@@ -305,7 +298,21 @@ class CharitySearch extends Component {
 
                             {
                                 this.state.doneCharitySearch && charities.length === 0 &&
-                                <div><p></p>{renderErrorMessage}</div>
+                                valueCause !== undefined && valueLocation !== undefined && 
+                                <h6>
+                                    <p />
+                                    Sorry, no charities supporting {valueCause} in {valueLocation}.
+                                    <p />
+                                    Please modify your search.
+                                </h6>
+                            }
+                            {
+                                this.state.doneCharitySearch && charities.length === 0 &&
+                                (valueCause === undefined || valueLocation === undefined) && 
+                                <h6>
+                                    <p />
+                                    Please choose a cause and a location so that we can find the right charity for you!
+                                </h6>
                             }
 
                         </div>
