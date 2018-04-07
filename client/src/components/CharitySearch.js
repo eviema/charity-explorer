@@ -222,6 +222,20 @@ class CharitySearch extends Component {
             pageNumbers.push(i);
         }
 
+        const renderErrorMessage = 
+            (valueCause !== undefined && valueLocation !== undefined) 
+            ? 
+            <h6>
+                Sorry, no charities supporting {this.state.cause.value} in {this.state.location.value}.
+                <p />
+                Please modify your search.
+            </h6>
+            : 
+            <h6>
+                Please choose a cause and a location so that we can find the right charity for you!
+            </h6>
+            ;
+
         var pageStyle = this.state.isMobileDevice 
             ? {
                 background: `url(${searchBackground})`,
@@ -288,20 +302,9 @@ class CharitySearch extends Component {
                                     <img src={spinner} className="mt-5" alt="loading..." style={{height: 30, paddingLeft:30}}/>
                             }
 
-                            <p />
-                            {this.state.doneCharitySearch && this.state.charities.length === 0 &&
-                            this.state.cause !== '' && this.state.location !== '' &&
-                                <h6>
-                                    Sorry, no charities supporting {this.state.cause.value} in {this.state.location.value}.
-                                    <p />
-                                    Please modify your search.
-                                </h6>
-                            }
-                            {this.state.doneCharitySearch && this.state.charities.length === 0 &&
-                            this.state.cause === '' && this.state.location === '' &&
-                                <h6>
-                                    Choose a cause and a location so that we can find the right charities for you!
-                                </h6>
+                            {
+                                this.state.doneCharitySearch && charities.length === 0 &&
+                                <div><p></p>{renderErrorMessage}</div>
                             }
 
                         </div>
