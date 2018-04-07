@@ -236,10 +236,10 @@ class DashboardAct extends Component {
                 </ResponsiveContainer>
                 <small>
                     Sources:&nbsp;&nbsp; 
-                    <a href="https://data.gov.au/dataset/acnc2016ais/resource/b4a08924-af4f-4def-96f7-bf32ada7ee2b">
+                    <a href="https://data.gov.au/dataset/acnc2016ais/resource/b4a08924-af4f-4def-96f7-bf32ada7ee2b" target="_blank">
                         1. ACNC 2016* Annual Information Statement Data
                     </a>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a href="https://data.gov.au/dataset/acnc-register">
+                    <a href="https://data.gov.au/dataset/acnc-register" target="_blank">
                         2. ACNC Registered Charities  
                     </a>
                 </small>
