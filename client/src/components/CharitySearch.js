@@ -340,6 +340,8 @@ class CharitySearch extends Component {
                             <div>
                                 <Pagination
                                     hideDisabled
+                                    linkClass="py-1 px-2"
+                                    activeLinkClass="bg-primary rounded text-white"
                                     activePage={currentPage}
                                     itemsCountPerPage={charitiesPerPage}
                                     totalItemsCount={charities.length}
@@ -359,6 +361,8 @@ class CharitySearch extends Component {
                             <div>
                                 <Pagination
                                     hideDisabled
+                                    linkClass="py-1 px-2"
+                                    activeLinkClass="bg-primary rounded text-white"
                                     activePage={currentPage}
                                     itemsCountPerPage={charitiesPerPage}
                                     totalItemsCount={charities.length}
