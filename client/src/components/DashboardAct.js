@@ -216,15 +216,15 @@ class DashboardAct extends Component {
         <div className="row d-flex align-items-stretch justify-content-center py-1 mx-1 mb-4">
 
             {/* graph of causes in location */}
-            <div className="col-11 col-sm-11 col-md-11 col-lg-6 col-xl-6 small" style={{height:"90vh"}}>
+            <div className="col-11 col-sm-11 col-md-11 col-lg-6 col-xl-6 small" style={{height:"100vh"}}>
                 <ResponsiveContainer>
                     <BarChart 
                             data={data} layout="vertical"
-                            margin={{top: 60, right: 10, left: 10, bottom: 20}}>
+                            margin={{top: 60, right: 20, left: 10, bottom: 20}}>
                         <XAxis type="number" orientation="top">
-                            <Label value="Amount of donations, bequests and government grants received by charities" offset={50} position="top" />
+                            <Label value="Amount received by charities" offset={50} position="top"/>
                         </XAxis>
-                        <YAxis type="category" dataKey="name" width={180} interval={0} minTickGap={20}
+                        <YAxis type="category" dataKey="name" width={180} interval={0} 
                             label={{ value: 'Charitable cause', angle: -90, position: 'left'}}>
                         </YAxis>
                         <CartesianGrid strokeDasharray="3 3"/>
