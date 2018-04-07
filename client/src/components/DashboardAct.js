@@ -328,7 +328,7 @@ class DashboardAct extends Component {
             <PopoverHeader>*Why 2016?</PopoverHeader>
             <PopoverBody className="small">
                 <p>We make every effort to show the latest information while making sure it's reliable.</p> 
-                <p>The data source we rely on is Australian Charities and Not-for-profits Commission (ACNC), the regulatory body of Australian charity sector, where the latest relevant data was published for 2016.</p> 
+                <p>The data source we rely on is Australian Charities and Not-for-profits Commission (ACNC), the regulatory body for Australian charity sector, where the latest relevant data was published for 2016.</p> 
                 <p>We'll update as soon as they do. Stay tuned!</p> 
             </PopoverBody>
         </Popover>
