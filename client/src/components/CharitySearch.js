@@ -174,6 +174,7 @@ class CharitySearch extends Component {
         this.setState({
             doneCharitySearch: false
         });
+        window.scrollTo(0, 0);
     }
 
     render() {
