@@ -190,8 +190,6 @@ class CharitySearch extends Component {
         var { location } = this.state;
         var valueLocation = location && location.value;
         
-        console.log(valueCause, valueLocation);
-
         const { charities, currentPage, charitiesPerPage } = this.state;
 
         const indexOfLastCharity = currentPage * charitiesPerPage;
