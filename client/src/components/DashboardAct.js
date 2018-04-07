@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from 'react-router';
-import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardImage } from "mdbreact";
+import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardImage, Popover, PopoverBody, PopoverHeader } from "mdbreact";
 import axios from 'axios';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Label, ResponsiveContainer } from 'recharts';
 import spinner from '../assets/spinner.gif';
@@ -210,13 +210,13 @@ class DashboardAct extends Component {
                         
         </div>
         
-        <hr />
+        <hr className="mx-4"/>
 
         {/* info + graph */}
         <div className="row d-flex align-items-stretch justify-content-center py-1 mx-1 mb-4">
 
             {/* graph of causes in location */}
-            <div className="col-11 col-sm-11 col-md-11 col-lg-6 col-xl-6 small" style={{height:"100vh"}}>
+            <div className="col-11 col-sm-11 col-md-11 col-lg-6 col-xl-6 small mb-4" style={{height:"100vh"}}>
                 <ResponsiveContainer>
                     <BarChart 
                             data={data} layout="vertical"
@@ -234,9 +234,17 @@ class DashboardAct extends Component {
                         <Bar dataKey="amtGrants" name="Government grants (AUD)" stackId="a" fill="#82ca9d" onClick={data=>this.handleClickOnCauseBar(data)} />
                     </BarChart>
                 </ResponsiveContainer>
-            
+                <small>
+                    Sources:&nbsp;&nbsp; 
+                    <a href="https://data.gov.au/dataset/acnc2016ais/resource/b4a08924-af4f-4def-96f7-bf32ada7ee2b">
+                        1. ACNC 2016* Annual Information Statement Data
+                    </a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="https://data.gov.au/dataset/acnc-register">
+                        2. ACNC Registered Charities  
+                    </a>
+                </small>
             </div>
-
+            
             {/* details info of cause in location */}
             <div className="col-11 col-sm-11 col-md-11 col-lg-5 col-xl-5 mt-3">
                 { 
@@ -255,7 +263,7 @@ class DashboardAct extends Component {
                             </CardImage>
                             <CardBody style={{color:"#616161", fontSize:"small"}}>
                                 <p>
-                                    In 2016, charities supporting {this.state.causeName} in {this.state.locationCurrent} received <strong>${this.state.causeDonations} donations and bequests</strong> and <strong>${this.state.causeGrants} government grants</strong>.
+                                    In 2016*, charities supporting {this.state.causeName} in {this.state.locationCurrent} received <strong>${this.state.causeDonations} donations and bequests</strong> and <strong>${this.state.causeGrants} government grants</strong>.
                                 </p>
                                 <p>
                                     There 
@@ -305,7 +313,25 @@ class DashboardAct extends Component {
                 }
                 
             </div>
+
         </div>
+
+        <hr className="mx-4"/>
+        
+        {/* why 2016? */}
+        <Popover 
+            component="button"
+            placement="right" 
+            popoverBody="*Why 2016?" 
+            className="btn btn-link btn-xs mx-4 mb-4" 
+            arrowClass="strzala">
+            <PopoverHeader>*Why 2016?</PopoverHeader>
+            <PopoverBody className="small">
+                <p>We make every effort to show the latest information while making sure it's reliable.</p> 
+                <p>The data source we rely on is Australian Charities and Not-for-profits Commission (ACNC), the regulatory body of Australian charity sector, where the latest relevant data was published for 2016.</p> 
+                <p>We'll update as soon as they do. Stay tuned!</p> 
+            </PopoverBody>
+        </Popover>
         
       </div>
     );
