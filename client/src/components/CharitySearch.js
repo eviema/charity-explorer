@@ -29,11 +29,11 @@ class CharitySearch extends Component {
         const conditions = [
             {
                 value: 'amtAllLow',
-                label: 'Lowest amount of all received'
+                label: 'Lowest amount of income received'
             },
             {
                 value: 'amtAllHigh',
-                label: 'Highest amount of all received'
+                label: 'Highest amount of income received'
             },/* 
             {
                 value: 'amtDonationsLow',
@@ -196,7 +196,7 @@ class CharitySearch extends Component {
                         charities: charitiesSortedByTotalAmt,
                         sortByCondCurrent: {
                             value: 'amtAllLow',
-                            label: 'Lowest amount of all received'
+                            label: 'Lowest amount of income received'
                         },
                         doneCharitySearch: true,
                         loading: false
@@ -232,7 +232,7 @@ class CharitySearch extends Component {
 
         const condition = chosenCond === null ? {
             value: 'amtAllLow',
-            label: 'Lowest amount of all received'
+            label: 'Lowest amount of income received'
           } : chosenCond;
 
         await this.setState({
@@ -253,8 +253,8 @@ class CharitySearch extends Component {
                 charitiesSorted = charitiesSorted.sort((charity1, charity2) => {
                     const charity1TotalAmt = charity1.amtDonations + charity1.amtGovGrants,
                         charity2TotalAmt = charity2.amtDonations + charity2.amtGovGrants;
-                    return charity2TotalAmt - charity1TotalAmt;
-                });
+                    return charity1TotalAmt - charity2TotalAmt;
+                }).reverse();
                 break;
             default:
                 charitiesSorted = charitiesSorted.sort((charity1, charity2) => {
@@ -267,6 +267,7 @@ class CharitySearch extends Component {
 
         this.setState({
             charities: charitiesSorted,
+            currentPage: 1,
         });
     }
 
