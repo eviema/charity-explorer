@@ -272,10 +272,14 @@ class DashboardAct extends Component {
           {/* details info of cause in location */}
           <div className="col-11 col-sm-11 col-md-11 col-lg-5 col-xl-5 mt-3">
             {!this.state.barClicked && 
-              <div>
+              <div className="row d-flex align-items-center justify-content-center" 
+                    style={{border:"3px dashed #9E9E9E", padding: "2rem", margin:"1rem", minHeight:"30vh"}}>
                 <p>
                   Click on a bar in the graph to see details of
-                  a cause, or
+                  a cause here
+                </p>
+                <p style={{width: "100%", textAlign: "center", borderBottom: "1px solid #9E9E9E", lineHeight: " 0.1em", margin: "10px 0 20px"}}>
+                  <span style={{background:"#fff", padding:"0 10px"}}> Or </span>
                 </p>
                 <button className="btn btn-outline-info" type="button" onClick={this.handleOnClickToSearch}>
                   Search for charities in 
