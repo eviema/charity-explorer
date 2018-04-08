@@ -25,6 +25,33 @@ class CharitySearch extends Component {
             value: props.location.state.location,
             label: props.location.state.location
         } : {};
+
+        const conditions = [
+            {
+                value: 'amtAllLow',
+                label: 'Lowest amount of all received'
+            },
+            {
+                value: 'amtAllHigh',
+                label: 'Highest amount of all received'
+            },/* 
+            {
+                value: 'amtDonationsLow',
+                label: 'Amount of donations and bequests received (low - high)'
+            },
+            {
+                value: 'amtDonationsHigh',
+                label: 'Amount of donations and bequests received (high - low)'
+            },
+            {
+                value: 'amtGrantsLow',
+                label: 'Amount of government grants received (low - high)'
+            },
+            {
+                value: 'amtGrantsHigh',
+                label: 'Amount of government grants received (high - low)'
+            }, */
+        ];
         
         this.state = {
             cause: causeCurrent,
@@ -35,6 +62,8 @@ class CharitySearch extends Component {
             currentPage: 1,
             charitiesPerPage: 6,
             doneCharitySearch: false,
+            sortByConditions: conditions,
+            sortByCondCurrent: {},
             loading: false,
             isMobileDevice: false,
         }
@@ -43,6 +72,7 @@ class CharitySearch extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleClickOnPageNumber = this.handleClickOnPageNumber.bind(this);
         this.handleClickToSearch = this.handleClickToSearch.bind(this);
+        this.handleSort = this.handleSort.bind(this);
     }
 
     componentDidMount() {
@@ -153,8 +183,21 @@ class CharitySearch extends Component {
                             }
                         );
                     })
+
+                    // sort charity results by total amount received
+                    const charitiesSortedByTotalAmt = [].concat(charitiesMatched)
+                        .sort((charity1, charity2) => {
+                            const charity1TotalAmt = charity1.amtDonations + charity1.amtGovGrants,
+                                charity2TotalAmt = charity2.amtDonations + charity2.amtGovGrants;
+                            return charity1TotalAmt - charity2TotalAmt;
+                        });
+
                     this.setState({
-                        charities: charitiesMatched,
+                        charities: charitiesSortedByTotalAmt,
+                        sortByCondCurrent: {
+                            value: 'amtAllLow',
+                            label: 'Lowest amount of all received'
+                        },
                         doneCharitySearch: true,
                         loading: false
                     });
@@ -168,6 +211,7 @@ class CharitySearch extends Component {
         }
 
         event.preventDefault(); 
+
     }
 
     handleClickOnPageNumber(currentPageNumber) {        
@@ -184,6 +228,48 @@ class CharitySearch extends Component {
         window.scrollTo(0, 0);
     }
 
+    async handleSort(chosenCond) {
+
+        const condition = chosenCond === null ? {
+            value: 'amtAllLow',
+            label: 'Lowest amount of all received'
+          } : chosenCond;
+
+        await this.setState({
+            sortByCondCurrent: condition
+        });
+
+        var charitiesSorted = [].concat(this.state.charities);
+
+        switch (this.state.sortByCondCurrent.value) {
+            case 'amtAllLow':
+                charitiesSorted = charitiesSorted.sort((charity1, charity2) => {
+                    const charity1TotalAmt = charity1.amtDonations + charity1.amtGovGrants,
+                          charity2TotalAmt = charity2.amtDonations + charity2.amtGovGrants;
+                    return charity1TotalAmt - charity2TotalAmt;
+                });
+                break;
+            case 'amtAllHigh':
+                charitiesSorted = charitiesSorted.sort((charity1, charity2) => {
+                    const charity1TotalAmt = charity1.amtDonations + charity1.amtGovGrants,
+                        charity2TotalAmt = charity2.amtDonations + charity2.amtGovGrants;
+                    return charity2TotalAmt - charity1TotalAmt;
+                });
+                break;
+            default:
+                charitiesSorted = charitiesSorted.sort((charity1, charity2) => {
+                    const charity1TotalAmt = charity1.amtDonations + charity1.amtGovGrants,
+                        charity2TotalAmt = charity2.amtDonations + charity2.amtGovGrants;
+                    return charity1TotalAmt - charity2TotalAmt;
+                });
+                break;
+        }
+
+        this.setState({
+            charities: charitiesSorted,
+        });
+    }
+
     render() {
         
         var { cause } = this.state;
@@ -191,6 +277,9 @@ class CharitySearch extends Component {
 
         var { location } = this.state;
         var valueLocation = location && location.value;
+
+        var { sortByCondCurrent } = this.state;
+        var valueSortByCond = sortByCondCurrent && sortByCondCurrent.value;
         
         const { charities, currentPage, charitiesPerPage } = this.state;
 
@@ -330,9 +419,19 @@ class CharitySearch extends Component {
                             Back to search
                         </button>
 
-                        <h5 className="my-3">
-                            <strong>{valueCause}</strong> in <strong>{valueLocation}</strong>
-                        </h5>
+                        <div className="row d-flex align-items-center justify-content-between px-3">
+                            <h5 className="my-3">
+                                <strong>{valueCause}</strong> in <strong>{valueLocation}</strong>
+                            </h5>
+                        </div>
+
+                        <div className="row d-flex align-items-center justify-content-start px-3 small">
+                            <span>Sort by </span>
+                            <Select name="sortBy" className="col-10 col-sm-6 col-md-5 col-lg-4 col-xl-3 mb-2 mt-1"
+                                    value={valueSortByCond}
+                                    onChange={this.handleSort}
+                                    options={this.state.sortByConditions} />
+                        </div>
                         
                         <div className="row d-flex align-items-center justify-content-between px-3">
                             <h6 className="small mb-0">
