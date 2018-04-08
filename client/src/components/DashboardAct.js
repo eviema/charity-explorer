@@ -274,17 +274,17 @@ class DashboardAct extends Component {
                   </CardImage>
                   <CardBody style={{ color: "#616161", fontSize: "small" }}>
                     <p>
-                      In 2016*, charities supporting {this.state.causeName} in {this.state.locationCurrent} received <strong
-                      >
-                        ${this.state.causeDonations} donations and bequests
-                      </strong> and <strong>
-                        ${this.state.causeGrants} government grants
-                      </strong>.
+                      In 2016*, charities supporting {this.state.causeName} in {this.state.locationCurrent} received 
+                      <ul>
+                          <li><strong>${this.state.causeDonations} donations and bequests</strong></li>
+                          <li><strong>${this.state.causeGrants} government grants</strong></li>
+                      </ul>
                     </p>
-                    <p>
-                    {data.length - this.state.causeAmtRank} out of {data.length} causes there received more.
-                    </p>
+
+                    <p>{data.length - this.state.causeAmtRank} out of {data.length} causes there received more.</p>
+                    
                     <hr />
+                    
                     <p>
                       There
                       {this.state.causeCharityCount !== 1 && <span>
