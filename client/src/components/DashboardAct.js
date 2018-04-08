@@ -186,8 +186,6 @@ class DashboardAct extends Component {
     var { locationCurrent } = this.state;
     var valueLocation = locationCurrent && locationCurrent.value;
 
-    console.log(valueLocation);
-
     if (this.state.searchCharityClicked) {
         return (
             <Redirect to={{
