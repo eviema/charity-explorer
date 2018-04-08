@@ -255,10 +255,17 @@ class DashboardAct extends Component {
 
           {/* details info of cause in location */}
           <div className="col-11 col-sm-11 col-md-11 col-lg-5 col-xl-5 mt-3">
-            {!this.state.barClicked && <p>
-                Click on a bar from the graph to see detailed information of
-                a cause here.
-              </p>}
+            {!this.state.barClicked && 
+              <div>
+                <p>
+                  Click on a bar in the graph to see details of
+                  a cause, or
+                </p>
+                <button className="btn btn-outline-info" type="button" onClick={this.handleOnClickToSearch}>
+                  Search for charities in {this.state.locationCurrent}
+                </button>
+              </div>
+            }
             {this.state.barClicked && <div id="causeInfo">
                 <Card cascade className="mt-2 mb-4">
                   <CardImage tag="div">
