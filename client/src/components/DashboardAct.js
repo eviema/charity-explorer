@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from 'react-router';
+import Select from 'react-select';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardImage, Popover, PopoverBody, PopoverHeader } from "mdbreact";
 import axios from 'axios';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Label, ResponsiveContainer } from 'recharts';
@@ -12,7 +13,7 @@ class DashboardAct extends Component {
     this.state = {
       searchCharityClicked: false,
       locationsAll: [],
-      locationCurrent: '',
+      locationCurrent: {},
       causesByLocation: [],
       causeCurrentDetails: [],
       causeName: '',
@@ -32,44 +33,61 @@ class DashboardAct extends Component {
   componentDidMount() {
     axios.get('/api/locations-all')
         .then((res) => {
-            var locationsData = [];
-            locationsData.push('Greater Melbourne');
-            res.data.forEach((entry) => {
-                locationsData.push(
-                    entry["Town_City"] + " " + entry["State"] + " " + entry["Postcode"]
-                );
-            })
-            this.setState({
-                locationsAll: locationsData
-            });
+          var locationsData = [];
+          locationsData.push(
+            {
+                value: 'Greater Melbourne',
+                label: 'Greater Melbourne'
+            }
+          );
+          res.data.forEach((entry) => {
+              var locationString = entry["Town_City"] + " " + entry["State"] + " " + entry["Postcode"];
+              locationsData.push(
+                  {
+                      value: locationString,
+                      label: locationString
+                  }
+              );
+          })
+          this.setState({
+              locationsAll: locationsData
+          });
         })
         .catch(function(e) {
             console.log("ERROR", e);
         });
     
     this.setState({
-        locationCurrent: 'Greater Melbourne',
+        locationCurrent: {
+          value: 'Greater Melbourne',
+          label: 'Greater Melbourne'
+        },
         causesByLocation: greaterMelb
     });
 
   }
 
-  async handleInputChangeOfLocation(event) {
+  async handleInputChangeOfLocation(chosenLocation) {
+    
+    const location = chosenLocation === null ? {
+      value: 'Greater Melbourne',
+      label: 'Greater Melbourne'
+    } : chosenLocation;
 
     await this.setState({ 
-        locationCurrent: event.target.value,
+        locationCurrent: location,
         barClicked: false,
         loading: true,
     });
 
-    if (this.state.locationCurrent === 'Greater Melbourne') {
+    if (this.state.locationCurrent.value === 'Greater Melbourne') {
         this.setState({
             causesByLocation: greaterMelb,
             loading: false,
         });
     }
     else {
-        axios.get('/api/charitiesByLoc/' + this.state.locationCurrent)
+        axios.get('/api/charitiesByLoc/' + this.state.locationCurrent.value)
         .then((res) => {
 
             var causesByLocMatched = [];
@@ -165,13 +183,18 @@ class DashboardAct extends Component {
 
   render() {
 
+    var { locationCurrent } = this.state;
+    var valueLocation = locationCurrent && locationCurrent.value;
+
+    console.log(valueLocation);
+
     if (this.state.searchCharityClicked) {
         return (
             <Redirect to={{
                 pathname: '/charitySearch',
                 state: {
                     cause: this.state.causeName,
-                    location: this.state.locationCurrent
+                    location: valueLocation
                 }
             }}/>
         );
@@ -194,30 +217,25 @@ class DashboardAct extends Component {
           <p className="col-11 col-sm-11 col-md-10 col-lg-8 col-xl-8 h4-responsive mb-0 text-center">
             You are viewing charitable causes in&nbsp;
             <strong>
-              {this.state.locationCurrent === "" && <span>
-                  Greater Melbourne
-                </span>}
-              {this.state.locationCurrent !== "" && this.state.loading && <span
-                  >
-                    ...
-                  </span>}
-              {this.state.locationCurrent !== "" && !this.state.loading && <span
-                  >
-                    {this.state.locationCurrent}
-                  </span>}
+              {valueLocation === "" && 
+                <span> Greater Melbourne </span>}
+              {valueLocation !== "" && this.state.loading && 
+                <span> ... </span>}
+              {valueLocation !== "" && !this.state.loading && 
+                <span> {valueLocation} </span>}
             </strong>
           </p>
 
           <div className="col-10 col-sm-10 col-md-8 col-lg-6 col-xl-6 small py-1 px-1">
             <div className="row d-flex align-items-center justify-content-center">
-              <span className="mr-2">Change location: </span>
-              <select name="location" placeholder="Select suburb..." value={this.state.locationCurrent} onChange={this.handleInputChangeOfLocation}>
-                {this.state.locationsAll.map(location => (
-                  <option key={location} value={location}>
-                    {location}
-                  </option>
-                ))}
-              </select>
+              <span>Change location: </span>
+
+              <Select name="location" className="col"
+                placeholder="Select suburb..."
+                value={valueLocation}
+                onChange={this.handleInputChangeOfLocation}
+                options={this.state.locationsAll} />
+
               {this.state.loading && <img src={spinner} alt="loading..." style={{ height: 20, paddingLeft: 20 }} />}
             </div>
           </div>
@@ -262,7 +280,11 @@ class DashboardAct extends Component {
                   a cause, or
                 </p>
                 <button className="btn btn-outline-info" type="button" onClick={this.handleOnClickToSearch}>
-                  Search for charities in {this.state.locationCurrent}
+                  Search for charities in 
+                  { valueLocation !== "" && this.state.loading && 
+                    <span> ... </span>}
+                  {valueLocation !== "" && !this.state.loading && 
+                    <span> {valueLocation} </span>}
                 </button>
               </div>
             }
@@ -275,13 +297,13 @@ class DashboardAct extends Component {
                       </h5>
                       <br />
                       <h6 className="h6-responsive">
-                        {this.state.locationCurrent}
+                        {valueLocation}
                       </h6>
                     </div>
                   </CardImage>
                   <CardBody style={{ color: "#616161", fontSize: "small" }}>
                     <p>
-                      In 2016*, charities supporting {this.state.causeName} in {this.state.locationCurrent} received 
+                      In 2016*, charities supporting {this.state.causeName} in {valueLocation} received 
                       <ul>
                           <li><strong>${this.state.causeDonations} donations and bequests</strong></li>
                           <li><strong>${this.state.causeGrants} government grants</strong></li>
@@ -306,7 +328,7 @@ class DashboardAct extends Component {
                             {this.state.causeCharityCount} charity{" "}
                           </strong>
                         </span>}
-                      supporting {this.state.causeName} in {this.state.locationCurrent}.
+                      supporting {this.state.causeName} in {valueLocation}.
                     </p>
                     <button className="btn btn-outline-info" type="button" onClick={this.handleOnClickToSearch}>
                       See complete charity list
