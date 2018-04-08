@@ -202,7 +202,7 @@ class CharitySearch extends Component {
             return (
                 <li key={index} className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 d-flex align-items-stretch p-3">
 
-                    <Card cascade>
+                    <Card cascade className="w-100">
                         <CardImage tag="div">
                             <div className="#26c6da cyan lighten-1 p-4">
                                 <h5 className="h4-responsive">{charity.name}</h5>
