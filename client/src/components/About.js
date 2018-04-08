@@ -37,7 +37,7 @@ const About = () => {
               <p className="h1-responsive font-weight-bold mt-4">
                 We're here to help people spread a dose of kindness
               </p>
-              <p className="h4-responsive">
+              <p className="h4-responsive pb-2">
                 Providing information for potential donors to act now
               </p>
             </div>
@@ -74,7 +74,7 @@ const About = () => {
                 </div>
 
                 {/* data source */}
-                <p className="h4-responsive font-weight-bold">Our data source</p>
+                <p className="h4-responsive font-weight-bold pt-3">Our data source</p>
                 <p>
                 <img src={acncLogo} alt="acnc-logo" className="img-responsive py-2" />
                 <br />
