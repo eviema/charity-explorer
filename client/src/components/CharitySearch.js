@@ -158,14 +158,16 @@ class CharitySearch extends Component {
                         doneCharitySearch: true,
                         loading: false
                     });
+
+                    window.scrollTo(0, 0);
+
                 })
                 .catch(function(e) {
                     console.log("ERROR", e);
                 });
         }
 
-        event.preventDefault();
-     
+        event.preventDefault(); 
     }
 
     handleClickOnPageNumber(currentPageNumber) {        
@@ -337,7 +339,7 @@ class CharitySearch extends Component {
                                 Showing {(currentPage - 1) * charitiesPerPage + 1} to {Math.min(currentPage * charitiesPerPage, charities.length)} of {charities.length} results
                             </h6> 
 
-                            <div>
+                            <div className="ml-2 mt-2">
                                 <Pagination
                                     hideDisabled
                                     linkClass="py-1 px-2"
@@ -351,14 +353,14 @@ class CharitySearch extends Component {
                             </div>
                         </div>
                         
-                        <ul className="row card-group list-unstyled">{renderCharities}</ul>
+                        <ul className="row card-group list-unstyled mb-0">{renderCharities}</ul>
                         
-                        <div className="row d-flex justify-content-between px-3">
+                        <div className="row d-flex align-items-center justify-content-between px-3">
                             <h6 className="small mb-0">
                                 Showing {(currentPage - 1) * charitiesPerPage + 1} to {Math.min(currentPage * charitiesPerPage, charities.length)} of {charities.length} results
                             </h6>
 
-                            <div>
+                            <div className="ml-2 mt-2">
                                 <Pagination
                                     hideDisabled
                                     linkClass="py-1 px-2"
