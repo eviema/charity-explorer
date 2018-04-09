@@ -186,6 +186,11 @@ class DashboardAct extends Component {
     var { locationCurrent } = this.state;
     var valueLocation = locationCurrent && locationCurrent.value;
 
+    var { causeDonations, causeGrants } = this.state;
+
+    var causeDonationsWithCommas = causeDonations.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    var causeGrantsWithCommas = causeGrants.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
     if (this.state.searchCharityClicked) {
         return (
             <Redirect to={{
@@ -307,8 +312,8 @@ class DashboardAct extends Component {
                     <p>
                       In 2016*, charities supporting {this.state.causeName} in {valueLocation} received 
                       <ul>
-                          <li><strong>${this.state.causeDonations} donations and bequests</strong></li>
-                          <li><strong>${this.state.causeGrants} government grants</strong></li>
+                          <li><strong>${causeDonationsWithCommas} donations and bequests</strong></li>
+                          <li><strong>${causeGrantsWithCommas} government grants</strong></li>
                       </ul>
                     </p>
 
