@@ -205,7 +205,7 @@ class Landing extends Component {
           >
             <CardImage
               className="img-fluid"
-              src="https://images.unsplash.com/photo-1516156008625-3a9d6067fab5?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=47b4b88e2825332da6fb93898562051c&auto=format&fit=crop&w=1050&q=80"
+              src="https://images.unsplash.com/uploads/1412239183009c7733b23/085bfba0?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=16f061ef74bcb2a07f6a22f5369ec58b&auto=format&fit=crop&w=1048&q=80"
             />
             <CardBody className="w-100 py-2 px-3" style={causeCardStyle}>
               <strong>Housing activities</strong>
@@ -237,9 +237,7 @@ class Landing extends Component {
             />
             <CardBody className="w-100 py-2 px-3" style={causeCardStyle}>
               <strong>Mental health and crisis intervention</strong>
-              <CardText>
-                e.g. help children impacted by abuse
-              </CardText>
+              <CardText>e.g. help children impacted by abuse</CardText>
             </CardBody>
           </Card>
           <Card
@@ -328,7 +326,7 @@ class Landing extends Component {
                     <p className="small">
                       Only the charities that support your cause as their main
                       activity will be displayed. You can also do additional
-                      filtering by target populations.
+                      filtering, e.g. by target populations.
                     </p>
                   </div>
                 </div>
@@ -362,17 +360,17 @@ class Landing extends Component {
                 <div className="row d-flex align-items-stretch justify-content-center ">
                   <div className="col-1">
                     <i
-                      className="fa fa-facebook-square fa-lg cyan-text"
+                      className="fa fa-comments fa-lg cyan-text"
                       aria-hidden="true"
                     />
                   </div>
 
                   <div className="col-10">
-                    <p className="font-weight-bold mb-2">Recently active</p>
+                    <p className="font-weight-bold mb-2">Reviewed by donors</p>
                     <p className="small">
-                      Every charity selected for you has conducted activites
-                      during the past year. Learn more about their recent
-                      activities via social media feed.
+                      See what your fellow donors have to say about a charity.
+                      You can also share your experience of donating which helps
+                      others with their decisions.
                     </p>
                   </div>
                 </div>
