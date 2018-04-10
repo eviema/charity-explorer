@@ -7,7 +7,6 @@ import Landing from './Landing';
 import CharitySearch from './CharitySearch';
 import Charity from './Charity';
 import DashboardAct from './DashboardAct';
-import DashboardLoc from './DashboardLoc';
 import About from './About';
 import Contact from './Contact';
 import Footer from './Footer';
@@ -27,7 +26,6 @@ class App extends Component {
                         <Route path="/charitySearch" component={CharitySearch} />
                         <Route path="/charity/:ABN" component={Charity} />
                         <Route path="/charities/dashboardAct" component={DashboardAct} />
-                        <Route path="/charities/dashboardLoc" component={DashboardLoc} />
                         <Route path="/about" component={About}/>
                         <Route path="/contact" component={Contact}/>
                         <Footer />
