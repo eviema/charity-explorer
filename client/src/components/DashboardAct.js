@@ -1,9 +1,10 @@
 import React, { Component } from "react";
+import axios from 'axios';
 import { Redirect } from 'react-router';
 import Select from 'react-select';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardImage, Popover, PopoverBody, PopoverHeader } from "mdbreact";
-import axios from 'axios';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Label, ResponsiveContainer } from 'recharts';
+import Collapsible from 'react-collapsible';
 import spinner from '../assets/spinner.gif';
 const greaterMelb = require("./greaterMelb");
 
@@ -190,6 +191,8 @@ class DashboardAct extends Component {
 
     var causeDonationsWithCommas = causeDonations.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     var causeGrantsWithCommas = causeGrants.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  
+    const data = this.state.causesByLocation;
 
     if (this.state.searchCharityClicked) {
         return (
@@ -202,8 +205,34 @@ class DashboardAct extends Component {
             }}/>
         );
     }
-    
-    const data = this.state.causesByLocation;
+
+    var renderCauseSubtypes = this.state.causeCurrentDetails.map(subtype => {
+      
+      var triggerWhenClosed = 
+        <a className="row d-flex align-items-center mx-1 py-1 px-2 border border-white rounded-top #b3e5fc light-blue lighten-4">
+          <span>{subtype["Subtype_Name"]}</span>
+          <i className="fa fa-angle-down fa-lg ml-auto"></i>
+        </a>;
+      
+      var triggerWhenOpen = 
+        <a className="row d-flex align-items-center mx-1 py-1 px-2 border border-white rounded-top #b3e5fc light-blue lighten-4">
+          <span>{subtype["Subtype_Name"]}</span>
+          <i className="fa fa-angle-up fa-lg ml-auto"></i>
+        </a>;
+
+      return (
+        <li key={subtype["_id"]} style={{color: "#424242"}}>
+          <Collapsible trigger={triggerWhenClosed}
+                      triggerWhenOpen={triggerWhenOpen}>
+            <p className="m-2 small">{subtype["Subtype_Desc"]}</p>
+            <p className="m-2 small font-italic">
+              <strong>Example: </strong>
+              {subtype["Example"]}
+            </p>
+          </Collapsible>
+        </li>
+      );
+    });
 
     return <div className="container-fluid" style={{ padding: "0" }}>
         <Breadcrumb className="small">
@@ -249,7 +278,7 @@ class DashboardAct extends Component {
         {/* info + graph */}
         <div className="row d-flex align-items-stretch justify-content-center py-1 mx-1 mb-4">
           {/* graph of causes in location */}
-          <div className="col-11 col-sm-11 col-md-11 col-lg-6 col-xl-6 small mb-4" style={{ height: "100vh" }}>
+          <div className="col-11 col-sm-11 col-md-11 col-lg-6 col-xl-6 small mb-4" style={{ height: "105vh" }}>
             <ResponsiveContainer>
               <BarChart data={data} layout="vertical" margin={{ top: 60, right: 20, left: 10, bottom: 20 }}>
                 <XAxis type="number" orientation="top">
@@ -298,7 +327,7 @@ class DashboardAct extends Component {
             {this.state.barClicked && <div id="causeInfo">
                 <Card cascade className="mt-2 mb-4">
                   <CardImage tag="div">
-                    <div className="#81d4fa light-blue lighten-3 p-4">
+                    <div className="#00b8d4 cyan accent-4 text-white p-4">
                       <h5 className="h5-responsive">
                         {this.state.causeName}
                       </h5>
@@ -308,7 +337,7 @@ class DashboardAct extends Component {
                       </h6>
                     </div>
                   </CardImage>
-                  <CardBody style={{ color: "#616161", fontSize: "small" }}>
+                  <CardBody style={{ color: "#616161"}}>
                     <p>
                       In 2016*, charities supporting {this.state.causeName} in {valueLocation} received 
                       <ul>
@@ -346,14 +375,14 @@ class DashboardAct extends Component {
 
                 <Card cascade>
                   <CardImage tag="div">
-                    <div className="#80deea cyan lighten-3 p-4">
+                    <div className="#0091ea light-blue accent-4 text-white p-4">
                       <h5 className="h5-responsive">
                         What is "{this.state.causeName}"
                       </h5>
                     </div>
                   </CardImage>
                   <CardBody>
-                    <p className="h6-responsive">
+                    <p>
                       {this.state.causeCurrentDetails.length}&nbsp;
                       {this.state.causeCurrentDetails.length === 1 && <span>
                           subcategory{" "}
@@ -363,22 +392,10 @@ class DashboardAct extends Component {
                         </span>}
                       of work
                     </p>
-                    {this.state.causeCurrentDetails.map(subtype => (
-                      <div
-                        key={subtype["_id"]}
-                        style={{ color: "#616161", fontSize: "small" }}
-                      >
-                        <hr />
-                        <p className="h5-responsive font-weight-bold">
-                          {subtype["Subtype_Name"]}
-                        </p>
-                        <p>{subtype["Subtype_Desc"]}</p>
-                        <p className="font-italic">
-                          <strong>Example: </strong>
-                          {subtype["Example"]}
-                        </p>
-                      </div>
-                    ))}
+                    <hr />
+                    
+                    <ul className="list-unstyled mb-0">{renderCauseSubtypes}</ul>
+                  
                   </CardBody>
                 </Card>
               </div>}
