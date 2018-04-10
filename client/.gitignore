@@ -20,3 +20,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# old ver of causes page 
+./src/components/DashboardActV1.js

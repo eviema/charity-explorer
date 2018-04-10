@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Iframe from "react-iframe";
 import { Redirect } from 'react-router';
 import { Card, CardImage, CardBody, CardTitle, CardText, Breadcrumb, BreadcrumbItem } from 'mdbreact';
 
@@ -75,7 +74,7 @@ class DashboardAct extends Component {
                         </CardBody>
                     </Card>         
                 </div>
-                <div style={{height:"100vh", width: "70vw"}}>
+                {/* <div style={{height:"100vh", width: "70vw"}}>
                     <Iframe url="https://public.tableau.com/views/BookMainActivity/Dashboard1?:embed=y&:display_count=yes&:showVizHome=no"
                             className="mt-3">
                         <param name="filter" value=":original_view=yes" />
@@ -86,7 +85,7 @@ class DashboardAct extends Component {
                     <a className="btn btn-default" onClick={this.handleOnClickToSearch}>
                         Click to search for charities
                     </a>
-                </div>
+                </div> */}
                   
             </div>
         );
