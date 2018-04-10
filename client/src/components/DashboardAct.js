@@ -352,13 +352,13 @@ class DashboardAct extends Component {
                     </div>
                   </CardImage>
                   <CardBody style={{ color: "#616161"}}>
-                    <p>
+                    <div>
                       In 2016*, charities supporting {this.state.causeName} in {valueLocation} received 
                       <ul>
                           <li><strong>${causeDonationsWithCommas} donations and bequests</strong></li>
                           <li><strong>${causeGrantsWithCommas} government grants</strong></li>
                       </ul>
-                    </p>
+                    </div>
 
                     <p>{data.length - this.state.causeAmtRank} out of {data.length} causes there received more.</p>
                     
