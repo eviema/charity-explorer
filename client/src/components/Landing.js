@@ -8,13 +8,16 @@ class Landing extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      exploreClicked: false,
-      searchClicked: false,
+      isExploreClicked: false,
+      isEearchClicked: false,
+      isCauseCardClicked: false,
+      causeClicked: '',
       isMobileDevice: false
     };
 
     this.handleOnClickToExplore = this.handleOnClickToExplore.bind(this);
     this.handleOnClickToSearch = this.handleOnClickToSearch.bind(this);
+    this.handleOnClickToCause = this.handleOnClickToCause.bind(this);
   }
 
   componentDidMount() {
@@ -30,24 +33,42 @@ class Landing extends Component {
 
   handleOnClickToExplore = () => {
     this.setState({
-      exploreClicked: true
+      isExploreClicked: true
     });
   };
 
   handleOnClickToSearch = () => {
     this.setState({
-      searchClicked: true
+      isSearchClicked: true
+    });
+  };
+
+  handleOnClickToCause(causeName) {
+    this.setState({
+      causeClicked: causeName,
+      isCauseCardClicked: true,
     });
   };
 
   render() {
-    if (this.state.exploreClicked) {
+    if (this.state.isExploreClicked) {
       return <Redirect push to="/charities/dashboardAct" />;
     }
 
-    if (this.state.searchClicked) {
+    if (this.state.isSearchClicked) {
       return <Redirect push to="/charitySearch" />;
     }
+
+    if (this.state.isCauseCardClicked) {
+      return (
+          <Redirect to={{
+              pathname: '/charities/dashboardAct',
+              state: {
+                  causeName: this.state.causeClicked
+              }
+          }}/>
+      );
+  }
 
     var imgStyle = this.state.isMobileDevice
       ? {
@@ -72,7 +93,8 @@ class Landing extends Component {
     var causeCardStyle = {
       position: "absolute",
       bottom: "0",
-      background: "rgba(236, 239, 241, 0.85)"
+      background: "rgba(236, 239, 241, 0.85)",
+      cursor:'pointer'     
     };
 
     return (
@@ -176,6 +198,7 @@ class Landing extends Component {
           <Card
             cascade
             className="m-1 p-0 col-11 col-sm-5 col-md-4 col-lg-3 col-xl-3"
+            onClick={() => this.handleOnClickToCause("Animal protection")}
           >
             <CardImage
               className="img-fluid"
@@ -189,6 +212,7 @@ class Landing extends Component {
           <Card
             cascade
             className="m-1 p-0 col-11 col-sm-5 col-md-4 col-lg-3 col-xl-3"
+            onClick={() => this.handleOnClickToCause("Employment and training")}
           >
             <CardImage
               className="img-fluid"
@@ -202,6 +226,7 @@ class Landing extends Component {
           <Card
             cascade
             className="m-1 p-0 col-11 col-sm-5 col-md-4 col-lg-3 col-xl-3"
+            onClick={() => this.handleOnClickToCause("Housing activities")}
           >
             <CardImage
               className="img-fluid"
@@ -215,6 +240,7 @@ class Landing extends Component {
           <Card
             cascade
             className="m-1 p-0 col-11 col-sm-5 col-md-4 col-lg-3 col-xl-3"
+            onClick={() => this.handleOnClickToCause("Law and legal services")}
           >
             <CardImage
               className="img-fluid"
@@ -230,6 +256,7 @@ class Landing extends Component {
           <Card
             cascade
             className="m-1 p-0 col-11 col-sm-5 col-md-4 col-lg-3 col-xl-3"
+            onClick={() => this.handleOnClickToCause("Mental health and crisis intervention")}
           >
             <CardImage
               className="img-fluid"
@@ -243,6 +270,7 @@ class Landing extends Component {
           <Card
             cascade
             className="m-1 p-0 col-11 col-sm-5 col-md-4 col-lg-3 col-xl-3"
+            onClick={() => this.handleOnClickToCause("Research")}
           >
             <CardImage
               className="img-fluid"

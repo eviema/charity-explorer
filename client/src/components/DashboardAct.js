@@ -31,7 +31,7 @@ class DashboardAct extends Component {
     this.handleClickOnCauseBar = this.handleClickOnCauseBar.bind(this);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     axios.get('/api/locations-all')
         .then((res) => {
           var locationsData = [];
@@ -65,6 +65,20 @@ class DashboardAct extends Component {
         },
         causesByLocation: greaterMelb
     });
+
+    if (this.props.location.state !== undefined) {
+      await this.setState({
+        causeName: this.props.location.state.causeName,
+        barClicked: true
+      });
+
+      const barData = { name: this.state.causeName};
+
+      this.handleClickOnCauseBar(barData);
+
+    }
+      
+    window.scrollTo(0, 0);
 
   }
 
