@@ -248,7 +248,8 @@ class DashboardAct extends Component {
       );
     });
 
-    return <div className="container-fluid" style={{ padding: "0" }}>
+    return (
+      <div className="container-fluid" style={{ padding: "0", background: "#F3F3F3"}}>
         <Breadcrumb className="small">
           <BreadcrumbItem>
             <a href="/home">
@@ -327,7 +328,7 @@ class DashboardAct extends Component {
                   a cause here
                 </p>
                 <p style={{width: "100%", textAlign: "center", borderBottom: "1px solid #9E9E9E", lineHeight: " 0.1em", margin: "10px 0 20px"}}>
-                  <span style={{background:"#fff", padding:"0 10px"}}> Or </span>
+                  <span style={{background:"#f3f3f3", padding:"0 10px"}}> Or </span>
                 </p>
                 <button className="btn btn-outline-info" type="button" onClick={this.handleOnClickToSearch}>
                   Search for charities in 
@@ -435,7 +436,8 @@ class DashboardAct extends Component {
             <p>We'll update as soon as they do. Stay tuned!</p>
           </PopoverBody>
         </Popover>
-      </div>;
+      </div>
+    );
   }
 }
 
