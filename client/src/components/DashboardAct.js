@@ -250,7 +250,7 @@ class DashboardAct extends Component {
 
     return (
       <div className="container-fluid" style={{ padding: "0", background: "#F3F3F3"}}>
-        <Breadcrumb className="small">
+        <Breadcrumb className="small mb-0">
           <BreadcrumbItem>
             <a href="/home">
               <i className="fa fa-home" />
@@ -260,8 +260,8 @@ class DashboardAct extends Component {
         </Breadcrumb>
 
         {/* title: causes in location */}
-        <div className="row d-flex align-items-center justify-content-center py-1 mx-2">
-          <p className="col-11 col-sm-11 col-md-10 col-lg-8 col-xl-8 h4-responsive mb-0 text-center">
+        <div className="row d-flex align-items-center justify-content-center py-4 px-2">
+          <p className="col-11 col-sm-11 col-md-11 col-lg-6 col-xl-6 h4-responsive mb-0 px-sm-4 pl-md-5">
             You are viewing charitable causes in&nbsp;
             <strong>
               {valueLocation === "" && 
@@ -273,11 +273,11 @@ class DashboardAct extends Component {
             </strong>
           </p>
 
-          <div className="col-10 col-sm-10 col-md-8 col-lg-6 col-xl-6 small py-1 px-1">
-            <div className="row d-flex align-items-center justify-content-center">
+          <div className="col-10 col-sm-10 col-md-10 col-lg-5 col-xl-5 small py-1 pl-md-5">
+            <div className="row d-flex align-items-center">
               <span>Change location: </span>
 
-              <Select name="location" className="col"
+              <Select name="location" className="col-8 col-sm-6 col-md-6 col-lg-8 col-xl-6"
                 placeholder="Select suburb..."
                 value={valueLocation}
                 onChange={this.handleInputChangeOfLocation}
@@ -288,7 +288,7 @@ class DashboardAct extends Component {
           </div>
         </div>
 
-        <hr className="mx-4" />
+        <hr className="mx-4 mt-0" />
 
         {/* info + graph */}
         <div className="row d-flex align-items-stretch justify-content-center py-1 mx-1 mb-4">
