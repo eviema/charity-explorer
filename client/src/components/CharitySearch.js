@@ -177,6 +177,7 @@ class CharitySearch extends Component {
                                 desc: entry["Charity_activities_and_outcomes_helped_achieve_charity_purpose"],
                                 suburb: entry["Town_City"],
                                 postcode: entry["Postcode"],
+                                council: entry["Municipality"],
                                 cause: entry["Main_Activity"],
                                 amtDonations: entry["Donations_and_bequests"],
                                 amtGovGrants: entry["Government_grants"],
@@ -298,16 +299,18 @@ class CharitySearch extends Component {
                                 <h5 className="h4-responsive">{charity.name}</h5>
                             </div>
                         </CardImage>
-                        <CardBody>
-                            <CardTitle>{charity.cause}</CardTitle>
-                            <CardText>
-                                {charity.desc.length <= 200 ? charity.desc : charity.desc.slice(0,200).concat("... ")}
-                                <br />
-                                {/* <a className="btn btn-default" href={`/charity/${charity.ABN}`} >
-                                    Learn more 
-                                    <i class="fa fa-angle-double-right pl-2"></i>
-                                </a> */}                            
-                            </CardText>
+                        <CardBody className="d-flex flex-column justify-content-between align-items-stretch">
+                            <div>
+                                <CardTitle>{charity.cause}</CardTitle>
+                                <p>{charity.suburb} VIC {charity.postcode}</p>
+                                <CardText>
+                                    <p>{charity.desc.length <= 200 ? charity.desc : charity.desc.slice(0,200).concat("... ")}</p>
+                                </CardText>
+                            </div>
+                            <a className="btn btn-outline-info" href={`/charity/${charity.ABN}`} >
+                                Learn more 
+                                <i class="fa fa-arrow-right pl-2"></i>
+                            </a>
                         </CardBody>
                     </Card>
 
@@ -422,7 +425,7 @@ class CharitySearch extends Component {
 
                         <div className="row d-flex align-items-center justify-content-between px-3">
                             <h5 className="my-3">
-                                <strong>{valueCause}</strong> in <strong>{valueLocation}</strong>
+                                Charities supporting <strong>{valueCause}</strong> in <strong>{valueLocation}</strong>
                             </h5>
                         </div>
 
