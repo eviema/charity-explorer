@@ -343,7 +343,7 @@ class DashboardAct extends Component {
             backgroundPosition: "center",
             height: "50vh",
         }
-
+    
     return (
       <div className="container-fluid" style={{ padding: "0", background: "#F3F3F3"}}>
         <Breadcrumb className="small mb-0">
@@ -378,59 +378,70 @@ class DashboardAct extends Component {
               value={valueLocation}
               onChange={this.handleInputChangeOfLocation}
               options={this.state.locationsAll} />
-
-            {/* {this.state.loading && <img src={spinner} alt="loading..." style={{ height: 20, paddingLeft: 20 }} />} */}
           </div>
         </div>
 
         <hr className="mx-4" />
 
-        <div className="row d-flex flex-column align-items-center pt-4 pb-2 mx-4 h4-responsive" style={{width:"80vw"}}>
-          <div>
-            <p>In <strong>{valueLocation}</strong>,</p>
-            <p>
-              <i className="fa fa-hand-holding-heart mt-3 mr-5" style={{color:"#E57373"}}></i>
-              {causesByLocation.length > 0 && 
-                <span className="ml-2">
-                  <strong>{causeRecvLeast.name}</strong> received the <strong>least</strong> - ${causeRecvLeastAmtWithCommas}.
-                </span>
-              }
-            </p>
-            <p>
-              <i className="fa fa-hand-holding-heart" style={{color:"#E57373"}}></i>
-              <i className="fa fa-hand-holding-heart" style={{color:"#E57373"}}></i>
-              <i className="fa fa-hand-holding-heart mr-3" style={{color:"#E57373"}}></i>
-              {causesByLocation.length > 0 && 
-                <span>
-                  <strong>{causeRecvMost.name}</strong> received the <strong>most</strong> - ${causeRecvMostAmtWithCommas}.
-                </span>
-              }
-            </p>
+        <div className="pb-5" style={{position:"relative"}}>
+          {/* loading - section overlay */}
+          { this.state.loading && 
+            <div style={{position: 'absolute', top: '0', bottom: '0', left: '0', right: '0', background:"rgba(255, 255, 255,0.8)", zIndex:"2", cursor:"pointer"}}
+                  className="d-flex justify-content-center pt-5">
+              <span className="h3-responsive">Updating...</span>
+              <img src={spinner} alt="loading..." style={{ height: 30, paddingLeft: 30 }} />
+            </div>
+          }
+
+          {/* quick summary of causes in curernt location */}
+          <div className="row d-flex flex-column align-items-center pt-4 pb-2 mx-4 h4-responsive" style={{width:"80vw"}}>
+            <div>
+              <p>In <strong>{valueLocation}</strong>,</p>
+              <p>
+                <i className="fa fa-hand-holding-heart mt-3 mr-5" style={{color:"#E57373"}}></i>
+                {causesByLocation.length > 0 && 
+                  <span className="ml-2">
+                    <strong>{causeRecvLeast.name}</strong> received the <strong>least</strong> - ${causeRecvLeastAmtWithCommas}.
+                  </span>
+                }
+              </p>
+              <p>
+                <i className="fa fa-hand-holding-heart" style={{color:"#E57373"}}></i>
+                <i className="fa fa-hand-holding-heart" style={{color:"#E57373"}}></i>
+                <i className="fa fa-hand-holding-heart mr-3" style={{color:"#E57373"}}></i>
+                {causesByLocation.length > 0 && 
+                  <span>
+                    <strong>{causeRecvMost.name}</strong> received the <strong>most</strong> - ${causeRecvMostAmtWithCommas}.
+                  </span>
+                }
+              </p>
+            </div>
           </div>
+
+          {/* graph of causes in location */}
+          <div className="row d-flex align-items-stretch justify-content-center py-2 mx-4 small" style={{ height: "65vh" }}>
+
+            <Plot 
+              data={plotData}
+              layout={plotLayout}
+              style={{width: "80vw", height: "60vh"}}
+              onClick={this.handleClickOnCauseBar}
+            />
+            
+            <small className="mt-3">
+              Sources:&nbsp;&nbsp;
+              <a href="https://data.gov.au/dataset/acnc2016ais/resource/b4a08924-af4f-4def-96f7-bf32ada7ee2b" target="_blank" rel="noopener noreferrer">
+                1. ACNC 2016* Annual Information Statement Data
+              </a>&nbsp;&nbsp;&nbsp;&nbsp;
+              <a href="https://data.gov.au/dataset/acnc-register" target="_blank" rel="noopener noreferrer">
+                2. ACNC Registered Charities
+              </a>
+            </small>
+          </div>
+
         </div>
 
-        {/* graph of causes in location */}
-        <div className="row d-flex align-items-stretch justify-content-center py-2 mx-4 small" style={{ height: "65vh" }}>
-
-          <Plot 
-            data={plotData}
-            layout={plotLayout}
-            style={{width: "80vw", height: "60vh"}}
-            onClick={this.handleClickOnCauseBar}
-          />
-          
-          <small className="mt-3">
-            Sources:&nbsp;&nbsp;
-            <a href="https://data.gov.au/dataset/acnc2016ais/resource/b4a08924-af4f-4def-96f7-bf32ada7ee2b" target="_blank" rel="noopener noreferrer">
-              1. ACNC 2016* Annual Information Statement Data
-            </a>&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="https://data.gov.au/dataset/acnc-register" target="_blank" rel="noopener noreferrer">
-              2. ACNC Registered Charities
-            </a>
-          </small>
-        </div>
-
-        <hr className="mx-4 mt-5" />
+        <hr className="mx-4" />
               
         {/* details info of cause in location */}
         <div className="row d-flex align-items-center justify-content-center py-3 mx-3 mb-4">
