@@ -130,7 +130,7 @@ class CharitySearch extends Component {
                 console.log("ERROR", e);
             });
 
-        if (this.state.cause.value !== '' && this.state.location.value !== '') {
+        if (this.state.cause.value !== undefined && this.state.location.value !== undefined) {
             this.handleSubmit();
         }
 
@@ -162,8 +162,7 @@ class CharitySearch extends Component {
     }
 
     handleSubmit() {
-
-        if (this.state.cause.value !== '' && this.state.location.value !== '') {
+        if (this.state.cause.value !== undefined && this.state.location.value !== undefined) {
             this.setState({
                 loading: true,
                 doneCharitySearch: false,
@@ -310,7 +309,7 @@ class CharitySearch extends Component {
                             </div>
                             <a className="btn btn-outline-info" href={`/charity/${charity.ABN}`} >
                                 Learn more 
-                                <i className="fa fa-arrow-right pl-2"></i>
+                                <i className="fa fa-arrow-right fa-lg pl-2"></i>
                             </a>
                         </CardBody>
                     </Card>
@@ -382,7 +381,7 @@ class CharitySearch extends Component {
                                 </div>
                             </div>
                             
-                            <button type="submit" onClick={this.handleSubmit}
+                            <button type="button" onClick={this.handleSubmit}
                                 className="btn btn-default mt-5 col-8 col-sm-8 col-md-4 col-lg-3 col-xl-3">
                                 Search for Charities
                             </button>
