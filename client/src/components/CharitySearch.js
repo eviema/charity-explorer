@@ -6,7 +6,6 @@ import spinner from '../assets/spinner.gif';
 import { Card, CardBody, CardImage, CardTitle, CardText, 
         Breadcrumb, BreadcrumbItem, 
         Container, Col, Row } from 'mdbreact';
-import searchBackground from '../assets/searchBackground.jpg';
 import Pagination from "react-js-pagination";
 
 class CharitySearch extends Component {
@@ -76,6 +75,8 @@ class CharitySearch extends Component {
     }
 
     componentDidMount() {
+
+        window.scrollTo(0, 0);
         
         axios.get('/api/causes-all')
             .then((res) => {
@@ -129,6 +130,10 @@ class CharitySearch extends Component {
                 console.log("ERROR", e);
             });
 
+        if (this.state.cause.value !== '' && this.state.location.value !== '') {
+            this.handleSubmit();
+        }
+
         window.addEventListener("resize", this.resize.bind(this));
         this.resize();
 
@@ -156,17 +161,15 @@ class CharitySearch extends Component {
         });
     }
 
-    handleSubmit(event) {
+    handleSubmit() {
 
-        if (this.state.cause !== {} || this.state.location !== {}) {
+        if (this.state.cause.value !== '' && this.state.location.value !== '') {
             this.setState({
                 loading: true,
                 doneCharitySearch: false,
             });
     
-            axios.get('/api/charities/' 
-                    + this.state.location.value + '/' 
-                    + this.state.cause.value)
+            axios.get('/api/charities/' + this.state.location.value + '/' + this.state.cause.value)
                 .then((res) => {
                     var charitiesMatched = [];
                     res.data.forEach((entry) => {
@@ -184,7 +187,7 @@ class CharitySearch extends Component {
                             }
                         );
                     })
-
+    
                     // sort charity results by total amount received
                     const charitiesSortedByTotalAmt = [].concat(charitiesMatched)
                         .sort((charity1, charity2) => {
@@ -192,7 +195,7 @@ class CharitySearch extends Component {
                                 charity2TotalAmt = charity2.amtDonations + charity2.amtGovGrants;
                             return charity1TotalAmt - charity2TotalAmt;
                         });
-
+    
                     this.setState({
                         charities: charitiesSortedByTotalAmt,
                         sortByCondCurrent: {
@@ -202,16 +205,14 @@ class CharitySearch extends Component {
                         doneCharitySearch: true,
                         loading: false
                     });
-
+    
                     window.scrollTo(0, 0);
-
+    
                 })
                 .catch(function(e) {
                     console.log("ERROR", e);
                 });
         }
-
-        event.preventDefault(); 
 
     }
 
@@ -304,12 +305,12 @@ class CharitySearch extends Component {
                                 <CardTitle>{charity.cause}</CardTitle>
                                 <p>{charity.suburb} VIC {charity.postcode}</p>
                                 <CardText>
-                                    <p>{charity.desc.length <= 200 ? charity.desc : charity.desc.slice(0,200).concat("... ")}</p>
+                                    <span>{charity.desc.length <= 200 ? charity.desc : charity.desc.slice(0,200).concat("... ")}</span>
                                 </CardText>
                             </div>
                             <a className="btn btn-outline-info" href={`/charity/${charity.ABN}`} >
                                 Learn more 
-                                <i class="fa fa-arrow-right pl-2"></i>
+                                <i className="fa fa-arrow-right pl-2"></i>
                             </a>
                         </CardBody>
                     </Card>
@@ -325,14 +326,14 @@ class CharitySearch extends Component {
         
         var pageStyle = this.state.isMobileDevice 
             ? {
-                background: `url(${searchBackground})`,
+                background: 'url(https://images.unsplash.com/photo-1514395462725-fb4566210144?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=c669e38dae80f85c8f713d178c3eca6e&auto=format&fit=crop&w=1051&q=80)',
                 backgroundRepeat: "no-repeat",
                 backgroundAttachment: "scroll",
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 height: "90vh",
             } : {
-                background: `url(${searchBackground})`,
+                background: 'url(https://images.unsplash.com/photo-1514395462725-fb4566210144?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=c669e38dae80f85c8f713d178c3eca6e&auto=format&fit=crop&w=1051&q=80)',
                 backgroundRepeat: "no-repeat",
                 backgroundAttachment: "fixed",
                 backgroundSize: "cover",
