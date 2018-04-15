@@ -5,6 +5,7 @@ import Select from 'react-select';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardImage, Popover, PopoverBody, PopoverHeader } from "mdbreact";
 import Plot from 'react-plotly.js';
 import Collapsible from 'react-collapsible';
+import ScrollableAnchor, { configureAnchors, goToTop, goToAnchor } from 'react-scrollable-anchor';
 import spinner from '../assets/spinner.gif';
 import causePageTopBackground from '../assets/causePageTopBackground.jpg';
 const greaterMelb = require("./greaterMelb");
@@ -34,8 +35,8 @@ class DashboardAct extends Component {
   }
 
   async componentDidMount() {
-    
-    window.scrollTo(0, 0);
+
+    goToTop();
 
     axios.get('/api/locations-all')
         .then((res) => {
@@ -85,7 +86,7 @@ class DashboardAct extends Component {
 
     window.addEventListener("resize", this.resize.bind(this));
     this.resize();
-    
+
   }
 
   resize() {
@@ -173,7 +174,7 @@ class DashboardAct extends Component {
 
   }
 
-  handleClickOnCauseBar(data) {
+  async handleClickOnCauseBar(data) {
     
     var causeClickedName = data.name === undefined ? data.points[0].y : data.name;
 
@@ -191,7 +192,7 @@ class DashboardAct extends Component {
     
     var causeIndex = this.state.causesByLocation.findIndex((cause => cause.name === causeClickedName));
     
-    this.setState({
+    await this.setState({
         barClicked: true,
         causeName: causeClickedName,
         causeCharityCount: this.state.causesByLocation[causeIndex].charityCount,
@@ -199,6 +200,9 @@ class DashboardAct extends Component {
         causeGrants: this.state.causesByLocation[causeIndex].amtGrants,
         causeAmtRank: causeIndex + 1,
     }); 
+
+    configureAnchors({offset: -100, scrollDuration: 400});
+    goToAnchor('causeInfo');
     
   }
 
@@ -466,82 +470,85 @@ class DashboardAct extends Component {
             </div>
           }
           {this.state.barClicked && 
-            <div id="causeInfo" style={{width:"80vw"}}>
-              <p className="h4-responsive">Here's more about <strong>{this.state.causeName}</strong> in <strong>{valueLocation}</strong>:</p>
-  
-              <Card cascade className="mt-2 mb-4">
-                <CardImage tag="div">
-                  <div className="#00b8d4 cyan accent-4 text-white p-4">
-                    <h5 className="h5-responsive">
-                      {this.state.causeName}
-                    </h5>
-                    <br />
-                    <h6 className="h6-responsive">
-                      {valueLocation}
-                    </h6>
-                  </div>
-                </CardImage>
-                <CardBody style={{ color: "#616161"}}>
-                  <div>
-                    In 2016*, charities supporting {this.state.causeName} in {valueLocation} received 
-                    <ul>
-                        <li><strong>${causeDonationsWithCommas} donations and bequests</strong></li>
-                        <li><strong>${causeGrantsWithCommas} government grants</strong></li>
-                    </ul>
-                  </div>
-                  <p>{causesByLocation.length - this.state.causeAmtRank} out of {causesByLocation.length} causes there received more.</p>
-                  
-                  <hr />
-                      
-                  <p>
-                    There
-                    {this.state.causeCharityCount !== 1 && <span>
-                        {" "}
-                        are <strong>
-                          {this.state.causeCharityCount} charities{" "}
-                        </strong>
-                      </span>}
-                    {this.state.causeCharityCount === 1 && <span>
-                        {" "}
-                        is <strong>
-                          {this.state.causeCharityCount} charity{" "}
-                        </strong>
-                      </span>}
-                    supporting {this.state.causeName} in {valueLocation}.
-                  </p>
-                  <button className="btn btn-outline-info" type="button" onClick={this.handleOnClickToSearch}>
-                    See complete charity list
-                  </button>
-                  {this.state.redirecting && <img src={spinner} alt="redirecting..." style={{ height: 30, paddingLeft: 30 }} />}
-                </CardBody>
-              </Card>
-
-              <Card cascade>
-                <CardImage tag="div">
-                  <div className="#0091ea light-blue accent-4 text-white p-4">
-                    <h5 className="h5-responsive">
-                      What is "{this.state.causeName}"
-                    </h5>
-                  </div>
-                </CardImage>
-                <CardBody>
-                  <p>
-                    {this.state.causeCurrentDetails.length}&nbsp;
-                    {this.state.causeCurrentDetails.length === 1 && <span>
-                        subcategory{" "}
-                      </span>}
-                    {this.state.causeCurrentDetails.length !== 1 && <span>
-                        subcategories{" "}
-                      </span>}
-                    of work
-                  </p>
-                  <hr />
-                  
-                  <ul className="list-unstyled mb-0">{renderCauseSubtypes}</ul>
+            <ScrollableAnchor id={'causeInfo'}>
+              <div id="causeInfo" style={{width:"80vw"}}>
+                <p className="h4-responsive">Here's more about <strong>{this.state.causeName}</strong> in <strong>{valueLocation}</strong>:</p>
+    
+                <Card cascade className="mt-2 mb-4">
+                  <CardImage tag="div">
+                    <div className="#00b8d4 cyan accent-4 text-white p-4">
+                      <h5 className="h5-responsive">
+                        {this.state.causeName}
+                      </h5>
+                      <br />
+                      <h6 className="h6-responsive">
+                        {valueLocation}
+                      </h6>
+                    </div>
+                  </CardImage>
+                  <CardBody style={{ color: "#616161"}}>
+                    <div>
+                      In 2016*, charities supporting {this.state.causeName} in {valueLocation} received 
+                      <ul>
+                          <li><strong>${causeDonationsWithCommas} donations and bequests</strong></li>
+                          <li><strong>${causeGrantsWithCommas} government grants</strong></li>
+                      </ul>
+                    </div>
+                    <p>{causesByLocation.length - this.state.causeAmtRank} out of {causesByLocation.length} causes there received more.</p>
                     
-                </CardBody>
-              </Card>
-            </div>}
+                    <hr />
+                        
+                    <p>
+                      There
+                      {this.state.causeCharityCount !== 1 && <span>
+                          {" "}
+                          are <strong>
+                            {this.state.causeCharityCount} charities{" "}
+                          </strong>
+                        </span>}
+                      {this.state.causeCharityCount === 1 && <span>
+                          {" "}
+                          is <strong>
+                            {this.state.causeCharityCount} charity{" "}
+                          </strong>
+                        </span>}
+                      supporting {this.state.causeName} in {valueLocation}.
+                    </p>
+                    <button className="btn btn-outline-info" type="button" onClick={this.handleOnClickToSearch}>
+                      See complete charity list
+                    </button>
+                    {this.state.redirecting && <img src={spinner} alt="redirecting..." style={{ height: 30, paddingLeft: 30 }} />}
+                  </CardBody>
+                </Card>
+
+                <Card cascade>
+                  <CardImage tag="div">
+                    <div className="#0091ea light-blue accent-4 text-white p-4">
+                      <h5 className="h5-responsive">
+                        What is "{this.state.causeName}"
+                      </h5>
+                    </div>
+                  </CardImage>
+                  <CardBody>
+                    <p>
+                      {this.state.causeCurrentDetails.length}&nbsp;
+                      {this.state.causeCurrentDetails.length === 1 && <span>
+                          subcategory{" "}
+                        </span>}
+                      {this.state.causeCurrentDetails.length !== 1 && <span>
+                          subcategories{" "}
+                        </span>}
+                      of work
+                    </p>
+                    <hr />
+                    
+                    <ul className="list-unstyled mb-0">{renderCauseSubtypes}</ul>
+                      
+                  </CardBody>
+                </Card>
+              </div>
+            </ScrollableAnchor>
+          }
         </div>
 
         <hr className="mx-4" />
