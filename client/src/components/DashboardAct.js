@@ -103,6 +103,7 @@ class DashboardAct extends Component {
 
     await this.setState({ 
         locationCurrent: location,
+        causeName: '',
         barClicked: false,
         loading: true,
     });
@@ -467,8 +468,7 @@ class DashboardAct extends Component {
           {this.state.barClicked && 
             <div id="causeInfo" style={{width:"80vw"}}>
               <p className="h4-responsive">Here's more about <strong>{this.state.causeName}</strong> in <strong>{valueLocation}</strong>:</p>
-              
-              
+  
               <Card cascade className="mt-2 mb-4">
                 <CardImage tag="div">
                   <div className="#00b8d4 cyan accent-4 text-white p-4">
