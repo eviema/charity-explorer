@@ -162,7 +162,7 @@ class CharitySearch extends Component {
     }
 
     handleSubmit() {
-        console.log(this.state.cause.value, this.state.location.value)
+        // console.log(this.state.cause.value, this.state.location.value)
         if (this.state.cause.value !== undefined && this.state.cause.value !== '' 
             && this.state.location.value !== undefined && this.state.location.value !== '') {
             this.setState({
