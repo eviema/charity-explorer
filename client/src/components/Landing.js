@@ -366,7 +366,7 @@ class Landing extends Component {
                 <div className="row d-flex align-items-stretch justify-content-center ">
                   <div className="col-1">
                     <i
-                      className="fa fa-dollar fa-lg cyan-text"
+                      className="fa fa-dollar-sign fa-lg cyan-text"
                       aria-hidden="true"
                     />
                   </div>
