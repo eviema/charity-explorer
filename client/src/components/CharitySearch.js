@@ -162,7 +162,9 @@ class CharitySearch extends Component {
     }
 
     handleSubmit() {
-        if (this.state.cause.value !== undefined && this.state.location.value !== undefined) {
+        console.log(this.state.cause.value, this.state.location.value)
+        if (this.state.cause.value !== undefined && this.state.cause.value !== '' 
+            && this.state.location.value !== undefined && this.state.location.value !== '') {
             this.setState({
                 loading: true,
                 doneCharitySearch: false,
@@ -211,6 +213,13 @@ class CharitySearch extends Component {
                 .catch(function(e) {
                     console.log("ERROR", e);
                 });
+        }
+        else {
+            this.setState({
+                doneCharitySearch: true,
+                loading: false,
+                charities: [],
+            });
         }
 
     }
@@ -392,6 +401,7 @@ class CharitySearch extends Component {
                             {
                                 this.state.doneCharitySearch && charities.length === 0 &&
                                 valueCause !== undefined && valueLocation !== undefined && 
+                                valueCause !== '' && valueLocation !== '' &&
                                 <h6>
                                     <p />
                                     Sorry, no charities supporting {valueCause} in {valueLocation}.
