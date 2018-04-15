@@ -8,6 +8,10 @@ import Collapsible from 'react-collapsible';
 import ScrollableAnchor, { configureAnchors, goToTop, goToAnchor } from 'react-scrollable-anchor';
 import spinner from '../assets/spinner.gif';
 import causePageTopBackground from '../assets/causePageTopBackground.jpg';
+import totalIncome from '../assets/totalIncome.png';
+import government from '../assets/government128.png';
+import people from '../assets/people128.png';
+import charity from '../assets/charity128.png';
 const greaterMelb = require("./greaterMelb");
 
 class DashboardAct extends Component {
@@ -301,6 +305,7 @@ class DashboardAct extends Component {
     var { causeDonations, causeGrants } = this.state;
     var causeDonationsWithCommas = causeDonations.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     var causeGrantsWithCommas = causeGrants.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    var causeTotalWithCommas = (causeDonations + causeGrants).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
     var renderCauseSubtypes = this.state.causeCurrentDetails.map(subtype => {
       
@@ -373,7 +378,7 @@ class DashboardAct extends Component {
 
         {/* change location */}
         <div className="row d-flex flex-column align-items-center justify-content-center py-4 mx-4">
-          <p className="h3-responsive">
+          <p className="h4-responsive">
             Select the suburb you'd like to explore further: 
           </p>
 
@@ -399,11 +404,11 @@ class DashboardAct extends Component {
           }
 
           {/* quick summary of causes in curernt location */}
-          <div className="row d-flex flex-column align-items-center pt-4 pb-2 mx-4 h4-responsive" style={{width:"80vw"}}>
+          <div className="row d-flex flex-column align-items-center pt-4 pb-2 mx-4 h5-responsive" style={{width:"80vw"}}>
             <div>
               <p>In <strong>{valueLocation}</strong>,</p>
               <p>
-                <i className="fa fa-hand-holding-heart mt-3 mr-5" style={{color:"#E57373"}}></i>
+                <i className="fa fa-hand-holding-usd mt-3 mr-5" style={{color:"#E57373"}}></i>
                 {causesByLocation.length > 0 && 
                   <span className="ml-2">
                     <strong>{causeRecvLeast.name}</strong> received the <strong>least</strong> - ${causeRecvLeastAmtWithCommas}.
@@ -411,9 +416,9 @@ class DashboardAct extends Component {
                 }
               </p>
               <p>
-                <i className="fa fa-hand-holding-heart" style={{color:"#E57373"}}></i>
-                <i className="fa fa-hand-holding-heart" style={{color:"#E57373"}}></i>
-                <i className="fa fa-hand-holding-heart mr-3" style={{color:"#E57373"}}></i>
+                <i className="fa fa-hand-holding-usd" style={{color:"#E57373"}}></i>
+                <i className="fa fa-hand-holding-usd" style={{color:"#E57373"}}></i>
+                <i className="fa fa-hand-holding-usd mr-3" style={{color:"#E57373"}}></i>
                 {causesByLocation.length > 0 && 
                   <span>
                     <strong>{causeRecvMost.name}</strong> received the <strong>most</strong> - ${causeRecvMostAmtWithCommas}.
@@ -472,54 +477,63 @@ class DashboardAct extends Component {
           {this.state.barClicked && 
             <ScrollableAnchor id={'causeInfo'}>
               <div id="causeInfo" style={{width:"80vw"}}>
+                
                 <p className="h4-responsive">Here's more about <strong>{this.state.causeName}</strong> in <strong>{valueLocation}</strong>:</p>
-    
-                <Card cascade className="mt-2 mb-4">
-                  <CardImage tag="div">
-                    <div className="#00b8d4 cyan accent-4 text-white p-4">
-                      <h5 className="h5-responsive">
-                        {this.state.causeName}
-                      </h5>
-                      <br />
-                      <h6 className="h6-responsive">
-                        {valueLocation}
-                      </h6>
+                <p className="small" style={{color: "#616161"}}>
+                  To see details of another cause, click on a bar in the graph above
+                </p>
+                
+                {/* infographics of local cause detailed info  */}
+                <div className="row d-flex flex-column align-items-center justify-content-center p-4 mt-2 mb-4 text-white" style={{background:"#00b8d4"}}>
+                  
+                  <img src={totalIncome} alt="donations and grants received by this local cause" className="mb-3"/>
+                  <h5><span className="font-weight-bold">{this.state.causeName}</span> in <span className="font-weight-bold">{valueLocation}</span> received</h5>
+                  <h2 className="font-weight-bold">${causeTotalWithCommas}</h2>
+                  in 2016*
+                  <p className="mt-3 h5-responsive">{causesByLocation.length - this.state.causeAmtRank} out of {causesByLocation.length} causes there received more.</p>
+                  
+                  <hr className="my-3 mx-5 w-100" style={{border:"1px solid #E0E0E0"}}/>
+                  
+                  <div className="row d-flex align-items-center justify-content-center w-100">
+                    <div className="col-3 d-flex flex-column align-items-center justify-content-center text-center my-3">
+                        <img src={people} alt="people" className="mb-3"/>
+                        <h4 className="font-weight-bold">${causeDonationsWithCommas}</h4>
+                        <span>Donations & bequests</span>
                     </div>
-                  </CardImage>
-                  <CardBody style={{ color: "#616161"}}>
-                    <div>
-                      In 2016*, charities supporting {this.state.causeName} in {valueLocation} received 
-                      <ul>
-                          <li><strong>${causeDonationsWithCommas} donations and bequests</strong></li>
-                          <li><strong>${causeGrantsWithCommas} government grants</strong></li>
-                      </ul>
+                    <div style={{borderLeft: "thick solid #ff0000"}}></div>
+                    <div className="col-3 d-flex flex-column align-items-center justify-content-center text-center my-3">
+                        <img src={government} alt="government" className="mb-3"/>
+                        <h4 className="font-weight-bold">${causeGrantsWithCommas}</h4>
+                        <span>Government grants</span>
                     </div>
-                    <p>{causesByLocation.length - this.state.causeAmtRank} out of {causesByLocation.length} causes there received more.</p>
-                    
-                    <hr />
-                        
-                    <p>
-                      There
-                      {this.state.causeCharityCount !== 1 && <span>
-                          {" "}
-                          are <strong>
-                            {this.state.causeCharityCount} charities{" "}
-                          </strong>
-                        </span>}
-                      {this.state.causeCharityCount === 1 && <span>
-                          {" "}
-                          is <strong>
-                            {this.state.causeCharityCount} charity{" "}
-                          </strong>
-                        </span>}
-                      supporting {this.state.causeName} in {valueLocation}.
-                    </p>
-                    <button className="btn btn-outline-info" type="button" onClick={this.handleOnClickToSearch}>
-                      See complete charity list
-                    </button>
-                    {this.state.redirecting && <img src={spinner} alt="redirecting..." style={{ height: 30, paddingLeft: 30 }} />}
-                  </CardBody>
-                </Card>
+                  </div>
+
+                  <hr className="my-3 mx-5 w-100" style={{border:"1px solid #E0E0E0"}}/>
+
+                  <div className="row d-flex align-items-center justify-content-center">
+                      <img src={charity} alt="care" className="mx-3 my-3"/>
+                      <div className="col d-flex flex-column align-items-center justify-content-center">
+                        <p>
+                          {this.state.causeCharityCount !== 1 && <span>
+                              <span className="font-weight-bold h4-responsive">
+                                {this.state.causeCharityCount} charities{" "}
+                              </span>
+                              support
+                            </span>}
+                          {this.state.causeCharityCount === 1 && <span>
+                              <span className="font-weight-bold h4-responsive">
+                                {this.state.causeCharityCount} charity{" "}
+                              </span>
+                              supports
+                            </span>}
+                          &nbsp;{this.state.causeName} in {valueLocation}.
+                        </p>
+                        <button className="btn btn-success" type="button" onClick={this.handleOnClickToSearch}>
+                          See complete charity list
+                        </button>
+                      </div>
+                  </div>
+                </div>
 
                 <Card cascade>
                   <CardImage tag="div">
