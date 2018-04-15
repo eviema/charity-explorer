@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from 'axios';
 import { Redirect } from 'react-router';
 import Select from 'react-select';
-import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardImage, Popover, PopoverBody, PopoverHeader } from "mdbreact";
+import { Breadcrumb, BreadcrumbItem, Popover, PopoverBody, PopoverHeader } from "mdbreact";
 import Plot from 'react-plotly.js';
 import Collapsible from 'react-collapsible';
 import ScrollableAnchor, { configureAnchors, goToTop, goToAnchor } from 'react-scrollable-anchor';
@@ -12,6 +12,7 @@ import totalIncome from '../assets/totalIncome.png';
 import government from '../assets/government128.png';
 import people from '../assets/people128.png';
 import charity from '../assets/charity128.png';
+import QA from '../assets/QA.png';
 const greaterMelb = require("./greaterMelb");
 
 class DashboardAct extends Component {
@@ -244,7 +245,7 @@ class DashboardAct extends Component {
       yaxis: 'y2',
       type: 'bar',
       orientation: 'h',
-      marker: {color: '#586CCC'},
+      marker: {color: '#9575CD'},
       hoverinfo: 'x+y',
     };
 
@@ -310,26 +311,28 @@ class DashboardAct extends Component {
     var renderCauseSubtypes = this.state.causeCurrentDetails.map(subtype => {
       
       var triggerWhenClosed = 
-        <a className="row d-flex align-items-center mx-1 py-1 px-2 border border-white rounded-top text-white" style={{background:"#7986CB"}}>
+        <a className="row d-flex align-items-center mx-1 py-1 px-2 border-bottom border-white text-white">
           <span>{subtype["Subtype_Name"]}</span>
           <i className="fa fa-angle-down fa-lg ml-auto"></i>
         </a>;
       
       var triggerWhenOpen = 
-        <a className="row d-flex align-items-center mx-1 py-1 px-2 border border-white rounded-top text-white" style={{background:"#7986CB"}}>
+        <a className="row d-flex align-items-center mx-1 py-1 px-2 text-white">
           <span>{subtype["Subtype_Name"]}</span>
           <i className="fa fa-angle-up fa-lg ml-auto"></i>
         </a>;
 
       return (
-        <li key={subtype["_id"]} style={{color: "#424242"}}>
+        <li key={subtype["_id"]} style={{color: "#fafafa"}}>
           <Collapsible trigger={triggerWhenClosed}
                       triggerWhenOpen={triggerWhenOpen}>
-            <p className="m-2 small">{subtype["Subtype_Desc"]}</p>
-            <p className="m-2 small font-italic">
-              <strong>Example: </strong>
-              {subtype["Example"]}
-            </p>
+            <div className="border border-white rounded-top mx-3" style={{background: "#fafafa", color:"#424242"}}>
+              <p className="m-2">{subtype["Subtype_Desc"]}</p>
+              <p className="m-2 font-italic">
+                <strong>Example: </strong>
+                {subtype["Example"]}
+              </p>
+            </div>  
           </Collapsible>
         </li>
       );
@@ -460,7 +463,7 @@ class DashboardAct extends Component {
                   style={{border:"3px dashed #9E9E9E", padding: "2rem", margin:"1rem", minHeight:"30vh", width: "80vw"}}>
               <p>
                 Click on a bar in the graph to see details of
-                a cause here
+                a cause
               </p>
               <p style={{width: "100%", textAlign: "center", borderBottom: "1px solid #9E9E9E", lineHeight: " 0.1em", margin: "10px 0 20px"}}>
                 <span style={{background:"#f3f3f3", padding:"0 10px"}}> Or </span>
@@ -484,7 +487,7 @@ class DashboardAct extends Component {
                 </p>
                 
                 {/* infographics of local cause detailed info  */}
-                <div className="row d-flex flex-column align-items-center justify-content-center p-4 mt-2 mb-4 text-white" style={{background:"#00b8d4"}}>
+                <div className="row d-flex flex-column align-items-center justify-content-center p-4 mt-2 mb-4 text-white mx-1" style={{background:"#00b8d4"}}>
                   
                   <img src={totalIncome} alt="donations and grants received by this local cause" className="mb-3"/>
                   <h5><span className="font-weight-bold">{this.state.causeName}</span> in <span className="font-weight-bold">{valueLocation}</span> received</h5>
@@ -535,31 +538,31 @@ class DashboardAct extends Component {
                   </div>
                 </div>
 
-                <Card cascade>
-                  <CardImage tag="div">
-                    <div className="#0091ea light-blue accent-4 text-white p-4">
-                      <h5 className="h5-responsive">
-                        What is "{this.state.causeName}"
-                      </h5>
-                    </div>
-                  </CardImage>
-                  <CardBody>
-                    <p>
-                      {this.state.causeCurrentDetails.length}&nbsp;
-                      {this.state.causeCurrentDetails.length === 1 && <span>
-                          subcategory{" "}
-                        </span>}
-                      {this.state.causeCurrentDetails.length !== 1 && <span>
-                          subcategories{" "}
-                        </span>}
-                      of work
-                    </p>
-                    <hr />
-                    
-                    <ul className="list-unstyled mb-0">{renderCauseSubtypes}</ul>
-                      
-                  </CardBody>
-                </Card>
+                {/* cause subtypes */}
+                <div className="row d-flex flex-column align-items-center justify-content-center p-4 mt-2 mb-4 text-white mx-1" style={{background:"#00BFA5"}}>
+                  
+                  <div className="row d-flex align-items-center justify-content-center">
+                    <img src={QA} alt="cause general info" className="mr-3"/>
+                    <h2>What is <span className="font-weight-bold">"{this.state.causeName}"?</span></h2>
+                  </div>
+
+                  <hr className="my-3 mx-5 w-100" style={{border:"1px solid #E0E0E0"}}/>
+
+                  <p className="mb-3">
+                    <span className="font-weight-bold h4-responsive">{this.state.causeCurrentDetails.length}</span>&nbsp;
+                    {this.state.causeCurrentDetails.length === 1 && <span>
+                        subcategory{" "}
+                      </span>}
+                    {this.state.causeCurrentDetails.length !== 1 && <span>
+                        subcategories{" "}
+                      </span>}
+                    of work:
+                  </p>
+
+                  <ul className="list-unstyled mb-0">{renderCauseSubtypes}</ul>
+
+                </div>
+
               </div>
             </ScrollableAnchor>
           }
