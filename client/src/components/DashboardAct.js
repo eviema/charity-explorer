@@ -267,7 +267,7 @@ class DashboardAct extends Component {
         autorange: 'reversed',
       },
       showlegend: false,
-      title:`Here's the ranking of total donations and grants (A$) by all charitable causes in ${valueLocation}`
+      title:`Here's the ranking of total donations and grants (A$) by all charitable causes <br />in ${valueLocation}`
     };
 
     // quick summary on top of plots
@@ -357,7 +357,7 @@ class DashboardAct extends Component {
 
         {/* title: causes in location */}
         <div className="row d-flex align-items-center justify-content-center py-4 px-2 text-white" style={titleRowStyle}>
-          <p className="col-11 col-sm-10 col-md-8 col-lg-7 h1-responsive px-5">
+          <p className="col-11 col-sm-10 col-md-8 col-lg-7 h1-responsive px-5" style={{textShadow: "1px 1px 8px #212121"}}>
             Where are donations and grants going to charitable causes in Greater Melbourne?
             <br />
             <span className="pt-3" style={{color: "#F5F5F5", fontSize: "0.4em"}}>
@@ -386,7 +386,7 @@ class DashboardAct extends Component {
         <div className="pb-5" style={{position:"relative"}}>
           {/* loading - section overlay */}
           { this.state.loading && 
-            <div style={{position: 'absolute', top: '0', bottom: '0', left: '0', right: '0', background:"rgba(255, 255, 255,0.8)", zIndex:"2", cursor:"pointer"}}
+            <div style={{position: 'absolute', top: '0', bottom: '0', left: '0', right: '0', background:"rgba(255, 255, 255,0.7)", zIndex:"2", cursor:"pointer"}}
                   className="d-flex justify-content-center pt-5">
               <span className="h3-responsive">Updating...</span>
               <img src={spinner} alt="loading..." style={{ height: 30, paddingLeft: 30 }} />
