@@ -174,7 +174,7 @@ class DashboardAct extends Component {
 
   handleClickOnCauseBar(data) {
     
-    var causeClickedName = data.points[0].y;
+    var causeClickedName = data.name === undefined ? data.points[0].y : data.name;
 
     axios.get('/api/causes/' + causeClickedName)
         .then((res) => {
