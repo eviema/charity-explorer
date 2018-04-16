@@ -57,7 +57,7 @@ class Header extends Component {
         <Router>
             <Navbar dark expand="md" scrolling className="sticky-top" style={headerStyle}>
                 <NavbarBrand href="/home">
-                    <strong>DonateNow</strong>
+                    <strong>CharityExplorer</strong>
                 </NavbarBrand>
                 { !this.state.isWideEnough && <NavbarToggler onClick = { this.onClick } />}
                 <Collapse isOpen = { this.state.collapse } navbar style={navItemBackgroundStyle}>
