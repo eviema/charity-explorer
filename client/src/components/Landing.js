@@ -397,7 +397,7 @@ class Landing extends Component {
                     <p className="font-weight-bold mb-2">Reviewed by donors</p>
                     <p className="small">
                       See what your fellow donors have to say about a charity.
-                      You can also share your experience of donating which helps
+                      You can also review your experience of donating which helps
                       others with their decisions.
                     </p>
                   </div>
