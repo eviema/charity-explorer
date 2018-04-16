@@ -180,7 +180,7 @@ class DashboardAct extends Component {
 
   }
 
-  async handleClickOnCauseBar(data) {
+  handleClickOnCauseBar(data) {
     
     var causeClickedName = data.name === undefined ? data.points[0].y : data.name;
 
@@ -198,7 +198,7 @@ class DashboardAct extends Component {
     
     var causeIndex = this.state.causesByLocation.findIndex((cause => cause.name === causeClickedName));
     
-    await this.setState({
+    this.setState({
         barClicked: true,
         causeName: causeClickedName,
         causeCharityCount: this.state.causesByLocation[causeIndex].charityCount,
@@ -217,6 +217,11 @@ class DashboardAct extends Component {
         searchCharityClicked: true,
         redirecting: true
     });
+  }
+
+  handleClickToGraph() {
+    configureAnchors({offset: -100, scrollDuration: 400});
+    goToAnchor('causesGraph');
   }
 
   render() {
@@ -404,52 +409,56 @@ class DashboardAct extends Component {
             </div>
           }
 
-          {/* quick summary of causes in curernt location */}
-          <div className="row d-flex flex-column align-items-center pt-4 pb-2 mx-4 h5-responsive" style={{width:"80vw"}}>
+          <ScrollableAnchor id={'causesGraph'}>
             <div>
-              <p>In <strong>{valueLocation}</strong>,</p>
-              <p>
-                <i className="fa fa-hand-holding-usd mt-3 mr-5" style={{color:"#E57373"}}></i>
-                {causesByLocation.length > 0 && 
-                  <span className="ml-2">
-                    <strong>{causeRecvLeast.name}</strong> received the <strong>least</strong> - ${causeRecvLeastAmtWithCommas}.
-                  </span>
-                }
-              </p>
-              <p>
-                <i className="fa fa-hand-holding-usd" style={{color:"#E57373"}}></i>
-                <i className="fa fa-hand-holding-usd" style={{color:"#E57373"}}></i>
-                <i className="fa fa-hand-holding-usd mr-3" style={{color:"#E57373"}}></i>
-                {causesByLocation.length > 0 && 
-                  <span>
-                    <strong>{causeRecvMost.name}</strong> received the <strong>most</strong> - ${causeRecvMostAmtWithCommas}.
-                  </span>
-                }
-              </p>
+              {/* quick summary of causes in curernt location */}
+              <div className="row d-flex flex-column align-items-center pt-4 pb-2 mx-4 h5-responsive" style={{width:"80vw"}}>
+                <div>
+                  <p>In <strong>{valueLocation}</strong>,</p>
+                  <p>
+                    <i className="fa fa-hand-holding-usd mt-3 mr-5" style={{color:"#E57373"}}></i>
+                    {causesByLocation.length > 0 && 
+                      <span className="ml-2">
+                        <strong>{causeRecvLeast.name}</strong> received the <strong>least</strong> - ${causeRecvLeastAmtWithCommas}.
+                      </span>
+                    }
+                  </p>
+                  <p>
+                    <i className="fa fa-hand-holding-usd" style={{color:"#E57373"}}></i>
+                    <i className="fa fa-hand-holding-usd" style={{color:"#E57373"}}></i>
+                    <i className="fa fa-hand-holding-usd mr-3" style={{color:"#E57373"}}></i>
+                    {causesByLocation.length > 0 && 
+                      <span>
+                        <strong>{causeRecvMost.name}</strong> received the <strong>most</strong> - ${causeRecvMostAmtWithCommas}.
+                      </span>
+                    }
+                  </p>
+                </div>
+              </div>
+
+              {/* graph of causes in location */}
+              <div className="row d-flex align-items-stretch justify-content-center py-2 mx-4 small" style={{ height: "65vh" }}>
+                <Plot 
+                  data={plotData}
+                  layout={plotLayout}
+                  style={{width: "80vw", height: "60vh"}}
+                  onClick={this.handleClickOnCauseBar}
+                />
+
+                <small className="mt-3">
+                  Sources:&nbsp;&nbsp;
+                  <a href="https://data.gov.au/dataset/acnc2016ais/resource/b4a08924-af4f-4def-96f7-bf32ada7ee2b" target="_blank" rel="noopener noreferrer">
+                    1. ACNC 2016* Annual Information Statement Data
+                  </a>&nbsp;&nbsp;&nbsp;&nbsp;
+                  <a href="https://data.gov.au/dataset/acnc-register" target="_blank" rel="noopener noreferrer">
+                    2. ACNC Registered Charities
+                  </a>
+                </small>
+              </div>
             </div>
-          </div>
-
-          {/* graph of causes in location */}
-          <div className="row d-flex align-items-stretch justify-content-center py-2 mx-4 small" style={{ height: "65vh" }}>
-
-            <Plot 
-              data={plotData}
-              layout={plotLayout}
-              style={{width: "80vw", height: "60vh"}}
-              onClick={this.handleClickOnCauseBar}
-            />
             
-            <small className="mt-3">
-              Sources:&nbsp;&nbsp;
-              <a href="https://data.gov.au/dataset/acnc2016ais/resource/b4a08924-af4f-4def-96f7-bf32ada7ee2b" target="_blank" rel="noopener noreferrer">
-                1. ACNC 2016* Annual Information Statement Data
-              </a>&nbsp;&nbsp;&nbsp;&nbsp;
-              <a href="https://data.gov.au/dataset/acnc-register" target="_blank" rel="noopener noreferrer">
-                2. ACNC Registered Charities
-              </a>
-            </small>
-          </div>
-
+          </ScrollableAnchor>
+          
         </div>
 
         <hr className="mx-4" />
@@ -480,8 +489,8 @@ class DashboardAct extends Component {
               <div id="causeInfo" style={{width:"80vw"}}>
                 
                 <p className="h4-responsive">Here's more about <strong>{this.state.causeName}</strong> in <strong>{valueLocation}</strong>:</p>
-                <p className="small" style={{color: "#616161"}}>
-                  To see details of another cause, click on a bar in the graph above
+                <p style={{color: "#616161"}}>
+                  To see details of another cause, <a onClick={this.handleClickToGraph}><u><strong>click on a bar in the graph above</strong></u></a>
                 </p>
                 
                 {/* infographics of local cause detailed info  */}
