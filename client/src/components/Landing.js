@@ -110,29 +110,29 @@ class Landing extends Component {
               style={{ textShadow: "1px 1px 8px #212121" }}
             >
               <p className="h1-responsive font-weight-bold mt-4">
-                Make a difference today
+                Charity starts at home
               </p>
               <p className="h3-responsive">
-                Help a charity around your neighbourhood
+                Explore charity work around your neighbourhood
               </p>
             </div>
             <a
               className="btn btn-default mt-2 mx-4"
               onClick={this.handleOnClickToExplore}
             >
-              Click to explore
+              Get started
             </a>
           </div>
         </div>
 
-        {/* what is DonateNow */}
+        {/* what is CharityExplorer */}
         <div
           className="row d-flex align-items-center justify-content-center text-center py-5 px-4"
           style={{ color: "#839094", background: "#f5f9fb" }}
         >
-          <p className="col-12 h4-responsive">What is DonateNow?</p>
+          <p className="col-12 h4-responsive">What is CharityExplorer?</p>
           <p className="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-6 h6-responsive">
-            DonateNow is an online information hub for Melburnians to explore
+            CharityExplorer is an online information hub for Melburnians to explore
             local charitable causes, find charities nearby, and contact
             charities to "donate now".
           </p>
