@@ -65,7 +65,7 @@ class AdminLogin extends Component {
             <div className="row d-flex flex-column align-items-center justify-content-center" style={loginPageStyle}>
                 <form className="col-8 col-sm-8 col-md-6 col-lg-5 col-xl-5 text-center" 
                     style={loginBoxStyle} >
-                    <h2 className="my-2 pb-3">Welcome to DonateNow</h2>
+                    <h2 className="my-2 pb-3">Welcome to CharityExplorer</h2>
                     <label>
                         Enter admin username: 
                         <input type="text" name="username" onChange={this.handleChangeUsername} className="mx-2"
