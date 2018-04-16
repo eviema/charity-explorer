@@ -28,7 +28,7 @@ class DashboardAct extends Component {
       causeCharityCount: 0,
       causeDonations: 0,
       causeGrants: 0,
-      causeAmtRank: 0,
+      // causeAmtRank: 0,
       barClicked: false,
       loading: false,
       redirecting: false,
@@ -203,7 +203,7 @@ class DashboardAct extends Component {
         causeCharityCount: this.state.causesByLocation[causeIndex].charityCount,
         causeDonations: this.state.causesByLocation[causeIndex].amtDonations,
         causeGrants: this.state.causesByLocation[causeIndex].amtGrants,
-        causeAmtRank: causeIndex + 1,
+        // causeAmtRank: causeIndex + 1,
     }); 
 
     configureAnchors({offset: -100, scrollDuration: 400});
@@ -370,12 +370,8 @@ class DashboardAct extends Component {
 
         {/* title: causes in location */}
         <div className="row d-flex align-items-center justify-content-center py-4 px-2 text-white" style={titleRowStyle}>
-          <p className="col-11 col-sm-10 col-md-8 col-lg-7 h1-responsive px-5" style={{textShadow: "1px 1px 8px #212121"}}>
+          <p className="col-11 col-sm-10 col-md-8 col-lg-8 col-xl-8 h1-responsive font-weight-bold px-5 text-center" style={{textShadow: "1px 1px 8px #212121"}}>
             Where are donations and grants going to charitable causes in Greater Melbourne?
-            <br />
-            <span className="pt-3" style={{color: "#F5F5F5", fontSize: "0.4em"}}>
-              Data taken from <u><a href="https://data.gov.au/">data.gov.au</a></u>
-            </span>
           </p>
         </div>
 
@@ -493,7 +489,6 @@ class DashboardAct extends Component {
                   <h5><span className="font-weight-bold">{this.state.causeName}</span> in <span className="font-weight-bold">{valueLocation}</span> received</h5>
                   <h2 className="font-weight-bold">${causeTotalWithCommas}</h2>
                   in 2016*
-                  <p className="mt-3 h5-responsive">{causesByLocation.length - this.state.causeAmtRank} out of {causesByLocation.length} causes there received more.</p>
                   
                   <hr className="my-3 mx-5 w-100" style={{border:"1px solid #E0E0E0"}}/>
                   
