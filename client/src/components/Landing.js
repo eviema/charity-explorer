@@ -134,7 +134,7 @@ class Landing extends Component {
           <p className="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-6 h6-responsive">
             CharityExplorer is an online information hub for Melburnians to explore
             local charitable causes, find charities nearby, and contact
-            charities to do their share.
+            suitable charities to do their share.
           </p>
           <div className="row pt-4 d-flex align-items-center justify-content-center text-center">
             <div className="m-2 col-8 col-sm-6 col-md-3 col-lg-3 col-xl-3">
