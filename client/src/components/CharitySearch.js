@@ -516,7 +516,7 @@ class CharitySearch extends Component {
                     </Container>
                     <div className="footer-copyright text-center py-4">
                         <Container fluid>
-                            &copy; {(new Date().getFullYear())} CharityExplorer
+                            &copy; {(new Date().getFullYear())} DonateNow
                             <br />
                             Powered by ACE Solutions
                         </Container>
