@@ -3,7 +3,9 @@ import axios from 'axios';
 import { Breadcrumb, BreadcrumbItem,
         Card, CardBody, CardImage, CardText, 
         Container, Row, Col, TabPane, TabContent, Nav, NavItem, NavLink } from 'mdbreact';   
-import classnames from 'classnames';   
+import classnames from 'classnames';  
+import smileFace from '../assets/smile.png'; 
+import sadFace from '../assets/sad.png';
 
 class Charity extends Component {
 
@@ -145,11 +147,11 @@ class Charity extends Component {
             dgrIcon = <span></span>;
         if (dgrStatus === 'Y') {
             dgrDesc = 'Donations made to this charity are tax deductible';
-            dgrIcon = <span><i className="fa fa-smile"></i></span>;
+            dgrIcon = <span><img src={smileFace} alt="smile face"/></span>;
         }
         else {
             dgrDesc = 'Donations made to this charity are not tax deductible';
-            dgrIcon = <span><i className="fa fa-frown"></i></span>;
+            dgrIcon = <span><img src={sadFace} alt="sad face"/></span>;
         }
 
         const activeItemStyle = {
