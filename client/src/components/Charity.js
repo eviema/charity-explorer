@@ -6,6 +6,14 @@ import { Breadcrumb, BreadcrumbItem,
 import classnames from 'classnames';  
 import smileFace from '../assets/smile.png'; 
 import sadFace from '../assets/sad.png';
+import warningSign from '../assets/warning.png';
+import checkBadge from '../assets/badge.png';
+import cancelSign from '../assets/cancel.png';
+import idCard from '../assets/id-card.png';
+import mission from '../assets/mission.png';
+import people from '../assets/team.png';
+import donation from '../assets/donation.png';
+import address from '../assets/map.png';
 
 class Charity extends Component {
 
@@ -101,23 +109,23 @@ class Charity extends Component {
         switch (size) {
             case 'Small':
                 sizeIcon = 
-                    <span className="mr-2">
-                        <i className="fa fa-male"></i>
+                    <span className="mx-2">
+                        <i className="fa fa-male fa-lg"></i>
                     </span>;
                 break;
             case 'Medium':
                 sizeIcon = 
-                    <span className="mr-1">
-                        <i className="fa fa-male"></i>
-                        <i className="fa fa-male"></i>
+                    <span className="mx-1 text-primary">
+                        <i className="fa fa-male fa-lg"></i>
+                        <i className="fa fa-male fa-lg"></i>
                     </span>;
                 break;
             case 'Large':
                 sizeIcon = 
                     <span>
-                        <i className="fa fa-male"></i>
-                        <i className="fa fa-male"></i>
-                        <i className="fa fa-male"></i>
+                        <i className="fa fa-male fa-lg"></i>
+                        <i className="fa fa-male fa-lg"></i>
+                        <i className="fa fa-male fa-lg"></i>
                     </span>;
                 break;
             default:
@@ -129,15 +137,15 @@ class Charity extends Component {
         switch (regStatus) {
             case 'REG':
                 regDesc = 'Has an active registration with ACNC';
-                regIcon = <span><i className="fa fa-check-circle"></i></span>;
+                regIcon = <span><img src={checkBadge} alt="check badge"/></span>;
                 break;
             case 'REV':
                 regDesc = 'Registration was revoked by ACNC';
-                regIcon = <span><i className="fa fa-ban"></i></span>;
+                regIcon = <span><img src={cancelSign} alt="cancel sign"/></span>;
                 break;
             case 'VREV':
                 regDesc = 'Registration voluntarily revoked';
-                regIcon = <span><i className="fa fa-exclamation-circle"></i></span>;
+                regIcon = <span><img src={warningSign} alt="warning sign"/></span>;
                 break;
             default:
                 break;
@@ -208,14 +216,13 @@ class Charity extends Component {
                             <CardBody>
                                 <p className="h6-responsive" style={{color: "#89959B"}}>{suburb} VIC {postcode} <strong>·</strong> {cause}</p>
                                 <CardText>
-                                    {sizeIcon}
-                                    <span className="mx-2">{size} size</span> <br />
-                                    {regIcon}
-                                    <span className="mx-2">{regDesc}</span> <br />
-                                    {dgrIcon}
-                                    <span className="mx-2">{dgrDesc}</span> <br />
-                                    <span><i className="fa fa-id-card"></i></span>
-                                    <span className="mx-2">ABN: {ABN}</span>
+                                    <span className="my-3">{sizeIcon}<span className="ml-2 mr-4">{size} size</span></span> 
+                                    <span className="my-3">{regIcon}<span className="mx-2">{regDesc}</span></span> <br />
+                                    <span className="my-3">{dgrIcon}<span className="mx-2">{dgrDesc}</span></span> <br />
+                                    <span className="my-3">
+                                        <img src={idCard} alt="Australian Business Number"/>
+                                        <span className="mx-2">ABN: {ABN}</span>
+                                    </span>
                                 </CardText>
                             </CardBody>
                         </Card>
@@ -251,18 +258,18 @@ class Charity extends Component {
                                             
                                             {/* overview */}
                                             <TabPane tabId="1">
-                                                <h4>Mission</h4>
-                                                <p>{desc}</p>
+                                                <h4><img src={mission} alt="mission" className="mr-2"/> Mission</h4>
+                                                <p className="pl-5">{desc}</p>
                                                 
                                                 <hr />
 
-                                                <h4>Target population(s)</h4>
-                                                <ul className="list-unstyled">{renderPpltns}</ul>
+                                                <h4><img src={people} alt="target populations" className="mr-2"/> Target population(s)</h4>
+                                                <ul className="list-unstyled pl-5">{renderPpltns}</ul>
 
                                                 <hr />
                                                 
-                                                <h4>How much reached those in need</h4>
-                                                <p>
+                                                <h4><img src={donation} alt="donation" className="mr-2"/> How much reached those in need</h4>
+                                                <p className="pl-5">
                                                     In 2016, &nbsp;
                                                     <strong className="h2-responsive" style={percStyle}>
                                                         {percAusUse * 100}%
@@ -274,8 +281,8 @@ class Charity extends Component {
 
                                                 {/* <h4>Reviews</h4> */}
 
-                                                <h4>Address</h4>
-                                                <div>
+                                                <h4><img src={address} alt="address" className="mr-2"/> Address</h4>
+                                                <div className="pl-5">
                                                     <span>{streetAddLn1}</span> <br />
                                                     {
                                                         {streetAddLn2} !== '' &&
