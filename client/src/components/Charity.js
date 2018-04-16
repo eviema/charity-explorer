@@ -109,7 +109,7 @@ class Charity extends Component {
         switch (size) {
             case 'Small':
                 sizeIcon = 
-                    <span className="mx-2">
+                    <span className="mx-2 text-primary">
                         <i className="fa fa-male fa-lg"></i>
                     </span>;
                 break;
@@ -122,7 +122,7 @@ class Charity extends Component {
                 break;
             case 'Large':
                 sizeIcon = 
-                    <span>
+                    <span className="text-primary">
                         <i className="fa fa-male fa-lg"></i>
                         <i className="fa fa-male fa-lg"></i>
                         <i className="fa fa-male fa-lg"></i>
