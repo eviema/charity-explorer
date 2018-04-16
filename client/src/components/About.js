@@ -95,11 +95,23 @@ const About = () => {
               </a>
             </p>
 
+            {/* image crediting */}
+            <p className="h4-responsive font-weight-bold pt-3">Icon sources</p>
+            <div>
+              All icons used for the website are made by <a href="https://www.flaticon.com/authors/vectors-market" title="Vectors Market">
+                Vectors Market
+              </a> from <a href="https://www.flaticon.com/" title="Flaticon">
+                www.flaticon.com
+              </a> under the license <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">
+                CC 3.0 BY
+              </a>.
+            </div>
+
             {/* copyright */}
             <p className="h4-responsive font-weight-bold pt-3">Copyright</p>
             <p>
               This website and its content is copyright of ACE Solutions - ©
-              ACE Solutions {(new Date().getFullYear())}. All rights reserved.
+              ACE Solutions {new Date().getFullYear()}. All rights reserved.
             </p>
             <p>
               Any redistribution or reproduction of part or all of the contents in any form is prohibited other than the following:
