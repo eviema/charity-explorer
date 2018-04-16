@@ -22,6 +22,7 @@
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.1",
+    "react-scroll-up-button": "^1.5.11",
     "react-scrollable-anchor": "^0.6.1",
     "react-select": "^1.2.1",
     "react-typeform-embed": "^0.1.4",

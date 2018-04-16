@@ -3,6 +3,7 @@ import { Redirect } from "react-router";
 import { Card, CardBody, CardImage, CardText } from "mdbreact";
 import landingBackground from "../assets/landingBackground.jpg";
 import magnifyingGlass from "../assets/landingMagnify.png";
+import ScrollUpButton from "react-scroll-up-button";
 
 class Landing extends Component {
   constructor(props) {
@@ -99,6 +100,7 @@ class Landing extends Component {
 
     return (
       <div className="container-fluid">
+        <ScrollUpButton />
         {/* top of landing page */}
         <div
           className="row d-flex align-items-center justify-content-start p-5"

@@ -13,6 +13,7 @@ import government from '../assets/government128.png';
 import people from '../assets/people128.png';
 import charity from '../assets/charity128.png';
 import QA from '../assets/QA.png';
+import ScrollUpButton from 'react-scroll-up-button';
 const greaterMelb = require("./greaterMelb");
 
 class DashboardAct extends Component {
@@ -359,6 +360,7 @@ class DashboardAct extends Component {
     
     return (
       <div className="container-fluid" style={{ padding: "0", background: "#F3F3F3"}}>
+        <ScrollUpButton />
         <Breadcrumb className="small mb-0">
           <BreadcrumbItem>
             <a href="/home">

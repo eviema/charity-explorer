@@ -3,6 +3,7 @@ import { Breadcrumb, BreadcrumbItem } from "mdbreact";
 import acncLogo from "../assets/acncLogo.png";
 import dataGovAuLogo from "../assets/dataGovAuLogo.png";
 import aboutBackground from '../assets/aboutBackground.jpg';
+import ScrollUpButton from "react-scroll-up-button";
 
 const About = () => {
 
@@ -16,7 +17,9 @@ const About = () => {
         width: "100vw"
     };
 
-  return <div>
+  return (
+    <div>
+      <ScrollUpButton />
       <Breadcrumb className="mb-0">
         <BreadcrumbItem>
           <a href="/home">
@@ -98,11 +101,11 @@ const About = () => {
             {/* image crediting */}
             <p className="h4-responsive font-weight-bold pt-3">Icon sources</p>
             <div>
-              All icons used for the website are made by <a href="https://www.flaticon.com/authors/vectors-market" title="Vectors Market">
+              All icons used for the website are made by <a href="https://www.flaticon.com/authors/vectors-market" title="Vectors Market" target="_blank" rel="noopener noreferrer">
                 Vectors Market
-              </a> from <a href="https://www.flaticon.com/" title="Flaticon">
+              </a> from <a href="https://www.flaticon.com/" title="Flaticon" target="_blank" rel="noopener noreferrer">
                 www.flaticon.com
-              </a> under the license <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">
+              </a> under the license <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank" rel="noopener noreferrer">
                 CC 3.0 BY
               </a>.
             </div>
@@ -171,7 +174,7 @@ const About = () => {
           </div>
         </div>
       </div>
-    </div>;
+                  </div>);
 };
 
 export default About;
