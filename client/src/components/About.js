@@ -44,9 +44,9 @@ const About = () => {
         <div className="row py-5 m-2 d-flex justify-content-center">
           <div className="col-12 col-sm-12 col-md-10 col-lg-8 col-xl-8">
             {/* who we are */}
-            <p className="h4-responsive font-weight-bold">DonateNow</p>
+            <p className="h4-responsive font-weight-bold">CharityExplorer</p>
             <p>
-              DonateNow is an online information hub for Melburnians to find a
+              CharityExplorer is an online information hub for Melburnians to find a
               charitable cause in their local area that they are interested
               in, and a suitable charity to make donations to.
             </p>
