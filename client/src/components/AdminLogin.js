@@ -38,10 +38,10 @@ class AdminLogin extends Component {
 
     render() {
 
-        if (this.state.loginClicked && this.state.username === 'ace' && this.state.password === 'ace') {
+        if (this.state.loginClicked && this.state.username === 'ace' && this.state.password === 'csat') {
             return <Redirect push to="/home" />;
         }
-        if (this.state.loginClicked && (this.state.username !== 'ace' || this.state.password !== 'ace')) {
+        if (this.state.loginClicked && (this.state.username !== 'ace' || this.state.password !== 'csat')) {
             alert('Oops. Username or password incorrect. Please try again.');
             this.setState({
                 loginClicked: false
