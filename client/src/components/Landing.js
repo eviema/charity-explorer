@@ -337,7 +337,7 @@ class Landing extends Component {
                     <p className="small">
                       It's easy to search for charities that support a cause in
                       your suburb. Don't worry if there is none - we'll show you
-                      the nearest charities around your suburb.
+                      the charities in other suburbs near you.
                     </p>
                   </div>
                 </div>
