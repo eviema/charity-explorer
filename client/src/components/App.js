@@ -8,7 +8,7 @@ import CharitySearch from './CharitySearch';
 import Charity from './Charity';
 import DashboardAct from './DashboardAct';
 import About from './About';
-import Contact from './Contact';
+// import Contact from './Contact';
 import Footer from './Footer';
 
 class App extends Component {
@@ -27,7 +27,7 @@ class App extends Component {
                         <Route path="/charity/:ABN" component={Charity} />
                         <Route path="/charities/dashboardAct" component={DashboardAct} />
                         <Route path="/about" component={About}/>
-                        <Route path="/contact" component={Contact}/>
+                        {/* <Route path="/contact" component={Contact}/> */}
                         <Footer />
                     </div>
                 </BrowserRouter>

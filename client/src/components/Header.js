@@ -73,10 +73,10 @@ class Header extends Component {
                         </NavItem>
                         <NavItem>
                             <a className="nav-link" href="/about">About</a>
-                        </NavItem>
+                        </NavItem>{/* 
                         <NavItem>
                             <a className="nav-link" href="/contact">Contact</a>
-                        </NavItem>
+                        </NavItem> */}
                     </NavbarNav>
                 </Collapse>
             </Navbar>

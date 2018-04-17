@@ -22,9 +22,9 @@ const Footer = () => {
                 <Col md="2">
                     <h6 className="title font-weight-bold"><a href="/about">About</a></h6>
                 </Col>
-                <Col md="2">
+                {/* <Col md="2">
                     <h6 className="title font-weight-bold"><a href="/contact">Contact</a></h6>
-                </Col>
+                </Col> */}
             </Row>
             </Container>
             <div className="footer-copyright text-center py-4">
