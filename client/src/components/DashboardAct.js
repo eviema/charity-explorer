@@ -493,7 +493,7 @@ class DashboardAct extends Component {
           
           {this.state.barClicked && 
             <ScrollableAnchor id={'causeInfo'}>
-              <div id="causeInfo" className="py-3 mx-3 mb-2" style={{width:"80vw"}}>
+              <div className="py-3 mx-3 mb-2" style={{width:"80vw"}}>
                 
                 <p className="h4-responsive">Here's more about <strong>{this.state.causeName}</strong> in <strong>{valueLocation}</strong>:</p>
                 <p style={{color: "#616161"}}>
