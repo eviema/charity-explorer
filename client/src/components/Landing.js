@@ -95,7 +95,7 @@ class Landing extends Component {
       position: "absolute",
       bottom: "0",
       background: "rgba(236, 239, 241, 0.85)",
-      cursor:'pointer'     
+      // cursor:'pointer'     
     };
 
     return (
