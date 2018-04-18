@@ -127,14 +127,14 @@ class Landing extends Component {
           </div>
         </div>
 
-        {/* what is CharityExplorer */}
+        {/* what is DonateNow */}
         <div
           className="row d-flex align-items-center justify-content-center text-center py-5 px-4"
           style={{ color: "#839094", background: "#f5f9fb" }}
         >
-          <p className="col-12 h4-responsive">What is CharityExplorer?</p>
+          <p className="col-12 h4-responsive">What is DonateNow?</p>
           <p className="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-6 h6-responsive">
-            CharityExplorer is an online information hub for Melburnians to explore
+            DonateNow is an online information hub for Melburnians to explore
             local charitable causes, find charities nearby, and contact
             suitable charities to do their share.
           </p>
