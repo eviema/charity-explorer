@@ -78,7 +78,8 @@ class DashboardAct extends Component {
         causesByLocation: greaterMelb
     });
 
-    if (this.props.location.state !== undefined) {
+    // if a cause card is clicked on Landing, take user to cause details
+    /* if (this.props.location.state !== undefined) {
       await this.setState({
         causeName: this.props.location.state.causeName,
         barClicked: true
@@ -88,7 +89,7 @@ class DashboardAct extends Component {
 
       this.handleClickOnCauseBar(barData);
 
-    }
+    } */
 
     window.addEventListener("resize", this.resize.bind(this));
     this.resize();
