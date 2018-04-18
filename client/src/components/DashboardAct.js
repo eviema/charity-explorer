@@ -400,7 +400,7 @@ class DashboardAct extends Component {
 
         <hr className="mx-4" />
 
-        <div className="pb-5" style={{position:"relative"}}>
+        <div style={{position:"relative"}}>
           {/* loading - section overlay */}
           { this.state.loading && 
             <div style={{position: 'absolute', top: '0', bottom: '0', left: '0', right: '0', background:"rgba(255, 255, 255,0.7)", zIndex:"2", cursor:"pointer"}}
@@ -411,7 +411,7 @@ class DashboardAct extends Component {
           }
 
           <ScrollableAnchor id={'causesGraph'}>
-            <div>
+            <div className="row d-flex flex-column align-items-center" >
               {/* quick summary of causes in curernt location */}
               <div className="row d-flex flex-column align-items-center pt-4 pb-2 mx-4 h5-responsive" style={{width:"80vw"}}>
                 <div>
@@ -456,38 +456,44 @@ class DashboardAct extends Component {
                   </a>
                 </small>
               </div>
+
+              {/* instruct user to click on a bar to see more about a cause */}
+              {!this.state.barClicked && 
+                <div className="row d-flex align-items-center justify-content-center pb-5 mx-4" 
+                      style={{border:"3px dashed #9E9E9E", padding: "2rem", margin:"1rem", width: "80vw"}}>
+                  <p>
+                    Click on a bar in the graph to see details of
+                    a cause
+                  </p>
+                  <p style={{width: "100%", textAlign: "center", borderBottom: "1px solid #9E9E9E", lineHeight: " 0.1em", margin: "10px 0 20px"}}>
+                    <span style={{background:"#f3f3f3", padding:"0 10px"}}> Or </span>
+                  </p>
+                  <button className="btn btn-outline-info" type="button" onClick={this.handleOnClickToSearch}>
+                    Search for charities in 
+                    { valueLocation !== "" && this.state.loading && 
+                      <span> ... </span>}
+                    {valueLocation !== "" && !this.state.loading && 
+                      <span> {valueLocation} </span>}
+                  </button>
+                </div>
+              }
+
             </div>
             
           </ScrollableAnchor>
           
         </div>
 
-        <hr className="mx-4" />
+        {
+          this.state.barClicked && <hr className="mx-4" />
+        }
               
         {/* details info of cause in location */}
-        <div className="row d-flex align-items-center justify-content-center py-3 mx-3 mb-4">
-          {!this.state.barClicked && 
-            <div className="row d-flex align-items-center justify-content-center" 
-                  style={{border:"3px dashed #9E9E9E", padding: "2rem", margin:"1rem", minHeight:"30vh", width: "80vw"}}>
-              <p>
-                Click on a bar in the graph to see details of
-                a cause
-              </p>
-              <p style={{width: "100%", textAlign: "center", borderBottom: "1px solid #9E9E9E", lineHeight: " 0.1em", margin: "10px 0 20px"}}>
-                <span style={{background:"#f3f3f3", padding:"0 10px"}}> Or </span>
-              </p>
-              <button className="btn btn-outline-info" type="button" onClick={this.handleOnClickToSearch}>
-                Search for charities in 
-                { valueLocation !== "" && this.state.loading && 
-                  <span> ... </span>}
-                {valueLocation !== "" && !this.state.loading && 
-                  <span> {valueLocation} </span>}
-              </button>
-            </div>
-          }
+        <div className="row d-flex align-items-center justify-content-center">
+          
           {this.state.barClicked && 
             <ScrollableAnchor id={'causeInfo'}>
-              <div id="causeInfo" style={{width:"80vw"}}>
+              <div id="causeInfo" className="py-3 mx-3 mb-2" style={{width:"80vw"}}>
                 
                 <p className="h4-responsive">Here's more about <strong>{this.state.causeName}</strong> in <strong>{valueLocation}</strong>:</p>
                 <p style={{color: "#616161"}}>
