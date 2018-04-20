@@ -112,15 +112,12 @@ class Landing extends Component {
               style={{ textShadow: "1px 1px 8px #212121" }}
             >
               <p className="h1-responsive font-weight-bold mt-4">
-                Charity starts at home
-              </p>
-              <p className="h3-responsive">
-                Explore charity work around your neighbourhood
+                Explore charities around your neighbourhood
               </p>
             </div>
             <a
               className="btn btn-default mt-2 mx-4"
-              onClick={this.handleOnClickToExplore}
+              onClick={this.handleOnClickToSearch}
             >
               Get started
             </a>
