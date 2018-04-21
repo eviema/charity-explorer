@@ -353,7 +353,7 @@ class DashboardAct extends Component {
             backgroundAttachment: "scroll",
             backgroundSize: "cover",
             backgroundPosition: "center",
-            height: "50vh",
+            height: "40vh",
         } 
       : {
             background: `url(${causePageTopBackground})`,
@@ -361,7 +361,7 @@ class DashboardAct extends Component {
             backgroundAttachment: "fixed",
             backgroundSize: "cover",
             backgroundPosition: "center",
-            height: "50vh",
+            height: "40vh",
         }
     
     return (
