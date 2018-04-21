@@ -379,7 +379,7 @@ class DashboardAct extends Component {
         {/* title: causes in location */}
         <div className="row d-flex align-items-center justify-content-center py-4 px-2 text-white" style={titleRowStyle}>
           <p className="col-11 col-sm-10 col-md-8 col-lg-8 col-xl-8 h1-responsive font-weight-bold px-5 text-center" style={{textShadow: "1px 1px 8px #212121"}}>
-            Which charitable causes are donations and grants going to in Greater Melbourne?
+            Discover charitable causes in your suburb
           </p>
         </div>
 
