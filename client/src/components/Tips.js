@@ -43,8 +43,8 @@ class Tips extends Component {
                 <ScrollUpButton />
                 
                 {/* title row */}
-                <div className="row d-flex align-items-center justify-content-end py-4 px-2" style={titleRowStyle}>
-                    <div className="pt-4 col-12 col-sm-12 col-md-8 col-lg-6 col-xl-6">
+                <div className="row d-flex align-items-center justify-content-end p-5" style={titleRowStyle}>
+                    <div className="pt-4 col-11 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                         <div className="p-4">
                             <p className="h1-responsive font-weight-bold mt-4" style={{ color: "#212121", textShadow: "1px 1px 8px #fafafa" }}>
                                 6 Tips for Donors
@@ -65,7 +65,7 @@ class Tips extends Component {
                             <p className="row d-flex align-items-center justify-content-start m-3">
                                 <span style={tipNumberingStyle}>
                                     <span className="h4-responsive">Tip</span> <br />
-                                    <span className="h1-responsive">1</span>
+                                    <span className="h2-responsive">1</span>
                                 </span>
                                 <span className="col h3-responsive font-weight-bold mx-3 my-1" style={{color: "#424242"}}>
                                     Find a cause that interests you the most and research on it
@@ -87,7 +87,7 @@ class Tips extends Component {
                             <p className="row d-flex align-items-center justify-content-start m-3">
                                 <span style={tipNumberingStyle}>
                                     <span className="h4-responsive">Tip</span> <br />
-                                    <span className="h1-responsive">2</span>
+                                    <span className="h2-responsive">2</span>
                                 </span>
                                 <span className="col h3-responsive font-weight-bold mx-3 my-1" style={{color: "#424242"}}>
                                     Check the ratings, reviews and critiques about the organization
@@ -109,7 +109,7 @@ class Tips extends Component {
                             <p className="row d-flex align-items-center justify-content-start m-3">
                                 <span style={tipNumberingStyle}>
                                     <span className="h4-responsive">Tip</span> <br />
-                                    <span className="h1-responsive">3</span>
+                                    <span className="h2-responsive">3</span>
                                 </span>
                                 <span className="col h3-responsive font-weight-bold mx-3 my-1" style={{color: "#424242"}}>
                                     Focus on one or few charities
@@ -131,7 +131,7 @@ class Tips extends Component {
                             <p className="row d-flex align-items-center justify-content-start m-3">
                                 <span style={tipNumberingStyle}>
                                     <span className="h4-responsive">Tip</span> <br />
-                                    <span className="h1-responsive">4</span>
+                                    <span className="h2-responsive">4</span>
                                 </span>
                                 <span className="col h3-responsive font-weight-bold mx-3 my-1" style={{color: "#424242"}}>
                                     Verify the impact of your donation
@@ -152,7 +152,7 @@ class Tips extends Component {
                             <div className="row d-flex align-items-center justify-content-start m-3">
                                 <span style={tipNumberingStyle}>
                                     <span className="h4-responsive">Tip</span> <br />
-                                    <span className="h1-responsive">5</span>
+                                    <span className="h2-responsive">5</span>
                                 </span>
                                 <span className="col h3-responsive font-weight-bold mx-3 my-1" style={{color: "#424242"}}>
                                     If possible, make a contribution every month
@@ -173,7 +173,7 @@ class Tips extends Component {
                             <p className="row d-flex align-items-center justify-content-start m-3">
                                 <span style={tipNumberingStyle}>
                                     <span className="h4-responsive">Tip</span> <br />
-                                    <span className="h1-responsive">6</span>
+                                    <span className="h2-responsive">6</span>
                                 </span>
                                 <span className="col h3-responsive font-weight-bold mx-3 my-1" style={{color: "#424242"}}>
                                     Do good and save on tax!
