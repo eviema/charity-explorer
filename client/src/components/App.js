@@ -10,6 +10,7 @@ import DashboardAct from './DashboardAct';
 import About from './About';
 // import Contact from './Contact';
 import Footer from './Footer';
+import Tips from './Tips';
 
 class App extends Component {
 
@@ -26,6 +27,7 @@ class App extends Component {
                         <Route path="/charitySearch" component={CharitySearch} />
                         <Route path="/charity/:ABN" component={Charity} />
                         <Route path="/charities/dashboardAct" component={DashboardAct} />
+                        <Route path="/tipsForDonors" component={Tips} />
                         <Route path="/about" component={About}/>
                         {/* <Route path="/contact" component={Contact}/> */}
                         <Footer />

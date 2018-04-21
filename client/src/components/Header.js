@@ -66,10 +66,13 @@ class Header extends Component {
                             <a className="nav-link" href="/home">Home<span className="sr-only">(current)</span></a>
                         </NavItem>
                         <NavItem>
+                            <a className="nav-link" href="/charitySearch">Charities</a>
+                        </NavItem>
+                        <NavItem>
                             <a className="nav-link" href="/charities/dashboardAct">Charitable causes</a>
                         </NavItem>
                         <NavItem>
-                            <a className="nav-link" href="/charitySearch">Charities</a>
+                            <a className="nav-link" href="/tipsForDonors">Tips for donors</a>
                         </NavItem>
                         <NavItem>
                             <a className="nav-link" href="/about">About</a>

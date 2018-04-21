@@ -22,6 +22,9 @@ const Footer = () => {
                 <Col md="2">
                     <h6 className="title font-weight-bold"><a href="/about">About</a></h6>
                 </Col>
+                <Col md="2">
+                    <h6 className="title font-weight-bold"><a href="/tipsForDonors">Tips for donors</a></h6>
+                </Col>
                 {/* <Col md="2">
                     <h6 className="title font-weight-bold"><a href="/contact">Contact</a></h6>
                 </Col> */}
