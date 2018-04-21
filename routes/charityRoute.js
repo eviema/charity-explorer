@@ -16,7 +16,7 @@ module.exports = (app) => {
     );
 
     app.get(
-        '/api/charitiesByLoc/:location',
+        '/api/charitiesByLoc/:location', // location here means suburb+VIC+postcode
         async (req, res) => {
             var location = req.params.location;
             var locationArray = location.split(" VIC ");
@@ -45,7 +45,7 @@ module.exports = (app) => {
     );
 
     app.get(
-        '/api/charities/:location/:cause',
+        '/api/charities/:location/:cause', // location here means suburb+VIC+postcode
         async (req, res) => {
             
             var charitiesAllMatched = [];
@@ -74,6 +74,17 @@ module.exports = (app) => {
     );
 
     app.get(
+        '/api/charitiesByCouncil/:council/:cause',
+        async (req, res) => {
+            const charitiesAllMatched = await Charity.find({
+                Main_Activity: req.params.cause,
+                Municipality: req.params.council
+            });
+            res.send(charitiesAllMatched);
+        }
+    );
+
+    app.get(
         '/api/causes-all',
         async (req, res) => {
             const causesAll = await Cause.find({});
@@ -86,6 +97,19 @@ module.exports = (app) => {
         async (req, res) => {
             const locationsAll = await Location.find({});
             res.send(locationsAll);
+        }
+    );
+
+    app.get(
+        '/api/location/:location',
+        async (req, res) => {
+            var location = req.params.location;
+            var locationArray = location.split(" VIC ");
+            const locationMatched = await Location.find({
+                Town_City: locationArray[0],
+                Postcode: locationArray[1],
+            });
+            res.send(locationMatched);
         }
     );
 

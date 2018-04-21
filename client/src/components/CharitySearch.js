@@ -28,11 +28,11 @@ class CharitySearch extends Component {
         const conditions = [
             {
                 value: 'amtAllLow',
-                label: 'Lowest amount of income received'
+                label: 'Lowest amount of donations received'
             },
             {
                 value: 'amtAllHigh',
-                label: 'Highest amount of income received'
+                label: 'Highest amount of donations received'
             },/* 
             {
                 value: 'amtDonationsLow',
@@ -41,14 +41,6 @@ class CharitySearch extends Component {
             {
                 value: 'amtDonationsHigh',
                 label: 'Amount of donations and bequests received (high - low)'
-            },
-            {
-                value: 'amtGrantsLow',
-                label: 'Amount of government grants received (low - high)'
-            },
-            {
-                value: 'amtGrantsHigh',
-                label: 'Amount of government grants received (high - low)'
             }, */
         ];
         
@@ -57,10 +49,12 @@ class CharitySearch extends Component {
             location: locationCurrent,
             causes: [],
             locations: [],
+            council: '',
             charities: [],
             currentPage: 1,
             charitiesPerPage: 6,
             doneCharitySearch: false,
+            doneCharitySearchByCouncil: false,
             sortByConditions: conditions,
             sortByCondCurrent: {},
             loading: false,
@@ -69,6 +63,7 @@ class CharitySearch extends Component {
         this.handleInputChangeOfCause = this.handleInputChangeOfCause.bind(this);
         this.handleInputChangeOfLocation = this.handleInputChangeOfLocation.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleKeyPress = this.handleKeyPress.bind(this);
         this.handleClickOnPageNumber = this.handleClickOnPageNumber.bind(this);
         this.handleClickToSearch = this.handleClickToSearch.bind(this);
         this.handleSort = this.handleSort.bind(this);
@@ -161,19 +156,23 @@ class CharitySearch extends Component {
         });
     }
 
-    handleSubmit() {
+    async handleSubmit() {
         // console.log(this.state.cause.value, this.state.location.value)
         if (this.state.cause.value !== undefined && this.state.cause.value !== '' 
             && this.state.location.value !== undefined && this.state.location.value !== '') {
+            
             this.setState({
                 loading: true,
                 doneCharitySearch: false,
+                doneCharitySearchByCouncil: false,
             });
+
+            var charitiesMatched = [];
     
-            axios.get('/api/charities/' + this.state.location.value + '/' + this.state.cause.value)
-                .then((res) => {
-                    var charitiesMatched = [];
-                    res.data.forEach((entry) => {
+            await axios.get('/api/charities/' + this.state.location.value + '/' + this.state.cause.value)
+                .then(async (res) => {
+                    
+                    await res.data.forEach((entry) => {
                         charitiesMatched.push(
                             {
                                 ABN: entry["ABN"],
@@ -181,39 +180,99 @@ class CharitySearch extends Component {
                                 desc: entry["Charity_activities_and_outcomes_helped_achieve_charity_purpose"],
                                 suburb: entry["Town_City"],
                                 postcode: entry["Postcode"],
-                                council: entry["Municipality"],
                                 cause: entry["Main_Activity"],
                                 amtDonations: entry["Donations_and_bequests"],
                                 amtGovGrants: entry["Government_grants"],
                             }
                         );
                     })
-    
-                    // sort charity results by total amount received
-                    const charitiesSortedByTotalAmt = [].concat(charitiesMatched)
-                        .sort((charity1, charity2) => {
-                            const charity1TotalAmt = charity1.amtDonations + charity1.amtGovGrants,
-                                charity2TotalAmt = charity2.amtDonations + charity2.amtGovGrants;
-                            return charity1TotalAmt - charity2TotalAmt;
-                        });
-    
-                    this.setState({
-                        charities: charitiesSortedByTotalAmt,
-                        sortByCondCurrent: {
-                            value: 'amtAllLow',
-                            label: 'Lowest amount of income received'
-                        },
-                        doneCharitySearch: true,
-                        loading: false
-                    });
-    
-                    window.scrollTo(0, 0);
-    
                 })
                 .catch(function(e) {
                     console.log("ERROR", e);
                 });
+
+            // sort charity results by total amount received
+            const charitiesSortedByTotalAmt = [].concat(charitiesMatched)
+            .sort((charity1, charity2) => {
+                const charity1TotalAmt = charity1.amtDonations + charity1.amtGovGrants,
+                    charity2TotalAmt = charity2.amtDonations + charity2.amtGovGrants;
+                return charity1TotalAmt - charity2TotalAmt;
+            });
+
+            await this.setState({
+                charities: charitiesSortedByTotalAmt,
+                sortByCondCurrent: {
+                    value: 'amtAllLow',
+                    label: 'Lowest amount of donations received'
+                },
+                doneCharitySearch: true,
+                loading: false
+            });
+
+            // if there is NO charity of that cause in that suburb
+            if (this.state.charities.length === 0) {
+                this.setState({
+                    doneCharitySearch: false,
+                    loading: true
+                });
+                // get local council name by the suburb
+                axios.get('/api/location/' + this.state.location.value)
+                    .then((res) => {
+                        var locationMatched = res.data[0];
+                        this.setState({
+                            council: locationMatched['Municipality'],
+                        });
+
+                        // find charities of that cause in that local council
+                        axios.get('/api/charitiesByCouncil/' + this.state.council + '/' + this.state.cause.value)
+                            .then(async (res) => {
+                                res.data.forEach((entry) => {
+                                    charitiesMatched.push(
+                                        {
+                                            ABN: entry["ABN"],
+                                            name: entry["Charity_Name"],
+                                            desc: entry["Charity_activities_and_outcomes_helped_achieve_charity_purpose"],
+                                            suburb: entry["Town_City"],
+                                            postcode: entry["Postcode"],
+                                            cause: entry["Main_Activity"],
+                                            amtDonations: entry["Donations_and_bequests"],
+                                            amtGovGrants: entry["Government_grants"],
+                                        }
+                                    );
+                                });
+
+                                // sort charity results by total amount received
+                                const charitiesSortedByTotalAmt = [].concat(charitiesMatched)
+                                .sort((charity1, charity2) => {
+                                    const charity1TotalAmt = charity1.amtDonations + charity1.amtGovGrants,
+                                        charity2TotalAmt = charity2.amtDonations + charity2.amtGovGrants;
+                                    return charity1TotalAmt - charity2TotalAmt;
+                                });
+
+                                await this.setState({
+                                    charities: charitiesSortedByTotalAmt,
+                                    sortByCondCurrent: {
+                                        value: 'amtAllLow',
+                                        label: 'Lowest amount of donations received'
+                                    },
+                                    doneCharitySearch: true,
+                                    doneCharitySearchByCouncil: true,
+                                    loading: false
+                                });
+                            })
+                            .catch(function(e) {
+                                console.log("ERROR", e);
+                            });
+                    })
+                    .catch(function(e) {
+                        console.log("ERROR", e);
+                    });
+            }
+
+            window.scrollTo(0, 0);
+
         }
+        // location or cause is undefined or empty
         else {
             this.setState({
                 doneCharitySearch: true,
@@ -222,6 +281,12 @@ class CharitySearch extends Component {
             });
         }
 
+    }
+
+    handleKeyPress(target) {
+        if(target.charCode === 13){
+            this.handleSubmit();    
+        }
     }
 
     handleClickOnPageNumber(currentPageNumber) {        
@@ -242,7 +307,7 @@ class CharitySearch extends Component {
 
         const condition = chosenCond === null ? {
             value: 'amtAllLow',
-            label: 'Lowest amount of income received'
+            label: 'Lowest amount of donations received'
           } : chosenCond;
 
         await this.setState({
@@ -293,6 +358,8 @@ class CharitySearch extends Component {
         var valueSortByCond = sortByCondCurrent && sortByCondCurrent.value;
         
         const { charities, currentPage, charitiesPerPage } = this.state;
+
+        const { council } = this.state;
 
         const indexOfLastCharity = currentPage * charitiesPerPage;
         const indexOfFirstCharity = indexOfLastCharity - charitiesPerPage;
@@ -378,7 +445,7 @@ class CharitySearch extends Component {
                                         options={this.state.causes} />
                                     <a href="/charities/dashboardAct"
                                         className="my-2 w-50 small" style={{textShadow: "1px 1px 8px #fff"}}>
-                                        Still unsure about which cause to choose? Click here to continue exploring...
+                                        Still unsure about which cause to choose? Click here to explore...
                                     </a> 
 
                                     <h5 className="my-3 h5">And your location?</h5>
@@ -390,7 +457,7 @@ class CharitySearch extends Component {
                                 </div>
                             </div>
                             
-                            <button type="button" onClick={this.handleSubmit}
+                            <button type="button" onClick={this.handleSubmit} onKeyPress={this.handleKeyPress}
                                 className="btn btn-default mt-5 col-8 col-sm-8 col-md-4 col-lg-3 col-xl-3">
                                 Search for Charities
                             </button>
@@ -400,11 +467,12 @@ class CharitySearch extends Component {
 
                             {
                                 this.state.doneCharitySearch && charities.length === 0 &&
+                                this.state.doneCharitySearchByCouncil && 
                                 valueCause !== undefined && valueLocation !== undefined && 
                                 valueCause !== '' && valueLocation !== '' &&
                                 <h6>
                                     <p />
-                                    Sorry, no charities supporting {valueCause} in {valueLocation}.
+                                    Sorry, no charities supporting {valueCause} in {valueLocation} or in local council {council}.
                                     <p />
                                     Please modify your search.
                                 </h6>
@@ -435,7 +503,10 @@ class CharitySearch extends Component {
 
                         <div className="row d-flex align-items-center justify-content-between px-3">
                             <h5 className="my-3">
-                                Charities supporting <strong>{valueCause}</strong> in <strong>{valueLocation}</strong>
+                                {this.state.doneCharitySearchByCouncil && <p>Although no results are found in {valueLocation}, there are...</p>}
+                                Charities supporting <strong>{valueCause}</strong> in&nbsp; 
+                                {this.state.doneCharitySearchByCouncil && <span><strong>{council}</strong>, your local council</span>}
+                                {!this.state.doneCharitySearchByCouncil && <strong>{valueLocation}</strong>}
                             </h5>
                         </div>
 

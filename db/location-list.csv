@@ -1,15 +1,15 @@
 Town_City,State,Postcode,Municipality
-Melbourne,VIC,3000,Melbourne City
-East Melbourne,VIC,3000,Melbourne City
-East Melbourne,VIC,3002,Melbourne City
-North Melbourne,VIC,3003,Melbourne City
+Melbourne,VIC,3000,Melbourne
+East Melbourne,VIC,3000,Melbourne
+East Melbourne,VIC,3002,Melbourne
+North Melbourne,VIC,3003,Melbourne
 St Kilda,VIC,3004,Port Phillip
 South Melbourne,VIC,3004,Port Phillip
 South Melbourne,VIC,3006,Port Phillip
-Southbank,VIC,3006,Melbourne City
-Docklands,VIC,3008,Melbourne City
-Carlton,VIC,3010,Melbourne City
-Parkville,VIC,3010,Melbourne City
+Southbank,VIC,3006,Melbourne
+Docklands,VIC,3008,Melbourne
+Carlton,VIC,3010,Melbourne
+Parkville,VIC,3010,Melbourne
 Footscray,VIC,3011,Maribyrnong
 Yarraville,VIC,3013,Maribyrnong
 Newport,VIC,3015,Hobsons Bay
@@ -21,7 +21,7 @@ Sunshine,VIC,3020,Brimbank
 Sunshine North,VIC,3020,Brimbank
 Sunshine West,VIC,3020,Brimbank
 Cairnlea,VIC,3023,Brimbank
-Caroline Springs,VIC,3023,Melton - Bacchus Marsh
+Caroline Springs,VIC,3023,Melton
 Wyndham Vale,VIC,3024,Wyndham
 Altona North,VIC,3025,Hobsons Bay
 Laverton,VIC,3027,Wyndham
@@ -33,15 +33,15 @@ Truganina,VIC,3029,Wyndham
 Werribee,VIC,3030,Wyndham
 Point Cook,VIC,3030,Wyndham
 Wyndham Vale,VIC,3030,Wyndham
-Kensington,VIC,3031,Melbourne City
+Kensington,VIC,3031,Melbourne
 Flemington,VIC,3031,Essendon
 Ascot Vale,VIC,3032,Essendon
 Maribyrnong,VIC,3032,Maribyrnong
 Kensington,VIC,3033,Keilor
 Keilor,VIC,3036,Keilor
-Hillside,VIC,3037,Melton - Bacchus Marsh
+Hillside,VIC,3037,Melton
 Sydenham,VIC,3037,Brimbank
-Taylors Hill,VIC,3037,Melton - Bacchus Marsh
+Taylors Hill,VIC,3037,Melton
 Delahey,VIC,3037,Brimbank
 Keilor Downs,VIC,3038,Brimbank
 Taylors Lakes,VIC,3038,Brimbank
@@ -49,76 +49,76 @@ Moonee Ponds,VIC,3039,Essendon
 Strathmore,VIC,3041,Keilor
 Airport West,VIC,3042,Keilor
 Keilor,VIC,3042,Keilor
-Tullamarine,VIC,3043,Tullamarine - Broadmeadows
-Pascoe Vale South,VIC,3044,Brunswick - Coburg
-Pascoe Vale,VIC,3044,Moreland - North
-Broadmeadows,VIC,3047,Tullamarine - Broadmeadows
-Meadow Heights,VIC,3048,Tullamarine - Broadmeadows
-Parkville,VIC,3050,Melbourne City
-North Melbourne,VIC,3051,Melbourne City
-Parkville,VIC,3052,Melbourne City
-Carlton,VIC,3053,Melbourne City
-Brunswick West,VIC,3055,Brunswick - Coburg
-Brunswick,VIC,3056,Brunswick - Coburg
-Brunswick East,VIC,3057,Brunswick - Coburg
-Coburg North,VIC,3058,Moreland - North
-Coburg,VIC,3058,Brunswick - Coburg
-Fawkner,VIC,3060,Moreland - North
+Tullamarine,VIC,3043,Hume
+Pascoe Vale South,VIC,3044,Moreland
+Pascoe Vale,VIC,3044,Moreland
+Broadmeadows,VIC,3047,Hume
+Meadow Heights,VIC,3048,Hume
+Parkville,VIC,3050,Melbourne
+North Melbourne,VIC,3051,Melbourne
+Parkville,VIC,3052,Melbourne
+Carlton,VIC,3053,Melbourne
+Brunswick West,VIC,3055,Moreland
+Brunswick,VIC,3056,Moreland
+Brunswick East,VIC,3057,Moreland
+Coburg North,VIC,3058,Moreland
+Coburg,VIC,3058,Moreland
+Fawkner,VIC,3060,Moreland
 Fitzroy,VIC,3065,Yarra
 Collingwood,VIC,3066,Yarra
 Abbotsford,VIC,3067,Yarra
 Fitzroy North,VIC,3068,Yarra
-Northcote,VIC,3070,Darebin - South
-Thornbury,VIC,3071,Darebin - South
-Preston,VIC,3072,Darebin - North
-Thomastown,VIC,3074,Whittlesea - Wallan
-Lalor,VIC,3075,Whittlesea - Wallan
-Epping,VIC,3076,Whittlesea - Wallan
+Northcote,VIC,3070,Darebin
+Thornbury,VIC,3071,Darebin
+Preston,VIC,3072,Darebin
+Thomastown,VIC,3074,Whittlesea
+Lalor,VIC,3075,Whittlesea
+Epping,VIC,3076,Whittlesea
 Ivanhoe,VIC,3079,Banyule
 Heidelberg West,VIC,3081,Banyule
-Kingsbury,VIC,3083,Darebin - North
+Kingsbury,VIC,3083,Darebin
 Watsonia,VIC,3087,Banyule
 Greensborough,VIC,3088,Banyule
-Eltham,VIC,3095,Nillumbik - Kinglake
-Hurstbridge,VIC,3099,Nillumbik - Kinglake
+Eltham,VIC,3095,Nillumbik
+Hurstbridge,VIC,3099,Nillumbik
 Kew,VIC,3101,Boroondara
 Kew East,VIC,3102,Boroondara
 Kew,VIC,3102,Boroondara
 Balwyn,VIC,3103,Boroondara
 Balwyn North,VIC,3104,Boroondara
-Bulleen,VIC,3105,Manningham - West
-Templestowe,VIC,3106,Manningham - West
-Templestowe Lower,VIC,3107,Manningham - West
-Templestowe,VIC,3107,Manningham - West
-Doncaster,VIC,3108,Manningham - West
-Doncaster East,VIC,3109,Manningham - West
+Bulleen,VIC,3105,Manningham
+Templestowe,VIC,3106,Manningham
+Templestowe Lower,VIC,3107,Manningham
+Templestowe,VIC,3107,Manningham
+Doncaster,VIC,3108,Manningham
+Doncaster East,VIC,3109,Manningham
 Chirnside Park,VIC,3116,Yarra Ranges
 Hawthorn,VIC,3122,Boroondara
 Hawthorn East,VIC,3122,Boroondara
 Hawthorn East,VIC,3123,Boroondara
 Camberwell,VIC,3124,Boroondara
 Hawthorn East,VIC,3124,Boroondara
-Burwood,VIC,3125,Whitehorse - West
-Box Hill,VIC,3128,Whitehorse - West
-Box Hill North,VIC,3129,Whitehorse - West
-Blackburn,VIC,3130,Whitehorse - West
-Blackburn South,VIC,3130,Whitehorse - West
-Nunawading,VIC,3131,Whitehorse - East
-Forest Hill,VIC,3131,Whitehorse - East
-Vermont,VIC,3133,Whitehorse - East
-Vermont South,VIC,3133,Whitehorse - East
+Burwood,VIC,3125,Whitehorse
+Box Hill,VIC,3128,Whitehorse
+Box Hill North,VIC,3129,Whitehorse
+Blackburn,VIC,3130,Whitehorse
+Blackburn South,VIC,3130,Whitehorse
+Nunawading,VIC,3131,Whitehorse
+Forest Hill,VIC,3131,Whitehorse
+Vermont,VIC,3133,Whitehorse
+Vermont South,VIC,3133,Whitehorse
 Ringwood North,VIC,3134,Maroondah
 Ringwood,VIC,3134,Maroondah
 Ringwood East,VIC,3135,Maroondah
 Croydon,VIC,3136,Maroondah
 Kilsyth,VIC,3137,Yarra Ranges
 Mooroolbark,VIC,3138,Yarra Ranges
-Toorak,VIC,3142,Stonnington - West
-Armadale,VIC,3143,Stonnington - West
-Malvern East,VIC,3145,Stonnington - East
-Malvern East,VIC,3146,Stonnington - East
+Toorak,VIC,3142,Stonnington
+Armadale,VIC,3143,Stonnington
+Malvern East,VIC,3145,Stonnington
+Malvern East,VIC,3146,Stonnington
 Wheelers Hill,VIC,3150,Monash
-Burwood East,VIC,3151,Whitehorse - West
+Burwood East,VIC,3151,Whitehorse
 Wantirna South,VIC,3152,Knox
 Wantirna,VIC,3152,Knox
 Bayswater,VIC,3153,Knox
@@ -130,18 +130,18 @@ Murrumbeena,VIC,3163,Glen Eira
 Bentleigh East,VIC,3165,Glen Eira
 Hughesdale,VIC,3166,Glen Eira
 Clayton,VIC,3168,Monash
-Clayton South,VIC,3169,Dandenong
+Clayton South,VIC,3169,Greater Dandenong
 Mulgrave,VIC,3170,Monash
-Springvale,VIC,3171,Dandenong
-Noble Park,VIC,3172,Dandenong
-Dingley Village,VIC,3172,Dandenong
-Springvale South,VIC,3172,Dandenong
-Keysborough,VIC,3173,Dandenong
-Noble Park,VIC,3174,Dandenong
-Noble Park North,VIC,3174,Dandenong
-Dandenong,VIC,3175,Dandenong
-Dandenong North,VIC,3175,Dandenong
-Doveton,VIC,3177,Casey - North
+Springvale,VIC,3171,Greater Dandenong
+Noble Park,VIC,3172,Greater Dandenong
+Dingley Village,VIC,3172,Greater Dandenong
+Springvale South,VIC,3172,Greater Dandenong
+Keysborough,VIC,3173,Greater Dandenong
+Noble Park,VIC,3174,Greater Dandenong
+Noble Park North,VIC,3174,Greater Dandenong
+Dandenong,VIC,3175,Greater Dandenong
+Dandenong North,VIC,3175,Greater Dandenong
+Doveton,VIC,3177,Casey
 St Kilda,VIC,3182,Port Phillip
 St Kilda East,VIC,3182,Port Phillip
 St Kilda East,VIC,3183,Port Phillip
@@ -159,28 +159,28 @@ Carrum Downs,VIC,3201,Frankston
 South Melbourne,VIC,3205,Port Phillip
 Albert Park,VIC,3206,Port Phillip
 Port Melbourne,VIC,3207,Port Phillip
-Melton,VIC,3337,Melton - Bacchus Marsh
-Melton West,VIC,3337,Melton - Bacchus Marsh
-Melton South,VIC,3338,Melton - Bacchus Marsh
-Bacchus Marsh,VIC,3340,Melton - Bacchus Marsh
+Melton,VIC,3337,Melton
+Melton West,VIC,3337,Melton
+Melton South,VIC,3338,Melton
+Bacchus Marsh,VIC,3340,Melton
 Sunbury,VIC,3429,Sunbury
 Riddells Creek,VIC,3431,Macedon Ranges
 Romsey,VIC,3434,Macedon Ranges
 Gisborne,VIC,3437,Macedon Ranges
 Macedon,VIC,3441,Macedon Ranges
-South Morang,VIC,3752,Whittlesea - Wallan
-Wallan,VIC,3756,Whittlesea - Wallan
-Whittlesea,VIC,3757,Whittlesea - Wallan
-Kinglake,VIC,3757,Nillumbik - Kinglake
-Kinglake,VIC,3763,Nillumbik - Kinglake
+South Morang,VIC,3752,Whittlesea
+Wallan,VIC,3756,Whittlesea
+Whittlesea,VIC,3757,Whittlesea
+Kinglake,VIC,3757,Nillumbik
+Kinglake,VIC,3763,Nillumbik
 Montrose,VIC,3765,Yarra Ranges
 Mount Evelyn,VIC,3796,Yarra Ranges
 Clayton,VIC,3800,Monash
-Endeavour Hills,VIC,3802,Casey - North
-Hallam,VIC,3803,Casey - North
-Narre Warren North,VIC,3804,Casey - North
-Narre Warren,VIC,3805,Casey - North
-Narre Warren South,VIC,3805,Casey - South
+Endeavour Hills,VIC,3802,Casey
+Hallam,VIC,3803,Casey
+Narre Warren North,VIC,3804,Casey
+Narre Warren,VIC,3805,Casey
+Narre Warren South,VIC,3805,Casey
 Langwarrin,VIC,3910,Frankston
 Somerville,VIC,3912,Mornington Peninsula
 Somerville,VIC,3913,Mornington Peninsula
@@ -189,9 +189,9 @@ Mount Eliza,VIC,3930,Mornington Peninsula
 Mornington,VIC,3931,Mornington Peninsula
 Mount Martha,VIC,3934,Mornington Peninsula
 Dromana,VIC,3936,Mornington Peninsula
-Cranbourne,VIC,3977,Casey - South
-Cranbourne East,VIC,3977,Casey - South
-Cranbourne West,VIC,3977,Casey - South
-Cranbourne South,VIC,3977,Casey - South
-Cranbourne North,VIC,3977,Casey - South
+Cranbourne,VIC,3977,Casey
+Cranbourne East,VIC,3977,Casey
+Cranbourne West,VIC,3977,Casey
+Cranbourne South,VIC,3977,Casey
+Cranbourne North,VIC,3977,Casey
 Koo Wee Rup,VIC,3981,Cardinia

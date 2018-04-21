@@ -2,8 +2,10 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const locationSchema = new Schema({
-    suburb: String,
-    postcode: Number
+    Town_City: String,
+    State: String,
+    Postcode: Number,
+    Municipality: String,
 });
 
 module.exports = mongoose.model('locations', locationSchema);
