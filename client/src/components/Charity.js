@@ -267,6 +267,8 @@ class Charity extends Component {
                 <div className="row d-flex justify-content-center my-3">
                     
                     <Container className="px-0 mx-0" style={{width:"80vw"}}>
+                        {/* todo - back to search results button */}
+
                         {/* title row */}
                         <Row>
                             <Card cascade className="w-100">
