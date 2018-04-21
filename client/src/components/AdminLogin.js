@@ -36,6 +36,12 @@ class AdminLogin extends Component {
         });
     }
 
+    handleKeyPress(target) {
+        if(target.charCode === 13){
+            this.handleOnClickToLogin();    
+        }
+    }
+
     render() {
 
         if (this.state.loginClicked && this.state.username === 'ace' && this.state.password === 'csat') {
@@ -78,9 +84,9 @@ class AdminLogin extends Component {
                             />
                     </label>                    
                     <p></p>
-                    <a className="btn btn-default mt-3" onClick={this.handleOnClickToLogin}>
+                    <button type="button" className="btn btn-default mt-3" onClick={this.handleOnClickToLogin} onKeyPress={this.handKeyPress}> 
                         Login
-                    </a>
+                    </button>
                     
                 </form>
             </div>
