@@ -462,7 +462,7 @@ class DashboardAct extends Component {
                 
                 <p className="col-12 text-center mx-2">
                   Click on a bar in the graph to see details of
-                  a cause, or 
+                  a cause, or if you are ready, 
                   <button className="btn btn-outline-info btn-sm" type="button" onClick={this.handleOnClickToSearch}>
                     Search for charities in 
                     { valueLocation !== "" && this.state.loading && 
