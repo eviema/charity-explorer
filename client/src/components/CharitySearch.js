@@ -472,7 +472,7 @@ class CharitySearch extends Component {
                                 valueCause !== '' && valueLocation !== '' &&
                                 <h6>
                                     <p />
-                                    Sorry, no charities supporting {valueCause} in {valueLocation} or in local council {council}.
+                                    It seems that no charity supports {valueCause} in {valueLocation} or in local council {council}.
                                     <p />
                                     Please modify your search.
                                 </h6>
