@@ -502,12 +502,14 @@ class CharitySearch extends Component {
                         </button>
 
                         <div className="row d-flex align-items-center justify-content-between px-3">
-                            <h5 className="my-3">
+                            <div className="my-3">
                                 {this.state.doneCharitySearchByCouncil && <p>Although no results are found in {valueLocation}, there are...</p>}
-                                Charities supporting <strong>{valueCause}</strong> in&nbsp; 
-                                {this.state.doneCharitySearchByCouncil && <span><strong>{council}</strong>, your local council</span>}
-                                {!this.state.doneCharitySearchByCouncil && <strong>{valueLocation}</strong>}
-                            </h5>
+                                <h5>
+                                    Charities supporting <strong>{valueCause}</strong> in&nbsp; 
+                                    {this.state.doneCharitySearchByCouncil && <span><strong>{council}</strong>, your local council</span>}
+                                    {!this.state.doneCharitySearchByCouncil && <strong>{valueLocation}</strong>}
+                                </h5>
+                            </div>
                         </div>
 
                         <div className="row d-flex align-items-center justify-content-start px-3 small">
