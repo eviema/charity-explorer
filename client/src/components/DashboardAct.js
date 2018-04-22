@@ -13,6 +13,7 @@ import government from '../assets/government128.png';
 import people from '../assets/people128.png';
 import charity from '../assets/charity128.png';
 import QA from '../assets/QA.png';
+import balance from '../assets/balance.png';
 import ScrollUpButton from 'react-scroll-up-button';
 const greaterMelb = require("./greaterMelb");
 
@@ -330,7 +331,7 @@ class DashboardAct extends Component {
         </a>;
 
       return (
-        <li key={subtype["_id"]} style={{color: "#fafafa"}}>
+        <li key={subtype["_id"]} className="mx-auto" style={{color: "#fafafa", width: "80%"}}>
           <Collapsible trigger={triggerWhenClosed}
                       triggerWhenOpen={triggerWhenOpen}>
             <div className="border border-white rounded-top mx-3" style={{background: "#fafafa", color:"#424242"}}>
@@ -385,11 +386,11 @@ class DashboardAct extends Component {
 
         {/* change location */}
         <div className="row d-flex flex-column align-items-center justify-content-center py-4 mx-4">
-          <p className="h4-responsive">
+          <p className="h4-responsive text-center">
             Select the suburb you'd like to explore further: 
           </p>
 
-          <div className="col-8 col-sm-6 col-md-6 col-lg-5 col-xl-4">
+          <div className="col col-10 col-sm-6 col-md-6 col-lg-5 col-xl-4">
             <Select name="location"
               placeholder="Select suburb..."
               value={valueLocation}
@@ -412,28 +413,36 @@ class DashboardAct extends Component {
 
           <ScrollableAnchor id={'causesGraph'}>
             <div className="row d-flex flex-column align-items-center" >
-              {/* quick summary of causes in curernt location */}
-              <div className="row d-flex flex-column align-items-center pt-4 pb-2 mx-4 h5-responsive" style={{width:"80vw"}}>
-                <div>
-                  <p>In <strong>{valueLocation}</strong>,</p>
-                  <p>
-                    <i className="fa fa-hand-holding-usd mt-3 mr-5" style={{color:"#E57373"}}></i>
-                    {causesByLocation.length > 0 && 
-                      <span className="ml-2">
-                        <strong>{causeRecvLeast.name}</strong> received the <strong>least</strong>: ${causeRecvLeastAmtWithCommas}.
-                      </span>
-                    }
-                  </p>
-                  <p>
+              
+              {/* quick summary of causes in current location */}
+              <div className="text-center mx-2">
+                <p className="h5-responsive mb-3">In <strong>{valueLocation}</strong>,</p>
+                <div className="row d-flex align-items-center justify-content-center">
+                  <div className="col col-11 col-sm-3">
                     <i className="fa fa-hand-holding-usd" style={{color:"#E57373"}}></i>
                     <i className="fa fa-hand-holding-usd" style={{color:"#E57373"}}></i>
                     <i className="fa fa-hand-holding-usd mr-3" style={{color:"#E57373"}}></i>
+                    <br />
                     {causesByLocation.length > 0 && 
                       <span>
-                        <strong>{causeRecvMost.name}</strong> received the <strong>most</strong>: ${causeRecvMostAmtWithCommas}.
+                        <strong>{causeRecvMost.name}</strong> received the <strong>most</strong>: 
+                        <br />
+                        ${causeRecvMostAmtWithCommas}.
                       </span>
                     }
-                  </p>
+                  </div>
+                  <img src={balance} alt="balance scale" className="img-responsive d-none d-sm-block"/>
+                  <div className="col col-11 col-sm-3 mt-2">
+                    <i className="fa fa-hand-holding-usd" style={{color:"#E57373"}}></i>
+                    <br />
+                    {causesByLocation.length > 0 && 
+                      <span>
+                        <strong>{causeRecvLeast.name}</strong> received the <strong>least</strong>: 
+                        <br />
+                        ${causeRecvLeastAmtWithCommas}.
+                      </span>
+                    }
+                  </div>
                 </div>
               </div>
 
@@ -504,20 +513,20 @@ class DashboardAct extends Component {
                 <div className="row d-flex flex-column align-items-center justify-content-center p-4 mt-2 mb-4 text-white mx-1" style={{background:"#00b8d4"}}>
                   
                   <img src={totalIncome} alt="donations and grants received by this local cause" className="mb-3"/>
-                  <h5><span className="font-weight-bold">{this.state.causeName}</span> in <span className="font-weight-bold">{valueLocation}</span> received</h5>
+                  <h5 className="text-center"><span className="font-weight-bold">{this.state.causeName}</span> in <span className="font-weight-bold">{valueLocation}</span> received</h5>
                   <h2 className="font-weight-bold">${causeTotalWithCommas}</h2>
                   in 2016*
                   
                   <hr className="my-3 mx-5 w-100" style={{border:"1px solid #E0E0E0"}}/>
                   
                   <div className="row d-flex align-items-center justify-content-center w-100">
-                    <div className="col-3 d-flex flex-column align-items-center justify-content-center text-center my-3">
+                    <div className="col col-12 col-sm-5 col-md-5 d-flex flex-column align-items-center justify-content-center text-center my-3">
                         <img src={people} alt="people" className="mb-3"/>
                         <h4 className="font-weight-bold">${causeDonationsWithCommas}</h4>
                         <span>Donations & bequests</span>
                     </div>
                     <div style={{borderLeft: "thick solid #ff0000"}}></div>
-                    <div className="col-3 d-flex flex-column align-items-center justify-content-center text-center my-3">
+                    <div className="col col-12 col-sm-5 col-md-5 d-flex flex-column align-items-center justify-content-center text-center my-3">
                         <img src={government} alt="government" className="mb-3"/>
                         <h4 className="font-weight-bold">${causeGrantsWithCommas}</h4>
                         <span>Government grants</span>
@@ -526,54 +535,54 @@ class DashboardAct extends Component {
 
                   <hr className="my-3 mx-5 w-100" style={{border:"1px solid #E0E0E0"}}/>
 
-                  <div className="row d-flex align-items-center justify-content-center">
-                      <img src={charity} alt="care" className="mx-3 my-3"/>
-                      <div className="col d-flex flex-column align-items-center justify-content-center">
-                        <p>
-                          {this.state.causeCharityCount !== 1 && <span>
-                              <span className="font-weight-bold h4-responsive">
-                                {this.state.causeCharityCount} charities{" "}
-                              </span>
-                              support
-                            </span>}
-                          {this.state.causeCharityCount === 1 && <span>
-                              <span className="font-weight-bold h4-responsive">
-                                {this.state.causeCharityCount} charity{" "}
-                              </span>
-                              supports
-                            </span>}
-                          &nbsp;{this.state.causeName} in {valueLocation}.
-                        </p>
-                        <button className="btn btn-success" type="button" onClick={this.handleOnClickToSearch}>
-                          See complete charity list
-                        </button>
+                  {/* cause subtypes */}
+                  <div className="row d-flex align-items-center justify-content-center mb-3">
+                      
+                      <div className="row d-flex align-items-center justify-content-center mx-4 text-center">
+                        <img src={QA} alt="cause general info" className="mr-3"/>
+                        <h2>What is <span className="font-weight-bold">"{this.state.causeName}"?</span></h2>
                       </div>
+
+                      <p className="mb-3 w-100 text-center">
+                        <span className="font-weight-bold h4-responsive">{this.state.causeCurrentDetails.length}</span>&nbsp;
+                        {this.state.causeCurrentDetails.length === 1 && <span>
+                            subcategory{" "}
+                          </span>}
+                        {this.state.causeCurrentDetails.length !== 1 && <span>
+                            subcategories{" "}
+                          </span>}
+                        of work:
+                      </p>
+
+                      <ul className="list-unstyled mb-0">{renderCauseSubtypes}</ul>
+
                   </div>
+                  
                 </div>
 
-                {/* cause subtypes */}
+                {/* charities for the cause in the suburb */}
                 <div className="row d-flex flex-column align-items-center justify-content-center p-4 mt-2 mb-4 text-white mx-1" style={{background:"#00BFA5"}}>
                   
-                  <div className="row d-flex align-items-center justify-content-center">
-                    <img src={QA} alt="cause general info" className="mr-3"/>
-                    <h2>What is <span className="font-weight-bold">"{this.state.causeName}"?</span></h2>
-                  </div>
-
-                  <hr className="my-3 mx-5 w-100" style={{border:"1px solid #E0E0E0"}}/>
-
-                  <p className="mb-3">
-                    <span className="font-weight-bold h4-responsive">{this.state.causeCurrentDetails.length}</span>&nbsp;
-                    {this.state.causeCurrentDetails.length === 1 && <span>
-                        subcategory{" "}
+                  <img src={charity} alt="care" className="mx-3 my-3"/>
+                  <p className="text-center">
+                    {this.state.causeCharityCount !== 1 && <span>
+                        <span className="font-weight-bold h4-responsive">
+                          {this.state.causeCharityCount} charities{" "}
+                        </span>
+                        support
                       </span>}
-                    {this.state.causeCurrentDetails.length !== 1 && <span>
-                        subcategories{" "}
+                    {this.state.causeCharityCount === 1 && <span>
+                        <span className="font-weight-bold h4-responsive">
+                          {this.state.causeCharityCount} charity{" "}
+                        </span>
+                        supports
                       </span>}
-                    of work:
+                    &nbsp;{this.state.causeName} in {valueLocation}.
                   </p>
-
-                  <ul className="list-unstyled mb-0">{renderCauseSubtypes}</ul>
-
+                  <button className="btn btn-success" type="button" onClick={this.handleOnClickToSearch}>
+                    See complete charity list
+                  </button>
+                
                 </div>
 
               </div>
