@@ -52,7 +52,6 @@ class Tips extends Component {
                             <p className="h4-responsive pb-2" style={{ color: "#212121", textShadow: "1px 1px 8px #fafafa" }}>
                                 Give with confidence to charities you trust. 
                             </p>
-                            <a className="btn btn-info" onClick={() => this.handleClickToAnchor('1')}>Get Started</a>
                         </div>
                     </div>                    
                 </div>
@@ -61,13 +60,13 @@ class Tips extends Component {
                 <div className="p-4">
                     
                     <ScrollableAnchor id={'tip1'}>
-                        <div className="col col-lg-10 col-xl-10 mx-auto mb-5">
-                            <p className="row d-flex align-items-center justify-content-start m-3">
+                        <div className="col col-12 col-sm-12 col-md-11 col-lg-10 col-xl-10 mx-auto mb-5">
+                            <p className="row d-flex align-items-center justify-content-center m-3">
                                 <span style={tipNumberingStyle}>
                                     <span className="h4-responsive">Tip</span> <br />
                                     <span className="h2-responsive">1</span>
                                 </span>
-                                <span className="col h3-responsive font-weight-bold mx-3 my-1" style={{color: "#424242"}}>
+                                <span className="col col-12 col-sm-8 col-md-8 col-lg-8 col-xl-7 h3-responsive text-center text-sm-center text-md-left font-weight-bold mx-3 my-2" style={{color: "#424242"}}>
                                     Find a cause that interests you the most and research on it
                                 </span>
                                 <img src={binoculars} alt="binoculars" className="ml-xl-auto"/>
@@ -77,19 +76,19 @@ class Tips extends Component {
                                 Once you have found the issue or cause that interests you, do thorough research on which non-profit organizations out there are working hard towards solving it. One of the best places to know this is <a href="/charitySearch">here</a>.
                             </p>
                             <div className="row d-flex justify-content-center">
-                                <a className="btn btn-outline-info" onClick={() => this.handleClickToAnchor('2')}>Next Tip</a>
+                                <a className="btn btn-outline-info d-block d-sm-none" onClick={() => this.handleClickToAnchor('2')}>Next Tip</a>
                             </div>
                         </div>
                     </ScrollableAnchor>
                     
                     <ScrollableAnchor id={'tip2'}>
-                        <div className="col col-lg-10 col-xl-10 mx-auto mb-5">
-                            <p className="row d-flex align-items-center justify-content-start m-3">
+                        <div className="col col-12 col-sm-12 col-md-11 col-lg-10 col-xl-10 mx-auto mb-5">
+                            <p className="row d-flex align-items-center justify-content-center m-3">
                                 <span style={tipNumberingStyle}>
                                     <span className="h4-responsive">Tip</span> <br />
                                     <span className="h2-responsive">2</span>
                                 </span>
-                                <span className="col h3-responsive font-weight-bold mx-3 my-1" style={{color: "#424242"}}>
+                                <span className="col col-12 col-sm-8 col-md-8 col-lg-8 col-xl-7 h3-responsive text-center text-sm-center text-md-left font-weight-bold mx-3 my-2" style={{color: "#424242"}}>
                                     Check the ratings, reviews and critiques about the organization
                                 </span>
                                 <img src={magnifyingGlass} alt="magnifying glass" className="ml-xl-auto"/>
@@ -99,19 +98,19 @@ class Tips extends Component {
                                 We highly recommend that if the amount of money you are donating is very high then visit the charity’s office personally and talk to the administrators and volunteers before making the payment.
                             </p>
                             <div className="row d-flex justify-content-center">
-                                <a className="btn btn-outline-info" onClick={() => this.handleClickToAnchor('3')}>Next Tip</a>
+                                <a className="btn btn-outline-info d-block d-sm-none" onClick={() => this.handleClickToAnchor('3')}>Next Tip</a>
                             </div>
                         </div>
                     </ScrollableAnchor>
                     
                     <ScrollableAnchor id={'tip3'}>
-                        <div className="col col-lg-10 col-xl-10 mx-auto mb-5">
-                            <p className="row d-flex align-items-center justify-content-start m-3">
+                        <div className="col col-12 col-sm-12 col-md-11 col-lg-10 col-xl-10 mx-auto mb-5">
+                            <p className="row d-flex align-items-center justify-content-center m-3">
                                 <span style={tipNumberingStyle}>
                                     <span className="h4-responsive">Tip</span> <br />
                                     <span className="h2-responsive">3</span>
                                 </span>
-                                <span className="col h3-responsive font-weight-bold mx-3 my-1" style={{color: "#424242"}}>
+                                <span className="col col-12 col-sm-8 col-md-8 col-lg-8 col-xl-7 h3-responsive text-center text-sm-center text-md-left font-weight-bold mx-3 my-2" style={{color: "#424242"}}>
                                     Focus on one or few charities
                                 </span>
                                 <img src={target} alt="target" className="ml-xl-auto"/>
@@ -121,19 +120,19 @@ class Tips extends Component {
                                 If you plan to give small amounts of donations to many charities, keep in mind that there is a processing cost involved with each payment transaction. Therefore, the charities might receive much lesser amount in hand to use for the cause.
                             </p>
                             <div className="row d-flex justify-content-center">
-                                <a className="btn btn-outline-info" onClick={() => this.handleClickToAnchor('4')}>Next Tip</a>
+                                <a className="btn btn-outline-info d-block d-sm-none" onClick={() => this.handleClickToAnchor('4')}>Next Tip</a>
                             </div>
                         </div>
                     </ScrollableAnchor>
                     
                     <ScrollableAnchor id={'tip4'}>
-                        <div className="col col-lg-10 col-xl-10 mx-auto mb-5">
-                            <p className="row d-flex align-items-center justify-content-start m-3">
+                        <div className="col col-12 col-sm-12 col-md-11 col-lg-10 col-xl-10 mx-auto mb-5">
+                            <p className="row d-flex align-items-center justify-content-center m-3">
                                 <span style={tipNumberingStyle}>
                                     <span className="h4-responsive">Tip</span> <br />
                                     <span className="h2-responsive">4</span>
                                 </span>
-                                <span className="col h3-responsive font-weight-bold mx-3 my-1" style={{color: "#424242"}}>
+                                <span className="col col-12 col-sm-8 col-md-8 col-lg-8 col-xl-7 h3-responsive text-center text-sm-center text-md-left font-weight-bold mx-3 my-2" style={{color: "#424242"}}>
                                     Verify the impact of your donation
                                 </span>
                                 <img src={checklist} alt="checklist" className="ml-xl-auto"/>
@@ -142,19 +141,19 @@ class Tips extends Component {
                                 You need to make sure that the money you are donating is going to the cause and not just being used for administration. Apart from this, check the organization’s website for photographs, metrics, success stories and various proofs to know the progress and impact of its work in the community and the usage of your money. You can also email the charity organization and ask them for a detailed account of how your donation was utilized.
                             </p>
                             <div className="row d-flex justify-content-center">
-                                <a className="btn btn-outline-info" onClick={() => this.handleClickToAnchor('5')}>Next Tip</a>
+                                <a className="btn btn-outline-info d-block d-sm-none" onClick={() => this.handleClickToAnchor('5')}>Next Tip</a>
                             </div>
                         </div>
                     </ScrollableAnchor>
                     
                     <ScrollableAnchor id={'tip5'}>
-                        <div className="col col-lg-10 col-xl-10 mx-auto mb-5">
-                            <div className="row d-flex align-items-center justify-content-start m-3">
+                        <div className="col col-12 col-sm-12 col-md-11 col-lg-10 col-xl-10 mx-auto mb-5">
+                            <div className="row d-flex align-items-center justify-content-center m-3">
                                 <span style={tipNumberingStyle}>
                                     <span className="h4-responsive">Tip</span> <br />
                                     <span className="h2-responsive">5</span>
                                 </span>
-                                <span className="col h3-responsive font-weight-bold mx-3 my-1" style={{color: "#424242"}}>
+                                <span className="col col-12 col-sm-8 col-md-8 col-lg-8 col-xl-7 h3-responsive text-center text-sm-center text-md-left font-weight-bold mx-3 my-2" style={{color: "#424242"}}>
                                     If possible, make a contribution every month
                                 </span>
                                 <img src={donateFrequently} alt="donate frequently" className="ml-xl-auto"/>
@@ -163,19 +162,19 @@ class Tips extends Component {
                                 Many charitable causes are an ongoing and continuous process. For example, contribution towards medical research related to finding a cure for diseases such as Cancer or providing clean water to underprivileged parts of the world. Making regular contribution helps you plan your budget and improve your connection towards the charitable cause and relations with the charitable organization(s)
                             </p>
                             <div className="row d-flex justify-content-center">
-                                <a className="btn btn-outline-info" onClick={() => this.handleClickToAnchor('6')}>Next Tip</a>
+                                <a className="btn btn-outline-info d-block d-sm-none" onClick={() => this.handleClickToAnchor('6')}>Next Tip</a>
                             </div>
                         </div>
                     </ScrollableAnchor>
                     
                     <ScrollableAnchor id={'tip6'}>
-                        <div className="col col-lg-10 col-xl-10 mx-auto mb-5">
-                            <p className="row d-flex align-items-center justify-content-start m-3">
+                        <div className="col col-12 col-sm-12 col-md-11 col-lg-10 col-xl-10 mx-auto mb-5">
+                            <p className="row d-flex align-items-center justify-content-center m-3">
                                 <span style={tipNumberingStyle}>
                                     <span className="h4-responsive">Tip</span> <br />
                                     <span className="h2-responsive">6</span>
                                 </span>
-                                <span className="col h3-responsive font-weight-bold mx-3 my-1" style={{color: "#424242"}}>
+                                <span className="col col-12 col-sm-8 col-md-8 col-lg-8 col-xl-7 h3-responsive text-center text-sm-center text-md-left font-weight-bold mx-3 my-2" style={{color: "#424242"}}>
                                     Do good and save on tax!
                                 </span>
                                 <img src={tax} alt="save on tax" className="ml-xl-auto"/>
