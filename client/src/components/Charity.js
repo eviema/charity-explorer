@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Breadcrumb, BreadcrumbItem,
         Card, CardBody, CardImage, CardText, 
-        Container, Row, Col, TabPane, TabContent, Nav, NavItem, NavLink } from 'mdbreact';   
+        Container, Row, Col, TabPane, TabContent, Nav, NavItem, } from 'mdbreact';   
 import classnames from 'classnames';  
 import GoogleMapReact from 'google-map-react';
 import smileFace from '../assets/smile.png'; 
