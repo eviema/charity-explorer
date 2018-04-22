@@ -172,22 +172,22 @@ class Charity extends Component {
             case 'Small':
                 sizeIcon = 
                     <span className="mx-2 text-primary">
-                        <i className="fa fa-male fa-lg"></i>
+                        <i className="fa fa-dollar-sign"></i>
                     </span>;
                 break;
             case 'Medium':
                 sizeIcon = 
                     <span className="mx-1 text-primary">
-                        <i className="fa fa-male fa-lg"></i>
-                        <i className="fa fa-male fa-lg"></i>
+                        <i className="fa fa-dollar-sign"></i>
+                        <i className="fa fa-dollar-sign"></i>
                     </span>;
                 break;
             case 'Large':
                 sizeIcon = 
                     <span className="text-primary">
-                        <i className="fa fa-male fa-lg"></i>
-                        <i className="fa fa-male fa-lg"></i>
-                        <i className="fa fa-male fa-lg"></i>
+                        <i className="fa fa-dollar-sign"></i>
+                        <i className="fa fa-dollar-sign"></i>
+                        <i className="fa fa-dollar-sign"></i>
                     </span>;
                 break;
             default:
@@ -393,6 +393,7 @@ class Charity extends Component {
                                             </GoogleMapReact>
                                         </div>
                                     </TabPane>
+
                                 </TabContent>
                             </Col>
                         </Row>
