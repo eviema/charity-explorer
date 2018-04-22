@@ -14,6 +14,7 @@ import people from '../assets/people128.png';
 import charity from '../assets/charity128.png';
 import QA from '../assets/QA.png';
 import balance from '../assets/balance.png';
+import balanceSm from '../assets/balanceSm.png';
 import ScrollUpButton from 'react-scroll-up-button';
 const greaterMelb = require("./greaterMelb");
 
@@ -285,7 +286,14 @@ class DashboardAct extends Component {
         autorange: 'reversed',
       },
       showlegend: false,
-      title:`Here's the ranking of total donations and grants (A$) by all charitable causes <br />in ${valueLocation}`
+      autosize: true,
+      margin: {
+        l: 150,
+        r: 30,
+        b: 30,
+        t: 30,
+        pad: 4
+      }
     };
 
     // quick summary on top of plots
@@ -412,34 +420,35 @@ class DashboardAct extends Component {
           }
 
           <ScrollableAnchor id={'causesGraph'}>
-            <div className="row d-flex flex-column align-items-center" >
+            <div className="row d-flex flex-column align-items-center justify-content-center" >
               
               {/* quick summary of causes in current location */}
-              <div className="text-center mx-2">
-                <p className="h5-responsive mb-3">In <strong>{valueLocation}</strong>,</p>
-                <div className="row d-flex align-items-center justify-content-center">
+              <div className="text-center mx-2" style={{background: "#FAFAFA", width:"90vw"}}>
+                <img src={balanceSm} alt="smaller balance scale" className="img-responsive d-block d-sm-none mt-3 mx-auto"/>
+                <p className="h4-responsive my-3">In <strong>{valueLocation}</strong>,</p>
+                <div className="row d-flex align-items-center justify-content-center mb-3">
                   <div className="col col-11 col-sm-3">
+                    <i className="fa fa-hand-holding-usd" style={{color:"#E57373"}}></i>
+                    <br />
+                    {causesByLocation.length > 0 && 
+                      <span>
+                        <strong>{causeRecvLeast.name}</strong> received the <strong>least</strong> donations and grants: 
+                        <br />
+                        ${causeRecvLeastAmtWithCommas}.
+                      </span>
+                    }
+                  </div>
+                  <img src={balance} alt="balance scale" className="img-responsive d-none d-sm-block"/>
+                  <div className="col col-11 col-sm-3 mt-3">
                     <i className="fa fa-hand-holding-usd" style={{color:"#E57373"}}></i>
                     <i className="fa fa-hand-holding-usd" style={{color:"#E57373"}}></i>
                     <i className="fa fa-hand-holding-usd mr-3" style={{color:"#E57373"}}></i>
                     <br />
                     {causesByLocation.length > 0 && 
                       <span>
-                        <strong>{causeRecvMost.name}</strong> received the <strong>most</strong>: 
+                        <strong>{causeRecvMost.name}</strong> received the <strong>most</strong> donations and grants: 
                         <br />
                         ${causeRecvMostAmtWithCommas}.
-                      </span>
-                    }
-                  </div>
-                  <img src={balance} alt="balance scale" className="img-responsive d-none d-sm-block"/>
-                  <div className="col col-11 col-sm-3 mt-2">
-                    <i className="fa fa-hand-holding-usd" style={{color:"#E57373"}}></i>
-                    <br />
-                    {causesByLocation.length > 0 && 
-                      <span>
-                        <strong>{causeRecvLeast.name}</strong> received the <strong>least</strong>: 
-                        <br />
-                        ${causeRecvLeastAmtWithCommas}.
                       </span>
                     }
                   </div>
@@ -447,45 +456,43 @@ class DashboardAct extends Component {
               </div>
 
               {/* graph of causes in location */}
-              <div className="row d-flex align-items-stretch justify-content-center py-2 mx-4 small" style={{ height: "65vh" }}>
-                <Plot 
-                  data={plotData}
-                  layout={plotLayout}
-                  style={{width: "80vw", height: "60vh"}}
-                  onClick={this.handleClickOnCauseBar}
-                />
-
-                <small className="mt-3">
-                  Sources:&nbsp;&nbsp;
-                  <a href="https://data.gov.au/dataset/acnc2016ais/resource/b4a08924-af4f-4def-96f7-bf32ada7ee2b" target="_blank" rel="noopener noreferrer">
-                    1. ACNC 2016* Annual Information Statement Data
-                  </a>&nbsp;&nbsp;&nbsp;&nbsp;
-                  <a href="https://data.gov.au/dataset/acnc-register" target="_blank" rel="noopener noreferrer">
-                    2. ACNC Registered Charities
-                  </a>
-                </small>
-              </div>
-
-              {/* instruct user to click on a bar to see more about a cause */}
-              {!this.state.barClicked && 
-                <div className="row d-flex align-items-center justify-content-center pb-5 mx-4" 
-                      style={{border:"3px dashed #9E9E9E", padding: "2rem", margin:"1rem", width: "80vw"}}>
-                  <p>
-                    Click on a bar in the graph to see details of
-                    a cause
-                  </p>
-                  <p style={{width: "100%", textAlign: "center", borderBottom: "1px solid #9E9E9E", lineHeight: " 0.1em", margin: "10px 0 20px"}}>
-                    <span style={{background:"#f3f3f3", padding:"0 10px"}}> Or </span>
-                  </p>
-                  <button className="btn btn-outline-info" type="button" onClick={this.handleOnClickToSearch}>
+              <div className="row d-flex align-items-stretch justify-content-center py-2 mx-4">
+                
+                <p className="h4-responsive mt-5 mx-2 text-center">Here are more charitable causes in <strong>{valueLocation}</strong>:</p>
+                
+                <p className="col-12 text-center mx-2">
+                  Click on a bar in the graph to see details of
+                  a cause, or 
+                  <button className="btn btn-outline-info btn-sm" type="button" onClick={this.handleOnClickToSearch}>
                     Search for charities in 
                     { valueLocation !== "" && this.state.loading && 
                       <span> ... </span>}
                     {valueLocation !== "" && !this.state.loading && 
                       <span> {valueLocation} </span>}
                   </button>
-                </div>
-              }
+                </p>
+
+                <Plot 
+                  data={plotData}
+                  layout={plotLayout}
+                  style={{width: "90vw", height: "50vh"}}
+                  onClick={this.handleClickOnCauseBar}
+                  className="small"
+                />
+
+                <small className="mt-2 mx-2 text-center">
+                  <small>
+                    Sources:&nbsp;&nbsp;
+                    <a href="https://data.gov.au/dataset/acnc2016ais/resource/b4a08924-af4f-4def-96f7-bf32ada7ee2b" target="_blank" rel="noopener noreferrer">
+                      1. ACNC 2016* Annual Information Statement Data
+                    </a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a href="https://data.gov.au/dataset/acnc-register" target="_blank" rel="noopener noreferrer">
+                      2. ACNC Registered Charities
+                    </a>
+                  </small>
+                </small>
+
+              </div>
 
             </div>
             
