@@ -420,7 +420,7 @@ class DashboardAct extends Component {
                     <i className="fa fa-hand-holding-usd mt-3 mr-5" style={{color:"#E57373"}}></i>
                     {causesByLocation.length > 0 && 
                       <span className="ml-2">
-                        <strong>{causeRecvLeast.name}</strong> received the <strong>least</strong> - ${causeRecvLeastAmtWithCommas}.
+                        <strong>{causeRecvLeast.name}</strong> received the <strong>least</strong>: ${causeRecvLeastAmtWithCommas}.
                       </span>
                     }
                   </p>
@@ -430,7 +430,7 @@ class DashboardAct extends Component {
                     <i className="fa fa-hand-holding-usd mr-3" style={{color:"#E57373"}}></i>
                     {causesByLocation.length > 0 && 
                       <span>
-                        <strong>{causeRecvMost.name}</strong> received the <strong>most</strong> - ${causeRecvMostAmtWithCommas}.
+                        <strong>{causeRecvMost.name}</strong> received the <strong>most</strong>: ${causeRecvMostAmtWithCommas}.
                       </span>
                     }
                   </p>
