@@ -264,7 +264,7 @@ class Charity extends Component {
                 </Breadcrumb>
                 
                 {/* charity details (except contact) col */}
-                <div className="row d-flex justify-content-center my-3">
+                <div className="row d-flex justify-content-center py-3">
                     
                     <Container className="px-0 mx-0" style={{width:"80vw"}}>
                         {/* todo - back to search results button */}
@@ -297,19 +297,20 @@ class Charity extends Component {
                             <Col className="px-0" >
                                 <Nav style={{background: "white", padding:"1.25rem 1.25rem 0 1.25rem"}} className="z-depth-1">
                                     <NavItem>
-                                        <NavLink to="#" className={classnames({ active: this.state.activeItemClassicTabs1 === '1' })} onClick={() => { this.toggleClassicTabs1('1'); }} style={this.state.activeItemClassicTabs1 === '1'? activeItemStyle : inactiveItemStyle}>
-                                        Overview
-                                        </NavLink>
+                                        {/* <a className="nav-link" href="/charitySearch">Overview</a> */}
+                                        <a className={classnames({ active: this.state.activeItemClassicTabs1 === '1' }, 'nav-link')} onClick={() => { this.toggleClassicTabs1('1'); }} style={this.state.activeItemClassicTabs1 === '1'? activeItemStyle : inactiveItemStyle}>
+                                            Overview
+                                        </a>
                                     </NavItem>
                                     <NavItem>
-                                        <NavLink to="#" className={classnames({ active: this.state.activeItemClassicTabs1 === '2' })} onClick={() => { this.toggleClassicTabs1('2'); }} style={this.state.activeItemClassicTabs1 === '2'? activeItemStyle : inactiveItemStyle}>
-                                        Finance
-                                        </NavLink>
+                                        <a className={classnames({ active: this.state.activeItemClassicTabs1 === '2' }, 'nav-link')} onClick={() => { this.toggleClassicTabs1('2'); }} style={this.state.activeItemClassicTabs1 === '2'? activeItemStyle : inactiveItemStyle}>
+                                            Finance
+                                        </a>
                                     </NavItem>
                                     <NavItem>
-                                        <NavLink to="#" className={classnames({ active: this.state.activeItemClassicTabs1 === '3' })} onClick={() => { this.toggleClassicTabs1('3'); }} style={this.state.activeItemClassicTabs1 === '3'? activeItemStyle : inactiveItemStyle}>
-                                        Map
-                                        </NavLink>
+                                        <a className={classnames({ active: this.state.activeItemClassicTabs1 === '3' }, 'nav-link')} onClick={() => { this.toggleClassicTabs1('3'); }} style={this.state.activeItemClassicTabs1 === '3'? activeItemStyle : inactiveItemStyle}>
+                                            Map
+                                        </a>
                                     </NavItem>
                                 </Nav>
                                 
