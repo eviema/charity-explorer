@@ -15,11 +15,11 @@ import mission from '../assets/mission.png';
 import people from '../assets/team.png';
 import donation from '../assets/donation.png';
 import address from '../assets/map.png';
-import ribbon from '../assets/ribbon.png';
+import pin from '../assets/pin.png';
 const keys = require("../config/keys");
 
 const AddressOnMap = () => (
-    <img src={ribbon} alt="ribbon" className="img-responsive"/>
+    <img src={pin} alt="map pin" className="img-responsive"/>
 );
 
 class Charity extends Component {
@@ -97,9 +97,9 @@ class Charity extends Component {
     refresh() {
         this.googleMapRef_._setViewSize();
         this.setState({
-            center: {
-                lat: this.state.geoLocCenter.lat + 0.000000001,
-                lng: this.state.geoLocCenter.lng + 0.000000001,
+            geoLocCenter: {
+                lat: this.state.geoLocCenter.lat,
+                lng: this.state.geoLocCenter.lng,
             }, 
         });
     }
@@ -123,8 +123,8 @@ class Charity extends Component {
                             const { lat, lng } = res.data.results[0].geometry.location;
                             this.setState({
                                 geoLocCenter: {
-                                    lat: lat,
-                                    lng: lng,
+                                    lat: lat + 0.000000001,
+                                    lng: lng + 0.000000001,
                                 }
                             });
                         }
