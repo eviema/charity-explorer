@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Breadcrumb, BreadcrumbItem,
-        Card, CardBody, CardImage, CardText, 
-        Container, Row, Col, TabPane, TabContent, Nav, NavItem, } from 'mdbreact';   
+        Card, CardBody, CardImage, 
+        Container, Row, Col, TabPane, TabContent, Nav, NavItem, 
+        Tooltip, } from 'mdbreact';   
 import classnames from 'classnames';  
 import GoogleMapReact from 'google-map-react';
 import smileFace from '../assets/smile.png'; 
@@ -167,13 +168,15 @@ class Charity extends Component {
         ausUse = ausUse.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         allUse = allUse.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-        var sizeIcon = <span></span>;
+        var sizeIcon = <span></span>,
+            sizeTooltip = '';
         switch (size) {
             case 'Small':
                 sizeIcon = 
                     <span className="mx-2 text-primary">
                         <i className="fa fa-dollar-sign"></i>
                     </span>;
+                sizeTooltip = 'A small-sized charity had a revenue of less than $250,000 in 2016.';
                 break;
             case 'Medium':
                 sizeIcon = 
@@ -181,6 +184,7 @@ class Charity extends Component {
                         <i className="fa fa-dollar-sign"></i>
                         <i className="fa fa-dollar-sign"></i>
                     </span>;
+                sizeTooltip = 'A medium-sized charity had a revenue of $250,000 to $999,999 in 2016.';
                 break;
             case 'Large':
                 sizeIcon = 
@@ -189,6 +193,7 @@ class Charity extends Component {
                         <i className="fa fa-dollar-sign"></i>
                         <i className="fa fa-dollar-sign"></i>
                     </span>;
+                sizeTooltip = 'A large-sized charity had a revenue of $1 million or more in 2016.';
                 break;
             default:
                 break;
@@ -198,15 +203,15 @@ class Charity extends Component {
             regIcon = <span></span>;
         switch (regStatus) {
             case 'REG':
-                regDesc = 'Has an active registration with ACNC';
+                regDesc = 'This charity has an active registration with the ACNC.';
                 regIcon = <span><img src={checkBadge} alt="check badge"/></span>;
                 break;
             case 'REV':
-                regDesc = 'Registration was revoked by ACNC';
+                regDesc = 'The charity\'s registration was revoked by the ACNC.';
                 regIcon = <span><img src={cancelSign} alt="cancel sign"/></span>;
                 break;
             case 'VREV':
-                regDesc = 'Registration voluntarily revoked';
+                regDesc = 'The charity\'s registration was voluntarily revoked by the ACNC.';
                 regIcon = <span><img src={warningSign} alt="warning sign"/></span>;
                 break;
             default:
@@ -214,15 +219,20 @@ class Charity extends Component {
         }
 
         var dgrDesc = '',
+            dgrTooltip = '',
             dgrIcon = <span></span>;
         if (dgrStatus === 'Y') {
-            dgrDesc = 'Donations made to this charity are tax deductible';
+            dgrDesc = 'Donations made to this charity are tax deductible.';
+            dgrTooltip = 'You can save on tax! Any donation more than $2 you make to this charity can be claimed in your tax return.';
             dgrIcon = <span><img src={smileFace} alt="smile face"/></span>;
         }
         else {
-            dgrDesc = 'Donations made to this charity are not tax deductible';
+            dgrDesc = 'Donations made to this charity are not tax deductible.';
+            dgrTooltip = 'Your donation made to this charity cannot be claimed in your tax return.';
             dgrIcon = <span><img src={sadFace} alt="sad face"/></span>;
         }
+
+        var abnUrl = "https://abr.business.gov.au/SearchByAbnHistory.aspx?abn=" + ABN;
 
         const activeItemStyle = {
             color: "#212121", 
@@ -279,15 +289,51 @@ class Charity extends Component {
                                 </CardImage>
                                 <CardBody>
                                     <p className="h6-responsive" style={{color: "#89959B"}}>{suburb} VIC {postcode} <strong>·</strong> {cause}</p>
-                                    <CardText>
-                                        <span className="my-3">{sizeIcon}<span className="ml-2 mr-4">{size} size</span></span> 
-                                        <span className="my-3">{regIcon}<span className="mx-2">{regDesc}</span></span> <br />
-                                        <span className="my-3">{dgrIcon}<span className="mx-2">{dgrDesc}</span></span> <br />
-                                        <span className="my-3">
+                                    
+                                    <Tooltip 
+                                        placement="right" tag="div" component="button" 
+                                        componentClass="btn btn-link p-0 mb-1 mt-0"
+                                        tooltipContent={sizeTooltip}> 
+                                            {sizeIcon}
+                                            <span className="ml-2 mr-4" style={{color: "#757575", fontSize:".9rem"}}>
+                                                <span>{size.slice(0,1)}</span>
+                                                <span className="text-lowercase">{size.slice(1)} size</span>
+                                            </span>
+                                    </Tooltip>
+                                    
+                                    <Tooltip 
+                                        placement="right" tag="div" component="button" 
+                                        componentClass="btn btn-link p-0 mb-1 mt-0 text-left"
+                                        tooltipContent="The Australian Charities and Not-for-profits Commission (ACNC) regulates the Australian charity sector."> 
+                                            {regIcon}
+                                            <span className="ml-2 mr-4" style={{color: "#757575", fontSize:".9rem"}}>
+                                                <span>{regDesc.slice(0,1)}</span>
+                                                <span className="text-lowercase">{regDesc.slice(1, -5)}</span>
+                                                <span>{regDesc.slice(-5)}</span>
+                                            </span>
+                                    </Tooltip>
+                                    
+                                    <Tooltip 
+                                        placement="right" tag="div" component="button" 
+                                        componentClass="btn btn-link p-0 mb-1 mt-0 text-left"
+                                        tooltipContent={dgrTooltip}> 
+                                            {dgrIcon}
+                                            <span className="ml-2 mr-4" style={{color: "#757575", fontSize:".9rem"}}>
+                                                <span>{dgrDesc.slice(0,1)}</span>
+                                                <span className="text-lowercase">{dgrDesc.slice(1)}</span>
+                                            </span>
+                                    </Tooltip>
+                                    
+                                    <Tooltip 
+                                        placement="right" tag="div" component="button" 
+                                        componentClass="btn btn-link p-0 mt-0 mb-1"
+                                        tooltipContent="Click to see further details of this charity in the Australian Business Register"> 
                                             <img src={idCard} alt="Australian Business Number"/>
-                                            <span className="mx-2">ABN: {ABN}</span>
-                                        </span>
-                                    </CardText>
+                                            <span className="ml-2 mr-4">
+                                                <a href={abnUrl} target="_blank" style={{color: "#757575", fontSize:".9rem"}}>ABN: {ABN}</a>
+                                            </span>
+                                    </Tooltip>
+                                    
                                 </CardBody>
                             </Card>
                         </Row>
