@@ -287,7 +287,7 @@ class Charity extends Component {
             top: "1rem",
             left: "1rem",
             zIndex: "99",
-            background: "#fafafa",
+            background: "#fff",
         }
 
         return (
