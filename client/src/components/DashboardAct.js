@@ -5,7 +5,7 @@ import Select from 'react-select';
 import { Breadcrumb, BreadcrumbItem, Popover, PopoverBody, PopoverHeader } from "mdbreact";
 import Plot from 'react-plotly.js';
 import Collapsible from 'react-collapsible';
-import ScrollableAnchor, { configureAnchors, goToTop, goToAnchor } from 'react-scrollable-anchor';
+import { Link } from 'react-scroll';
 import spinner from '../assets/spinner.gif';
 import causePageTopBackground from '../assets/causePageTopBackground.jpg';
 import totalIncome from '../assets/totalIncome.png';
@@ -37,14 +37,14 @@ class DashboardAct extends Component {
       redirecting: false,
       isMobileDevice: false,
     };
-    this.handleOnClickToSearch = this.handleOnClickToSearch.bind(this);
     this.handleInputChangeOfLocation = this.handleInputChangeOfLocation.bind(this);
     this.handleClickOnCauseBar = this.handleClickOnCauseBar.bind(this);
+    this.handleOnClickToSearch = this.handleOnClickToSearch.bind(this);
   }
 
   async componentDidMount() {
 
-    goToTop();
+    window.scrollTo(0, 0);
 
     axios.get('/api/locations-all')
         .then((res) => {
@@ -184,7 +184,7 @@ class DashboardAct extends Component {
   }
 
   handleClickOnCauseBar(data) {
-    
+
     var causeClickedName = data.name === undefined ? data.points[0].y : data.name;
 
     axios.get('/api/causes/' + causeClickedName)
@@ -209,11 +209,8 @@ class DashboardAct extends Component {
         causeGrants: this.state.causesByLocation[causeIndex].amtGrants,
         // causeAmtRank: causeIndex + 1,
     }); 
-
-    configureAnchors({offset: -100, scrollDuration: 400});
-    goToAnchor('causeInfo');
     
-  }
+  } 
 
   handleOnClickToSearch() {
     this.setState({
@@ -222,69 +219,47 @@ class DashboardAct extends Component {
     });
   }
 
-  handleClickToGraph() {
-    configureAnchors({offset: -100, scrollDuration: 400});
-    goToAnchor('causesGraph');
-  }
-
   render() {
 
     // selected location
     var { locationCurrent } = this.state;
     var valueLocation = locationCurrent && locationCurrent.value;
 
-    // causes for plots
+    // causes 
     var { causesByLocation } = this.state;
     var causeNames = causesByLocation.map(entry => {return entry['name']}),
         causeTotalAmts = causesByLocation.map(entry => {return entry['amtDonations'] + entry['amtGrants']});
 
-    /* var traceScatter = {
-      x: causeTotalAmts,
-      y: causeNames,
-      fill: 'tozerox',
-      fillcolor: '#E0E0E0',
-      type: 'scatter',
-      marker: {color: '#9E9E9E'},
-      hoverinfo: 'none',
-    }; */
+    // quick summary on top of plots
+    if (causesByLocation.length !== 0) {
+      var causeRecvLeast = causesByLocation[0],
+          causeRecvMost = causesByLocation[causesByLocation.length-1],
+          causeRecvLeastAmtWithCommas = (causeRecvLeast.amtDonations + causeRecvLeast.amtGrants).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+          causeRecvMostAmtWithCommas = (causeRecvMost.amtDonations + causeRecvMost.amtGrants).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    // plot    
     var traceBar = {
       x: causeTotalAmts,
       y: causeNames,
-      xaxis: 'x2',
-      yaxis: 'y2',
       type: 'bar',
       orientation: 'h',
       marker: {color: '#9575CD'},
       hoverinfo: 'x+y',
     };
 
-    // var plotData = [ traceScatter, traceBar ];
     var plotData = [traceBar];
     var plotLayout = {
-      /* xaxis: {
-        side: "top",
-        showticklabels: false,
-        showgrid: false,
-        domain: [0, .12],
-        type: 'log',
-      },
-      yaxis: {
-        showticklabels: false,
-        showgrid: false,
-        autorange: 'reversed',
-      }, */
-      xaxis2: {
+      xaxis: {
         side: "top",
         showgrid: false,
         domain: [0.3, 1.0],
         type: 'log',
-
       },
-      yaxis2: {
-        anchor: 'x2',
+      yaxis: {
         showgrid: false,
         autorange: 'reversed',
-      },
+      }, 
       showlegend: false,
       autosize: true,
       margin: {
@@ -295,14 +270,6 @@ class DashboardAct extends Component {
         pad: 4
       }
     };
-
-    // quick summary on top of plots
-    if (causesByLocation.length !== 0) {
-      var causeRecvLeast = causesByLocation[0],
-          causeRecvMost = causesByLocation[causesByLocation.length-1],
-          causeRecvLeastAmtWithCommas = (causeRecvLeast.amtDonations + causeRecvLeast.amtGrants).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","),
-          causeRecvMostAmtWithCommas = (causeRecvMost.amtDonations + causeRecvMost.amtGrants).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    }
    
     // redirect to charity search
     if (this.state.searchCharityClicked) {
@@ -316,7 +283,6 @@ class DashboardAct extends Component {
             }}/>
         );
     }
-
 
     // details of selected cause
     var { causeDonations, causeGrants } = this.state;
@@ -387,8 +353,14 @@ class DashboardAct extends Component {
 
         {/* title: causes in location */}
         <div className="row d-flex align-items-center justify-content-center py-4 px-2 text-white" style={titleRowStyle}>
-          <p className="col-11 col-sm-10 col-md-8 col-lg-8 col-xl-8 h1-responsive font-weight-bold px-5 text-center" style={{textShadow: "1px 1px 8px #212121"}}>
-            Discover charitable causes in your suburb
+          <p className="col-11 col-sm-10 col-md-8 col-lg-8 col-xl-8 px-5 text-center" style={{textShadow: "1px 1px 8px #212121"}}>
+            <span className="h1-responsive font-weight-bold">
+              Which cause are you interested in?
+            </span> 
+            <br />
+            <span className="h5-responsive">
+              Discover charitable causes supported by charities in your suburb
+            </span>
           </p>
         </div>
 
@@ -418,86 +390,84 @@ class DashboardAct extends Component {
               <img src={spinner} alt="loading..." style={{ height: 30, paddingLeft: 30 }} />
             </div>
           }
-
-          <ScrollableAnchor id={'causesGraph'}>
-            <div className="row d-flex flex-column align-items-center justify-content-center" >
-              
-              {/* quick summary of causes in current location */}
-              <div className="text-center mx-2" style={{background: "#FAFAFA", width:"90vw"}}>
-                <img src={balanceSm} alt="smaller balance scale" className="img-responsive d-block d-sm-none mt-3 mx-auto"/>
-                <p className="h4-responsive my-3">In <strong>{valueLocation}</strong>,</p>
-                <div className="row d-flex align-items-center justify-content-center mb-3">
-                  <div className="col col-11 col-sm-3">
-                    <i className="fa fa-hand-holding-usd" style={{color:"#E57373"}}></i>
-                    <br />
-                    {causesByLocation.length > 0 && 
-                      <span>
-                        <strong>{causeRecvLeast.name}</strong> received the <strong>least</strong> donations and grants: 
-                        <br />
-                        ${causeRecvLeastAmtWithCommas}.
-                      </span>
-                    }
-                  </div>
-                  <img src={balance} alt="balance scale" className="img-responsive d-none d-sm-block"/>
-                  <div className="col col-11 col-sm-3 mt-3">
-                    <i className="fa fa-hand-holding-usd" style={{color:"#E57373"}}></i>
-                    <i className="fa fa-hand-holding-usd" style={{color:"#E57373"}}></i>
-                    <i className="fa fa-hand-holding-usd mr-3" style={{color:"#E57373"}}></i>
-                    <br />
-                    {causesByLocation.length > 0 && 
-                      <span>
-                        <strong>{causeRecvMost.name}</strong> received the <strong>most</strong> donations and grants: 
-                        <br />
-                        ${causeRecvMostAmtWithCommas}.
-                      </span>
-                    }
-                  </div>
+          
+          <div className="row d-flex flex-column align-items-center justify-content-center" >
+            
+            {/* quick summary of causes in current location */}
+            <div className="text-center mx-2 py-2" style={{background: "#fff", width:"90vw"}}>
+              <img src={balanceSm} alt="smaller balance scale" className="img-responsive d-block d-sm-none mt-3 mx-auto"/>
+              <p className="h4-responsive my-3">In <strong>{valueLocation}</strong>,</p>
+              <div className="row d-flex align-items-center justify-content-center mb-3">
+                <div className="col col-11 col-sm-3">
+                  <i className="fa fa-hand-holding-usd" style={{color:"#E57373"}}></i>
+                  <br />
+                  {causesByLocation.length > 0 && 
+                    <span>
+                      <strong>{causeRecvLeast.name}</strong> received the <strong>least</strong> donations and grants: 
+                      <br />
+                      ${causeRecvLeastAmtWithCommas}.
+                    </span>
+                  }
+                </div>
+                <img src={balance} alt="balance scale" className="img-responsive d-none d-sm-block"/>
+                <div className="col col-11 col-sm-3 mt-3">
+                  <i className="fa fa-hand-holding-usd" style={{color:"#E57373"}}></i>
+                  <i className="fa fa-hand-holding-usd" style={{color:"#E57373"}}></i>
+                  <i className="fa fa-hand-holding-usd mr-3" style={{color:"#E57373"}}></i>
+                  <br />
+                  {causesByLocation.length > 0 && 
+                    <span>
+                      <strong>{causeRecvMost.name}</strong> received the <strong>most</strong> donations and grants: 
+                      <br />
+                      ${causeRecvMostAmtWithCommas}.
+                    </span>
+                  }
                 </div>
               </div>
+            </div>
 
-              {/* graph of causes in location */}
-              <div className="row d-flex align-items-stretch justify-content-center py-2 mx-4">
-                
-                <p className="h4-responsive mt-5 mx-2 text-center">Here are more charitable causes in <strong>{valueLocation}</strong>:</p>
-                
-                <p className="col-12 text-center mx-2">
-                  Click on a bar in the graph to see details of
-                  a cause, or if you are ready, 
-                  <button className="btn btn-outline-info btn-sm" type="button" onClick={this.handleOnClickToSearch}>
-                    Search for charities in 
-                    { valueLocation !== "" && this.state.loading && 
-                      <span> ... </span>}
-                    {valueLocation !== "" && !this.state.loading && 
-                      <span> {valueLocation} </span>}
-                  </button>
-                </p>
-
+            {/* graph of causes in location */}
+            <div id="causesGraph" className="row d-flex align-items-stretch justify-content-center py-2 mx-4">
+              
+              <p className="h4-responsive mt-5 mx-2 text-center">Here are more charitable causes in <strong>{valueLocation}</strong>:</p>
+              
+              <p className="col-12 text-center mx-2">
+                Click on a bar in the graph to see details of
+                a cause, or if you are ready, 
+                <button className="btn btn-outline-info btn-sm" type="button" onClick={this.handleOnClickToSearch}>
+                  Search for charities in 
+                  { valueLocation !== "" && this.state.loading && 
+                    <span> ... </span>}
+                  {valueLocation !== "" && !this.state.loading && 
+                    <span> {valueLocation} </span>}
+                </button>
+              </p>
+              <Link to="causeInfo" spy={true} smooth={true} offset={-100} duration={400}>
                 <Plot 
-                  data={plotData}
-                  layout={plotLayout}
-                  style={{width: "90vw", height: "50vh"}}
-                  onClick={this.handleClickOnCauseBar}
-                  className="small"
+                    data={plotData}
+                    layout={plotLayout}
+                    style={{width: "90vw", height: "50vh"}}
+                    onClick={this.handleClickOnCauseBar}
+                    className="small"
                 />
-
-                <small className="mt-2 mx-2 text-center">
-                  <small>
-                    Sources:&nbsp;&nbsp;
-                    <a href="https://data.gov.au/dataset/acnc2016ais/resource/b4a08924-af4f-4def-96f7-bf32ada7ee2b" target="_blank" rel="noopener noreferrer">
-                      1. ACNC 2016* Annual Information Statement Data
-                    </a>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a href="https://data.gov.au/dataset/acnc-register" target="_blank" rel="noopener noreferrer">
-                      2. ACNC Registered Charities
-                    </a>
-                  </small>
+              </Link>
+              
+              <small className="mt-2 mx-2 text-center">
+                <small>
+                  Sources:&nbsp;&nbsp;
+                  <a href="https://data.gov.au/dataset/acnc2016ais/resource/b4a08924-af4f-4def-96f7-bf32ada7ee2b" target="_blank" rel="noopener noreferrer">
+                    1. ACNC 2016* Annual Information Statement Data
+                  </a>&nbsp;&nbsp;&nbsp;&nbsp;
+                  <a href="https://data.gov.au/dataset/acnc-register" target="_blank" rel="noopener noreferrer">
+                    2. ACNC Registered Charities
+                  </a>
                 </small>
-
-              </div>
+              </small>
 
             </div>
-            
-          </ScrollableAnchor>
-          
+
+          </div>
+                    
         </div>
 
         {
@@ -505,95 +475,93 @@ class DashboardAct extends Component {
         }
               
         {/* details info of cause in location */}
-        <div className="row d-flex align-items-center justify-content-center">
+        <div id="causeInfo" className="element row d-flex align-items-center justify-content-center">
           
-          {this.state.barClicked && 
-            <ScrollableAnchor id={'causeInfo'}>
-              <div className="py-3 mx-3 mb-2" style={{width:"80vw"}}>
+          {this.state.barClicked &&      
+            <div className="py-3 mx-3 mb-2" style={{width:"80vw"}}>
+              
+              <p className="h4-responsive">Here's more about <strong>{this.state.causeName}</strong> in <strong>{valueLocation}</strong>:</p>
+              <p style={{color: "#616161"}}>
+                To see details of another cause, <Link to="causesGraph" spy={true} smooth={true} offset={-100} duration={400}><u><strong>click on a bar in the graph above</strong></u></Link>
+              </p>
+              
+              {/* infographics of local cause detailed info  */}
+              <div className="row d-flex flex-column align-items-center justify-content-center p-4 mt-2 mb-4 text-white mx-1" style={{background:"#00b8d4"}}>
                 
-                <p className="h4-responsive">Here's more about <strong>{this.state.causeName}</strong> in <strong>{valueLocation}</strong>:</p>
-                <p style={{color: "#616161"}}>
-                  To see details of another cause, <a onClick={this.handleClickToGraph}><u><strong>click on a bar in the graph above</strong></u></a>
-                </p>
+                <img src={totalIncome} alt="donations and grants received by this local cause" className="mb-3"/>
+                <h5 className="text-center"><span className="font-weight-bold">{this.state.causeName}</span> in <span className="font-weight-bold">{valueLocation}</span> received</h5>
+                <h2 className="font-weight-bold">${causeTotalWithCommas}</h2>
+                in 2016*
                 
-                {/* infographics of local cause detailed info  */}
-                <div className="row d-flex flex-column align-items-center justify-content-center p-4 mt-2 mb-4 text-white mx-1" style={{background:"#00b8d4"}}>
-                  
-                  <img src={totalIncome} alt="donations and grants received by this local cause" className="mb-3"/>
-                  <h5 className="text-center"><span className="font-weight-bold">{this.state.causeName}</span> in <span className="font-weight-bold">{valueLocation}</span> received</h5>
-                  <h2 className="font-weight-bold">${causeTotalWithCommas}</h2>
-                  in 2016*
-                  
-                  <hr className="my-3 mx-5 w-100" style={{border:"1px solid #E0E0E0"}}/>
-                  
-                  <div className="row d-flex align-items-center justify-content-center w-100">
-                    <div className="col col-12 col-sm-5 col-md-5 d-flex flex-column align-items-center justify-content-center text-center my-3">
-                        <img src={people} alt="people" className="mb-3"/>
-                        <h4 className="font-weight-bold">${causeDonationsWithCommas}</h4>
-                        <span>Donations & bequests</span>
-                    </div>
-                    <div style={{borderLeft: "thick solid #ff0000"}}></div>
-                    <div className="col col-12 col-sm-5 col-md-5 d-flex flex-column align-items-center justify-content-center text-center my-3">
-                        <img src={government} alt="government" className="mb-3"/>
-                        <h4 className="font-weight-bold">${causeGrantsWithCommas}</h4>
-                        <span>Government grants</span>
-                    </div>
+                <hr className="my-3 mx-5 w-100" style={{border:"1px solid #E0E0E0"}}/>
+                
+                <div className="row d-flex align-items-center justify-content-center w-100">
+                  <div className="col col-12 col-sm-5 col-md-5 d-flex flex-column align-items-center justify-content-center text-center my-3">
+                      <img src={people} alt="people" className="mb-3"/>
+                      <h4 className="font-weight-bold">${causeDonationsWithCommas}</h4>
+                      <span>Donations & bequests</span>
                   </div>
-
-                  <hr className="my-3 mx-5 w-100" style={{border:"1px solid #E0E0E0"}}/>
-
-                  {/* cause subtypes */}
-                  <div className="row d-flex align-items-center justify-content-center mb-3">
-                      
-                      <div className="row d-flex align-items-center justify-content-center mx-4 text-center">
-                        <img src={QA} alt="cause general info" className="mr-3"/>
-                        <h2>What is <span className="font-weight-bold">"{this.state.causeName}"?</span></h2>
-                      </div>
-
-                      <p className="mb-3 w-100 text-center">
-                        <span className="font-weight-bold h4-responsive">{this.state.causeCurrentDetails.length}</span>&nbsp;
-                        {this.state.causeCurrentDetails.length === 1 && <span>
-                            subcategory{" "}
-                          </span>}
-                        {this.state.causeCurrentDetails.length !== 1 && <span>
-                            subcategories{" "}
-                          </span>}
-                        of work:
-                      </p>
-
-                      <ul className="list-unstyled mb-0">{renderCauseSubtypes}</ul>
-
+                  <div style={{borderLeft: "thick solid #ff0000"}}></div>
+                  <div className="col col-12 col-sm-5 col-md-5 d-flex flex-column align-items-center justify-content-center text-center my-3">
+                      <img src={government} alt="government" className="mb-3"/>
+                      <h4 className="font-weight-bold">${causeGrantsWithCommas}</h4>
+                      <span>Government grants</span>
                   </div>
-                  
                 </div>
 
-                {/* charities for the cause in the suburb */}
-                <div className="row d-flex flex-column align-items-center justify-content-center p-4 mt-2 mb-4 text-white mx-1" style={{background:"#00BFA5"}}>
-                  
-                  <img src={charity} alt="care" className="mx-3 my-3"/>
-                  <p className="text-center">
-                    {this.state.causeCharityCount !== 1 && <span>
-                        <span className="font-weight-bold h4-responsive">
-                          {this.state.causeCharityCount} charities{" "}
-                        </span>
-                        support
-                      </span>}
-                    {this.state.causeCharityCount === 1 && <span>
-                        <span className="font-weight-bold h4-responsive">
-                          {this.state.causeCharityCount} charity{" "}
-                        </span>
-                        supports
-                      </span>}
-                    &nbsp;{this.state.causeName} in {valueLocation}.
-                  </p>
-                  <button className="btn btn-success" type="button" onClick={this.handleOnClickToSearch}>
-                    See complete charity list
-                  </button>
-                
-                </div>
+                <hr className="my-3 mx-5 w-100" style={{border:"1px solid #E0E0E0"}}/>
 
+                {/* cause subtypes */}
+                <div className="row d-flex align-items-center justify-content-center mb-3">
+                    
+                    <div className="row d-flex align-items-center justify-content-center mx-4 text-center">
+                      <img src={QA} alt="cause general info" className="mr-3"/>
+                      <h2>What is <span className="font-weight-bold">"{this.state.causeName}"?</span></h2>
+                    </div>
+
+                    <p className="mb-3 w-100 text-center">
+                      <span className="font-weight-bold h4-responsive">{this.state.causeCurrentDetails.length}</span>&nbsp;
+                      {this.state.causeCurrentDetails.length === 1 && <span>
+                          subcategory{" "}
+                        </span>}
+                      {this.state.causeCurrentDetails.length !== 1 && <span>
+                          subcategories{" "}
+                        </span>}
+                      of work:
+                    </p>
+
+                    <ul className="list-unstyled mb-0">{renderCauseSubtypes}</ul>
+
+                </div>
+                
               </div>
-            </ScrollableAnchor>
+
+              {/* charities for the cause in the suburb */}
+              <div className="row d-flex flex-column align-items-center justify-content-center p-4 mt-2 mb-4 text-white mx-1" style={{background:"#00BFA5"}}>
+                
+                <img src={charity} alt="care" className="mx-3 my-3"/>
+                <p className="text-center">
+                  {this.state.causeCharityCount !== 1 && <span>
+                      <span className="font-weight-bold h4-responsive">
+                        {this.state.causeCharityCount} charities{" "}
+                      </span>
+                      support
+                    </span>}
+                  {this.state.causeCharityCount === 1 && <span>
+                      <span className="font-weight-bold h4-responsive">
+                        {this.state.causeCharityCount} charity{" "}
+                      </span>
+                      supports
+                    </span>}
+                  &nbsp;{this.state.causeName} in {valueLocation}.
+                </p>
+                <button className="btn btn-success" type="button" onClick={this.handleOnClickToSearch}>
+                  See complete charity list
+                </button>
+              
+              </div>
+
+            </div>
           }
         </div>
 
