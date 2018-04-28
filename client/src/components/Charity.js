@@ -44,11 +44,11 @@ class Charity extends Component {
             ausUse: 0,
             allUse: 0,
             percAusUse: 0,
-            activeItemClassicTabs1: '1',
+            activeItemOfTabs: '1',
             geoLocCenter: {},
             isReadMoreDescClicked: false,
         }
-        this.toggleClassicTabs1 = this.toggleClassicTabs1.bind(this);
+        this.toggleTabs = this.toggleTabs.bind(this);
         this.refresh = this.refresh.bind(this);
         this.handleClickToReadMoreDesc = this.handleClickToReadMoreDesc.bind(this);
     }
@@ -106,10 +106,10 @@ class Charity extends Component {
         });
     }
 
-    async toggleClassicTabs1(tab) {
-        if (this.state.activeItemClassicTabs1 !== tab) {
+    async toggleTabs(tab) {
+        if (this.state.activeItemOfTabs !== tab) {
             this.setState({
-                activeItemClassicTabs1: tab,
+                activeItemOfTabs: tab,
             });
             if (tab === '3') {
                 var charityAdd = this.state.streetAddLn1 + ' ' 
@@ -307,23 +307,23 @@ class Charity extends Component {
                             <Col className="px-0" >
                                 <Nav style={{background: "#7E57C2", padding:"1.25rem 1.25rem 0 1.25rem"}} className="z-depth-1 text-center">
                                     <NavItem>
-                                        <a className={classnames({ active: this.state.activeItemClassicTabs1 === '1' }, 'nav-link')} onClick={() => { this.toggleClassicTabs1('1'); }} style={this.state.activeItemClassicTabs1 === '1'? activeItemStyle : inactiveItemStyle}>
+                                        <a className={classnames({ active: this.state.activeItemOfTabs === '1' }, 'nav-link')} onClick={() => { this.toggleTabs('1'); }} style={this.state.activeItemOfTabs === '1'? activeItemStyle : inactiveItemStyle}>
                                             Overview
                                         </a>
                                     </NavItem>
                                     <NavItem>
-                                        <a className={classnames({ active: this.state.activeItemClassicTabs1 === '2' }, 'nav-link')} onClick={() => { this.toggleClassicTabs1('2'); }} style={this.state.activeItemClassicTabs1 === '2'? activeItemStyle : inactiveItemStyle}>
+                                        <a className={classnames({ active: this.state.activeItemOfTabs === '2' }, 'nav-link')} onClick={() => { this.toggleTabs('2'); }} style={this.state.activeItemOfTabs === '2'? activeItemStyle : inactiveItemStyle}>
                                             Finance
                                         </a>
                                     </NavItem>
                                     <NavItem>
-                                        <a className={classnames({ active: this.state.activeItemClassicTabs1 === '3' }, 'nav-link')} onClick={() => { this.toggleClassicTabs1('3'); }} style={this.state.activeItemClassicTabs1 === '3'? activeItemStyle : inactiveItemStyle}>
+                                        <a className={classnames({ active: this.state.activeItemOfTabs === '3' }, 'nav-link')} onClick={() => { this.toggleTabs('3'); }} style={this.state.activeItemOfTabs === '3'? activeItemStyle : inactiveItemStyle}>
                                             Map
                                         </a>
                                     </NavItem>
                                 </Nav>
                                 
-                                <TabContent className="card" activeItem={this.state.activeItemClassicTabs1} style={{color:"#212121", }}>
+                                <TabContent className="card" activeItem={this.state.activeItemOfTabs} style={{color:"#212121", }}>
                                     
                                     {/* overview */}
                                     <TabPane tabId="1">
