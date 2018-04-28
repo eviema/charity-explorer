@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Breadcrumb, BreadcrumbItem,
-        Card, CardBody, CardImage, 
         Container, Row, Col, TabPane, TabContent, Nav, NavItem, 
         Tooltip, } from 'mdbreact';   
 import classnames from 'classnames';  
@@ -47,9 +46,11 @@ class Charity extends Component {
             percAusUse: 0,
             activeItemClassicTabs1: '1',
             geoLocCenter: {},
+            isReadMoreDescClicked: false,
         }
         this.toggleClassicTabs1 = this.toggleClassicTabs1.bind(this);
         this.refresh = this.refresh.bind(this);
+        this.handleClickToReadMoreDesc = this.handleClickToReadMoreDesc.bind(this);
     }
 
     componentDidMount() {
@@ -144,24 +145,29 @@ class Charity extends Component {
         zoom: 11
     };
 
+    handleClickToReadMoreDesc() {
+        this.setState({
+            isReadMoreDescClicked: this.state.isReadMoreDescClicked? false: true,
+        });
+    }
+
     render() {
 
         var { ABN, name, regStatus, dgrStatus, size, desc,
             streetAddLn1, streetAddLn2, suburb, postcode, 
             cause, govGrants, donationBequest,
-            ausUse, allUse, percAusUse } = this.state;
+            ausUse, allUse, percAusUse,
+            isReadMoreDescClicked } = this.state;
         
-        const charityAddress = 
-            <div>
-                <span>{streetAddLn1}</span> <br />
-                {
-                    {streetAddLn2} !== '' &&
-                    <div>
-                        <span>{streetAddLn2}</span>
-                    </div>
-                }
-                <span>{suburb} VIC {postcode}</span>
-            </div>;
+        const descPreview = desc.slice(0,300).concat("... ");
+        
+        const charityCardStyle = {
+            backgroundImage:"url(https://images.unsplash.com/photo-1505562130589-9879683e72da?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=94f59c798cc667c7966bf41e7f5144d3&auto=format&fit=crop&w=1050&q=80)",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            height: "60vh",
+        } 
 
         govGrants = govGrants.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         donationBequest = donationBequest.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -235,12 +241,12 @@ class Charity extends Component {
         var abnUrl = "https://abr.business.gov.au/SearchByAbnHistory.aspx?abn=" + ABN;
 
         const activeItemStyle = {
-            color: "#212121", 
+            color: "white", 
             fontWeight:"bold", 
-            borderBottom: "5px solid #7E57C2"
+            borderBottom: "5px solid #fff",
         },
         inactiveItemStyle = {
-            color: "#212121"
+            color: "white",
         };
 
         var percStyle = {};
@@ -262,10 +268,30 @@ class Charity extends Component {
 
         var renderPpltns = this.state.ppltns.map((ppltn, index) => {
             return <li key={index}><i className="fa fa-check mr-1" style={{color:"#8BC34A"}}></i> {ppltn}</li>;
-        });
+        });   
+
+        const charityAddress = 
+            <div>
+                <span>{streetAddLn1}</span> <br />
+                {
+                    {streetAddLn2} !== '' &&
+                    <div>
+                        <span>{streetAddLn2}</span>
+                    </div>
+                }
+                <span>{suburb} VIC {postcode}</span>
+            </div>;
+
+        const addressOnMapStyle = {
+            position: "absolute",
+            top: "1rem",
+            left: "1rem",
+            zIndex: "99",
+            background: "#fafafa",
+        }
 
         return (
-            <div style={{background: "#F3F3F3"}}>
+            <div style={{background: "#F3F3F3", width:"100%"}}>
                 <Breadcrumb className="small mb-0">
                     <BreadcrumbItem><a href="/home"><i className="fa fa-home"></i></a></BreadcrumbItem>
                     <BreadcrumbItem><a href="/charities/dashboardAct">Explore charitable causes</a></BreadcrumbItem>
@@ -273,77 +299,15 @@ class Charity extends Component {
                     <BreadcrumbItem active>{name}</BreadcrumbItem>
                 </Breadcrumb>
                 
-                {/* charity details (except contact) col */}
-                <div className="row d-flex justify-content-center py-3">
+                <div className="row d-flex justify-content-center py-xs-0 py-sm-3 m-1 w-xs-100 w-sm-60">
                     
-                    <Container className="px-0 mx-0" style={{width:"80vw"}}>
+                    <Container className="px-0 mx-0 w-xs-100 w-sm-60">
                         {/* todo - back to search results button */}
-
-                        {/* title row */}
-                        <Row>
-                            <Card cascade className="w-100">
-                                <CardImage tag="div">
-                                    <div className="p-4 text-white" style={{background: "#7E57C2"}}>
-                                        <h5 className="h4-responsive">{name}</h5>
-                                    </div>
-                                </CardImage>
-                                <CardBody>
-                                    <p className="h6-responsive" style={{color: "#89959B"}}>{suburb} VIC {postcode} <strong>·</strong> {cause}</p>
-                                    
-                                    <Tooltip 
-                                        placement="right" tag="div" component="button" 
-                                        componentClass="btn btn-link p-0 mb-1 mt-0"
-                                        tooltipContent={sizeTooltip}> 
-                                            {sizeIcon}
-                                            <span className="ml-2 mr-4" style={{color: "#757575", fontSize:".9rem"}}>
-                                                <span>{size.slice(0,1)}</span>
-                                                <span className="text-lowercase">{size.slice(1)} size</span>
-                                            </span>
-                                    </Tooltip>
-                                    
-                                    <Tooltip 
-                                        placement="right" tag="div" component="button" 
-                                        componentClass="btn btn-link p-0 mb-1 mt-0 text-left"
-                                        tooltipContent="The Australian Charities and Not-for-profits Commission (ACNC) regulates the Australian charity sector."> 
-                                            {regIcon}
-                                            <span className="ml-2 mr-4" style={{color: "#757575", fontSize:".9rem"}}>
-                                                <span>{regDesc.slice(0,1)}</span>
-                                                <span className="text-lowercase">{regDesc.slice(1, -5)}</span>
-                                                <span>{regDesc.slice(-5)}</span>
-                                            </span>
-                                    </Tooltip>
-                                    
-                                    <Tooltip 
-                                        placement="right" tag="div" component="button" 
-                                        componentClass="btn btn-link p-0 mb-1 mt-0 text-left"
-                                        tooltipContent={dgrTooltip}> 
-                                            {dgrIcon}
-                                            <span className="ml-2 mr-4" style={{color: "#757575", fontSize:".9rem"}}>
-                                                <span>{dgrDesc.slice(0,1)}</span>
-                                                <span className="text-lowercase">{dgrDesc.slice(1)}</span>
-                                            </span>
-                                    </Tooltip>
-                                    
-                                    <Tooltip 
-                                        placement="right" tag="div" component="button" 
-                                        componentClass="btn btn-link p-0 mt-0 mb-1"
-                                        tooltipContent="Click to see further details of this charity in the Australian Business Register"> 
-                                            <img src={idCard} alt="Australian Business Number"/>
-                                            <span className="ml-2 mr-4">
-                                                <a href={abnUrl} target="_blank" style={{color: "#757575", fontSize:".9rem"}}>ABN: {ABN}</a>
-                                            </span>
-                                    </Tooltip>
-                                    
-                                </CardBody>
-                            </Card>
-                        </Row>
                         
-                        {/* options row - overview (incl. all others, in order), financial, reviews, location/map */}
                         <Row className="px-0">
                             <Col className="px-0" >
-                                <Nav style={{background: "white", padding:"1.25rem 1.25rem 0 1.25rem"}} className="z-depth-1">
+                                <Nav style={{background: "#7E57C2", padding:"1.25rem 1.25rem 0 1.25rem"}} className="z-depth-1 text-center">
                                     <NavItem>
-                                        {/* <a className="nav-link" href="/charitySearch">Overview</a> */}
                                         <a className={classnames({ active: this.state.activeItemClassicTabs1 === '1' }, 'nav-link')} onClick={() => { this.toggleClassicTabs1('1'); }} style={this.state.activeItemClassicTabs1 === '1'? activeItemStyle : inactiveItemStyle}>
                                             Overview
                                         </a>
@@ -360,39 +324,112 @@ class Charity extends Component {
                                     </NavItem>
                                 </Nav>
                                 
-                                <TabContent className="card" activeItem={this.state.activeItemClassicTabs1} style={{color:"#212121", padding: "2em"}}>
+                                <TabContent className="card" activeItem={this.state.activeItemClassicTabs1} style={{color:"#212121", }}>
                                     
                                     {/* overview */}
                                     <TabPane tabId="1">
-                                        <h4><img src={mission} alt="mission" className="mr-2"/> Mission</h4>
-                                        <p className="pl-5">{desc}</p>
-                                        
-                                        <hr />
 
-                                        <h4><img src={people} alt="target populations" className="mr-2"/> Target population(s)</h4>
-                                        <ul className="list-unstyled pl-5">{renderPpltns}</ul>
-
-                                        <hr />
-                                        
-                                        <h4><img src={donation} alt="donation" className="mr-2"/> How much reached those in need</h4>
-                                        <p className="pl-5">
-                                            In 2016, &nbsp;
-                                            <strong className="h2-responsive" style={percStyle}>
-                                                {percAusUse * 100}%
-                                            </strong>
-                                            &nbsp;of all expenses went to charitable use in Australia.
-                                        </p>
-
-                                        <hr />
-
-                                        <h4><img src={address} alt="address" className="mr-2"/> Address</h4>
-                                        <div className="pl-5">
-                                            {charityAddress}
+                                        <div className="px-4 d-flex flex-column align-items-stretch justify-content-around" style={charityCardStyle}>
+                                            
+                                            <div className="text-white">
+                                                <h5 className="h1-responsive">{name}</h5>
+                                                <p className="h6-responsive">{suburb} VIC {postcode} <strong>·</strong> {cause}</p>
+                                            </div>
+                                               
+                                            <div>
+                                                <Tooltip 
+                                                    placement="right" tag="div" component="button" 
+                                                    componentClass="btn btn-link p-0 mb-1 mt-0"
+                                                    tooltipContent={sizeTooltip}> 
+                                                        {sizeIcon}
+                                                        <span className="ml-2 mr-4" style={{color: "#424242", fontSize:"1rem"}}>
+                                                            <span>{size.slice(0,1)}</span>
+                                                            <span className="text-lowercase">{size.slice(1)} size</span>
+                                                        </span>
+                                                </Tooltip>
+                                                
+                                                <Tooltip 
+                                                    placement="right" tag="div" component="button" 
+                                                    componentClass="btn btn-link p-0 mb-1 mt-0 text-left"
+                                                    tooltipContent="The Australian Charities and Not-for-profits Commission (ACNC) regulates the Australian charity sector."> 
+                                                        {regIcon}
+                                                        <span className="ml-2 mr-4" style={{color: "#424242", fontSize:"1rem"}}>
+                                                            <span>{regDesc.slice(0,1)}</span>
+                                                            <span className="text-lowercase">{regDesc.slice(1, -5)}</span>
+                                                            <span>{regDesc.slice(-5)}</span>
+                                                        </span>
+                                                </Tooltip>
+                                                
+                                                <Tooltip 
+                                                    placement="right" tag="div" component="button" 
+                                                    componentClass="btn btn-link p-0 mb-1 mt-0 text-left"
+                                                    tooltipContent={dgrTooltip}> 
+                                                        {dgrIcon}
+                                                        <span className="ml-2 mr-4" style={{color: "#424242", fontSize:"1rem"}}>
+                                                            <span>{dgrDesc.slice(0,1)}</span>
+                                                            <span className="text-lowercase">{dgrDesc.slice(1)}</span>
+                                                        </span>
+                                                </Tooltip>
+                                                
+                                                <Tooltip 
+                                                    placement="right" tag="div" component="button" 
+                                                    componentClass="btn btn-link p-0 mt-0 mb-1"
+                                                    tooltipContent="Click to see further details of this charity in the Australian Business Register"> 
+                                                        <img src={idCard} alt="Australian Business Number"/>
+                                                        <span className="ml-2 mr-4">
+                                                            <a href={abnUrl} target="_blank" style={{color: "#424242", fontSize:"1rem"}}>ABN: {ABN}</a>
+                                                        </span>
+                                                </Tooltip>
+                                            </div>
+                                            
                                         </div>
+
+                                        <div className="p-4">
+                                            <h4><img src={mission} alt="mission" className="mr-2"/> Mission</h4>
+                                            <p className="pl-5">
+                                                {desc.length <= 300 && desc}
+                                                {desc.length > 300 && !isReadMoreDescClicked && 
+                                                    <span>
+                                                        {descPreview}
+                                                        <button className="btn btn-outline-info btn-sm my-0" onClick={this.handleClickToReadMoreDesc}>Read More</button>
+                                                    </span>
+                                                }
+                                                {desc.length > 300 && isReadMoreDescClicked &&
+                                                    <span>
+                                                        {desc}
+                                                        <button className="btn btn-outline-info btn-sm my-0" onClick={this.handleClickToReadMoreDesc}>Read Less</button>
+                                                    </span>
+                                                }
+                                            </p>
+                                            
+                                            <hr />
+
+                                            <h4><img src={people} alt="target populations" className="mr-2"/> Target population(s)</h4>
+                                            <ul className="list-unstyled pl-5">{renderPpltns}</ul>
+
+                                            <hr />
+                                            
+                                            <h4><img src={donation} alt="donation" className="mr-2"/> How much reached those in need</h4>
+                                            <p className="pl-5">
+                                                In 2016, &nbsp;
+                                                <strong className="h2-responsive" style={percStyle}>
+                                                    {percAusUse * 100}%
+                                                </strong>
+                                                &nbsp;of all expenses went to charitable use in Australia.
+                                            </p>
+
+                                            <hr />
+
+                                            <h4><img src={address} alt="address" className="mr-2"/> Address</h4>
+                                            <div className="pl-5">
+                                                {charityAddress}
+                                            </div>
+                                        </div>
+                                        
                                     </TabPane>
                                     
                                     {/* finance */}
-                                    <TabPane tabId="2">
+                                    <TabPane tabId="2" className="p-4">
                                         <h4>How much was received</h4>
                                         <p>
                                             <i className="fa fa-sign-in-alt mr-2" style={{color:"#43A047"}}></i>
@@ -420,10 +457,13 @@ class Charity extends Component {
                                     </TabPane>
 
                                     {/* map */}
-                                    <TabPane tabId="3">
-                                        <h4>Address</h4>
-                                        <div className="mb-2">{charityAddress}</div>
-                                        <div className="google-map" style={{ height: '30vh', width: '100%' }}>
+                                    <TabPane tabId="3" style={{position:"relative"}}>
+                                        <div style={addressOnMapStyle} className="z-depth-2 p-3">
+                                            <h4><strong>Address</strong></h4>
+                                            <div className="mb-2">{charityAddress}</div>
+                                        </div>
+
+                                        <div className="google-map" style={{ height: '70vh', width: '100%' }}>
                                             <GoogleMapReact 
                                                 bootstrapURLKeys={{
                                                     key: keys.API_key
@@ -443,6 +483,7 @@ class Charity extends Component {
                                 </TabContent>
                             </Col>
                         </Row>
+
                     </Container>
 
                 </div>
