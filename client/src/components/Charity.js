@@ -241,12 +241,11 @@ class Charity extends Component {
         var abnUrl = "https://abr.business.gov.au/SearchByAbnHistory.aspx?abn=" + ABN;
 
         const activeItemStyle = {
-            color: "white", 
-            fontWeight:"bold", 
+            color: "white",  
             borderBottom: "5px solid #fff",
         },
         inactiveItemStyle = {
-            color: "white",
+            color: "#f5f5f5",
         };
 
         var percStyle = {};
@@ -332,8 +331,8 @@ class Charity extends Component {
                                         <div className="px-4 d-flex flex-column align-items-stretch justify-content-around" style={charityCardStyle}>
                                             
                                             <div className="text-white">
-                                                <h5 className="h1-responsive">{name}</h5>
-                                                <p className="h6-responsive">{suburb} VIC {postcode} <strong>·</strong> {cause}</p>
+                                                <p className="h1-responsive">{name}</p>
+                                                <p>{suburb} VIC {postcode} <strong>·</strong> {cause}</p>
                                             </div>
                                                
                                             <div>
@@ -471,7 +470,7 @@ class Charity extends Component {
                                                 defaultCenter={this.props.center} 
                                                 defaultZoom={this.props.zoom}
                                                 center={this.state.geoLocCenter}
-                                                zoom={15}
+                                                zoom={16}
                                                 ref={r => this.googleMapRef_ = r}>
                                                 <AddressOnMap 
                                                     lat={this.state.geoLocCenter.lat} 
