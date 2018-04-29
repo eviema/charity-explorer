@@ -5,6 +5,12 @@ import { Breadcrumb, BreadcrumbItem,
         Tooltip, } from 'mdbreact';   
 import classnames from 'classnames';  
 import GoogleMapReact from 'google-map-react';
+import { FacebookShareButton, FacebookShareCount, FacebookIcon,
+        TwitterShareButton, TwitterIcon,
+        WhatsappShareButton, WhatsappIcon,
+        TelegramShareButton, TelegramIcon, 
+        RedditShareButton, RedditIcon, } from 'react-share';
+import share from '../assets/share.png';
 import smileFace from '../assets/smile.png'; 
 import sadFace from '../assets/sad.png';
 import warningSign from '../assets/warning.png';
@@ -47,10 +53,12 @@ class Charity extends Component {
             activeItemOfTabs: '1',
             geoLocCenter: {},
             isReadMoreDescClicked: false,
+            isShowShareButtonsClicked: false,
         }
         this.toggleTabs = this.toggleTabs.bind(this);
         this.refresh = this.refresh.bind(this);
         this.handleClickToReadMoreDesc = this.handleClickToReadMoreDesc.bind(this);
+        this.handleClickToShowShareButtons = this.handleClickToShowShareButtons.bind(this);
     }
 
     componentDidMount() {
@@ -160,6 +168,12 @@ class Charity extends Component {
         });
     }
 
+    handleClickToShowShareButtons() {
+        this.setState({
+            isShowShareButtonsClicked: this.state.isShowShareButtonsClicked ? false : true
+        });
+    }
+
     render() {
 
         var { ABN, name, regStatus, dgrStatus, size, desc,
@@ -170,7 +184,10 @@ class Charity extends Component {
             isReadMoreDescClicked } = this.state;
         
         const descPreview = desc.slice(0,300).concat("... ");
-        
+        const charityPageUrl = "https://charity-home-dev.appspot.com/charity/" + ABN,
+            charityPageShareQuote = "Check out this charity in Melbourne: " + name + " ",
+            charityPageShareHashtags = ["ThinkGloballyDonateLocally", "CharityStartsAtHome"];
+
         const charityCardStyle = {
             backgroundImage:"url(https://images.unsplash.com/photo-1505562130589-9879683e72da?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=94f59c798cc667c7966bf41e7f5144d3&auto=format&fit=crop&w=1050&q=80)",
             backgroundRepeat: "no-repeat",
@@ -178,6 +195,10 @@ class Charity extends Component {
             backgroundPosition: "center",
             height: "60vh",
         } 
+
+        const shareButtonStyle = {
+            cursor: "pointer",
+        }
 
         govGrants = govGrants.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         donationBequest = donationBequest.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -331,6 +352,33 @@ class Charity extends Component {
                                             Map
                                         </a>
                                     </NavItem>
+                                    <a className="d-flex ml-auto mr-2 my-auto text-white small" onClick={this.handleClickToShowShareButtons}>
+                                        <u className="d-none d-sm-block">Share this page</u> 
+                                        {!this.state.isShowShareButtonsClicked && 
+                                            <img src={share} alt="share" className="img-responsive mx-2"/>
+                                        }
+                                    </a>
+                                    {this.state.isShowShareButtonsClicked && 
+                                        <div className="d-flex my-auto py-2">
+                                            <a onClick={this.handleClickToShowShareButtons}><i className="fa fa-angle-double-left text-white my-auto mr-2"></i></a>
+                                            <FacebookShareButton quote={charityPageShareQuote} url={charityPageUrl} style={shareButtonStyle}>
+                                                <FacebookIcon size={24} round={true}/>
+                                            </FacebookShareButton>
+                                            <TwitterShareButton title={charityPageShareQuote} url={charityPageUrl} hashtags={charityPageShareHashtags} className="ml-2" style={shareButtonStyle}>
+                                                <TwitterIcon size={24} round={true}/>
+                                            </TwitterShareButton>
+                                            <WhatsappShareButton title={charityPageShareQuote} url={charityPageUrl} className="ml-2" style={shareButtonStyle}>
+                                                <WhatsappIcon size={24} round={true}/>
+                                            </WhatsappShareButton>
+                                            <TelegramShareButton title={charityPageShareQuote} url={charityPageUrl} className="ml-2" style={shareButtonStyle}>
+                                                <TelegramIcon size={24} round={true}/>
+                                            </TelegramShareButton>
+                                            <RedditShareButton title={charityPageShareQuote} url={charityPageUrl} className="ml-2" style={shareButtonStyle}>
+                                                <RedditIcon size={24} round={true}/>
+                                            </RedditShareButton>
+                                        </div>
+                                    }
+                                    
                                 </Nav>
                                 
                                 <TabContent className="card" activeItem={this.state.activeItemOfTabs} style={{color:"#212121", }}>
