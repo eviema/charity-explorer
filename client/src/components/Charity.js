@@ -57,19 +57,28 @@ class Charity extends Component {
         axios.get(`/api/charity/${this.state.ABN}`)
                 .then((res) => {
                     const charity = res.data;
-                    var index = [];
+                    var indexes = [];
                     for (var x in charity) {
-                        index.push(x);
+                        indexes.push(x);
                     }
+
                     // set state ppltns (target populations)
+                    var ppltnColIndexes = [];
+                    for (var i = 50; i <= 61; i++) {
+                        ppltnColIndexes.push(i);
+                    }
+                    for (i = 65; i <= 76; i++) {
+                        ppltnColIndexes.push(i);
+                    }
+                    
                     var ppltnsMatched = [];
-                    for (var i = 43; i <= 68; i++) {
-                        var ppltn = index[i];
+                    ppltnColIndexes.forEach((ppltnColIndex) => {
+                        var ppltn = indexes[ppltnColIndex];
                         if (charity[ppltn] === 'Y') {
                             ppltn = ppltn.split('_').join(' ');
                             ppltnsMatched.push(ppltn); 
                         }
-                    }
+                    })
 
                     this.setState({
                         ABN: charity["ABN"],
@@ -88,7 +97,7 @@ class Charity extends Component {
                         donationBequest: charity["Donations_and_bequests"],
                         ausUse: charity["Grants_and_donations_made_for_use_in_Australia"],
                         allUse: charity["Total_expenses"],
-                        percAusUse: charity["%_of_grants_and_donations_made_for_use_in_Australia"],
+                        // percAusUse: charity["%_of_grants_and_donations_made_for_use_in_Australia"],
                     });
                 })
                 .catch(function(e) {
@@ -156,7 +165,8 @@ class Charity extends Component {
         var { ABN, name, regStatus, dgrStatus, size, desc,
             streetAddLn1, streetAddLn2, suburb, postcode, 
             cause, govGrants, donationBequest,
-            ausUse, allUse, percAusUse,
+            ausUse, allUse, 
+            // percAusUse,
             isReadMoreDescClicked } = this.state;
         
         const descPreview = desc.slice(0,300).concat("... ");
@@ -248,7 +258,7 @@ class Charity extends Component {
             color: "#f5f5f5",
         };
 
-        var percStyle = {};
+        /* var percStyle = {};
         if (percAusUse >= 0.8) {
             percStyle = {
                 color:'#4CAF50'
@@ -263,7 +273,7 @@ class Charity extends Component {
             percStyle = {
                 color:'#FF5722'
             }
-        }
+        } */
 
         var renderPpltns = this.state.ppltns.map((ppltn, index) => {
             return <li key={index}><i className="fa fa-check mr-1" style={{color:"#8BC34A"}}></i> {ppltn}</li>;
@@ -408,7 +418,7 @@ class Charity extends Component {
 
                                             <hr />
                                             
-                                            <h4><img src={donation} alt="donation" className="mr-2"/> How much reached those in need</h4>
+                                            {/* <h4><img src={donation} alt="donation" className="mr-2"/> How much reached those in need</h4>
                                             <p className="pl-5">
                                                 In 2016, &nbsp;
                                                 <strong className="h2-responsive" style={percStyle}>
@@ -417,7 +427,7 @@ class Charity extends Component {
                                                 &nbsp;of all expenses went to charitable use in Australia.
                                             </p>
 
-                                            <hr />
+                                            <hr /> */}
 
                                             <h4><img src={address} alt="address" className="mr-2"/> Address</h4>
                                             <div className="pl-5">
@@ -429,7 +439,7 @@ class Charity extends Component {
                                     
                                     {/* finance */}
                                     <TabPane tabId="2" className="p-4">
-                                        <h4>How much was received</h4>
+                                        <h4>How much was received by the charity</h4>
                                         <p>
                                             <i className="fa fa-sign-in-alt mr-2" style={{color:"#43A047"}}></i>
                                             Donations and bequests: <strong>${donationBequest}</strong> <br />
@@ -437,22 +447,22 @@ class Charity extends Component {
                                             Government grants: <strong>${govGrants}</strong>
                                         </p>
                                         <hr />
-                                        <h4>How much was spent</h4>
+                                        <h4>How much was spent by the charity</h4>
                                         <p>
                                             <i className="fa fa-sign-out-alt mr-2" style={{color:"#EF5350"}}></i>
                                             Charitable use in Australia: <strong>${ausUse}</strong> <br />
                                             <i className="fa fa-sign-out-alt mr-2" style={{color:"#EF5350"}}></i>
                                             Total expenses: <strong>${allUse}</strong> 
                                         </p>
-                                        <hr />
-                                        <h4>How much reached those in need</h4>
+                                        {/* <hr />
+                                        <h4>How much reached the charity's beneficiaries</h4>
                                         <p>
                                             In 2016, &nbsp;
                                             <strong className="h3-responsive" style={percStyle}>
                                                 {percAusUse * 100}%
                                             </strong>
                                             &nbsp;of all expenses went to charitable use in Australia.
-                                        </p>
+                                        </p> */}
                                     </TabPane>
 
                                     {/* map */}
