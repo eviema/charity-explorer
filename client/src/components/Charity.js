@@ -551,10 +551,10 @@ class Charity extends Component {
                                     {/* map */}
                                     <TabPane tabId="3" style={{position:"relative"}}>
                                         <div style={addressOnMapStyle} className="z-depth-2 p-3">
-                                            <p className="h4-responsive"><strong>Address</strong></p>
-                                            <div className="mb-2 ml-2 h6-responsive">{charityAddress}</div>
+                                            <span className="h5-responsive">Address</span>
+                                            <div className="my-2 h6-responsive">{charityAddress}</div>
                                             <a href={directionsUrl} target="_blank"
-                                                className="btn btn-outline-info">
+                                                className="btn btn-outline-info m-0">
                                                 Get Directions 
                                             </a> 
                                         </div>
