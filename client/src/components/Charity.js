@@ -24,10 +24,6 @@ import address from '../assets/map.png';
 import pin from '../assets/pin.png';
 const keys = require("../config/keys");
 
-const AddressOnMap = () => (
-    <img src={pin} alt="map pin" className="img-responsive"/>
-);
-
 class Charity extends Component {
 
     constructor(props) {
@@ -320,6 +316,14 @@ class Charity extends Component {
             background: "#fff",
         }
 
+        const charityAddString = this.state.streetAddLn1 + ' ' 
+                                + this.state.streetAddLn2 + ' ' 
+                                + this.state.suburb + ' VIC ' 
+                                + this.state.postcode + ' '
+                                + 'Australia',
+            charityAddStringForDirectionsUrl = charityAddString.split(/[ ,]+/).join('+'),
+            directionsUrl = "https://www.google.com/maps/dir//" + charityAddStringForDirectionsUrl + "/";
+
         return (
             <div style={{background: "#F3F3F3", width:"100%"}}>
                 <Breadcrumb className="small mb-0">
@@ -518,6 +522,10 @@ class Charity extends Component {
                                         <div style={addressOnMapStyle} className="z-depth-2 p-3">
                                             <h4><strong>Address</strong></h4>
                                             <div className="mb-2">{charityAddress}</div>
+                                            <a href={directionsUrl} target="_blank"
+                                                className="btn btn-outline-info">
+                                                Get Directions 
+                                            </a> 
                                         </div>
 
                                         <div className="google-map" style={{ height: '70vh', width: '100%' }}>
@@ -530,9 +538,9 @@ class Charity extends Component {
                                                 center={this.state.geoLocCenter}
                                                 zoom={16}
                                                 ref={r => this.googleMapRef_ = r}>
-                                                <AddressOnMap 
+                                                <img src={pin} alt="map pin" className="img-responsive"
                                                     lat={this.state.geoLocCenter.lat} 
-                                                    lng={this.state.geoLocCenter.lng} />
+                                                    lng={this.state.geoLocCenter.lng}/>
                                             </GoogleMapReact>
                                         </div>
                                     </TabPane>
