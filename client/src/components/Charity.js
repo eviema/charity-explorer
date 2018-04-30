@@ -27,6 +27,10 @@ import address from '../assets/map.png';
 import pin from '../assets/pin.png';
 const keys = require("../config/keys");
 
+const MapPin = () => {
+    return <img src={pin} alt="map pin" className="img-responsive" />;
+}
+
 class Charity extends Component {
 
     constructor(props) {
@@ -565,7 +569,7 @@ class Charity extends Component {
                                                 center={this.state.geoLocCenter}
                                                 zoom={16}
                                                 ref={r => this.googleMapRef_ = r}>
-                                                <img src={pin} alt="map pin" className="img-responsive"
+                                                <MapPin
                                                     lat={this.state.geoLocCenter.lat} 
                                                     lng={this.state.geoLocCenter.lng}/>
                                             </GoogleMapReact>
