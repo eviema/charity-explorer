@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import ScrollUpButton from 'react-scroll-up-button';
 import { Breadcrumb, BreadcrumbItem,
         Container, Row, Col, TabPane, TabContent, Nav, NavItem, 
         Tooltip, } from 'mdbreact';   
 import classnames from 'classnames';  
-import GoogleMapReact from 'google-map-react';
-import { FacebookShareButton, FacebookShareCount, FacebookIcon,
+import { FacebookShareButton, FacebookIcon,
         TwitterShareButton, TwitterIcon,
         WhatsappShareButton, WhatsappIcon,
         TelegramShareButton, TelegramIcon, 
         RedditShareButton, RedditIcon, } from 'react-share';
+import { ReactTypeformEmbed } from 'react-typeform-embed';
+import GoogleMapReact from 'google-map-react';
 import share from '../assets/share.png';
+import reportError from '../assets/reportError.png';
 import smileFace from '../assets/smile.png'; 
 import sadFace from '../assets/sad.png';
 import warningSign from '../assets/warning.png';
@@ -54,8 +57,9 @@ class Charity extends Component {
         }
         this.toggleTabs = this.toggleTabs.bind(this);
         this.refresh = this.refresh.bind(this);
-        this.handleClickToReadMoreDesc = this.handleClickToReadMoreDesc.bind(this);
-        this.handleClickToShowShareButtons = this.handleClickToShowShareButtons.bind(this);
+        this.toggleReadMoreOrLess = this.toggleReadMoreOrLess.bind(this);
+        this.toggleShowShareButtons = this.toggleShowShareButtons.bind(this);
+        this.openForm = this.openForm.bind(this);
     }
 
     componentDidMount() {
@@ -159,16 +163,20 @@ class Charity extends Component {
         zoom: 11
     };
 
-    handleClickToReadMoreDesc() {
+    toggleReadMoreOrLess() {
         this.setState({
             isReadMoreDescClicked: this.state.isReadMoreDescClicked? false: true,
         });
     }
 
-    handleClickToShowShareButtons() {
+    toggleShowShareButtons() {
         this.setState({
             isShowShareButtonsClicked: this.state.isShowShareButtonsClicked ? false : true
         });
+    }
+
+    openForm() {
+        this.typeformEmbed.typeform.open();
     }
 
     render() {
@@ -177,7 +185,7 @@ class Charity extends Component {
             streetAddLn1, streetAddLn2, suburb, postcode, 
             cause, govGrants, donationBequest,
             ausUse, overseasUse, allUse, percUse,
-            isReadMoreDescClicked } = this.state;
+            isReadMoreDescClicked, } = this.state;
         
         percUse = Math.round((ausUse + overseasUse) / allUse * 100);
 
@@ -278,12 +286,12 @@ class Charity extends Component {
         };
 
         var percStyle = {};
-        if (percUse >= 0.8) {
+        if (percUse >= 80) {
             percStyle = {
                 color:'#4CAF50'
             } 
         }
-        else if (percUse >= 0.4) {
+        else if (percUse >= 40) {
             percStyle = {
                 color:'#FFA000'
             }
@@ -328,6 +336,7 @@ class Charity extends Component {
 
         return (
             <div style={{background: "#F3F3F3", width:"100%"}}>
+                <ScrollUpButton />
                 <Breadcrumb className="small mb-0">
                     <BreadcrumbItem><a href="/home"><i className="fa fa-home"></i></a></BreadcrumbItem>
                     <BreadcrumbItem><a href="/charities/dashboardAct">Explore charitable causes</a></BreadcrumbItem>
@@ -358,33 +367,49 @@ class Charity extends Component {
                                             Map
                                         </a>
                                     </NavItem>
-                                    <a className="d-flex ml-auto mr-2 my-auto text-white small" onClick={this.handleClickToShowShareButtons}>
-                                        <u className="d-none d-sm-block">Share this page</u> 
-                                        {!this.state.isShowShareButtonsClicked && 
-                                            <img src={share} alt="share" className="img-responsive mx-2"/>
-                                        }
-                                    </a>
-                                    {this.state.isShowShareButtonsClicked && 
-                                        <div className="d-flex my-auto py-2">
-                                            <a onClick={this.handleClickToShowShareButtons}><i className="fa fa-angle-double-left text-white my-auto mr-2"></i></a>
-                                            <FacebookShareButton quote={charityPageShareQuote} url={charityPageUrl} style={shareButtonStyle}>
-                                                <FacebookIcon size={24} round={true}/>
-                                            </FacebookShareButton>
-                                            <TwitterShareButton title={charityPageShareQuote} url={charityPageUrl} hashtags={charityPageShareHashtags} className="ml-2" style={shareButtonStyle}>
-                                                <TwitterIcon size={24} round={true}/>
-                                            </TwitterShareButton>
-                                            <WhatsappShareButton title={charityPageShareQuote} url={charityPageUrl} className="ml-2" style={shareButtonStyle}>
-                                                <WhatsappIcon size={24} round={true}/>
-                                            </WhatsappShareButton>
-                                            <TelegramShareButton title={charityPageShareQuote} url={charityPageUrl} className="ml-2" style={shareButtonStyle}>
-                                                <TelegramIcon size={24} round={true}/>
-                                            </TelegramShareButton>
-                                            <RedditShareButton title={charityPageShareQuote} url={charityPageUrl} className="ml-2" style={shareButtonStyle}>
-                                                <RedditIcon size={24} round={true}/>
-                                            </RedditShareButton>
-                                        </div>
-                                    }
                                     
+                                    <div className="d-flex ml-auto">
+                                        <a className="d-flex mr-2 my-auto text-white small" onClick={this.toggleShowShareButtons}>
+                                            <u className="d-none d-sm-block">Share this page</u> 
+                                            {!this.state.isShowShareButtonsClicked && 
+                                                <img src={share} alt="share" className="img-responsive mx-2 mr-3"/>
+                                            }
+                                        </a>
+                                        {this.state.isShowShareButtonsClicked && 
+                                            <div className="d-flex my-auto py-2 mr-3">
+                                                <a onClick={this.toggleShowShareButtons}><i className="fa fa-angle-double-left text-white my-auto"></i></a>
+                                                <FacebookShareButton quote={charityPageShareQuote} url={charityPageUrl} style={shareButtonStyle} className="ml-2">
+                                                    <FacebookIcon size={24} round={true}/>
+                                                </FacebookShareButton>
+                                                <TwitterShareButton title={charityPageShareQuote} url={charityPageUrl} hashtags={charityPageShareHashtags} className="ml-2" style={shareButtonStyle}>
+                                                    <TwitterIcon size={24} round={true}/>
+                                                </TwitterShareButton>
+                                                <WhatsappShareButton title={charityPageShareQuote} url={charityPageUrl} className="ml-2" style={shareButtonStyle}>
+                                                    <WhatsappIcon size={24} round={true}/>
+                                                </WhatsappShareButton>
+                                                <TelegramShareButton title={charityPageShareQuote} url={charityPageUrl} className="ml-2" style={shareButtonStyle}>
+                                                    <TelegramIcon size={24} round={true}/>
+                                                </TelegramShareButton>
+                                                <RedditShareButton title={charityPageShareQuote} url={charityPageUrl} className="ml-2" style={shareButtonStyle}>
+                                                    <RedditIcon size={24} round={true}/>
+                                                </RedditShareButton>
+                                            </div>
+                                        }
+                                        <a className="d-flex my-auto text-white small" onClick={this.openForm}>
+                                            <u className="d-none d-sm-block">Report Issue</u>
+                                            <img src={reportError} alt="report error" className="img-responsive mx-2"/>
+                                        </a>
+                                        <ReactTypeformEmbed
+                                            popup={true}
+                                            autoOpen={false}
+                                            url={'https://yifei2.typeform.com/to/Tqpj9h'}
+                                            hideHeaders={true}
+                                            hideFooter={true}
+                                            style={{top: 100}}
+                                            ref={(tf => this.typeformEmbed = tf) }
+                                        />
+                                    </div>
+
                                 </Nav>
                                 
                                 <TabContent className="card" activeItem={this.state.activeItemOfTabs} style={{color:"#212121", }}>
@@ -402,7 +427,7 @@ class Charity extends Component {
                                             <div>
                                                 <Tooltip 
                                                     placement="right" tag="div" component="button" 
-                                                    componentClass="btn btn-link p-0 mb-1 mt-0"
+                                                    componentClass="btn btn-link p-0 mb-1 mt-2"
                                                     tooltipContent={sizeTooltip}> 
                                                         {sizeIcon}
                                                         <span className="ml-2 mr-4" style={{color: "#424242", fontSize:"1rem"}}>
@@ -454,13 +479,13 @@ class Charity extends Component {
                                                 {desc.length > 300 && !isReadMoreDescClicked && 
                                                     <span>
                                                         {descPreview}
-                                                        <button className="btn btn-outline-info btn-sm my-0" onClick={this.handleClickToReadMoreDesc}>Read More</button>
+                                                        <button className="btn btn-outline-info btn-sm my-0" onClick={this.toggleReadMoreOrLess}>Read More</button>
                                                     </span>
                                                 }
                                                 {desc.length > 300 && isReadMoreDescClicked &&
                                                     <span>
                                                         {desc}
-                                                        <button className="btn btn-outline-info btn-sm my-0" onClick={this.handleClickToReadMoreDesc}>Read Less</button>
+                                                        <button className="btn btn-outline-info btn-sm my-0" onClick={this.toggleReadMoreOrLess}>Read Less</button>
                                                     </span>
                                                 }
                                             </p>
