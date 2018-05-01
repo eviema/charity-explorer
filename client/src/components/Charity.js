@@ -400,7 +400,7 @@ class Charity extends Component {
                                             </div>
                                         }
                                         <a className="d-flex my-auto text-white small" onClick={this.openForm}>
-                                            <u className="d-none d-sm-block">Report Issue</u>
+                                            <u className="d-none d-sm-block">Report Error</u>
                                             <img src={reportError} alt="report error" className="img-responsive mx-2"/>
                                         </a>
                                         <ReactTypeformEmbed
