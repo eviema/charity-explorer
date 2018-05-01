@@ -49,35 +49,34 @@ const About = () => {
             {/* who we are */}
             <p className="h4-responsive font-weight-bold">DonateNow</p>
             <p>
-              DonateNow is an online information hub for Melburnians to find a
-              charitable cause in their local area that they are interested
-              in, and a suitable charity to make donations to.
+              DonateNow is an online information hub for Melburnians to find 
+              local charities that support global causes they care about.
             </p>
             <div>
               Here they can:
               <ul>
                 <li>
-                  explore local charitable causes (e.g. what they are, how
-                  much donations and grants they receive),
+                  find out about local charities that support a cause 
+                  (e.g. what they do exactly, how much they receive, how much they give),
                 </li>
                 <li>
-                  find out about charities nearby (e.g. what they do, how much
-                  they receive, how much they give), and
+                  discover which global causes are supported by charities in their local area
+                  (e.g. what they are, how much donations and grants they receive), and
                 </li>
                 <li>
                   contact charities to discuss how they can do their share
-                  (e.g. by referring to charity's address shown on a map and
-                  discussing in person).
+                  (e.g. by clicking to visit their websites or referring to their addresses and
+                  visiting in person).
                 </li>
               </ul>
             </div>
 
             {/* data source */}
             <p className="h4-responsive font-weight-bold pt-3">
-              Our data source
+              Data source
             </p>
             <p>
-              <img src={acncLogo} alt="acnc-logo" className="img-responsive py-2 pr-3" />
+              <img src={acncLogo} alt="acnc-logo" className="img-responsive py-2 pr-3 mr-5" />
               <img src={dataGovAuLogo} alt="data.gov.au" className="img-responsive pb-2" />
               <br />
               The open data we have sourced is presented on <a href="https://data.gov.au/">
@@ -99,7 +98,7 @@ const About = () => {
             </p>
 
             {/* image crediting */}
-            <p className="h4-responsive font-weight-bold pt-3">Icon sources</p>
+            <p className="h4-responsive font-weight-bold pt-3">Icon source</p>
             <div>
               All icons used for the website are made by <a href="https://www.flaticon.com/authors/vectors-market" title="Vectors Market" target="_blank" rel="noopener noreferrer">
                 Vectors Market
