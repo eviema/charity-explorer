@@ -445,7 +445,7 @@ class CharitySearch extends Component {
                                         options={this.state.causes} />
                                     <a href="/charities/dashboardAct"
                                         className="my-2 w-50 small" style={{textShadow: "1px 1px 8px #fff"}}>
-                                        Still unsure about which cause to choose? Click here to explore...
+                                        Not sure about which cause to choose? Click here to explore...
                                     </a> 
 
                                     <h5 className="my-3 h5">And your location?</h5>
