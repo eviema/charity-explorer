@@ -355,7 +355,7 @@ class DashboardAct extends Component {
         <div className="row d-flex align-items-center justify-content-center py-4 px-2 text-white" style={titleRowStyle}>
           <p className="col-11 col-sm-10 col-md-8 col-lg-8 col-xl-8 px-5 text-center" style={{textShadow: "1px 1px 8px #212121"}}>
             <span className="h1-responsive font-weight-bold">
-              Which cause are you interested in?
+              Which cause matters to you?
             </span> 
             <br />
             <span className="h5-responsive">
