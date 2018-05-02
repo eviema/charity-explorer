@@ -127,15 +127,15 @@ class Landing extends Component {
           </div>
         </div>
 
-        {/* what is DonateNow */}
+        {/* our goal */}
         <div
           className="row d-flex align-items-center justify-content-center text-center py-5 px-4"
-          style={{ color: "#839094",}}>
-          <p className="col-12 h4-responsive">What is DonateNow?</p>
-          <p className="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-6 h6-responsive">
+          style={{ color: "#839094", background: "#f5f9fb" }}>
+          <p className="col-12 h3-responsive">OUR GOAL IS TO HELP YOU...</p>
+          {/* <p className="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-6 h6-responsive">
             DonateNow is an online information hub for Melburnians to find local charities 
             that support global causes they care about. 
-          </p>
+          </p> */}
           <div className="row pt-4 d-flex align-items-center justify-content-center text-center">
             
             <div className="m-2 col-8 col-sm-6 col-md-3 col-lg-3 col-xl-3">
@@ -184,118 +184,7 @@ class Landing extends Component {
               /> */}
               <img src={donate} alt="contact and donate"/>
               <p className="h5-responsive font-weight-bold mt-4 mb-2">Contact the charity</p>
-              <p>Visit a charity in person or its website online to start donating now</p>
-            </div>
-          </div>
-        </div>
-
-        {/* charity intro */}
-        <div
-          id="findCharity"
-          className="row d-flex align-items-stretch justify-content-center text-center py-5 px-4"
-          style={{ color: "#839094", background: "#f5f9fb" }}>
-          <div className="col-12 col-sm-10 col-md-4 col-lg-4 col-xl-4">
-            <img
-              src={magnifyingGlass}
-              alt="magnifying glass"
-              className="py-3"
-            />
-            <p className="h4-responsive">Discover the right charity for you</p>
-            <p className="h6-responsive">
-              Have a cause you want to support but not sure which local charity
-              to go to? Wondering if a charity has been making good use of
-              donations?
-            </p>
-            <a
-              className="btn btn-outline-info"
-              onClick={this.handleOnClickToSearch}
-            >
-              Click to start searching
-            </a>
-          </div>
-
-          <div className="col-12 col-sm-10 col-md-6 col-lg-6 col-xl-6 text-left">
-            <div className="row d-flex align-items-center justify-content-center ">
-              <div className="col-12 col-sm-12 col-md-10 col-lg-6 col-xl-6 mt-4">
-                <div className="row d-flex align-items-stretch justify-content-center ">
-                  <div className="col-1">
-                    <i
-                      className="fa fa-map-pin fa-lg cyan-text"
-                      aria-hidden="true"
-                    />
-                  </div>
-
-                  <div className="col-10">
-                    <p className="font-weight-bold mb-2">In your suburb</p>
-                    <p className="small">
-                      It's easy to search for charities that support a cause in
-                      your suburb. Don't worry if there is none - we'll show you
-                      the charities in other suburbs near you.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-12 col-sm-12 col-md-10 col-lg-6 col-xl-6 mt-4">
-                <div className="row d-flex align-items-stretch justify-content-center ">
-                  <div className="col-1">
-                    <i className="fa fa-heartbeat fa-lg cyan-text" />
-                  </div>
-
-                  <div className="col-10">
-                    <p className="font-weight-bold mb-2">For your cause</p>
-                    <p className="small">
-                      Only the charities that support your cause as their main
-                      activity will be displayed. You can also do additional
-                      filtering, e.g. by target populations.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="row d-flex align-items-center justify-content-center">
-              <div className="col-12 col-sm-12 col-md-10 col-lg-6 col-xl-6 mt-4">
-                <div className="row d-flex align-items-stretch justify-content-center ">
-                  <div className="col-1">
-                    <i
-                      className="fa fa-dollar-sign fa-lg cyan-text"
-                      aria-hidden="true"
-                    />
-                  </div>
-
-                  <div className="col-10">
-                    <p className="font-weight-bold mb-2">
-                      Financially transparent
-                    </p>
-                    <p className="small">
-                      You'll be able to check how much each charity gets from
-                      donations and grants, versus how much of it reaches the
-                      charity's beneficiaries.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-12 col-sm-12 col-md-10 col-lg-6 col-xl-6 mt-4">
-                <div className="row d-flex align-items-stretch justify-content-center ">
-                  <div className="col-1">
-                    <i
-                      className="fa fa-comments fa-lg cyan-text"
-                      aria-hidden="true"
-                    />
-                  </div>
-
-                  <div className="col-10">
-                    <p className="font-weight-bold mb-2">Reviewed by donors</p>
-                    <p className="small">
-                      See what your fellow donors have to say about a charity.
-                      You can also review your experience of donating which helps
-                      others with their decisions.
-                    </p>
-                  </div>
-                </div>
-              </div>
+              <p>Visit a charity in person or its website to start donating now</p>
             </div>
           </div>
         </div>
@@ -305,7 +194,7 @@ class Landing extends Component {
         
           {/* cause intro title */}
           <div className="mb-3 mx-4 px-2">
-            <p className="text-center h4-responsive" style={{ color: "#839094",}}>
+            <p className="text-center h3-responsive" style={{ color: "#839094",}}>
               Which charitable cause do you feel connected to?
             </p>
           </div>
@@ -412,6 +301,117 @@ class Landing extends Component {
             </a>
           </div>
 
+        </div>
+
+        {/* charity intro */}
+        <div
+          id="findCharity"
+          className="row d-flex align-items-center justify-content-center text-center py-5 px-4"
+          style={{ color: "#839094", background: "#f5f9fb" }}>
+          <div className="col-12 col-sm-10 col-md-4 col-lg-4 col-xl-4">
+            <img
+              src={magnifyingGlass}
+              alt="magnifying glass"
+              className="py-3"
+            />
+            <p className="h3-responsive">Discover the right charity for you</p>
+            <p className="h6-responsive">
+              Have a cause you want to support but not sure which local charity
+              to go to? Wondering if a charity has been making good use of
+              donations?
+            </p>
+            <a
+              className="btn btn-outline-info"
+              onClick={this.handleOnClickToSearch}
+            >
+              Click to start searching
+            </a>
+          </div>
+
+          <div className="col-12 col-sm-10 col-md-6 col-lg-6 col-xl-6 text-left">
+            <div className="row d-flex align-items-center justify-content-center ">
+              <div className="col-12 col-sm-12 col-md-10 col-lg-6 col-xl-6 mt-4">
+                <div className="row d-flex align-items-stretch justify-content-center ">
+                  <div className="col-1">
+                    <i
+                      className="fa fa-map-pin fa-lg cyan-text"
+                      aria-hidden="true"
+                    />
+                  </div>
+
+                  <div className="col-10">
+                    <p className="font-weight-bold mb-2">In your suburb</p>
+                    <p className="small">
+                      It's easy to search for charities that support a cause in
+                      your suburb. Don't worry if there is none - we'll show you
+                      the charities in other suburbs near you.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="col-12 col-sm-12 col-md-10 col-lg-6 col-xl-6 mt-4">
+                <div className="row d-flex align-items-stretch justify-content-center ">
+                  <div className="col-1">
+                    <i className="fa fa-heartbeat fa-lg cyan-text" />
+                  </div>
+
+                  <div className="col-10">
+                    <p className="font-weight-bold mb-2">For your cause</p>
+                    <p className="small">
+                      Only the charities that support your cause as their main
+                      activity will be displayed. You can also do additional
+                      filtering, e.g. by target populations.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="row d-flex align-items-center justify-content-center">
+              <div className="col-12 col-sm-12 col-md-10 col-lg-6 col-xl-6 mt-4">
+                <div className="row d-flex align-items-stretch justify-content-center ">
+                  <div className="col-1">
+                    <i
+                      className="fa fa-dollar-sign fa-lg cyan-text"
+                      aria-hidden="true"
+                    />
+                  </div>
+
+                  <div className="col-10">
+                    <p className="font-weight-bold mb-2">
+                      Financially transparent
+                    </p>
+                    <p className="small">
+                      You'll be able to check how much each charity gets from
+                      donations and grants, versus how much of it reaches the
+                      charity's beneficiaries.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="col-12 col-sm-12 col-md-10 col-lg-6 col-xl-6 mt-4">
+                <div className="row d-flex align-items-stretch justify-content-center ">
+                  <div className="col-1">
+                    <i
+                      className="fa fa-comments fa-lg cyan-text"
+                      aria-hidden="true"
+                    />
+                  </div>
+
+                  <div className="col-10">
+                    <p className="font-weight-bold mb-2">Reviewed by donors</p>
+                    <p className="small">
+                      See what your fellow donors have to say about a charity.
+                      You can also review your experience of donating which helps
+                      others with their decisions.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
       </div>
