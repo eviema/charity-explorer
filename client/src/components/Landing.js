@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { Redirect } from "react-router";
 import { Card, CardBody, CardImage, CardText } from "mdbreact";
 import landingBackground from "../assets/landingBackground.jpg";
-import charity from '../assets/charity128.png';
-import globalCauses from '../assets/globalCauses128.png';
+import search from '../assets/search128.png';
+import diagram from '../assets/diagram128.png';
 import donate from '../assets/donate128.png';
 import magnifyingGlass from "../assets/landingMagnify.png";
 import ScrollUpButton from "react-scroll-up-button";
@@ -148,7 +148,7 @@ class Landing extends Component {
                   maxWidth: "80%"
                 }}
               /> */}
-              <img src={charity} alt="charity"/>
+              <img src={search} alt="search for charities"/>
               <p className="h5-responsive font-weight-bold mt-4 mb-2">
                 Find local charities
               </p>
@@ -165,11 +165,11 @@ class Landing extends Component {
                   maxWidth: "80%"
                 }}
               /> */}
-              <img src={globalCauses} alt="global causes"/>
+              <img src={diagram} alt="cause diagram"/>
               <p className="h5-responsive font-weight-bold mt-4 mb-2">
                 Explore charitable causes
               </p>
-              <p>Discover which global causes are supported by charities in your local area</p>
+              <p>Discover the global causes supported by charities in your local area</p>
             </div>
             
             <div className="m-2 col-8 col-sm-6 col-md-3 col-lg-3 col-xl-3">
@@ -184,7 +184,7 @@ class Landing extends Component {
               /> */}
               <img src={donate} alt="contact and donate"/>
               <p className="h5-responsive font-weight-bold mt-4 mb-2">Contact the charity</p>
-              <p>Visit a charity in person or online to find out how you can do your share</p>
+              <p>Visit a charity in person or its website online to start donating now</p>
             </div>
           </div>
         </div>
