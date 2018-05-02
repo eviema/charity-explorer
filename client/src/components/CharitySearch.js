@@ -28,11 +28,11 @@ class CharitySearch extends Component {
         const conditions = [
             {
                 value: 'amtAllLow',
-                label: 'Lowest amount of donations received'
+                label: 'Lowest amount of donations and grants received'
             },
             {
                 value: 'amtAllHigh',
-                label: 'Highest amount of donations received'
+                label: 'Highest amount of donations and grants received'
             },/* 
             {
                 value: 'amtDonationsLow',
@@ -203,7 +203,7 @@ class CharitySearch extends Component {
                 charities: charitiesSortedByTotalAmt,
                 sortByCondCurrent: {
                     value: 'amtAllLow',
-                    label: 'Lowest amount of donations received'
+                    label: 'Lowest amount of donations and grants received'
                 },
                 doneCharitySearch: true,
                 loading: false
@@ -253,7 +253,7 @@ class CharitySearch extends Component {
                                     charities: charitiesSortedByTotalAmt,
                                     sortByCondCurrent: {
                                         value: 'amtAllLow',
-                                        label: 'Lowest amount of donations received'
+                                        label: 'Lowest amount of donations and grants received'
                                     },
                                     doneCharitySearch: true,
                                     doneCharitySearchByCouncil: true,
@@ -307,7 +307,7 @@ class CharitySearch extends Component {
 
         const condition = chosenCond === null ? {
             value: 'amtAllLow',
-            label: 'Lowest amount of donations received'
+            label: 'Lowest amount of donations and grants received'
           } : chosenCond;
 
         await this.setState({
@@ -514,7 +514,7 @@ class CharitySearch extends Component {
 
                         <div className="row d-flex align-items-center justify-content-start px-3 small">
                             <span>Sort by </span>
-                            <Select name="sortBy" className="col-10 col-sm-6 col-md-5 col-lg-4 col-xl-3 mb-2 mt-1"
+                            <Select name="sortBy" className="col-10 col-sm-8 col-md-6 col-lg-5 col-xl-4 mb-2 mt-1"
                                     value={valueSortByCond}
                                     onChange={this.handleSort}
                                     options={this.state.sortByConditions} />
