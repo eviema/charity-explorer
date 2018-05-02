@@ -12,6 +12,7 @@ import { FacebookShareButton, FacebookIcon,
         RedditShareButton, RedditIcon, } from 'react-share';
 import { ReactTypeformEmbed } from 'react-typeform-embed';
 import GoogleMapReact from 'google-map-react';
+import charityCardBg from '../assets/charityCardBg.jpeg';
 import share from '../assets/share.png';
 import reportError from '../assets/reportError.png';
 import smileFace from '../assets/smile.png'; 
@@ -20,6 +21,8 @@ import warningSign from '../assets/warning.png';
 import checkBadge from '../assets/badge.png';
 import cancelSign from '../assets/cancel.png';
 import idCard from '../assets/id-card.png';
+import externalLink from '../assets/externalLink.png';
+import mapMarker from '../assets/mapMarker.png';
 import mission from '../assets/mission.png';
 import people from '../assets/team.png';
 import donation from '../assets/donation.png';
@@ -42,6 +45,7 @@ class Charity extends Component {
             dgrStatus: '',
             size: '',
             desc: '',
+            websiteUrl: '',
             ppltns: [],
             streetAddLn1: '',
             streetAddLn2: '',
@@ -100,6 +104,7 @@ class Charity extends Component {
                         dgrStatus: charity["DGR_Status"],
                         size: charity["Charity_Size"],
                         desc: charity["Charity_activities_and_outcomes_helped_achieve_charity_purpose"],
+                        websiteUrl: charity["Website"].trim(),
                         ppltns: ppltnsMatched,
                         streetAddLn1: charity["Address_Line_1"],
                         streetAddLn2: charity["Address_Line_2"],
@@ -185,7 +190,7 @@ class Charity extends Component {
 
     render() {
 
-        var { ABN, name, regStatus, dgrStatus, size, desc,
+        var { ABN, name, regStatus, dgrStatus, size, desc, websiteUrl, 
             streetAddLn1, streetAddLn2, suburb, postcode, 
             cause, govGrants, donationBequest,
             ausUse, overseasUse, allUse, percUse,
@@ -194,16 +199,18 @@ class Charity extends Component {
         percUse = Math.round((ausUse + overseasUse) / allUse * 100);
 
         const descPreview = desc.slice(0,300).concat("... ");
+        
+        // vars needed to share charity page to social media
         const charityPageUrl = "https://charity-home-dev.appspot.com/charity/" + ABN,
             charityPageShareQuote = "Check out this charity in Melbourne: " + name + " ",
             charityPageShareHashtags = ["ThinkGloballyDonateLocally", "CharityStartsAtHome"];
 
         const charityCardStyle = {
-            backgroundImage:"url(https://images.unsplash.com/photo-1505562130589-9879683e72da?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=94f59c798cc667c7966bf41e7f5144d3&auto=format&fit=crop&w=1050&q=80)",
+            backgroundImage:`url(${charityCardBg})`,
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
             backgroundPosition: "center",
-            height: "60vh",
+            height: "55vh",
         } 
 
         const shareButtonStyle = {
@@ -279,7 +286,7 @@ class Charity extends Component {
             dgrIcon = <span><img src={sadFace} alt="sad face"/></span>;
         }
 
-        var abnUrl = "https://abr.business.gov.au/SearchByAbnHistory.aspx?abn=" + ABN;
+        const abnUrl = "https://abr.business.gov.au/SearchByAbnHistory.aspx?abn=" + ABN;
 
         const activeItemStyle = {
             color: "white",  
@@ -421,59 +428,86 @@ class Charity extends Component {
                                     {/* overview */}
                                     <TabPane tabId="1">
 
-                                        <div className="px-4 d-flex flex-column align-items-stretch justify-content-around" style={charityCardStyle}>
+                                        <div className="d-flex flex-column align-items-stretch justify-content-around px-4" style={charityCardStyle}>
                                             
+                                            {/* charity name, suburb and cause */}
                                             <div className="text-white">
                                                 <p className="h1-responsive">{name}</p>
                                                 <p>{suburb} VIC {postcode} <strong>·</strong> {cause}</p>
                                             </div>
-                                               
-                                            <div>
-                                                <Tooltip 
-                                                    placement="right" tag="div" component="button" 
-                                                    componentClass="btn btn-link p-0 mb-1 mt-2"
-                                                    tooltipContent={sizeTooltip}> 
-                                                        {sizeIcon}
-                                                        <span className="ml-2 mr-4" style={{color: "#424242", fontSize:"1rem"}}>
-                                                            <span>{size.slice(0,1)}</span>
-                                                            <span className="text-lowercase">{size.slice(1)} size</span>
-                                                        </span>
-                                                </Tooltip>
-                                                
-                                                <Tooltip 
-                                                    placement="right" tag="div" component="button" 
-                                                    componentClass="btn btn-link p-0 mb-1 mt-0 text-left"
-                                                    tooltipContent="The Australian Charities and Not-for-profits Commission (ACNC) regulates the Australian charity sector."> 
-                                                        {regIcon}
-                                                        <span className="ml-2 mr-4" style={{color: "#424242", fontSize:"1rem"}}>
-                                                            <span>{regDesc.slice(0,1)}</span>
-                                                            <span className="text-lowercase">{regDesc.slice(1, -5)}</span>
-                                                            <span>{regDesc.slice(-5)}</span>
-                                                        </span>
-                                                </Tooltip>
-                                                
-                                                <Tooltip 
-                                                    placement="right" tag="div" component="button" 
-                                                    componentClass="btn btn-link p-0 mb-1 mt-0 text-left"
-                                                    tooltipContent={dgrTooltip}> 
-                                                        {dgrIcon}
-                                                        <span className="ml-2 mr-4" style={{color: "#424242", fontSize:"1rem"}}>
-                                                            <span>{dgrDesc.slice(0,1)}</span>
-                                                            <span className="text-lowercase">{dgrDesc.slice(1)}</span>
-                                                        </span>
-                                                </Tooltip>
-                                                
-                                                <Tooltip 
-                                                    placement="right" tag="div" component="button" 
-                                                    componentClass="btn btn-link p-0 mt-0 mb-1"
-                                                    tooltipContent="Click to see further details of this charity in the Australian Business Register"> 
-                                                        <img src={idCard} alt="Australian Business Number"/>
-                                                        <span className="ml-2 mr-4">
-                                                            <a href={abnUrl} target="_blank" style={{color: "#424242", fontSize:"1rem"}}>ABN: {ABN}</a>
-                                                        </span>
-                                                </Tooltip>
-                                            </div>
                                             
+                                            {/* quick facts and buttons */}
+                                            <div className="row d-flex align-items-end justify-content-between px-2 px-sm-0">
+                                                {/* charity quick facts */}
+                                                <div className="col col-12 col-sm-12 col-md-8 col-lg-7 col-xl-7">
+                                                    <Tooltip 
+                                                        placement="right" tag="div" component="button" 
+                                                        componentClass="btn btn-link p-0 mb-1 mt-2"
+                                                        tooltipContent={sizeTooltip}> 
+                                                            {sizeIcon}
+                                                            <span className="ml-2 mr-4" style={{color: "#424242", fontSize:"1rem"}}>
+                                                                <span>{size.slice(0,1)}</span>
+                                                                <span className="text-lowercase">{size.slice(1)} size</span>
+                                                            </span>
+                                                    </Tooltip>
+                                                    
+                                                    <Tooltip 
+                                                        placement="right" tag="div" component="button" 
+                                                        componentClass="btn btn-link p-0 mb-1 mt-0 text-left"
+                                                        tooltipContent="The Australian Charities and Not-for-profits Commission (ACNC) regulates the Australian charity sector."> 
+                                                            {regIcon}
+                                                            <span className="ml-2 mr-4" style={{color: "#424242", fontSize:"1rem"}}>
+                                                                <span>{regDesc.slice(0,1)}</span>
+                                                                <span className="text-lowercase">{regDesc.slice(1, -5)}</span>
+                                                                <span>{regDesc.slice(-5)}</span>
+                                                            </span>
+                                                    </Tooltip>
+                                                    
+                                                    <Tooltip 
+                                                        placement="right" tag="div" component="button" 
+                                                        componentClass="btn btn-link p-0 mb-1 mt-0 text-left"
+                                                        tooltipContent={dgrTooltip}> 
+                                                            {dgrIcon}
+                                                            <span className="ml-2 mr-4" style={{color: "#424242", fontSize:"1rem"}}>
+                                                                <span>{dgrDesc.slice(0,1)}</span>
+                                                                <span className="text-lowercase">{dgrDesc.slice(1)}</span>
+                                                            </span>
+                                                    </Tooltip>
+                                                    
+                                                    <Tooltip 
+                                                        placement="right" tag="div" component="button" 
+                                                        componentClass="btn btn-link p-0 mt-0 mb-1"
+                                                        tooltipContent="Click to see further details of this charity in the Australian Business Register"> 
+                                                            <img src={idCard} alt="Australian Business Number"/>
+                                                            <span className="ml-2 mr-4">
+                                                                <a href={abnUrl} target="_blank" style={{color: "#424242", fontSize:"1rem"}}>ABN: {ABN}</a>
+                                                            </span>
+                                                    </Tooltip>
+                                                </div>
+                                                
+                                                {/* buttons to visit website or view address */}
+                                                <div className="col col-12 col-sm-12 col-md-4 col-lg-3 col-xl-3 align-items-end justify-content-start justify-content-md-end small" style={{color:"#757575"}}>
+                                                    <div className="d-flex flex-sm-row flex-md-column">
+                                                        <a className="btn btn-outline-secondary py-2 px-3 d-flex align-items-center"
+                                                            onClick={() => { this.toggleTabs('3'); }}>
+                                                            <img src={mapMarker} alt="map marker" className="d-none d-sm-block"/>
+                                                            <span className="ml-1 font-weight-bold">View Address</span>
+                                                        </a>
+                                                        {websiteUrl !== "" && 
+                                                            <a className="btn btn-outline-secondary py-2 px-3 d-flex align-items-center"
+                                                                href={websiteUrl} target="_blank" rel="noopener noreferrer">
+                                                                <img src={externalLink} alt="external link" className="d-none d-sm-block"/>
+                                                                <span className="ml-1 ml-sm-2 font-weight-bold">Visit Website</span>
+                                                            </a>
+                                                        }
+                                                        {websiteUrl === "" && 
+                                                            <button className="btn btn-outline-secondary py-2 px-3 d-flex align-items-center" disabled>
+                                                                <span className="ml-1 ml-sm-2 font-weight-bold">No Website found</span>
+                                                            </button>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
 
                                         <div className="p-4">
@@ -507,7 +541,7 @@ class Charity extends Component {
                                                 <strong className="h2-responsive" style={percStyle}>
                                                     {percUse}%
                                                 </strong>
-                                                &nbsp;of all expenses went to charitable use in Australia.
+                                                &nbsp;of all expenses went to charitable use.
                                             </p>
 
                                             <hr />
@@ -544,7 +578,7 @@ class Charity extends Component {
                                             <strong className="h3-responsive" style={percStyle}>
                                                 {percUse}%
                                             </strong>
-                                            &nbsp;of all expenses went to charitable use in Australia.
+                                            &nbsp;of all expenses went to charitable use.
                                         </p>
                                     </TabPane>
 
