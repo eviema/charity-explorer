@@ -11,6 +11,7 @@ import { FacebookShareButton, FacebookIcon,
         TelegramShareButton, TelegramIcon, 
         RedditShareButton, RedditIcon, } from 'react-share';
 import { ReactTypeformEmbed } from 'react-typeform-embed';
+import { Link } from 'react-scroll';
 import GoogleMapReact from 'google-map-react';
 import charityCardBg from '../assets/charityCardBg.jpeg';
 import share from '../assets/share.png';
@@ -22,6 +23,7 @@ import checkBadge from '../assets/badge.png';
 import cancelSign from '../assets/cancel.png';
 import idCard from '../assets/id-card.png';
 import externalLink from '../assets/externalLink.png';
+import externalLinkBlack from '../assets/externalLinkBlack.png';
 import mapMarker from '../assets/mapMarker.png';
 import mission from '../assets/mission.png';
 import people from '../assets/team.png';
@@ -70,8 +72,8 @@ class Charity extends Component {
         this.openForm = this.openForm.bind(this);
     }
 
-    componentDidMount() {
-        axios.get(`/api/charity/${this.state.ABN}`)
+    async componentDidMount() {
+        await axios.get(`/api/charity/${this.state.ABN}`)
                 .then((res) => {
                     const charity = res.data;
                     var indexes = [];
@@ -121,6 +123,28 @@ class Charity extends Component {
                 .catch(function(e) {
                     console.log("ERROR", e);
                 });
+        
+        var charityAdd = this.state.streetAddLn1 + ' ' 
+                + this.state.streetAddLn2 + ' ' 
+                + this.state.suburb + ' VIC ' 
+                + this.state.postcode + ' '
+                + 'Australia';
+        charityAdd = charityAdd.split(/[ ,]+/).join('+');
+
+        await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${charityAdd}&key=${keys.API_key}`)
+        .then(
+            res => {
+                const { lat, lng } = res.data.results[0].geometry.location;
+                this.setState({
+                    geoLocCenter: {
+                        lat: lat + 0.000000001,
+                        lng: lng + 0.000000001,
+                    }
+                });
+            }
+        );
+
+        this.refresh();
     }
 
     refresh() {
@@ -138,29 +162,6 @@ class Charity extends Component {
             this.setState({
                 activeItemOfTabs: tab,
             });
-            if (tab === '3') {
-                var charityAdd = this.state.streetAddLn1 + ' ' 
-                                    + this.state.streetAddLn2 + ' ' 
-                                    + this.state.suburb + ' VIC ' 
-                                    + this.state.postcode + ' '
-                                    + 'Australia';
-                charityAdd = charityAdd.split(/[ ,]+/).join('+');
-                
-                await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${charityAdd}&key=${keys.API_key}`)
-                    .then(
-                        res => {
-                            const { lat, lng } = res.data.results[0].geometry.location;
-                            this.setState({
-                                geoLocCenter: {
-                                    lat: lat + 0.000000001,
-                                    lng: lng + 0.000000001,
-                                }
-                            });
-                        }
-                    );
-
-                this.refresh();
-            }
         }
     }
 
@@ -257,15 +258,15 @@ class Charity extends Component {
             regIcon = <span></span>;
         switch (regStatus) {
             case 'REG':
-                regDesc = 'This charity has an active registration with the ACNC.';
+                regDesc = 'Has an active registration with the ACNC';
                 regIcon = <span><img src={checkBadge} alt="check badge"/></span>;
                 break;
             case 'REV':
-                regDesc = 'The charity\'s registration was revoked by the ACNC.';
+                regDesc = 'Registration revoked by the ACNC';
                 regIcon = <span><img src={cancelSign} alt="cancel sign"/></span>;
                 break;
             case 'VREV':
-                regDesc = 'The charity\'s registration was voluntarily revoked by the ACNC.';
+                regDesc = 'Registration voluntarily revoked by the ACNC';
                 regIcon = <span><img src={warningSign} alt="warning sign"/></span>;
                 break;
             default:
@@ -329,14 +330,6 @@ class Charity extends Component {
                 <span>{suburb} VIC {postcode}</span>
             </div>;
 
-        const addressOnMapStyle = {
-            position: "absolute",
-            top: "1rem",
-            left: "1rem",
-            zIndex: "99",
-            background: "#fff",
-        }
-
         const charityAddString = this.state.streetAddLn1 + ' ' 
                                 + this.state.streetAddLn2 + ' ' 
                                 + this.state.suburb + ' VIC ' 
@@ -371,11 +364,6 @@ class Charity extends Component {
                                     <NavItem>
                                         <a className={classnames({ active: this.state.activeItemOfTabs === '2' }, 'nav-link')} onClick={() => { this.toggleTabs('2'); }} style={this.state.activeItemOfTabs === '2'? activeItemStyle : inactiveItemStyle}>
                                             Finance
-                                        </a>
-                                    </NavItem>
-                                    <NavItem>
-                                        <a className={classnames({ active: this.state.activeItemOfTabs === '3' }, 'nav-link')} onClick={() => { this.toggleTabs('3'); }} style={this.state.activeItemOfTabs === '3'? activeItemStyle : inactiveItemStyle}>
-                                            Map
                                         </a>
                                     </NavItem>
                                     
@@ -417,7 +405,7 @@ class Charity extends Component {
                                             hideHeaders={true}
                                             hideFooter={true}
                                             style={{top: 100}}
-                                            ref={(tf => this.typeformEmbed = tf) }
+                                            ref={(tf => this.typeformEmbed = tf)}
                                         />
                                     </div>
 
@@ -447,7 +435,7 @@ class Charity extends Component {
                                                             {sizeIcon}
                                                             <span className="ml-2 mr-4" style={{color: "#424242", fontSize:"1rem"}}>
                                                                 <span>{size.slice(0,1)}</span>
-                                                                <span className="text-lowercase">{size.slice(1)} size</span>
+                                                                <span className="text-lowercase">{size.slice(1)} charity</span>
                                                             </span>
                                                     </Tooltip>
                                                     
@@ -480,7 +468,10 @@ class Charity extends Component {
                                                         tooltipContent="Click to see further details of this charity in the Australian Business Register"> 
                                                             <img src={idCard} alt="Australian Business Number"/>
                                                             <span className="ml-2 mr-4">
-                                                                <a href={abnUrl} target="_blank" style={{color: "#424242", fontSize:"1rem"}}>ABN: {ABN}</a>
+                                                                <a href={abnUrl} target="_blank" style={{color: "#424242", fontSize:"1rem"}}>
+                                                                    ABN: {ABN}
+                                                                    <img src={externalLinkBlack} alt="external link" className="img-responsive ml-2"/>
+                                                                </a>
                                                             </span>
                                                     </Tooltip>
                                                 </div>
@@ -488,11 +479,13 @@ class Charity extends Component {
                                                 {/* buttons to visit website or view address */}
                                                 <div className="col col-12 col-sm-12 col-md-4 col-lg-3 col-xl-3 align-items-end justify-content-start justify-content-md-end small" style={{color:"#757575"}}>
                                                     <div className="d-flex flex-sm-row flex-md-column">
-                                                        <a className="btn btn-outline-secondary py-2 px-3 d-flex align-items-center"
-                                                            onClick={() => { this.toggleTabs('3'); }}>
-                                                            <img src={mapMarker} alt="map marker" className="d-none d-sm-block"/>
-                                                            <span className="ml-1 font-weight-bold">View Address</span>
-                                                        </a>
+                                                        <Link to="address" spy={true} smooth={true} offset={-100} duration={400}>
+                                                            <a className="btn btn-outline-secondary py-2 px-3 d-flex align-items-center">
+                                                                <img src={mapMarker} alt="map marker" className="d-none d-sm-block"/>
+                                                                <span className="ml-1 font-weight-bold">View Address</span>
+                                                            </a>
+                                                        </Link>
+                                                        
                                                         {websiteUrl !== "" && 
                                                             <a className="btn btn-outline-secondary py-2 px-3 d-flex align-items-center"
                                                                 href={websiteUrl} target="_blank" rel="noopener noreferrer">
@@ -546,9 +539,31 @@ class Charity extends Component {
 
                                             <hr />
 
-                                            <h4><img src={address} alt="address" className="mr-2"/> Address</h4>
+                                            <h4 id="address"><img src={address} alt="address" className="mr-2"/> Address</h4>
                                             <div className="pl-5">
-                                                {charityAddress}
+                                                <div className="d-flex align-items-center">
+                                                    <div className="my-2 mr-3 h6-responsive">{charityAddress}</div>
+                                                    <a href={directionsUrl} target="_blank"
+                                                        className="btn btn-outline-info m-0">
+                                                        Get Directions 
+                                                    </a> 
+                                                </div>
+
+                                                <div className="google-map" style={{ height: '40vh', width: '100%' }}>
+                                                    <GoogleMapReact 
+                                                        bootstrapURLKeys={{
+                                                            key: keys.API_key
+                                                        }}
+                                                        defaultCenter={this.props.center} 
+                                                        defaultZoom={this.props.zoom}
+                                                        center={this.state.geoLocCenter}
+                                                        zoom={16}
+                                                        ref={r => this.googleMapRef_ = r}>
+                                                        <MapPin
+                                                            lat={this.state.geoLocCenter.lat} 
+                                                            lng={this.state.geoLocCenter.lng}/>
+                                                    </GoogleMapReact>
+                                                </div>
                                             </div>
                                         </div>
                                         
@@ -580,34 +595,6 @@ class Charity extends Component {
                                             </strong>
                                             &nbsp;of all expenses went to charitable use.
                                         </p>
-                                    </TabPane>
-
-                                    {/* map */}
-                                    <TabPane tabId="3" style={{position:"relative"}}>
-                                        <div style={addressOnMapStyle} className="z-depth-2 p-3">
-                                            <span className="h5-responsive">Address</span>
-                                            <div className="my-2 h6-responsive">{charityAddress}</div>
-                                            <a href={directionsUrl} target="_blank"
-                                                className="btn btn-outline-info m-0">
-                                                Get Directions 
-                                            </a> 
-                                        </div>
-
-                                        <div className="google-map" style={{ height: '70vh', width: '100%' }}>
-                                            <GoogleMapReact 
-                                                bootstrapURLKeys={{
-                                                    key: keys.API_key
-                                                }}
-                                                defaultCenter={this.props.center} 
-                                                defaultZoom={this.props.zoom}
-                                                center={this.state.geoLocCenter}
-                                                zoom={16}
-                                                ref={r => this.googleMapRef_ = r}>
-                                                <MapPin
-                                                    lat={this.state.geoLocCenter.lat} 
-                                                    lng={this.state.geoLocCenter.lng}/>
-                                            </GoogleMapReact>
-                                        </div>
                                     </TabPane>
 
                                 </TabContent>
