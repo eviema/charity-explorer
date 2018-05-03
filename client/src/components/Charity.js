@@ -371,11 +371,11 @@ class Charity extends Component {
                             {/* charity name, charity use perc + suburb and cause, share page and report error*/}             
                             <div className="d-flex flex-column px-2 px-sm-0 text-white">
                                 {/* charity name + percentage */}
-                                <div className="d-flex">
+                                <div className="d-flex align-items-center justify-content-between">
                                     <p className="h2-responsive">{name}</p> 
                                     <Link to="finance" spy={true} smooth={true} offset={-100} duration={400}>
                                         <Tooltip 
-                                            placement="right" tag="div" component="button" 
+                                            placement="left" tag="div" component="button" 
                                             componentClass="btn btn-link p-0 mb-1 mt-2"
                                             tooltipContent={percUse + '% of all expenses of this charity went to charitable use. Click to see more.'}> 
                                                 <h5 className="h5-responsive text-white p-2 ml-4" style={percInTitleStyle}>{percUse}%</h5>
