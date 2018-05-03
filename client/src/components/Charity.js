@@ -372,13 +372,15 @@ class Charity extends Component {
                             <div className="d-flex flex-column px-2 px-sm-0 text-white">
                                 {/* charity name + percentage */}
                                 <div className="d-flex">
-                                    <p className="h2-responsive">{name}</p>  
-                                    <Tooltip 
-                                        placement="right" tag="div" component="button" 
-                                        componentClass="btn btn-link p-0 mb-1 mt-2"
-                                        tooltipContent={percUse + '% of all expenses of this charity went to charitable use.'}> 
-                                            <h5 className="h5-responsive text-white p-2 ml-4" style={percInTitleStyle}>{percUse}%</h5>
-                                    </Tooltip>
+                                    <p className="h2-responsive">{name}</p> 
+                                    <Link to="finance" spy={true} smooth={true} offset={-100} duration={400}>
+                                        <Tooltip 
+                                            placement="right" tag="div" component="button" 
+                                            componentClass="btn btn-link p-0 mb-1 mt-2"
+                                            tooltipContent={percUse + '% of all expenses of this charity went to charitable use. Click to see more.'}> 
+                                                <h5 className="h5-responsive text-white p-2 ml-4" style={percInTitleStyle}>{percUse}%</h5>
+                                        </Tooltip>
+                                    </Link>
                                 </div>
                                 {/* suburb and cause, share page and report error */}
                                 <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between my-3 text-white">
@@ -496,7 +498,7 @@ class Charity extends Component {
                                             </a>
                                         }
                                         {websiteUrl === "" && 
-                                            <button className="btn btn-outline-secondary py-2 px-3 d-flex align-items-center" disabled>
+                                            <button className="btn btn-outline-primary py-2 px-3 d-flex align-items-center" disabled>
                                                 <span className="ml-1 ml-sm-2 font-weight-bold">No Website found</span>
                                             </button>
                                         }
@@ -531,7 +533,7 @@ class Charity extends Component {
 
                             <hr />
                             
-                            <h4><img src={donation} alt="donation" className="mr-2"/> How much reached those in need</h4>
+                            <h4 id="finance"><img src={donation} alt="donation" className="mr-2"/> How much reached those in need</h4>
                             
                             <div className="pl-5">
 
