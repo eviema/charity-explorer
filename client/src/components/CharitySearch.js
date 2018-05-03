@@ -406,7 +406,7 @@ class CharitySearch extends Component {
             }
             return (
                 <li key={index} className="col col-12 d-flex align-items-stretch px-3 pb-3">
-
+                    {/* <a href={`/charity/${charity.ABN}`}> */}
                     <Card cascade className="w-100">
                         <CardImage tag="div">
                             <div className="#26c6da cyan lighten-1 p-4 d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
@@ -435,7 +435,7 @@ class CharitySearch extends Component {
                             </div>
                         </CardBody>
                     </Card>
-
+                    {/* </a> */}
                 </li>
             );
         });
@@ -563,7 +563,7 @@ class CharitySearch extends Component {
                             {/* sort by */}
                             <div className="row d-flex align-items-center justify-content-start px-3 small">
                                 <span>Sort by </span>
-                                <Select name="sortBy" className="col-10 col-sm-8 col-md-6 col-lg-5 col-xl-4"
+                                <Select name="sortBy" className="col-10 col-sm-8 col-md-6 col-lg-5 col-xl-6"
                                         value={valueSortByCond}
                                         onChange={this.handleSort}
                                         options={this.state.sortByConditions} />
