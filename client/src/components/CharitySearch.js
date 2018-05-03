@@ -5,7 +5,8 @@ import axios from 'axios';
 import spinner from '../assets/spinner.gif';
 import { Card, CardBody, CardImage, CardTitle, CardText, 
         Breadcrumb, BreadcrumbItem, 
-        Container, Col, Row } from 'mdbreact';
+        Container, Col, Row,
+        Tooltip, } from 'mdbreact';
 import Pagination from "react-js-pagination";
 
 class CharitySearch extends Component {
@@ -390,21 +391,33 @@ class CharitySearch extends Component {
                     borderRadius: "5px",
                 }
             }
-            else {
+            else if (charity.percUse >= 10) {
                 cardPercStyle = {
                     background:'#FF5722',
                     borderRadius: "5px",
                 }
             }
+            else {
+                charity.percUse = '< 10';
+                cardPercStyle = {
+                    background:'#FF5722',
+                    borderRadius: "5px",
+                };
+            }
             return (
-                <li key={index} className="col col-12 d-flex align-items-stretch p-3">
+                <li key={index} className="col col-12 d-flex align-items-stretch px-3 pb-3">
 
                     <Card cascade className="w-100">
                         <CardImage tag="div">
                             <div className="#26c6da cyan lighten-1 p-4 d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
                                 <div className="d-flex align-items-center">
                                     <h5 className="h5-responsive">{charity.name}</h5>
-                                    <h5 className="h5-responsive text-white p-2 ml-4" style={cardPercStyle}>{charity.percUse}%</h5>
+                                    <Tooltip 
+                                        placement="right" tag="div" component="button" 
+                                        componentClass="btn btn-link p-0 mb-1 mt-2"
+                                        tooltipContent={charity.percUse + '% of all expenses of this charity went to charitable use.'}> 
+                                            <h5 className="h5-responsive text-white p-2 ml-4" style={cardPercStyle}>{charity.percUse}%</h5>
+                                    </Tooltip>
                                 </div>
                                 <a className="btn btn-primary" href={`/charity/${charity.ABN}`} >
                                     Learn more 
@@ -472,7 +485,7 @@ class CharitySearch extends Component {
                                 <div className="col-10 col-sm-10 col-md-10 col-lg-10 col-xl-6">
                                     <h5 className="mb-3 h5">Which charitable cause has personal significance to you? </h5>         
                                     <Select name="cause"
-                                        placeholder="Enter your charitable cause of interest..."
+                                        placeholder="Enter your preferred cause..."
                                         value={valueCause}
                                         onChange={this.handleInputChangeOfCause}
                                         options={this.state.causes} />
@@ -531,13 +544,13 @@ class CharitySearch extends Component {
                         <div className="col col-12 col-sm-12 col-md-12 col-lg-10 col-xl-8">
                             {/* back to search button */}
                             <a onClick={this.handleClickToSearch}
-                                className="mb-2 small ml-0">
+                                className="small">
                                 <u><strong>Back to search</strong></u>
                             </a>
 
                             {/* charity results title */}
-                            <div className="row d-flex align-items-center justify-content-between px-3">
-                                <div className="my-2">
+                            <div className="row d-flex align-items-center justify-content-between px-3 mt-3">
+                                <div className="mb-2">
                                     {this.state.doneCharitySearchByCouncil && <p>Although no results are found in {valueLocation}, there are...</p>}
                                     <h5>
                                         Charities supporting <strong>{valueCause}</strong> in&nbsp; 
@@ -550,7 +563,7 @@ class CharitySearch extends Component {
                             {/* sort by */}
                             <div className="row d-flex align-items-center justify-content-start px-3 small">
                                 <span>Sort by </span>
-                                <Select name="sortBy" className="col-10 col-sm-8 col-md-6 col-lg-5 col-xl-4 mb-2 mt-1"
+                                <Select name="sortBy" className="col-10 col-sm-8 col-md-6 col-lg-5 col-xl-4"
                                         value={valueSortByCond}
                                         onChange={this.handleSort}
                                         options={this.state.sortByConditions} />
@@ -601,7 +614,7 @@ class CharitySearch extends Component {
 
                             {/* back to search button */}
                             <a onClick={this.handleClickToSearch}
-                                className="mb-2 small ml-0">
+                                className="pb-4 small">
                                 <u><strong>Back to search</strong></u>
                             </a>
                         </div>
