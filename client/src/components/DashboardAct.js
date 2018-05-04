@@ -5,7 +5,7 @@ import Select from 'react-select';
 import { Breadcrumb, BreadcrumbItem, Popover, PopoverBody, PopoverHeader } from "mdbreact";
 import Plot from 'react-plotly.js';
 import Collapsible from 'react-collapsible';
-import { Link } from 'react-scroll';
+import { Link, Element, scroller } from 'react-scroll';
 import spinner from '../assets/spinner.gif';
 import causePageTopBackground from '../assets/causePageTopBackground.jpg';
 import totalIncome from '../assets/totalIncome.png';
@@ -81,17 +81,23 @@ class DashboardAct extends Component {
     });
 
     // if a cause card is clicked on Landing, take user to cause details
-    /* if (this.props.location.state !== undefined) {
+    if (this.props.location.state !== undefined) {
       await this.setState({
         causeName: this.props.location.state.causeName,
         barClicked: true
       });
 
       const barData = { name: this.state.causeName};
+      await this.handleClickOnCauseBar(barData);
 
-      this.handleClickOnCauseBar(barData);
+      scroller.scrollTo('causeInfo', {
+        duration: 600,
+        delay: 1600,
+        smooth: true,
+        offset: -100,
+      })
 
-    } */
+    }
 
     window.addEventListener("resize", this.resize.bind(this));
     this.resize();
@@ -476,6 +482,7 @@ class DashboardAct extends Component {
         }
               
         {/* details info of cause in location */}
+        <Element name="causeInfo" className="element"></Element>
         <div id="causeInfo" className="element row d-flex align-items-center justify-content-center">
           
           {this.state.barClicked &&      
@@ -564,8 +571,8 @@ class DashboardAct extends Component {
 
             </div>
           }
+          
         </div>
-
         <hr className="mx-4" />
 
         {/* why 2016? */}
