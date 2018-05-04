@@ -203,7 +203,7 @@ class Landing extends Component {
           <div className="row d-flex justify-content-center">
             <Card
               cascade
-              className="m-1 p-0 col-11 col-sm-5 col-md-4 col-lg-3 col-xl-3"
+              className="m-1 p-0 col-11 col-sm-5 col-md-4 col-lg-3 col-xl-3 hoverable"
               onClick={() => this.handleOnClickToCause("Animal protection")}>
               <CardImage
                 className="img-fluid"
@@ -217,7 +217,7 @@ class Landing extends Component {
             
             <Card
               cascade
-              className="m-1 p-0 col-11 col-sm-5 col-md-4 col-lg-3 col-xl-3"
+              className="m-1 p-0 col-11 col-sm-5 col-md-4 col-lg-3 col-xl-3 hoverable"
               onClick={() => this.handleOnClickToCause("Employment and training")}>
               <CardImage
                 className="img-fluid"
@@ -231,7 +231,7 @@ class Landing extends Component {
             
             <Card
               cascade
-              className="m-1 p-0 col-11 col-sm-5 col-md-4 col-lg-3 col-xl-3"
+              className="m-1 p-0 col-11 col-sm-5 col-md-4 col-lg-3 col-xl-3 hoverable"
               onClick={() => this.handleOnClickToCause("Housing activities")}>
               <CardImage
                 className="img-fluid"
@@ -245,7 +245,7 @@ class Landing extends Component {
             
             <Card
               cascade
-              className="m-1 p-0 col-11 col-sm-5 col-md-4 col-lg-3 col-xl-3"
+              className="m-1 p-0 col-11 col-sm-5 col-md-4 col-lg-3 col-xl-3 hoverable"
               onClick={() => this.handleOnClickToCause("Law and legal services")}>
               <CardImage
                 className="img-fluid"
@@ -261,7 +261,7 @@ class Landing extends Component {
             
             <Card
               cascade
-              className="m-1 p-0 col-11 col-sm-5 col-md-4 col-lg-3 col-xl-3"
+              className="m-1 p-0 col-11 col-sm-5 col-md-4 col-lg-3 col-xl-3 hoverable"
               onClick={() => this.handleOnClickToCause("Mental health and crisis intervention")}>
               <CardImage
                 className="img-fluid"
@@ -275,7 +275,7 @@ class Landing extends Component {
             
             <Card
               cascade
-              className="m-1 p-0 col-11 col-sm-5 col-md-4 col-lg-3 col-xl-3"
+              className="m-1 p-0 col-11 col-sm-5 col-md-4 col-lg-3 col-xl-3 hoverable"
               onClick={() => this.handleOnClickToCause("Research")}>
               <CardImage
                 className="img-fluid"
