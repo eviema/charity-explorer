@@ -52,7 +52,9 @@ class Charity extends Component {
             cause: '',
             govGrants: 0,
             donationBequest: 0,
+            employeeUse: 0,
             ausUse: 0,
+            allOtherUse: 0,
             allUse: 0,
             percUse: 0,
             activeItemOfTabs: '1',
@@ -111,7 +113,9 @@ class Charity extends Component {
                         cause: charity["Main_Activity"],
                         govGrants: charity["Government_grants"],
                         donationBequest: charity["Donations_and_bequests"],
+                        employeeUse: charity["Employee_expenses"],
                         ausUse: charity["Grants_and_donations_made_for_use_in_Australia"],
+                        allOtherUse: charity["Interest_expenses"] + charity["All_other_expenses"],
                         allUse: charity["Total_expenses"],
                         percUse: Math.round(charity["Grants_and_donations_made_for_use_in_Australia"] / charity["Total_expenses"] * 100),
                     });
@@ -199,7 +203,7 @@ class Charity extends Component {
         var { ABN, name, regStatus, dgrStatus, size, desc, websiteUrl, 
             streetAddLn1, streetAddLn2, suburb, postcode, 
             cause, govGrants, donationBequest,
-            ausUse, allUse, percUse,
+            employeeUse, ausUse, allOtherUse, allUse, percUse,
             isReadMoreDescClicked, } = this.state;
 
         const descPreview = desc.slice(0,300).concat("... ");
@@ -230,7 +234,9 @@ class Charity extends Component {
 
         govGrants = govGrants.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         donationBequest = donationBequest.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        employeeUse = employeeUse.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         ausUse = ausUse.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        allOtherUse = allOtherUse.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         allUse = allUse.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
         var sizeIcon = <span></span>,
@@ -241,7 +247,7 @@ class Charity extends Component {
                     <span className="mx-2 text-primary">
                         <i className="fa fa-dollar-sign"></i>
                     </span>;
-                sizeTooltip = 'A small-sized charity had a revenue of less than $250,000 in 2016.';
+                sizeTooltip = 'A small-sized charity had a revenue of less than $250,000 in the previous financial year.';
                 break;
             case 'Medium':
                 sizeIcon = 
@@ -249,7 +255,7 @@ class Charity extends Component {
                         <i className="fa fa-dollar-sign"></i>
                         <i className="fa fa-dollar-sign"></i>
                     </span>;
-                sizeTooltip = 'A medium-sized charity had a revenue of $250,000 to $999,999 in 2016.';
+                sizeTooltip = 'A medium-sized charity had a revenue of $250,000 to $999,999 in the previous financial year.';
                 break;
             case 'Large':
                 sizeIcon = 
@@ -258,7 +264,7 @@ class Charity extends Component {
                         <i className="fa fa-dollar-sign"></i>
                         <i className="fa fa-dollar-sign"></i>
                     </span>;
-                sizeTooltip = 'A large-sized charity had a revenue of $1 million or more in 2016.';
+                sizeTooltip = 'A large-sized charity had a revenue of $1 million or more in the previous financial year.';
                 break;
             default:
                 break;
@@ -344,12 +350,12 @@ class Charity extends Component {
         });   
 
         var financeTriggerWhenClosed = 
-            <a className="btn btn-outline-info btn-sm mx-0">
+            <a className="btn btn-outline-default btn-sm mx-0">
                 See More
                 <i className="fa fa-angle-double-down fa-lg ml-2"></i>
             </a>;
         var financeTriggerWhenOpen = 
-            <div className="btn btn-outline-info btn-sm mx-0">
+            <div className="btn btn-outline-default btn-sm mx-0">
                 <span>See Less</span>
                 <i className="fa fa-angle-double-up fa-lg ml-2"></i>
             </div>;
@@ -513,20 +519,20 @@ class Charity extends Component {
                                 <div className="col col-9 col-sm-6 col-md-4 col-lg-3 col-xl-3 align-items-end justify-content-start justify-content-md-end small" style={{color:"#757575"}}>
                                     <div className="d-flex flex-column">
                                         <Link to="address" spy={true} smooth={true} offset={-100} duration={400}
-                                            className="btn btn-outline-primary py-2 px-3 d-flex align-items-center justify-content-center">
+                                            className="btn btn-default py-2 px-3 d-flex align-items-center justify-content-center">
                                             <span className="font-weight-bold">View Address</span>
                                             <i className="fa fa-map-marker-alt fa-lg ml-1 ml-sm-2 "></i>
                                         </Link>
                                         
                                         {websiteUrl !== "" && 
-                                            <a className="btn btn-outline-primary py-2 px-3 d-flex align-items-center justify-content-center"
+                                            <a className="btn btn-default py-2 px-3 d-flex align-items-center justify-content-center"
                                                 href={websiteUrl} target="_blank" rel="noopener noreferrer">
                                                 <span className="font-weight-bold">Visit Website</span>
                                                 <i className="fa fa-external-link-alt fa-lg ml-1 ml-sm-2 "></i>
                                             </a>
                                         }
                                         {websiteUrl === "" && 
-                                            <button className="btn btn-outline-primary py-2 px-3 d-flex align-items-center justify-content-center" disabled>
+                                            <button className="btn btn-outline-default py-2 px-3 d-flex align-items-center justify-content-center" disabled>
                                                 <span className="ml-1 ml-sm-2 font-weight-bold">No Website found</span>
                                             </button>
                                         }
@@ -594,7 +600,7 @@ class Charity extends Component {
                                 {desc.length > 300 && !isReadMoreDescClicked && 
                                     <span>
                                         {descPreview}
-                                        <button className="btn btn-outline-info btn-sm my-0" onClick={this.toggleReadMoreOrLess}>
+                                        <button className="btn btn-outline-default btn-sm my-0" onClick={this.toggleReadMoreOrLess}>
                                             Read More
                                             <i className="fa fa-angle-double-right fa-lg ml-2"></i>
                                         </button>
@@ -603,7 +609,7 @@ class Charity extends Component {
                                 {desc.length > 300 && isReadMoreDescClicked &&
                                     <span>
                                         {desc}
-                                        <button className="btn btn-outline-info btn-sm my-0" onClick={this.toggleReadMoreOrLess}>
+                                        <button className="btn btn-outline-default btn-sm my-0" onClick={this.toggleReadMoreOrLess}>
                                             <i className="fa fa-angle-double-left fa-lg mr-2"></i>
                                             Read Less
                                         </button>
@@ -618,10 +624,9 @@ class Charity extends Component {
                             <hr />
 
                             {/* finance */}
-                            <h4 id="finance"><img src={donation} alt="donation" className="mr-2"/> How much reached the beneficiaries</h4>
+                            <h4 id="finance"><img src={donation} alt="donation" className="mr-2"/>How much reached those in need</h4>
                             <div className="pl-5">
                                 <div>
-                                    In 2016, &nbsp;
                                     <strong className="h3-responsive" style={percStyle}>
                                         {percUse}%
                                     </strong>
@@ -642,7 +647,11 @@ class Charity extends Component {
                                             <h5><i>How much was spent by the charity</i></h5>
                                             <p>
                                                 <i className="fa fa-sign-out-alt mr-2" style={{color:"#EF5350"}}></i>
-                                                Charitable use in Australia: <strong>${ausUse}</strong> <br />
+                                                Charitable use: <strong>${ausUse}</strong> <br />
+                                                <i className="fa fa-sign-out-alt mr-2" style={{color:"#EF5350"}}></i>
+                                                Employee expenses: <strong>${employeeUse}</strong> <br />
+                                                <i className="fa fa-sign-out-alt mr-2" style={{color:"#EF5350"}}></i>
+                                                All other expenses: <strong>${allOtherUse}</strong> <br />
                                                 <i className="fa fa-sign-out-alt mr-2" style={{color:"#EF5350"}}></i>
                                                 Total expenses: <strong>${allUse}</strong> 
                                             </p>
@@ -657,7 +666,7 @@ class Charity extends Component {
                             <div className="pl-5">
                                 <div className="my-2 mr-3 h6-responsive">{charityAddress}</div>
                                 <a href={directionsUrl} target="_blank"
-                                    className="btn btn-outline-info m-0 btn-sm">
+                                    className="btn btn-outline-default m-0 btn-sm">
                                     Get Directions 
                                     <i className="fa fa-external-link-alt fa-lg ml-2"></i>
                                 </a>
