@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from "react-router";
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import axios from 'axios';
@@ -56,6 +57,8 @@ class CharitySearch extends Component {
             sortByCondCurrent: {},
             loading: false,
             isMobileDevice: false,
+            isCharityCardClicked: false,
+            charityABN: 0,
         }
         this.handleInputChangeOfCause = this.handleInputChangeOfCause.bind(this);
         this.handleInputChangeOfLocation = this.handleInputChangeOfLocation.bind(this);
@@ -64,6 +67,7 @@ class CharitySearch extends Component {
         this.handleClickOnPageNumber = this.handleClickOnPageNumber.bind(this);
         this.handleClickToSearch = this.handleClickToSearch.bind(this);
         this.handleSort = this.handleSort.bind(this);
+        this.handleOnClickToCharityPage = this.handleOnClickToCharityPage.bind(this);
     }
 
     componentDidMount() {
@@ -356,7 +360,18 @@ class CharitySearch extends Component {
         });
     }
 
+    handleOnClickToCharityPage(ABN) {
+        this.setState({
+            isCharityCardClicked: true,
+            charityABN: ABN,
+        });
+    }
+
     render() {
+
+        if (this.state.isCharityCardClicked) {
+            return <Redirect push to={`/charity/${this.state.charityABN}`} />;
+        }
         
         var { cause } = this.state;
         var valueCause = cause && cause.value;
@@ -403,8 +418,8 @@ class CharitySearch extends Component {
                 };
             }
             return (
-                <li key={index} className="col col-12 d-flex align-items-stretch px-3 pb-3">
-                    {/* <a href={`/charity/${charity.ABN}`}> */}
+                <li key={index} className="col col-12 d-flex align-items-stretch mx-3 mb-3 px-0 hoverable"
+                    onClick={() => this.handleOnClickToCharityPage(charity.ABN)} style={{cursor: "pointer"}}>
                     <Card cascade className="w-100">
                         <CardImage tag="div">
                             <div className="#26c6da cyan lighten-1 p-4 d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
@@ -433,7 +448,6 @@ class CharitySearch extends Component {
                             </div>
                         </CardBody>
                     </Card>
-                    {/* </a> */}
                 </li>
             );
         });
