@@ -71,6 +71,9 @@ class Charity extends Component {
     }
 
     async componentDidMount() {
+        
+        window.scrollTo(0, 0);
+
         await axios.get(`/api/charity/${this.state.ABN}`)
                 .then((res) => {
                     const charity = res.data;
