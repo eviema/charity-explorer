@@ -49,7 +49,7 @@ class CharitySearch extends Component {
             council: '',
             charities: [],
             currentPage: 1,
-            charitiesPerPage: 6,
+            charitiesPerPage: 5,
             doneCharitySearch: false,
             doneCharitySearchByCouncil: false,
             sortByConditions: conditions,
