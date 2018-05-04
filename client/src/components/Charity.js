@@ -61,6 +61,7 @@ class Charity extends Component {
             geoLocCenter: {},
             isReadMoreDescClicked: false,
             isShowShareButtonsClicked: false,
+            isMobileDevice: false,
         }
         this.toggleTabs = this.toggleTabs.bind(this);
         this.refresh = this.refresh.bind(this);
@@ -114,6 +115,7 @@ class Charity extends Component {
                         donationBequest: charity["Donations_and_bequests"],
                         ausUse: charity["Grants_and_donations_made_for_use_in_Australia"],
                         allUse: charity["Total_expenses"],
+                        percUse: Math.round(charity["Grants_and_donations_made_for_use_in_Australia"] / charity["Total_expenses"] * 100),
                     });
                 })
                 .catch(function(e) {
@@ -140,7 +142,16 @@ class Charity extends Component {
             }
         );
 
+        window.addEventListener("resize", this.resize.bind(this));
+        this.resize();
+
         this.refresh();
+    }
+
+    resize() {
+        this.setState({
+          isMobileDevice: window.innerWidth <= 576
+        });
     }
 
     refresh() {
@@ -192,8 +203,6 @@ class Charity extends Component {
             cause, govGrants, donationBequest,
             ausUse, allUse, percUse,
             isReadMoreDescClicked, } = this.state;
-        
-        percUse = Math.round(ausUse / allUse * 100);
 
         const descPreview = desc.slice(0,300).concat("... ");
         
@@ -202,13 +211,20 @@ class Charity extends Component {
             charityPageShareQuote = "Check out this charity in Melbourne: " + name + " ",
             charityPageShareHashtags = ["ThinkGloballyDonateLocally", "CharityStartsAtHome"];
 
-        const charityCardStyle = {
+        const charityCardStyle = this.state.isMobileDevice ? {
+            backgroundImage:`url(${charityCardBg})`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            fontSize: ".9em",
+            height: "55vh",
+        } : {
             backgroundImage:`url(${charityCardBg})`,
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
             backgroundPosition: "center",
             height: "55vh",
-        } 
+        }
 
         const shareButtonStyle = {
             cursor: "pointer",
@@ -359,38 +375,49 @@ class Charity extends Component {
                     <BreadcrumbItem active>{name}</BreadcrumbItem>
                 </Breadcrumb>
 
+                <ReactTypeformEmbed
+                    popup={true}
+                    autoOpen={false}
+                    url={'https://yifei2.typeform.com/to/Tqpj9h'}
+                    hideHeaders={true}
+                    hideFooter={true}
+                    style={{top: 100}}
+                    ref={(tf => this.typeformEmbed = tf)}
+                />
+
                 <div className="row d-flex justify-content-center">                                  
                     {/* charity detailed info */}
-                    <div className="col col-12 col-sm-12 col-md-11 col-lg-10 col-xl-8 z-depth-1 px-0 my-0 my-lg-3 px-3 px-md-0">
+                    <div className="col col-12 col-sm-12 col-md-11 col-lg-10 col-xl-8 z-depth-1 px-0 my-0 my-lg-3 px-3 px-md-0" style={{background: "#fff", width:"100%"}}>
                         
                         {/* top row */}
                         <div className="d-flex flex-column align-items-stretch justify-content-around px-4" style={charityCardStyle}>                                            
-                                                                   
+                                                                
                             {/* charity name, charity use perc + suburb and cause, share page and report error*/}             
                             <div className="d-flex flex-column px-2 px-sm-0 text-white">
                                 {/* charity name + percentage */}
-                                <div className="d-flex align-items-center justify-content-between">
-                                    <p className="h2-responsive">{name}</p> 
+                                <div className="d-flex align-items-center justify-content-start">
+                                    <p className="h2-responsive mb-0">{name}</p>
                                     <Link to="finance" spy={true} smooth={true} offset={-100} duration={400}>
                                         <Tooltip 
-                                            placement="left" tag="div" component="button" 
+                                            placement="right" tag="div" component="button" 
                                             componentClass="btn btn-link p-0 mb-1 mt-2"
                                             tooltipContent={percUse + '% of all expenses of this charity went to charitable use. Click to see more.'}> 
-                                                <h5 className="h5-responsive text-white p-2 ml-4" style={percInTitleStyle}>{percUse}%</h5>
+                                                <h5 className="h5-responsive text-white p-2 ml-3" style={percInTitleStyle}>{percUse}%</h5>
                                         </Tooltip>
-                                    </Link>
+                                    </Link> 
                                 </div>
                                 {/* suburb and cause, share page and report error */}
-                                <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between my-3 text-white">
+                                <div className="d-flex align-items-center justify-content-between my-3 text-white">
                                     <span>{suburb} VIC {postcode} <strong>·</strong> {cause}</span>
-                                    <div className="d-flex mt-3 mt-md-0">
-                                        {/* share page to social media */}
-                                        <a className="d-flex mr-2 my-auto small" onClick={this.toggleShowShareButtons}>
-                                            <u className="d-none d-sm-block">Share this page</u> 
-                                            {!this.state.isShowShareButtonsClicked && 
+                                    {/* share page to social media, report error */}
+                                    <div className="d-flex">
+                                                                                
+                                        {!this.state.isShowShareButtonsClicked && 
+                                            <a className="d-flex align-items-center mr-2 my-auto small" onClick={this.toggleShowShareButtons}>
+                                                <u className="d-none d-sm-block py-3">Share this page</u>
                                                 <img src={share} alt="share" className="img-responsive mx-2 mr-3"/>
-                                            }
-                                        </a>
+                                            </a>
+                                        }
                                         {this.state.isShowShareButtonsClicked && 
                                             <div className="d-flex my-auto py-2 mr-3">
                                                 <a onClick={this.toggleShowShareButtons}><i className="fa fa-angle-double-left text-white my-auto"></i></a>
@@ -411,29 +438,20 @@ class Charity extends Component {
                                                 </RedditShareButton>
                                             </div>
                                         }
+
                                         
-                                        {/* report error */}
-                                        <a className="d-flex my-auto small" onClick={this.openForm}>
-                                            <u className="d-none d-sm-block">Report Error</u>
+                                        <a className="d-flex align-items-center my-auto small" onClick={this.openForm}>
+                                            <u className="d-none d-sm-block py-3">Report Error</u>
                                             <img src={reportError} alt="report error" className="img-responsive mx-2"/>
                                         </a>
-                                        <ReactTypeformEmbed
-                                            popup={true}
-                                            autoOpen={false}
-                                            url={'https://yifei2.typeform.com/to/Tqpj9h'}
-                                            hideHeaders={true}
-                                            hideFooter={true}
-                                            style={{top: 100}}
-                                            ref={(tf => this.typeformEmbed = tf)}
-                                        />
                                     </div>
                                 </div>
                             </div>
 
                             {/* quick facts and buttons */}
                             <div className="row d-flex align-items-end justify-content-between px-2 px-sm-0">
-                                {/* charity quick facts */}
-                                <div className="col col-12 col-sm-12 col-md-8 col-lg-7 col-xl-7">
+                                {/* quick facts */}
+                                <div className="col col-12 col-sm-12 col-md-8 col-lg-7 col-xl-7 d-md-inline-block d-none">
                                     <Tooltip 
                                         placement="right" tag="div" component="button" 
                                         componentClass="btn btn-link p-0 mb-1 mt-2"
@@ -483,23 +501,23 @@ class Charity extends Component {
                                 </div>
                                 
                                 {/* buttons to visit website or view address */}
-                                <div className="col col-12 col-sm-12 col-md-4 col-lg-3 col-xl-3 align-items-end justify-content-start justify-content-md-end small" style={{color:"#757575"}}>
-                                    <div className="d-flex flex-sm-row flex-md-column">
+                                <div className="col col-9 col-sm-6 col-md-4 col-lg-3 col-xl-3 align-items-end justify-content-start justify-content-md-end small" style={{color:"#757575"}}>
+                                    <div className="d-flex flex-column">
                                         <Link to="address" spy={true} smooth={true} offset={-100} duration={400}
-                                            className="btn btn-outline-primary py-2 px-3 d-flex align-items-center">
-                                            <img src={mapMarker} alt="map marker" className="d-none d-sm-block"/>
+                                            className="btn btn-outline-primary py-2 px-3 d-flex align-items-center justify-content-center">
+                                            <img src={mapMarker} alt="map marker"/>
                                             <span className="ml-1 font-weight-bold">View Address</span>
                                         </Link>
                                         
                                         {websiteUrl !== "" && 
-                                            <a className="btn btn-outline-primary py-2 px-3 d-flex align-items-center"
+                                            <a className="btn btn-outline-primary py-2 px-3 d-flex align-items-center justify-content-center"
                                                 href={websiteUrl} target="_blank" rel="noopener noreferrer">
-                                                <img src={externalLink} alt="external link" className="d-none d-sm-block"/>
+                                                <img src={externalLink} alt="external link"/>
                                                 <span className="ml-1 ml-sm-2 font-weight-bold">Visit Website</span>
                                             </a>
                                         }
                                         {websiteUrl === "" && 
-                                            <button className="btn btn-outline-primary py-2 px-3 d-flex align-items-center" disabled>
+                                            <button className="btn btn-outline-primary py-2 px-3 d-flex align-items-center justify-content-center" disabled>
                                                 <span className="ml-1 ml-sm-2 font-weight-bold">No Website found</span>
                                             </button>
                                         }
@@ -508,6 +526,56 @@ class Charity extends Component {
                             </div>                    
                         </div>
                         
+                        {/* SM AND XS SCREENS ONLY - quick facts */}
+                        <div className="px-4 py-2 d-md-none d-block" style={{color: "#839094", background: "#f5f9fb"}}>
+                            <Tooltip 
+                                placement="right" tag="div" component="button" 
+                                componentClass="btn btn-link p-0 mb-1 mt-2"
+                                tooltipContent={sizeTooltip}> 
+                                    {sizeIcon}
+                                    <span className="ml-2 mr-4" style={{color: "#424242", fontSize:"1rem"}}>
+                                        <span>{size.slice(0,1)}</span>
+                                        <span className="text-lowercase">{size.slice(1)} charity</span>
+                                    </span>
+                            </Tooltip>
+                            
+                            <Tooltip 
+                                placement="right" tag="div" component="button" 
+                                componentClass="btn btn-link p-0 mb-1 mt-0 text-left"
+                                tooltipContent="The Australian Charities and Not-for-profits Commission (ACNC) regulates the Australian charity sector."> 
+                                    {regIcon}
+                                    <span className="ml-2 mr-4" style={{color: "#424242", fontSize:"1rem"}}>
+                                        <span>{regDesc.slice(0,1)}</span>
+                                        <span className="text-lowercase">{regDesc.slice(1, -5)}</span>
+                                        <span>{regDesc.slice(-5)}</span>
+                                    </span>
+                            </Tooltip>
+                            
+                            <Tooltip 
+                                placement="right" tag="div" component="button" 
+                                componentClass="btn btn-link p-0 mb-1 mt-0 text-left"
+                                tooltipContent={dgrTooltip}> 
+                                    {dgrIcon}
+                                    <span className="ml-2 mr-4" style={{color: "#424242", fontSize:"1rem"}}>
+                                        <span>{dgrDesc.slice(0,1)}</span>
+                                        <span className="text-lowercase">{dgrDesc.slice(1)}</span>
+                                    </span>
+                            </Tooltip>
+                            
+                            <Tooltip 
+                                placement="right" tag="div" component="button" 
+                                componentClass="btn btn-link p-0 mt-0 mb-1"
+                                tooltipContent="Click to see further details of this charity in the Australian Business Register"> 
+                                    <img src={idCard} alt="Australian Business Number"/>
+                                    <span className="ml-2 mr-4">
+                                        <a href={abnUrl} target="_blank" style={{color: "#424242", fontSize:"1rem"}}>
+                                            ABN: {ABN}
+                                            <img src={externalLinkBlack} alt="external link" className="img-responsive ml-1"/>
+                                        </a>
+                                    </span>
+                            </Tooltip>
+                        </div> 
+
                         {/* mission, target populations, finance, address */}
                         <div className="p-4" style={{color:"#212121", }}>
                             <h4><img src={quote} alt="mission quote" className="mr-2"/> Mission statement</h4>
