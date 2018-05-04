@@ -98,7 +98,7 @@ class Landing extends Component {
       position: "absolute",
       bottom: "0",
       background: "rgba(236, 239, 241, 0.85)",
-      // cursor:'pointer'     
+      cursor:'pointer'     
     };
 
     return (
@@ -204,8 +204,7 @@ class Landing extends Component {
             <Card
               cascade
               className="m-1 p-0 col-11 col-sm-5 col-md-4 col-lg-3 col-xl-3"
-              onClick={() => this.handleOnClickToCause("Animal protection")}
-            >
+              onClick={() => this.handleOnClickToCause("Animal protection")}>
               <CardImage
                 className="img-fluid"
                 src="https://images.unsplash.com/photo-1414445092210-ee1a2da44ad7?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=fc60cb957d2181ee66d78261b51b22ad&auto=format&fit=crop&w=1047&q=80"
@@ -215,11 +214,11 @@ class Landing extends Component {
                 <CardText>e.g. return threatened species to the wild</CardText>
               </CardBody>
             </Card>
+            
             <Card
               cascade
               className="m-1 p-0 col-11 col-sm-5 col-md-4 col-lg-3 col-xl-3"
-              onClick={() => this.handleOnClickToCause("Employment and training")}
-            >
+              onClick={() => this.handleOnClickToCause("Employment and training")}>
               <CardImage
                 className="img-fluid"
                 src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=1005f3d059e15847f5b8e818aafe7b51&auto=format&fit=crop&w=1050&q=80"
@@ -229,11 +228,11 @@ class Landing extends Component {
                 <CardText>e.g. connect skilled refugees to employers</CardText>
               </CardBody>
             </Card>
+            
             <Card
               cascade
               className="m-1 p-0 col-11 col-sm-5 col-md-4 col-lg-3 col-xl-3"
-              onClick={() => this.handleOnClickToCause("Housing activities")}
-            >
+              onClick={() => this.handleOnClickToCause("Housing activities")}>
               <CardImage
                 className="img-fluid"
                 src="https://images.unsplash.com/uploads/1412239183009c7733b23/085bfba0?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=16f061ef74bcb2a07f6a22f5369ec58b&auto=format&fit=crop&w=1048&q=80"
@@ -243,11 +242,11 @@ class Landing extends Component {
                 <CardText>e.g. help homeless people seek public housing</CardText>
               </CardBody>
             </Card>
+            
             <Card
               cascade
               className="m-1 p-0 col-11 col-sm-5 col-md-4 col-lg-3 col-xl-3"
-              onClick={() => this.handleOnClickToCause("Law and legal services")}
-            >
+              onClick={() => this.handleOnClickToCause("Law and legal services")}>
               <CardImage
                 className="img-fluid"
                 src="https://images.unsplash.com/photo-1436450412740-6b988f486c6b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=d9650eba888682af890003d78342a832&auto=format&fit=crop&w=1050&q=80"
@@ -259,11 +258,11 @@ class Landing extends Component {
                 </CardText>
               </CardBody>
             </Card>
+            
             <Card
               cascade
               className="m-1 p-0 col-11 col-sm-5 col-md-4 col-lg-3 col-xl-3"
-              onClick={() => this.handleOnClickToCause("Mental health and crisis intervention")}
-            >
+              onClick={() => this.handleOnClickToCause("Mental health and crisis intervention")}>
               <CardImage
                 className="img-fluid"
                 src="https://images.unsplash.com/photo-1473679408190-0693dd22fe6a?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=07f30b88f84b35ccd38d0645732f7659&auto=format&fit=crop&w=1050&q=80"
@@ -273,11 +272,11 @@ class Landing extends Component {
                 <CardText>e.g. help children impacted by abuse</CardText>
               </CardBody>
             </Card>
+            
             <Card
               cascade
               className="m-1 p-0 col-11 col-sm-5 col-md-4 col-lg-3 col-xl-3"
-              onClick={() => this.handleOnClickToCause("Research")}
-            >
+              onClick={() => this.handleOnClickToCause("Research")}>
               <CardImage
                 className="img-fluid"
                 src="https://images.unsplash.com/photo-1453847668862-487637052f8a?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=71b0722e782981af817242fdda624736&auto=format&fit=crop&w=1055&q=80"
