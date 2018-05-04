@@ -293,10 +293,10 @@ class DashboardAct extends Component {
     var renderCauseSubtypes = this.state.causeCurrentDetails.map(subtype => {
       
       var triggerWhenClosed = 
-        <a className="row d-flex align-items-center mx-1 py-1 px-2 border-bottom border-white text-white">
+        <div className="row d-flex align-items-center mx-1 py-1 px-2 border-bottom border-white text-white">
           <span>{subtype["Subtype_Name"]}</span>
           <i className="fa fa-angle-down fa-lg ml-auto"></i>
-        </a>;
+        </div>;
       
       var triggerWhenOpen = 
         <a className="row d-flex align-items-center mx-1 py-1 px-2 text-white">
@@ -307,7 +307,8 @@ class DashboardAct extends Component {
       return (
         <li key={subtype["_id"]} className="mx-auto" style={{color: "#fafafa", width: "80%"}}>
           <Collapsible trigger={triggerWhenClosed}
-                      triggerWhenOpen={triggerWhenOpen}>
+                      triggerWhenOpen={triggerWhenOpen}
+                      transitionTime={200}>
             <div className="border border-white rounded-top mx-3" style={{background: "#fafafa", color:"#424242"}}>
               <p className="m-2">{subtype["Subtype_Desc"]}</p>
               <p className="m-2 font-italic">
