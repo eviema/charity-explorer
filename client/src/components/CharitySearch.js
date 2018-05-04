@@ -181,9 +181,8 @@ class CharitySearch extends Component {
                                 amtDonations: entry["Donations_and_bequests"],
                                 amtGovGrants: entry["Government_grants"],
                                 ausUse: entry["Grants_and_donations_made_for_use_in_Australia"],
-                                overseasUse: entry["Grants_and_donations_made_for_use_outside_Australia"],
                                 allUse: entry["Total_expenses"],
-                                percUse: Math.round((entry["Grants_and_donations_made_for_use_in_Australia"] + entry["Grants_and_donations_made_for_use_outside_Australia"]) / entry["Total_expenses"] * 100),
+                                percUse: Math.round(entry["Grants_and_donations_made_for_use_in_Australia"] / entry["Total_expenses"] * 100),
                             }
                         );
                     })
@@ -239,9 +238,8 @@ class CharitySearch extends Component {
                                             amtDonations: entry["Donations_and_bequests"],
                                             amtGovGrants: entry["Government_grants"],
                                             ausUse: entry["Grants_and_donations_made_for_use_in_Australia"],
-                                            overseasUse: entry["Grants_and_donations_made_for_use_outside_Australia"],
                                             allUse: entry["Total_expenses"],
-                                            percUse: Math.round((entry["Grants_and_donations_made_for_use_in_Australia"] + entry["Grants_and_donations_made_for_use_outside_Australia"]) / entry["Total_expenses"] * 100),
+                                            percUse: Math.round(entry["Grants_and_donations_made_for_use_in_Australia"] / entry["Total_expenses"] * 100),
                                         }
                                     );
                                 });

@@ -55,7 +55,6 @@ class Charity extends Component {
             govGrants: 0,
             donationBequest: 0,
             ausUse: 0,
-            overseasUse: 0,
             allUse: 0,
             percUse: 0,
             activeItemOfTabs: '1',
@@ -114,7 +113,6 @@ class Charity extends Component {
                         govGrants: charity["Government_grants"],
                         donationBequest: charity["Donations_and_bequests"],
                         ausUse: charity["Grants_and_donations_made_for_use_in_Australia"],
-                        overseasUse: charity["Grants_and_donations_made_for_use_outside_Australia"],
                         allUse: charity["Total_expenses"],
                     });
                 })
@@ -192,10 +190,10 @@ class Charity extends Component {
         var { ABN, name, regStatus, dgrStatus, size, desc, websiteUrl, 
             streetAddLn1, streetAddLn2, suburb, postcode, 
             cause, govGrants, donationBequest,
-            ausUse, overseasUse, allUse, percUse,
+            ausUse, allUse, percUse,
             isReadMoreDescClicked, } = this.state;
         
-        percUse = Math.round((ausUse + overseasUse) / allUse * 100);
+        percUse = Math.round(ausUse / allUse * 100);
 
         const descPreview = desc.slice(0,300).concat("... ");
         
@@ -386,6 +384,7 @@ class Charity extends Component {
                                 <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between my-3 text-white">
                                     <span>{suburb} VIC {postcode} <strong>·</strong> {cause}</span>
                                     <div className="d-flex mt-3 mt-md-0">
+                                        {/* share page to social media */}
                                         <a className="d-flex mr-2 my-auto small" onClick={this.toggleShowShareButtons}>
                                             <u className="d-none d-sm-block">Share this page</u> 
                                             {!this.state.isShowShareButtonsClicked && 
@@ -412,6 +411,8 @@ class Charity extends Component {
                                                 </RedditShareButton>
                                             </div>
                                         }
+                                        
+                                        {/* report error */}
                                         <a className="d-flex my-auto small" onClick={this.openForm}>
                                             <u className="d-none d-sm-block">Report Error</u>
                                             <img src={reportError} alt="report error" className="img-responsive mx-2"/>
@@ -509,7 +510,7 @@ class Charity extends Component {
                         
                         {/* mission, target populations, finance, address */}
                         <div className="p-4" style={{color:"#212121", }}>
-                            <h4><img src={quote} alt="mission quote" className="mr-2"/> Mission Statement</h4>
+                            <h4><img src={quote} alt="mission quote" className="mr-2"/> Mission statement</h4>
                             <p className="pl-5">
                                 {desc.length <= 300 && desc}
                                 {desc.length > 300 && !isReadMoreDescClicked && 
