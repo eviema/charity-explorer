@@ -10,6 +10,7 @@ import { FacebookShareButton, FacebookIcon,
         RedditShareButton, RedditIcon, } from 'react-share';
 import { ReactTypeformEmbed } from 'react-typeform-embed';
 import { Link } from 'react-scroll';
+import Collapsible from 'react-collapsible';
 import GoogleMapReact from 'google-map-react';
 import charityCardBg from '../assets/charityCardBg.jpeg';
 import share from '../assets/share.png';
@@ -20,9 +21,6 @@ import warningSign from '../assets/warning.png';
 import checkBadge from '../assets/badge.png';
 import cancelSign from '../assets/cancel.png';
 import idCard from '../assets/id-card.png';
-import externalLink from '../assets/externalLink.png';
-import externalLinkBlack from '../assets/externalLinkBlack.png';
-import mapMarker from '../assets/mapMarker.png';
 import quote from '../assets/quote.png';
 import people from '../assets/people.png';
 import donation from '../assets/donation.png';
@@ -345,6 +343,17 @@ class Charity extends Component {
             return <li key={index}><i className="fa fa-check mr-1" style={{color:"#8BC34A"}}></i> {ppltn}</li>;
         });   
 
+        var financeTriggerWhenClosed = 
+            <a className="btn btn-outline-info btn-sm mx-0">
+                See More
+                <i className="fa fa-angle-double-down fa-lg ml-2"></i>
+            </a>;
+        var financeTriggerWhenOpen = 
+            <div className="btn btn-outline-info btn-sm mx-0">
+                <span>See Less</span>
+                <i className="fa fa-angle-double-up fa-lg ml-2"></i>
+            </div>;
+
         const charityAddress = 
             <div>
                 <span>{streetAddLn1}</span> <br />
@@ -449,7 +458,7 @@ class Charity extends Component {
                             </div>
 
                             {/* quick facts and buttons */}
-                            <div className="row d-flex align-items-end justify-content-between px-2 px-sm-0">
+                            <div className="row d-flex align-items-end justify-content-md-between justify-content-center px-2 px-sm-0">
                                 {/* quick facts */}
                                 <div className="col col-12 col-sm-12 col-md-8 col-lg-7 col-xl-7 d-md-inline-block d-none">
                                     <Tooltip 
@@ -494,7 +503,7 @@ class Charity extends Component {
                                             <span className="ml-2 mr-4">
                                                 <a href={abnUrl} target="_blank" style={{color: "#424242", fontSize:"1rem"}}>
                                                     ABN: {ABN}
-                                                    <img src={externalLinkBlack} alt="external link" className="img-responsive ml-1"/>
+                                                    <i className="fa fa-external-link-alt ml-1"></i>
                                                 </a>
                                             </span>
                                     </Tooltip>
@@ -505,15 +514,15 @@ class Charity extends Component {
                                     <div className="d-flex flex-column">
                                         <Link to="address" spy={true} smooth={true} offset={-100} duration={400}
                                             className="btn btn-outline-primary py-2 px-3 d-flex align-items-center justify-content-center">
-                                            <img src={mapMarker} alt="map marker"/>
-                                            <span className="ml-1 font-weight-bold">View Address</span>
+                                            <span className="font-weight-bold">View Address</span>
+                                            <i className="fa fa-map-marker-alt fa-lg ml-1 ml-sm-2 "></i>
                                         </Link>
                                         
                                         {websiteUrl !== "" && 
                                             <a className="btn btn-outline-primary py-2 px-3 d-flex align-items-center justify-content-center"
                                                 href={websiteUrl} target="_blank" rel="noopener noreferrer">
-                                                <img src={externalLink} alt="external link"/>
-                                                <span className="ml-1 ml-sm-2 font-weight-bold">Visit Website</span>
+                                                <span className="font-weight-bold">Visit Website</span>
+                                                <i className="fa fa-external-link-alt fa-lg ml-1 ml-sm-2 "></i>
                                             </a>
                                         }
                                         {websiteUrl === "" && 
@@ -570,7 +579,7 @@ class Charity extends Component {
                                     <span className="ml-2 mr-4">
                                         <a href={abnUrl} target="_blank" style={{color: "#424242", fontSize:"1rem"}}>
                                             ABN: {ABN}
-                                            <img src={externalLinkBlack} alt="external link" className="img-responsive ml-1"/>
+                                            <i className="fa fa-external-link-alt ml-1"></i>
                                         </a>
                                     </span>
                             </Tooltip>
@@ -578,73 +587,82 @@ class Charity extends Component {
 
                         {/* mission, target populations, finance, address */}
                         <div className="p-4" style={{color:"#212121", }}>
+                            {/* mission */}
                             <h4><img src={quote} alt="mission quote" className="mr-2"/> Mission statement</h4>
                             <p className="pl-5">
                                 {desc.length <= 300 && desc}
                                 {desc.length > 300 && !isReadMoreDescClicked && 
                                     <span>
                                         {descPreview}
-                                        <button className="btn btn-outline-info btn-sm my-0" onClick={this.toggleReadMoreOrLess}>Read More</button>
+                                        <button className="btn btn-outline-info btn-sm my-0" onClick={this.toggleReadMoreOrLess}>
+                                            Read More
+                                            <i className="fa fa-angle-double-right fa-lg ml-2"></i>
+                                        </button>
                                     </span>
                                 }
                                 {desc.length > 300 && isReadMoreDescClicked &&
                                     <span>
                                         {desc}
-                                        <button className="btn btn-outline-info btn-sm my-0" onClick={this.toggleReadMoreOrLess}>Read Less</button>
+                                        <button className="btn btn-outline-info btn-sm my-0" onClick={this.toggleReadMoreOrLess}>
+                                            <i className="fa fa-angle-double-left fa-lg mr-2"></i>
+                                            Read Less
+                                        </button>
                                     </span>
                                 }
                             </p>
-                            
                             <hr />
 
+                            {/* target populations */}
                             <h4><img src={people} alt="target populations" className="mr-2"/> Target population(s)</h4>
                             <ul className="list-unstyled pl-5">{renderPpltns}</ul>
-
                             <hr />
-                            
-                            <h4 id="finance"><img src={donation} alt="donation" className="mr-2"/> How much reached those in need</h4>
-                            
-                            <div className="pl-5">
 
-                                <h5><i>How much was received by the charity</i></h5>
-                                <p>
-                                    <i className="fa fa-sign-in-alt mr-2" style={{color:"#43A047"}}></i>
-                                    Donations and bequests: <strong>${donationBequest}</strong> <br />
-                                    <i className="fa fa-sign-in-alt mr-2" style={{color:"#43A047"}}></i>
-                                    Government grants: <strong>${govGrants}</strong>
-                                </p>
-                                
-                                <h5><i>How much was spent by the charity</i></h5>
-                                <p>
-                                    <i className="fa fa-sign-out-alt mr-2" style={{color:"#EF5350"}}></i>
-                                    Charitable use in Australia: <strong>${ausUse}</strong> <br />
-                                    <i className="fa fa-sign-out-alt mr-2" style={{color:"#EF5350"}}></i>
-                                    Total expenses: <strong>${allUse}</strong> 
-                                </p>
-                                
-                                <h5><i>How much reached the charity's beneficiaries</i></h5>
-                                <p>
+                            {/* finance */}
+                            <h4 id="finance"><img src={donation} alt="donation" className="mr-2"/> How much reached the beneficiaries</h4>
+                            <div className="pl-5">
+                                <div>
                                     In 2016, &nbsp;
                                     <strong className="h3-responsive" style={percStyle}>
                                         {percUse}%
                                     </strong>
                                     &nbsp;of all expenses went to charitable use.
-                                </p>
+                                    
+                                    <Collapsible trigger={financeTriggerWhenClosed}
+                                                triggerWhenOpen={financeTriggerWhenOpen}
+                                                transitionTime={200}>
+                                        <div className="px-3" style={{color:"#424242"}}>
+                                            <h5><i>How much was received by the charity</i></h5>
+                                            <p>
+                                                <i className="fa fa-sign-in-alt mr-2" style={{color:"#43A047"}}></i>
+                                                Donations and bequests: <strong>${donationBequest}</strong> <br />
+                                                <i className="fa fa-sign-in-alt mr-2" style={{color:"#43A047"}}></i>
+                                                Government grants: <strong>${govGrants}</strong>
+                                            </p>
+                                            
+                                            <h5><i>How much was spent by the charity</i></h5>
+                                            <p>
+                                                <i className="fa fa-sign-out-alt mr-2" style={{color:"#EF5350"}}></i>
+                                                Charitable use in Australia: <strong>${ausUse}</strong> <br />
+                                                <i className="fa fa-sign-out-alt mr-2" style={{color:"#EF5350"}}></i>
+                                                Total expenses: <strong>${allUse}</strong> 
+                                            </p>
+                                        </div>  
+                                    </Collapsible>
+                                </div>                           
                             </div>
-
                             <hr />
 
+                            {/* address */}
                             <h4 id="address"><img src={address} alt="address" className="mr-2"/> Address</h4>
                             <div className="pl-5">
-                                <div className="d-flex align-items-center">
-                                    <div className="my-2 mr-3 h6-responsive">{charityAddress}</div>
-                                    <a href={directionsUrl} target="_blank"
-                                        className="btn btn-outline-info m-0">
-                                        Get Directions 
-                                    </a> 
-                                </div>
+                                <div className="my-2 mr-3 h6-responsive">{charityAddress}</div>
+                                <a href={directionsUrl} target="_blank"
+                                    className="btn btn-outline-info m-0 btn-sm">
+                                    Get Directions 
+                                    <i className="fa fa-external-link-alt fa-lg ml-2"></i>
+                                </a>
 
-                                <div className="google-map" style={{ height: '40vh', width: '100%' }}>
+                                <div className="google-map mt-3" style={{ height: '40vh', width: '100%' }}>
                                     <GoogleMapReact 
                                         bootstrapURLKeys={{
                                             key: keys.API_key
