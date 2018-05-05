@@ -1,6 +1,9 @@
 import React, { Component } from "react";
+import axios from 'axios';
+import Select from 'react-select';
 import { Redirect } from "react-router";
 import { Card, CardBody, CardImage, CardText } from "mdbreact";
+import { Link } from 'react-scroll';
 import landingBackground from "../assets/landingBackground.jpg";
 import search from '../assets/search128.png';
 import diagram from '../assets/diagram128.png';
@@ -12,27 +15,111 @@ class Landing extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      cause: '',
+      location: '',
+      causes: [],
+      locations: [],
       isExploreClicked: false,
-      isEearchClicked: false,
+      isSearchClicked: false,
       isCauseCardClicked: false,
       causeClicked: '',
       isMobileDevice: false
     };
 
+    this.handleInputChangeOfCause = this.handleInputChangeOfCause.bind(this);
+    this.handleInputChangeOfLocation = this.handleInputChangeOfLocation.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleOnClickToExplore = this.handleOnClickToExplore.bind(this);
     this.handleOnClickToSearch = this.handleOnClickToSearch.bind(this);
     this.handleOnClickToCause = this.handleOnClickToCause.bind(this);
   }
 
   componentDidMount() {
+
+    window.scrollTo(0, 0);
+        
+    axios.get('/api/causes-all')
+        .then((res) => {
+            var mainActivities = [];
+            res.data.forEach((entry) => {
+                var currentCause = entry["Main_Activity"];
+                var found = mainActivities.some((cause) => {
+                    return cause.value === currentCause;
+                });
+                if (!found) {
+                    mainActivities.push(
+                        {
+                            value: currentCause,
+                            label: currentCause
+                        }
+                    );
+                }
+                
+            })
+            this.setState({
+                causes: mainActivities
+            });
+        })
+        .catch(function(e) {
+            console.log("ERROR", e);
+        });
+
+    axios.get('/api/locations-all')
+        .then((res) => {
+            var locationsData = [];
+            locationsData.push(
+                {
+                    value: 'Greater Melbourne',
+                    label: 'Greater Melbourne'
+                }
+            );
+            res.data.forEach((entry) => {
+                var locationString = entry["Town_City"] + " " + entry["State"] + " " + entry["Postcode"];
+                locationsData.push(
+                    {
+                        value: locationString,
+                        label: locationString
+                    }
+                );
+            })
+            this.setState({
+                locations: locationsData
+            });
+        })
+        .catch(function(e) {
+            console.log("ERROR", e);
+        });
+
     window.addEventListener("resize", this.resize.bind(this));
     this.resize();
   }
 
   resize() {
     this.setState({
-      isMobileDevice: window.innerWidth <= 768
+      isMobileDevice: window.innerWidth <= 576
     });
+  }
+
+  handleInputChangeOfCause = (chosenCause) => {
+      const cause = chosenCause === null ? {} : chosenCause;
+      this.setState({ 
+          cause,
+          doneCharitySearch: false
+      });
+  }
+
+  handleInputChangeOfLocation = (chosenLocation) => {
+      const location = chosenLocation === null ? {} : chosenLocation;
+      this.setState({ 
+          location,
+          doneCharitySearch: false 
+      });
+  }
+
+  handleKeyPress(target) {
+      if(target.charCode === 13){
+          this.handleOnClickToSearch();    
+      }
   }
 
   handleOnClickToExplore = () => {
@@ -60,7 +147,15 @@ class Landing extends Component {
     }
 
     if (this.state.isSearchClicked) {
-      return <Redirect push to="/charitySearch" />;
+      return (
+        <Redirect push to={{
+          pathname: "/charitySearch",
+          state: {
+            cause: this.state.cause.value,
+            location: this.state.location.value,
+          }
+        }} />
+      );
     }
 
     if (this.state.isCauseCardClicked) {
@@ -80,18 +175,21 @@ class Landing extends Component {
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           backgroundAttachment: "scroll",
-          backgroundPosition: "center",
-          height: "80vh",
-          width: "100vw"
+          backgroundPosition: "bottom",
+          height: "70vh",
+          width: "100vw",
+          fontSize: ".9em",
+          textShadow: "1px 1px 8px #212121",
         }
       : {
           backgroundImage: `url(${landingBackground})`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           backgroundAttachment: "fixed",
-          backgroundPosition: "center",
-          height: "85vh",
-          width: "100vw"
+          backgroundPosition: "bottom",
+          height: "55vh",
+          width: "100vw",
+          textShadow: "1px 1px 8px #212121"
         };
 
     var causeCardStyle = {
@@ -101,31 +199,62 @@ class Landing extends Component {
       cursor:'pointer'     
     };
 
+    var { cause } = this.state;
+    var valueCause = cause && cause.value;
+
+    var { location } = this.state;
+    var valueLocation = location && location.value;
+
     return (
-      <div className="container-fluid">
+      <div className="container-fluid p-0">
         <ScrollUpButton />
         {/* top of landing page */}
         <div
-          className="row d-flex align-items-center justify-content-start p-5"
+          className="d-flex flex-column align-items-center justify-content-end justify-content-sm-center text-center white-text p-4"
           style={imgStyle}>
-          <div className="pt-4 col-12 col-sm-12 col-md-8 col-lg-6 col-xl-6">
-            <div
-              className="p-4 white-text"
-              style={{ textShadow: "1px 1px 8px #212121"}}>
-              <p className="h1-responsive font-weight-bold mt-4">
-                Think Globally, Donate Locally
-              </p>
-              <p className="h4-responsive mt-4">
-                Find local charities to support the global cause that matters to you
-              </p>
-            </div>
-            <a
-              className="btn btn-default mt-2 mx-4"
-              onClick={this.handleOnClickToSearch}>
-              Get started
+          <p className="h1-responsive font-weight-bold mt-4">
+            Think Globally, Donate Locally
+          </p>
+          <span className="h4-responsive mt-1 d-none d-sm-block" style={{borderBottom: "5px solid #2bbbad"}}>
+            Support a global cause with a local charity
+          </span>
+          <span className="h4-responsive mt-1 d-block d-sm-none" style={{borderBottom: "5px solid #2bbbad"}}>
+            Support a global cause
+          </span>
+          <span className="h4-responsive mt-1 d-block d-sm-none" style={{borderBottom: "5px solid #2bbbad"}}>
+            with a local charity
+          </span>
+
+        </div>
+
+        {/* search box */}
+        <div className="d-flex flex-column align-items-center justify-content-center">
+          <p className="text-center m-3 font-weight-bold" style={{color:"#616161"}}>Enter your preferred cause and location to find local charities</p>
+          <div className="row col col-12 d-flex align-items-center justify-content-center">
+            <Select name="cause"
+              placeholder="eg. Animal protection"
+              value={valueCause}
+              className="col col-10 col-sm-6 col-md-4 col-lg-3 mb-1 px-1 border-0"
+              onChange={this.handleInputChangeOfCause}
+              options={this.state.causes} />
+            <Select name="location"
+              placeholder="eg. Melbourne VIC 3000"
+              value={valueLocation}
+              className="col col-10 col-sm-6 col-md-4 col-lg-3 mb-1 px-1 border-0"
+              onChange={this.handleInputChangeOfLocation}
+              options={this.state.locations} />
+            <a className="col col-6 col-sm-4 col-md-3 col-lg-2 btn btn-success mx-4"
+              onClick={this.handleOnClickToSearch} 
+              onKeyPress={this.handleKeyPress}>
+              Find charities
             </a>
+            <Link to="exploreCauses" spy={true} smooth={true} offset={-10} duration={400}>
+              <u className="small" style={{color:"#616161"}}>Haven't decided on the cause?</u>
+            </Link>
           </div>
         </div>
+
+        <hr className="mb-0" style={{borderBottom: "5px solid #2bbbad"}}/>
 
         {/* our goal */}
         <div
