@@ -28,9 +28,11 @@
     "react-scrollable-anchor": "^0.6.1",
     "react-select": "^1.2.1",
     "react-share": "^2.1.1",
+    "react-slick": "^0.23.1",
     "react-typeform-embed": "^0.1.5",
     "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "slick-carousel": "^1.8.1"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -2,14 +2,40 @@ import React, { Component } from "react";
 import axios from 'axios';
 import Select from 'react-select';
 import { Redirect } from "react-router";
-import { Card, CardBody, CardImage, CardText } from "mdbreact";
+import { Card, CardBody, CardImage, CardTitle, CardText, } from "mdbreact";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
 import { Link } from 'react-scroll';
 import landingBackground from "../assets/landingBackground.jpg";
-import search from '../assets/search128.png';
-import diagram from '../assets/diagram128.png';
-import donate from '../assets/donate128.png';
+import local from '../assets/local.jpg';
+import agedCare from '../assets/cause.jpg';
+import finance from '../assets/finance.jpg';
+import review from '../assets/review.jpg';
 import magnifyingGlass from "../assets/landingMagnify.png";
 import ScrollUpButton from "react-scroll-up-button";
+
+function CarouselPrevArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, left: "5%", zIndex: "1", textShadow: "1px 1px 4px #212121", }}
+      onClick={onClick}
+    />
+  );
+}
+
+function CarouselNextArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, right: "5%", textShadow: "1px 1px 4px #212121", }}
+      onClick={onClick}
+    />
+  );
+}
 
 class Landing extends Component {
   constructor(props) {
@@ -23,7 +49,7 @@ class Landing extends Component {
       isSearchClicked: false,
       isCauseCardClicked: false,
       causeClicked: '',
-      isMobileDevice: false
+      isMobileDevice: false,
     };
 
     this.handleInputChangeOfCause = this.handleInputChangeOfCause.bind(this);
@@ -205,6 +231,19 @@ class Landing extends Component {
     var { location } = this.state;
     var valueLocation = location && location.value;
 
+    var settings = {
+      autoplay: true,
+      dots: true,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      pauseOnDotsHover: true,
+      pauseOnFocus: true,
+      prevArrow: <CarouselPrevArrow />,
+      nextArrow: <CarouselNextArrow />,
+    };
+
     return (
       <div className="container-fluid p-0">
         <ScrollUpButton />
@@ -216,105 +255,124 @@ class Landing extends Component {
             Think Globally, Donate Locally
           </p>
           <span className="h4-responsive mt-1 d-none d-sm-block" style={{borderBottom: "5px solid #2bbbad"}}>
-            Support a global cause with a local charity
+            Discover local charities that support the cause you love
           </span>
           <span className="h4-responsive mt-1 d-block d-sm-none" style={{borderBottom: "5px solid #2bbbad"}}>
-            Support a global cause
+            Discover local charities 
           </span>
           <span className="h4-responsive mt-1 d-block d-sm-none" style={{borderBottom: "5px solid #2bbbad"}}>
-            with a local charity
+            that support the cause you love
           </span>
 
         </div>
 
         {/* search box */}
-        <div className="d-flex flex-column align-items-center justify-content-center">
-          <p className="text-center m-3 font-weight-bold" style={{color:"#616161"}}>Enter your preferred cause and location to find local charities</p>
+        <div className="d-flex flex-column align-items-center justify-content-center py-5">
+          <p className="text-center mb-3 h5-responsive font-weight-bold mx-5" style={{color:"#616161"}}>
+            Enter your preferred cause and location to find local charities
+          </p>
           <div className="row col col-12 d-flex align-items-center justify-content-center">
-            <Select name="cause"
-              placeholder="eg. Animal protection"
-              value={valueCause}
-              className="col col-10 col-sm-6 col-md-4 col-lg-3 mb-1 px-1 border-0"
-              onChange={this.handleInputChangeOfCause}
-              options={this.state.causes} />
             <Select name="location"
               placeholder="eg. Melbourne VIC 3000"
               value={valueLocation}
               className="col col-10 col-sm-6 col-md-4 col-lg-3 mb-1 px-1 border-0"
               onChange={this.handleInputChangeOfLocation}
               options={this.state.locations} />
-            <a className="col col-6 col-sm-4 col-md-3 col-lg-2 btn btn-success mx-4"
+            <Select name="cause"
+              placeholder="eg. Animal protection"
+              value={valueCause}
+              className="col col-10 col-sm-6 col-md-4 col-lg-3 mb-1 px-1 border-0"
+              onChange={this.handleInputChangeOfCause}
+              options={this.state.causes} />
+            <a className="col col-6 col-sm-4 col-md-3 col-lg-2 btn btn-success mx-3"
               onClick={this.handleOnClickToSearch} 
               onKeyPress={this.handleKeyPress}>
               Find charities
             </a>
-            <Link to="exploreCauses" spy={true} smooth={true} offset={-10} duration={400}>
+            <Link to="exploreCauses" spy={true} smooth={true} offset={-10} duration={400} className="col-12 d-flex justify-content-center">
               <u className="small" style={{color:"#616161"}}>Haven't decided on the cause?</u>
             </Link>
           </div>
         </div>
 
-        <hr className="mb-0" style={{borderBottom: "5px solid #2bbbad"}}/>
-
-        {/* our goal */}
+        {/* charity intro */}
         <div
-          className="row d-flex align-items-center justify-content-center text-center py-5 px-4"
-          style={{ color: "#839094", background: "#f5f9fb" }}>
-          <p className="col-12 h3-responsive">OUR GOAL IS TO HELP YOU...</p>
-          {/* <p className="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-6 h6-responsive">
-            DonateNow is an online information hub for Melburnians to find local charities 
-            that support global causes they care about. 
-          </p> */}
-          <div className="row pt-4 d-flex align-items-center justify-content-center text-center">
-            
-            <div className="m-2 col-8 col-sm-6 col-md-3 col-lg-3 col-xl-3">
-              {/* <img
-                src="https://images.unsplash.com/45/eDLHCtzRR0yfFtU0BQar_sylwiabartyzel_themap.jpg?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=2110dad38a593cd7986276d92748d27b&auto=format&fit=crop&w=1057&q=80"
-                alt="contact"
-                style={{
-                  borderRadius: "50%",
-                  maxHeight: "80%",
-                  maxWidth: "80%"
-                }}
-              /> */}
-              <img src={search} alt="search for charities"/>
-              <p className="h5-responsive font-weight-bold mt-4 mb-2">
-                Find local charities
-              </p>
-              <p>Search for charities that support a cause around your neighbourhood</p>
-            </div>
-            
-            <div className="m-2 col-8 col-sm-6 col-md-3 col-lg-3 col-xl-3">
-              {/* <img
-                src="https://images.unsplash.com/photo-1497030947858-3f40f1508e84?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=c55e1e5d309a69171693ada3128a36f7&auto=format&fit=crop&w=1050&q=80"
-                alt="contact"
-                style={{
-                  borderRadius: "50%",
-                  maxHeight: "80%",
-                  maxWidth: "80%"
-                }}
-              /> */}
-              <img src={diagram} alt="cause diagram"/>
-              <p className="h5-responsive font-weight-bold mt-4 mb-2">
-                Explore charitable causes
-              </p>
-              <p>Discover the global causes supported by charities in your local area</p>
-            </div>
-            
-            <div className="m-2 col-8 col-sm-6 col-md-3 col-lg-3 col-xl-3">
-              {/* <img
-                src="https://images.unsplash.com/photo-1457317680121-ef12e98979e8?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a41dc0dcd19e2358b1acb5e17b298aed&auto=format&fit=crop&w=1050&q=80"
-                alt="contact"
-                style={{
-                  borderRadius: "50%",
-                  maxHeight: "80%",
-                  maxWidth: "80%"
-                }}
-              /> */}
-              <img src={donate} alt="contact and donate"/>
-              <p className="h5-responsive font-weight-bold mt-4 mb-2">Contact the charity</p>
-              <p>Visit a charity in person or its website to start donating now</p>
-            </div>
+          id="findCharity"
+          className="row d-flex align-items-center justify-content-center text-center py-5"
+          style={{ color: "#839094", background: "#f8f8f8" }}>
+          <div className="col-12 col-sm-10 col-md-4 col-lg-4 col-xl-4">
+            <img
+              src={magnifyingGlass}
+              alt="magnifying glass"
+              className="py-3"/>
+            <p className="h3-responsive" style={{ color: "#616161", }}>Find the right charity</p>
+            <p className="h6-responsive">
+              Have a cause you want to support but not sure which local charity
+              to go to? Wondering if a charity has been making good use of
+              donations?
+            </p>
+            <a
+              className="btn btn-outline-info"
+              onClick={this.handleOnClickToSearch}>
+              Start searching
+            </a>
+          </div>
+          
+          <div className="col-12 col-sm-10 col-md-6 col-lg-6 col-xl-6 text-left my-3">          
+            <Slider {...settings}>
+              <div>               
+                <Card reverse>
+                    <CardImage className="img-fluid" src={local} />
+                    <CardBody>
+                        <CardTitle>In your suburb</CardTitle>
+                        <CardText>
+                          It's easy to search for local charities that support a cause.
+                          Don't worry if there is none - we'll show you
+                          the charities in other suburbs near you.
+                        </CardText>
+                    </CardBody>
+                </Card> 
+              </div>
+              <div>
+                <Card reverse>
+                    <CardImage className="img-fluid" src={agedCare} />
+                    <CardBody>
+                        <CardTitle>For your cause</CardTitle>
+                        <CardText>
+                          Only the charities that support your cause as their main
+                          activity will be shown. You can also do additional
+                          filtering, e.g. by target populations.
+                        </CardText>
+                    </CardBody>
+                </Card>
+              </div>
+              <div>
+                <Card reverse>
+                    <CardImage className="img-fluid" src={finance} />
+                    <CardBody>
+                        <CardTitle>Financially transparent</CardTitle>
+                        <CardText>
+                          You can check how much each charity gets from
+                          donations and grants, versus how much of the charity's 
+                          expenses goes to charitable use.
+                        </CardText>
+                    </CardBody>
+                </Card>
+              </div>
+              <div>
+                <Card reverse>
+                    <CardImage className="img-fluid" src={review} />
+                    <CardBody>
+                        <CardTitle>Reviewed by donors</CardTitle>
+                        <CardText>
+                          See what your fellow donors have to say about a charity.
+                          You can also share your experience of donating to help
+                          others with their decisions.
+                        </CardText>
+                    </CardBody>
+                </Card>
+              </div>
+            </Slider>
           </div>
         </div>
 
@@ -323,7 +381,7 @@ class Landing extends Component {
         
           {/* cause intro title */}
           <div className="mb-3 mx-4 px-2">
-            <p className="text-center h3-responsive" style={{ color: "#839094",}}>
+            <p className="text-center h3-responsive" style={{ color: "#616161",}}>
               Which charitable cause do you feel connected to?
             </p>
           </div>
@@ -429,117 +487,6 @@ class Landing extends Component {
             </a>
           </div>
 
-        </div>
-
-        {/* charity intro */}
-        <div
-          id="findCharity"
-          className="row d-flex align-items-center justify-content-center text-center py-5 px-4"
-          style={{ color: "#839094", background: "#f5f9fb" }}>
-          <div className="col-12 col-sm-10 col-md-4 col-lg-4 col-xl-4">
-            <img
-              src={magnifyingGlass}
-              alt="magnifying glass"
-              className="py-3"
-            />
-            <p className="h3-responsive">Discover the right charity for you</p>
-            <p className="h6-responsive">
-              Have a cause you want to support but not sure which local charity
-              to go to? Wondering if a charity has been making good use of
-              donations?
-            </p>
-            <a
-              className="btn btn-outline-info"
-              onClick={this.handleOnClickToSearch}
-            >
-              Click to start searching
-            </a>
-          </div>
-
-          <div className="col-12 col-sm-10 col-md-6 col-lg-6 col-xl-6 text-left">
-            <div className="row d-flex align-items-center justify-content-center ">
-              <div className="col-12 col-sm-12 col-md-10 col-lg-6 col-xl-6 mt-4">
-                <div className="row d-flex align-items-stretch justify-content-center ">
-                  <div className="col-1">
-                    <i
-                      className="fa fa-map-pin fa-lg cyan-text"
-                      aria-hidden="true"
-                    />
-                  </div>
-
-                  <div className="col-10">
-                    <p className="font-weight-bold mb-2">In your suburb</p>
-                    <p className="small">
-                      It's easy to search for charities that support a cause in
-                      your suburb. Don't worry if there is none - we'll show you
-                      the charities in other suburbs near you.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-12 col-sm-12 col-md-10 col-lg-6 col-xl-6 mt-4">
-                <div className="row d-flex align-items-stretch justify-content-center ">
-                  <div className="col-1">
-                    <i className="fa fa-heartbeat fa-lg cyan-text" />
-                  </div>
-
-                  <div className="col-10">
-                    <p className="font-weight-bold mb-2">For your cause</p>
-                    <p className="small">
-                      Only the charities that support your cause as their main
-                      activity will be displayed. You can also do additional
-                      filtering, e.g. by target populations.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="row d-flex align-items-center justify-content-center">
-              <div className="col-12 col-sm-12 col-md-10 col-lg-6 col-xl-6 mt-4">
-                <div className="row d-flex align-items-stretch justify-content-center ">
-                  <div className="col-1">
-                    <i
-                      className="fa fa-dollar-sign fa-lg cyan-text"
-                      aria-hidden="true"
-                    />
-                  </div>
-
-                  <div className="col-10">
-                    <p className="font-weight-bold mb-2">
-                      Financially transparent
-                    </p>
-                    <p className="small">
-                      You'll be able to check how much each charity gets from
-                      donations and grants, versus how much of it reaches the
-                      charity's beneficiaries.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-12 col-sm-12 col-md-10 col-lg-6 col-xl-6 mt-4">
-                <div className="row d-flex align-items-stretch justify-content-center ">
-                  <div className="col-1">
-                    <i
-                      className="fa fa-comments fa-lg cyan-text"
-                      aria-hidden="true"
-                    />
-                  </div>
-
-                  <div className="col-10">
-                    <p className="font-weight-bold mb-2">Reviewed by donors</p>
-                    <p className="small">
-                      See what your fellow donors have to say about a charity.
-                      You can also review your experience of donating which helps
-                      others with their decisions.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
 
       </div>
