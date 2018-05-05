@@ -283,8 +283,15 @@ class DashboardAct extends Component {
             <Redirect to={{
                 pathname: '/charitySearch',
                 state: {
-                    cause: this.state.causeName,
-                    location: valueLocation
+                    cause: {
+                      value: this.state.causeName,
+                      label: this.state.causeName
+                    },
+                    location: {
+                      value: valueLocation,
+                      label: valueLocation
+                    },
+                    isSearchStarted: true,
                 }
             }}/>
         );

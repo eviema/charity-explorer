@@ -4,11 +4,8 @@ import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import axios from 'axios';
 import spinner from '../assets/spinner.gif';
-import { Card, CardBody, CardImage, CardTitle, CardText, 
-        Breadcrumb, BreadcrumbItem, 
-        Container, Col, Row,
-        Tooltip, } from 'mdbreact';
-import Pagination from "react-js-pagination";
+import { Breadcrumb, BreadcrumbItem, 
+        Container, Col, Row, } from 'mdbreact';
 
 class CharitySearch extends Component {
     constructor(props) {
@@ -16,16 +13,13 @@ class CharitySearch extends Component {
         super(props);
 
         const causeCurrent = props.location.state !== undefined 
-        ? {
-            value: props.location.state.cause,
-            label: props.location.state.cause
-        } : {};
+        ? props.location.state.cause : {};
 
-        const locationCurrent = props.location.state !== undefined 
-        ? {
-            value: props.location.state.location,
-            label: props.location.state.location
-        } : {};
+        const locationCurrent = props.location.state !== undefined
+        ? props.location.state.location : {};
+
+        const councilCurrent = props.location.state !== undefined
+        ? props.location.state.council : '';
 
         const conditions = [
             {
@@ -47,16 +41,17 @@ class CharitySearch extends Component {
             location: locationCurrent,
             causes: [],
             locations: [],
-            council: '',
+            council: councilCurrent,
             charities: [],
             currentPage: 1,
             charitiesPerPage: 5,
+            isSearchStarted: props.location.state.isSearchStarted,
             doneCharitySearch: false,
             doneCharitySearchByCouncil: false,
             sortByConditions: conditions,
             sortByCondCurrent: {},
             loading: false,
-            isMobileDevice: false,
+            isMobileDevice: false, 
             isCharityCardClicked: false,
             charityABN: 0,
         }
@@ -126,7 +121,9 @@ class CharitySearch extends Component {
                 console.log("ERROR", e);
             });
 
-        if (this.state.cause.value !== undefined && this.state.location.value !== undefined) {
+        if (this.state.cause.value !== undefined 
+            && this.state.location.value !== undefined
+            && this.state.isSearchStarted) {
             this.handleSubmit();
         }
 
@@ -166,6 +163,7 @@ class CharitySearch extends Component {
                 loading: true,
                 doneCharitySearch: false,
                 doneCharitySearchByCouncil: false,
+                council: '',
             });
 
             var charitiesMatched = [];
@@ -369,8 +367,31 @@ class CharitySearch extends Component {
 
     render() {
 
+        if (this.state.doneCharitySearch && this.state.charities.length > 0) {
+            return (
+                <Redirect push to={{
+                    pathname: "/charitySearchResults",
+                    state: {
+                        cause: this.state.cause,
+                        location: this.state.location,
+                        council: this.state.council,
+                        charities: this.state.charities,
+                    }
+                }} />
+            );
+        }
+
         if (this.state.isCharityCardClicked) {
-            return <Redirect push to={`/charity/${this.state.charityABN}`} />;
+            return (
+                <Redirect push to={{
+                    pathname: `/charity/${this.state.charityABN}`,
+                    state: {
+                        cause: this.state.cause,
+                        location: this.state.location,
+                        council: this.state.council,
+                    }
+                }} />
+            );
         }
         
         var { cause } = this.state;
@@ -378,84 +399,10 @@ class CharitySearch extends Component {
 
         var { location } = this.state;
         var valueLocation = location && location.value;
-
-        var { sortByCondCurrent } = this.state;
-        var valueSortByCond = sortByCondCurrent && sortByCondCurrent.value;
         
-        const { charities, currentPage, charitiesPerPage } = this.state;
+        const { charities } = this.state;
 
         const { council } = this.state;
-
-        const indexOfLastCharity = currentPage * charitiesPerPage;
-        const indexOfFirstCharity = indexOfLastCharity - charitiesPerPage;
-        const currentCharities = charities.slice(indexOfFirstCharity, indexOfLastCharity);
-
-        const renderCharities = currentCharities.map((charity, index) => {
-            var cardPercStyle = {};
-            if (charity.percUse >= 80) {
-                cardPercStyle = {
-                    background:'#4CAF50',
-                    borderRadius: "5px",
-                } 
-            }
-            else if (charity.percUse >= 40) {
-                cardPercStyle = {
-                    background:'#FFA000',
-                    borderRadius: "5px",
-                }
-            }
-            else if (charity.percUse >= 10) {
-                cardPercStyle = {
-                    background:'#FF5722',
-                    borderRadius: "5px",
-                }
-            }
-            else {
-                charity.percUse = '< 10';
-                cardPercStyle = {
-                    background:'#FF5722',
-                    borderRadius: "5px",
-                };
-            }
-            return (
-                <li key={index} className="col col-12 d-flex align-items-stretch mx-3 mb-3 px-0 hoverable"
-                    onClick={() => this.handleOnClickToCharityPage(charity.ABN)} style={{cursor: "pointer"}}>
-                    <Card cascade className="w-100">
-                        <CardImage tag="div">
-                            <div className="#26c6da cyan lighten-1 p-4 d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
-                                <div className="d-flex align-items-center">
-                                    <h5 className="h5-responsive">{charity.name}</h5>
-                                    <Tooltip 
-                                        placement="right" tag="div" component="button" 
-                                        componentClass="btn btn-link p-0 mb-1 mt-2"
-                                        tooltipContent={charity.percUse + '% of all expenses of this charity went to charitable use.'}> 
-                                            <h5 className="h5-responsive text-white p-2 ml-4" style={cardPercStyle}>{charity.percUse}%</h5>
-                                    </Tooltip>
-                                </div>
-                                <a className="btn btn-primary" href={`/charity/${charity.ABN}`} >
-                                    Learn more 
-                                    <i className="fa fa-arrow-right fa-lg pl-2"></i>
-                                </a>
-                            </div>
-                        </CardImage>
-                        <CardBody className="d-flex flex-column justify-content-between align-items-stretch">
-                            <div>
-                                <CardTitle>{charity.cause}</CardTitle>
-                                <p>{charity.suburb} VIC {charity.postcode}</p>
-                                <CardText>
-                                    <span>{charity.desc.length <= 200 ? charity.desc : charity.desc.slice(0,200).concat("... ")}</span>
-                                </CardText>
-                            </div>
-                        </CardBody>
-                    </Card>
-                </li>
-            );
-        });
-
-        const pageNumbers = [];
-        for (let i = 1; i <= Math.ceil(charities.length * 1.0 / charitiesPerPage); i++) {
-            pageNumbers.push(i);
-        }
         
         var pageStyle = this.state.isMobileDevice 
             ? {
@@ -474,7 +421,7 @@ class CharitySearch extends Component {
                 height: "90vh",
             }
         
-         var searchBoxStyle = {
+        var searchBoxStyle = {
             background: "rgba(236, 239, 241, 0.85)",
             padding: "2rem",
             margin: "2rem",
@@ -484,7 +431,6 @@ class CharitySearch extends Component {
             <div style={{background: "#F3F3F3"}}>
                 <Breadcrumb className="small mb-0">
                     <BreadcrumbItem><a href="/home"><i className="fa fa-home"></i></a></BreadcrumbItem>
-                    <BreadcrumbItem><a href="/charities/dashboardAct">Explore charitable causes</a></BreadcrumbItem>
                     <BreadcrumbItem active>Search for charities</BreadcrumbItem>
                 </Breadcrumb>
 
@@ -550,97 +496,11 @@ class CharitySearch extends Component {
 
                 }
 
-                {
-                    this.state.doneCharitySearch && this.state.charities.length > 0 &&
-                    <div className="my-3 px-3 row d-flex justify-content-center">
-                        <div className="col col-12 col-sm-12 col-md-12 col-lg-10 col-xl-8">
-                            {/* back to search button */}
-                            <a onClick={this.handleClickToSearch}
-                                className="small">
-                                <u><strong>Back to search</strong></u>
-                            </a>
-
-                            {/* charity results title */}
-                            <div className="row d-flex align-items-center justify-content-between px-3 mt-3">
-                                <div className="mb-2">
-                                    {this.state.doneCharitySearchByCouncil && <p>Although no results are found in {valueLocation}, there are...</p>}
-                                    <h5>
-                                        Charities supporting <strong>{valueCause}</strong> in&nbsp; 
-                                        {this.state.doneCharitySearchByCouncil && <span><strong>{council}</strong>, your local council</span>}
-                                        {!this.state.doneCharitySearchByCouncil && <strong>{valueLocation}</strong>}
-                                    </h5>
-                                </div>
-                            </div>
-
-                            {/* sort by */}
-                            <div className="row d-flex align-items-center justify-content-start px-3 small">
-                                <span>Sort by </span>
-                                <Select name="sortBy" className="col-10 col-sm-8 col-md-6 col-lg-5 col-xl-6"
-                                        value={valueSortByCond}
-                                        onChange={this.handleSort}
-                                        options={this.state.sortByConditions} />
-                            </div>
-                            
-                            {/* result range displayer and pagination */}
-                            <div className="row d-flex align-items-center justify-content-between px-3">
-                                <h6 className="small mb-0">
-                                    Showing {(currentPage - 1) * charitiesPerPage + 1} to {Math.min(currentPage * charitiesPerPage, charities.length)} of {charities.length} results
-                                </h6> 
-
-                                <div className="ml-2 mt-2">
-                                    <Pagination
-                                        hideDisabled
-                                        linkClass="py-1 px-2"
-                                        activeLinkClass="bg-primary rounded text-white"
-                                        activePage={currentPage}
-                                        itemsCountPerPage={charitiesPerPage}
-                                        totalItemsCount={charities.length}
-                                        pageRangeDisplayed={5}
-                                        onChange={this.handleClickOnPageNumber}
-                                    />
-                                </div>
-                            </div>
-                            
-                            {/* actual charity results */}
-                            <ul className="row card-group list-unstyled mb-0 d-flex justify-content-center">{renderCharities}</ul>
-                            
-                            {/* result range displayer and pagination */}
-                            <div className="row d-flex align-items-center justify-content-between px-3">
-                                <h6 className="small mb-0">
-                                    Showing {(currentPage - 1) * charitiesPerPage + 1} to {Math.min(currentPage * charitiesPerPage, charities.length)} of {charities.length} results
-                                </h6>
-
-                                <div className="ml-2 mt-2">
-                                    <Pagination
-                                        hideDisabled
-                                        linkClass="py-1 px-2"
-                                        activeLinkClass="bg-primary rounded text-white"
-                                        activePage={currentPage}
-                                        itemsCountPerPage={charitiesPerPage}
-                                        totalItemsCount={charities.length}
-                                        pageRangeDisplayed={5}
-                                        onChange={this.handleClickOnPageNumber}
-                                    />
-                                </div>
-                            </div>
-
-                            {/* back to search button */}
-                            <a onClick={this.handleClickToSearch}
-                                className="pb-4 small">
-                                <u><strong>Back to search</strong></u>
-                            </a>
-                        </div>
-                    </div>
-                }
-                
                 <footer className="page-footer stylish-color-dark font-small">
                     <Container className="py-5">
                     <Row className="text-center d-flex justify-content-center">
                         <Col md="2">
                             <h6 className="title font-weight-bold"><a href="/home">Home</a></h6>
-                        </Col>
-                        <Col md="2">
-                            <h6 className="title font-weight-bold"><a href="/charitySearch">Charities</a></h6>
                         </Col>
                         <Col md="2">
                             <h6 className="title font-weight-bold"><a href="/charities/dashboardAct">Charitable causes</a></h6>

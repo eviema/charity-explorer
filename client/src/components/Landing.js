@@ -177,8 +177,15 @@ class Landing extends Component {
         <Redirect push to={{
           pathname: "/charitySearch",
           state: {
-            cause: this.state.cause.value,
-            location: this.state.location.value,
+            cause: {
+              value: this.state.cause.value,
+              label: this.state.cause.value,
+            },
+            location: {
+              value: this.state.location.value,
+              label: this.state.location.value,
+            },
+            isSearchStarted: true,
           }
         }} />
       );
@@ -239,7 +246,6 @@ class Landing extends Component {
       slidesToShow: 1,
       slidesToScroll: 1,
       pauseOnDotsHover: true,
-      pauseOnFocus: true,
       prevArrow: <CarouselPrevArrow />,
       nextArrow: <CarouselNextArrow />,
     };

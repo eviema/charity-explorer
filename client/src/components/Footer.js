@@ -14,9 +14,6 @@ const Footer = () => {
                     <h6 className="title font-weight-bold"><a href="/home">Home</a></h6>
                 </Col>
                 <Col md="2">
-                    <h6 className="title font-weight-bold"><a href="/charitySearch">Charities</a></h6>
-                </Col>
-                <Col md="2">
                     <h6 className="title font-weight-bold"><a href="/charities/dashboardAct">Charitable causes</a></h6>
                 </Col>
                 <Col md="2">

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from "react-router";
 import axios from 'axios';
 import ScrollUpButton from 'react-scroll-up-button';
 import { Breadcrumb, BreadcrumbItem,
@@ -62,12 +63,14 @@ class Charity extends Component {
             isReadMoreDescClicked: false,
             isShowShareButtonsClicked: false,
             isMobileDevice: false,
+            isBackToSearchResultsClicked: false,
         }
         this.toggleTabs = this.toggleTabs.bind(this);
         this.refresh = this.refresh.bind(this);
         this.toggleReadMoreOrLess = this.toggleReadMoreOrLess.bind(this);
         this.toggleShowShareButtons = this.toggleShowShareButtons.bind(this);
         this.openForm = this.openForm.bind(this);
+        this.handleOnClickToSearchResults = this.handleOnClickToSearchResults.bind(this);
     }
 
     async componentDidMount() {
@@ -201,7 +204,22 @@ class Charity extends Component {
         this.typeformEmbed.typeform.open();
     }
 
+    handleOnClickToSearchResults() {
+        this.setState({
+            isBackToSearchResultsClicked: true,
+        });
+    }
+
     render() {
+
+        if (this.state.isBackToSearchResultsClicked) {
+            return (
+                <Redirect push to={{
+                    pathname: "/charitySearchResults",
+                    state: this.props.location.state,
+                }} />
+            );
+        }
 
         var { ABN, name, regStatus, dgrStatus, size, desc, websiteUrl, 
             streetAddLn1, streetAddLn2, suburb, postcode, 
@@ -388,8 +406,8 @@ class Charity extends Component {
                 <ScrollUpButton />
                 <Breadcrumb className="small mb-0">
                     <BreadcrumbItem><a href="/home"><i className="fa fa-home"></i></a></BreadcrumbItem>
-                    <BreadcrumbItem><a href="/charities/dashboardAct">Explore charitable causes</a></BreadcrumbItem>
                     <BreadcrumbItem><a href="/charitySearch">Search for charities</a></BreadcrumbItem>
+                    <BreadcrumbItem><a onClick={this.handleOnClickToSearchResults} style={{color: "#0275d8"}}>Search results</a></BreadcrumbItem>
                     <BreadcrumbItem active>{name}</BreadcrumbItem>
                 </Breadcrumb>
 

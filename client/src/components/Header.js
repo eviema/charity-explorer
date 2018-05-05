@@ -16,7 +16,7 @@ class Header extends Component {
             collapse: false,
             isWideEnough: false,
         };
-    this.onClick = this.onClick.bind(this);
+        this.onClick = this.onClick.bind(this);
     }
 
     onClick(){
@@ -25,67 +25,64 @@ class Header extends Component {
         });
     }
 
-  render() {
-    if (window.location.pathname === "/") {
-      return <div />;
-    }
-    var headerStyle =
-      window.location.pathname === "/home"
-        ? {
-            position: "absolute",
-            top: "0",
-            zIndex: "10",
-            background: "rgba(0, 0, 0, 0)",
-            width: "100%",
-            boxShadow: "none",
-            padding: "2rem"
-          }
-        : {
-            background: "rgba(96, 125, 139,1)",
-            padding: "1rem"
-          };
-    
-    var navItemBackgroundStyle = 
-        this.state.collapse
-          ? {
-            background:"rgba(96, 125, 139, 1)",
-            padding: "1rem"
-          }
-          : {}
+    render() {
+        if (window.location.pathname === "/") {
+            return <div />;
+        }
+        var headerStyle =
+        window.location.pathname === "/home"
+            ? {
+                position: "absolute",
+                top: "0",
+                zIndex: "10",
+                background: "rgba(0, 0, 0, 0)",
+                width: "100%",
+                boxShadow: "none",
+                padding: "2rem"
+            }
+            : {
+                background: "rgba(96, 125, 139,1)",
+                padding: "1rem"
+            };
+        
+        var navItemBackgroundStyle = 
+            this.state.collapse
+            ? {
+                background:"rgba(96, 125, 139, 1)",
+                padding: "1rem"
+            }
+            : {}
 
-    return (
-        <Router>
-            <Navbar dark expand="md" scrolling className="sticky-top" style={headerStyle}>
-                <NavbarBrand href="/home">
-                    <strong>DonateNow</strong>
-                </NavbarBrand>
-                { !this.state.isWideEnough && <NavbarToggler onClick = { this.onClick } />}
-                <Collapse isOpen = { this.state.collapse } navbar style={navItemBackgroundStyle}>
-                    <NavbarNav right>
-                        <NavItem>
-                            <a className="nav-link" href="/home">Home<span className="sr-only">(current)</span></a>
-                        </NavItem>
-                        <NavItem>
-                            <a className="nav-link" href="/charitySearch">Charities</a>
-                        </NavItem>
-                        <NavItem>
-                            <a className="nav-link" href="/charities/dashboardAct">Charitable causes</a>
-                        </NavItem>
-                        <NavItem>
-                            <a className="nav-link" href="/tipsForDonors">Tips for donors</a>
-                        </NavItem>
-                        <NavItem>
-                            <a className="nav-link" href="/about">About</a>
-                        </NavItem>{/* 
-                        <NavItem>
-                            <a className="nav-link" href="/contact">Contact</a>
-                        </NavItem> */}
-                    </NavbarNav>
-                </Collapse>
-            </Navbar>
-        </Router>
-    );
-  }
+        return (
+            <Router>
+                <Navbar dark expand="md" scrolling className="sticky-top" style={headerStyle}>
+                    <NavbarBrand href="/home">
+                        <strong>DonateNow</strong>
+                    </NavbarBrand>
+                    { !this.state.isWideEnough && <NavbarToggler onClick = { this.onClick } />}
+                    <Collapse isOpen = { this.state.collapse } navbar style={navItemBackgroundStyle}>
+                        <NavbarNav right>
+                            <NavItem>
+                                <a className="nav-link" href="/home">Home<span className="sr-only">(current)</span></a>
+                            </NavItem>
+                            <NavItem>
+                                <a className="nav-link" href="/charities/dashboardAct">Charitable causes</a>
+                            </NavItem>
+                            <NavItem>
+                                <a className="nav-link" href="/tipsForDonors">Tips for donors</a>
+                            </NavItem>
+                            <NavItem>
+                                <a className="nav-link" href="/about">About</a>
+                            </NavItem>{/* 
+                            <NavItem>
+                                <a className="nav-link" href="/contact">Contact</a>
+                            </NavItem> */}
+                        </NavbarNav>
+                    </Collapse>
+                </Navbar>
+            </Router>
+        );
+    }
 }
 
 export default Header;
