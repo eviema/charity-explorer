@@ -222,7 +222,7 @@ class Charity extends Component {
             backgroundSize: "cover",
             backgroundPosition: "center",
             fontSize: ".9em",
-            height: "55vh",
+            height: "65vh",
         } : {
             backgroundImage:`url(${charityCardBg})`,
             backgroundRepeat: "no-repeat",
