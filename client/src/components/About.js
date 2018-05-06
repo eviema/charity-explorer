@@ -73,7 +73,7 @@ const About = () => {
 
             {/* data source */}
             <p className="h4-responsive font-weight-bold pt-3">
-              Data source
+              Data sources
             </p>
             <p>
               <img src={acncLogo} alt="acnc-logo" className="img-responsive py-2 pr-3 mr-5" />
