@@ -33,6 +33,7 @@ class CharitySearchResults extends Component {
             // causes: [],
             // locations: [],
             council: props.location.state.council,
+            isCouncilEmptyOfChar: props.location.state.isCouncilEmptyOfChar,
             charities: props.location.state.charities,
             currentPage: 1,
             charitiesPerPage: 5,
@@ -150,6 +151,7 @@ class CharitySearchResults extends Component {
                     state: {
                         cause: this.state.cause,
                         location: this.state.location,
+                        isSearchClicked: false,
                     }
                 }}/>
             );
@@ -256,8 +258,7 @@ class CharitySearchResults extends Component {
         return(
             <div style={{background: "#F3F3F3"}}>
                 <Breadcrumb className="small mb-0">
-                    <BreadcrumbItem><a href="/home"><i className="fa fa-home"></i></a></BreadcrumbItem>
-                    <BreadcrumbItem><a onClick={this.handleClickToSearch}>Search for charities</a></BreadcrumbItem>
+                    <BreadcrumbItem><a onClick={this.handleClickToSearch} style={{color: "#0275d8"}}><i className="fa fa-home"></i></a></BreadcrumbItem>
                     <BreadcrumbItem active>Search results</BreadcrumbItem>
                 </Breadcrumb>
 
@@ -272,12 +273,16 @@ class CharitySearchResults extends Component {
                         {/* charity results title */}
                         <div className="row d-flex align-items-center justify-content-between px-3 mt-3">
                             <div className="mb-2">
-                                {this.state.council !== '' && 
-                                    <p>Although no results are found in {valueLocation}, there are...</p>
+                                {this.state.council !== '' && !this.state.isCouncilEmptyOfChar && 
+                                    <p>It seems no charities in {valueLocation} support {valueCause}.</p>
+                                }
+                                {this.state.council !== '' && this.state.isCouncilEmptyOfChar &&
+                                    <p>It seems no charities in {valueLocation} or in your local council support {valueCause}.</p>
                                 }
                                 <h5>
                                     Charities supporting <strong>{valueCause}</strong> in&nbsp; 
-                                    {this.state.council !== '' && <span><strong>{council}</strong>, your local council</span>}
+                                    {this.state.council !== '' && !this.state.isCouncilEmptyOfChar && <span><strong>{council}</strong>, your local council</span>}
+                                    {this.state.council !== '' && this.state.isCouncilEmptyOfChar && <strong>Greater Melbourne</strong>}
                                     {this.state.council === '' && <strong>{valueLocation}</strong>}
                                 </h5>
                             </div>
