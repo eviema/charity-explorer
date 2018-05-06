@@ -4,7 +4,6 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import AdminLogin from './AdminLogin';
 import Header from './Header';
 import Landing from './Landing';
-import CharitySearch from './CharitySearch';
 import CharitySearchResults from './CharitySearchResults';
 import Charity from './Charity';
 import DashboardAct from './DashboardAct';
@@ -25,7 +24,6 @@ class App extends Component {
                         <Route exact={true} path="/" component={AdminLogin} />
                         <Route path="/home" component={Landing} /> 
                         {/* <Route exact={true} path="/" component={Landing} /> */}
-                        <Route path="/charitySearch" component={CharitySearch} />
                         <Route path="/charitySearchResults" component={CharitySearchResults} />
                         <Route path="/charity/:ABN" component={Charity} />
                         <Route path="/charities/dashboardAct" component={DashboardAct} />

@@ -406,7 +406,6 @@ class Charity extends Component {
                 <ScrollUpButton />
                 <Breadcrumb className="small mb-0">
                     <BreadcrumbItem><a href="/home"><i className="fa fa-home"></i></a></BreadcrumbItem>
-                    <BreadcrumbItem><a href="/charitySearch">Search for charities</a></BreadcrumbItem>
                     <BreadcrumbItem><a onClick={this.handleOnClickToSearchResults} style={{color: "#0275d8"}}>Search results</a></BreadcrumbItem>
                     <BreadcrumbItem active>{name}</BreadcrumbItem>
                 </Breadcrumb>
