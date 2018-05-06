@@ -85,6 +85,16 @@ module.exports = (app) => {
     );
 
     app.get(
+        '/api/charitiesByCause/:cause',
+        async (req, res) => {
+            const charitiesAllMatched = await Charity.find({
+                Main_Activity: req.params.cause
+            });
+            res.send(charitiesAllMatched);
+        }
+    );
+
+    app.get(
         '/api/causes-all',
         async (req, res) => {
             const causesAll = await Cause.find({});
