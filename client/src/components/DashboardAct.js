@@ -291,7 +291,6 @@ class DashboardAct extends Component {
                       value: valueLocation,
                       label: valueLocation
                     },
-                    isSearchStarted: true,
                 }
             }}/>
         );

@@ -45,7 +45,6 @@ class CharitySearch extends Component {
             charities: [],
             currentPage: 1,
             charitiesPerPage: 5,
-            isSearchStarted: props.location.state.isSearchStarted,
             doneCharitySearch: false,
             doneCharitySearchByCouncil: false,
             sortByConditions: conditions,
@@ -122,8 +121,7 @@ class CharitySearch extends Component {
             });
 
         if (this.state.cause.value !== undefined 
-            && this.state.location.value !== undefined
-            && this.state.isSearchStarted) {
+            && this.state.location.value !== undefined) {
             this.handleSubmit();
         }
 

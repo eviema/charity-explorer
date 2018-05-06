@@ -40,9 +40,16 @@ function CarouselNextArrow(props) {
 class Landing extends Component {
   constructor(props) {
     super(props);
+
+    const causeCurrent = props.location.state !== undefined 
+    ? props.location.state.cause : {};
+
+    const locationCurrent = props.location.state !== undefined
+    ? props.location.state.location : {};
+
     this.state = {
-      cause: '',
-      location: '',
+      cause: causeCurrent,
+      location: locationCurrent,
       causes: [],
       locations: [],
       isExploreClicked: false,
@@ -185,7 +192,6 @@ class Landing extends Component {
               value: this.state.location.value,
               label: this.state.location.value,
             },
-            isSearchStarted: true,
           }
         }} />
       );
@@ -273,7 +279,7 @@ class Landing extends Component {
         </div>
 
         {/* search box */}
-        <div className="d-flex flex-column align-items-center justify-content-center py-5">
+        <div id="searchBox" className="d-flex flex-column align-items-center justify-content-center py-5">
           <p className="text-center mb-3 h5-responsive font-weight-bold mx-5" style={{color:"#616161"}}>
             Enter your preferred cause and location to find local charities
           </p>
@@ -312,16 +318,14 @@ class Landing extends Component {
               alt="magnifying glass"
               className="py-3"/>
             <p className="h3-responsive" style={{ color: "#616161", }}>Find the right charity</p>
-            <p className="h6-responsive">
+            <p className="h6-responsive px-3">
               Have a cause you want to support but not sure which local charity
               to go to? Wondering if a charity has been making good use of
               donations?
             </p>
-            <a
-              className="btn btn-outline-info"
-              onClick={this.handleOnClickToSearch}>
-              Start searching
-            </a>
+            <Link to="searchBox" spy={true} smooth={true} offset={-5} duration={400} className="col-12 d-flex justify-content-center">
+              <span className="btn btn-outline-info">Start searching</span>
+            </Link>
           </div>
           
           <div className="col-12 col-sm-10 col-md-6 col-lg-6 col-xl-6 text-left my-3">          

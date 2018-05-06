@@ -146,11 +146,10 @@ class CharitySearchResults extends Component {
         if (this.state.isBackToSearchRequired) {
             return (
                 <Redirect to={{
-                    pathname: '/charitySearch',
+                    pathname: '/home',
                     state: {
                         cause: this.state.cause,
                         location: this.state.location,
-                        isSearchStarted: false,
                     }
                 }}/>
             );
