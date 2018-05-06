@@ -11,7 +11,7 @@ import landingBackground from "../assets/landingBackground.jpg";
 import local from '../assets/local.jpg';
 import agedCare from '../assets/cause.jpg';
 import finance from '../assets/finance.jpg';
-import review from '../assets/review.jpg';
+// import review from '../assets/review.jpg';
 import magnifyingGlass from "../assets/landingMagnify.png";
 import ScrollUpButton from "react-scroll-up-button";
 
@@ -47,13 +47,42 @@ class Landing extends Component {
     const locationCurrent = props.location.state !== undefined
     ? props.location.state.location : {};
 
+    const councilCurrent = props.location.state !== undefined
+    ? props.location.state.council : '';
+
+    const conditions = [
+        {
+            value: 'percUseHigh',
+            label: '% of expenses for charitable use (High - Low)'
+        },
+        {
+            value: 'amtAllLow',
+            label: 'Lowest amount of donations and grants received'
+        },
+        {
+            value: 'amtAllHigh',
+            label: 'Highest amount of donations and grants received'
+        },
+    ];
+
+    const isSearchClickedProp = props.location.state !== undefined
+    ? props.location.state.isSearchClicked : false;
+
     this.state = {
       cause: causeCurrent,
       location: locationCurrent,
       causes: [],
       locations: [],
-      isExploreClicked: false,
-      isSearchClicked: false,
+      council: councilCurrent,
+      charities: [],
+      doneCharitySearch: false,
+      doneCharitySearchByCouncil: false,
+      sortByConditions: conditions,
+      sortByCondCurrent: {},
+      loading: false,
+      isCouncilEmptyOfChar: false,
+      isSearchClicked: isSearchClickedProp,
+      isExploreCausesClicked: false,
       isCauseCardClicked: false,
       causeClicked: '',
       isMobileDevice: false,
@@ -61,9 +90,9 @@ class Landing extends Component {
 
     this.handleInputChangeOfCause = this.handleInputChangeOfCause.bind(this);
     this.handleInputChangeOfLocation = this.handleInputChangeOfLocation.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleOnClickToExplore = this.handleOnClickToExplore.bind(this);
-    this.handleOnClickToSearch = this.handleOnClickToSearch.bind(this);
     this.handleOnClickToCause = this.handleOnClickToCause.bind(this);
   }
 
@@ -122,7 +151,13 @@ class Landing extends Component {
         .catch(function(e) {
             console.log("ERROR", e);
         });
-
+    
+    if (this.state.cause.value !== undefined 
+      && this.state.location.value !== undefined
+      && this.state.isSearchClicked) {
+      this.handleSubmit();
+    }
+    
     window.addEventListener("resize", this.resize.bind(this));
     this.resize();
   }
@@ -149,21 +184,202 @@ class Landing extends Component {
       });
   }
 
+  async handleSubmit() {
+      // console.log(this.state.cause.value, this.state.location.value)
+      if (this.state.cause.value !== undefined && this.state.cause.value !== '' 
+          && this.state.location.value !== undefined && this.state.location.value !== '') {
+          
+          this.setState({
+              loading: true,
+              doneCharitySearch: false,
+              doneCharitySearchByCouncil: false,
+              isCouncilEmptyOfChar: false,
+              council: '',
+          });
+
+          var charitiesMatched = [];
+
+          await axios.get('/api/charities/' + this.state.location.value + '/' + this.state.cause.value)
+              .then(async (res) => {
+                  
+                  await res.data.forEach((entry) => {
+                      charitiesMatched.push(
+                          {
+                              ABN: entry["ABN"],
+                              name: entry["Charity_Name"],
+                              desc: entry["Charity_activities_and_outcomes_helped_achieve_charity_purpose"],
+                              suburb: entry["Town_City"],
+                              postcode: entry["Postcode"],
+                              cause: entry["Main_Activity"],
+                              amtDonations: entry["Donations_and_bequests"],
+                              amtGovGrants: entry["Government_grants"],
+                              ausUse: entry["Grants_and_donations_made_for_use_in_Australia"],
+                              allUse: entry["Total_expenses"],
+                              percUse: Math.round(entry["Grants_and_donations_made_for_use_in_Australia"] / entry["Total_expenses"] * 100),
+                          }
+                      );
+                  })
+              })
+              .catch(function(e) {
+                  console.log("ERROR", e);
+              });
+
+          // sort charity results by expense percentage for charity use
+          const charitiesSortedByCharityUsePerc = [].concat(charitiesMatched)
+          .sort((charity1, charity2) => {
+              const charity1Perc = charity1.percUse,
+                  charity2Perc = charity2.percUse;
+              return charity2Perc - charity1Perc;
+          });
+
+          await this.setState({
+              charities: charitiesSortedByCharityUsePerc,
+              sortByCondCurrent: {
+                  value: 'percUseHigh',
+                  label: '% of expenses for charitable use (High - Low)'
+              },
+              doneCharitySearch: true,
+              loading: false
+          });
+
+          // if there is NO charity of that cause in that suburb
+          if (this.state.charities.length === 0) {
+              this.setState({
+                  doneCharitySearch: false,
+                  loading: true
+              });
+              // get local council name by the suburb
+              axios.get('/api/location/' + this.state.location.value)
+                  .then((res) => {
+                      var locationMatched = res.data[0];
+                      this.setState({
+                          council: locationMatched['Municipality'],
+                      });
+
+                      // find charities of that cause in that local council
+                      axios.get('/api/charitiesByCouncil/' + this.state.council + '/' + this.state.cause.value)
+                          .then(async (res) => {
+                              res.data.forEach((entry) => {
+                                  charitiesMatched.push(
+                                      {
+                                          ABN: entry["ABN"],
+                                          name: entry["Charity_Name"],
+                                          desc: entry["Charity_activities_and_outcomes_helped_achieve_charity_purpose"],
+                                          suburb: entry["Town_City"],
+                                          postcode: entry["Postcode"],
+                                          cause: entry["Main_Activity"],
+                                          amtDonations: entry["Donations_and_bequests"],
+                                          amtGovGrants: entry["Government_grants"],
+                                          ausUse: entry["Grants_and_donations_made_for_use_in_Australia"],
+                                          allUse: entry["Total_expenses"],
+                                          percUse: Math.round(entry["Grants_and_donations_made_for_use_in_Australia"] / entry["Total_expenses"] * 100),
+                                      }
+                                  );
+                              });
+
+                              // sort charity results by expense percentage for charity use
+                              const charitiesSortedByCharityUsePerc = [].concat(charitiesMatched)
+                              .sort((charity1, charity2) => {
+                                  const charity1Perc = charity1.percUse,
+                                      charity2Perc = charity2.percUse;
+                                  return charity2Perc - charity1Perc;
+                              });
+
+                              await this.setState({
+                                  charities: charitiesSortedByCharityUsePerc,
+                                  sortByCondCurrent: {
+                                      value: 'percUseHigh',
+                                      label: '% of expenses for charitable use (High - Low)'
+                                  },
+                                  doneCharitySearch: true,
+                                  doneCharitySearchByCouncil: true,
+                                  loading: false
+                              });
+
+                              // if there is NO charity of that cause in that council
+                              if (this.state.charities.length === 0) {
+                                this.setState({
+                                  doneCharitySearch: false,
+                                  isCouncilEmptyOfChar: true,
+                                  loading: true
+                                });
+
+                                axios.get('/api/charitiesByCause/' + this.state.cause.value)
+                                    .then((res) => {
+                                      res.data.forEach((entry) => {
+                                          charitiesMatched.push(
+                                              {
+                                                  ABN: entry["ABN"],
+                                                  name: entry["Charity_Name"],
+                                                  desc: entry["Charity_activities_and_outcomes_helped_achieve_charity_purpose"],
+                                                  suburb: entry["Town_City"],
+                                                  postcode: entry["Postcode"],
+                                                  cause: entry["Main_Activity"],
+                                                  amtDonations: entry["Donations_and_bequests"],
+                                                  amtGovGrants: entry["Government_grants"],
+                                                  ausUse: entry["Grants_and_donations_made_for_use_in_Australia"],
+                                                  allUse: entry["Total_expenses"],
+                                                  percUse: Math.round(entry["Grants_and_donations_made_for_use_in_Australia"] / entry["Total_expenses"] * 100),
+                                              }
+                                          );
+                                      });
+        
+                                      // sort charity results by expense percentage for charity use
+                                      const charitiesSortedByCharityUsePerc = [].concat(charitiesMatched)
+                                      .sort((charity1, charity2) => {
+                                          const charity1Perc = charity1.percUse,
+                                              charity2Perc = charity2.percUse;
+                                          return charity2Perc - charity1Perc;
+                                      });
+        
+                                      this.setState({
+                                          charities: charitiesSortedByCharityUsePerc,
+                                          sortByCondCurrent: {
+                                              value: 'percUseHigh',
+                                              label: '% of expenses for charitable use (High - Low)'
+                                          },
+                                          doneCharitySearch: true,
+                                          loading: false
+                                      });
+                                    })
+                                    .catch(function(e) {
+                                      console.log("ERROR", e);
+                                    });
+
+                              }
+                          })
+                          .catch(function(e) {
+                              console.log("ERROR", e);
+                          });
+                  })
+                  .catch(function(e) {
+                      console.log("ERROR", e);
+                  });
+          }
+
+          window.scrollTo(0, 0);
+
+      }
+      // location or cause is undefined or empty
+      else {
+          this.setState({
+              doneCharitySearch: true,
+              loading: false,
+              charities: [],
+          });
+      }
+
+  }
+
   handleKeyPress(target) {
       if(target.charCode === 13){
-          this.handleOnClickToSearch();    
+          this.handleSubmit();    
       }
   }
 
   handleOnClickToExplore = () => {
     this.setState({
-      isExploreClicked: true
-    });
-  };
-
-  handleOnClickToSearch = () => {
-    this.setState({
-      isSearchClicked: true
+      isExploreCausesClicked: true
     });
   };
 
@@ -175,25 +391,22 @@ class Landing extends Component {
   };
 
   render() {
-    if (this.state.isExploreClicked) {
+    if (this.state.isExploreCausesClicked) {
       return <Redirect push to="/charities/dashboardAct" />;
     }
 
-    if (this.state.isSearchClicked) {
+    if (this.state.doneCharitySearch && this.state.charities.length > 0) {
       return (
-        <Redirect push to={{
-          pathname: "/charitySearch",
-          state: {
-            cause: {
-              value: this.state.cause.value,
-              label: this.state.cause.value,
-            },
-            location: {
-              value: this.state.location.value,
-              label: this.state.location.value,
-            },
-          }
-        }} />
+          <Redirect push to={{
+              pathname: "/charitySearchResults",
+              state: {
+                  cause: this.state.cause,
+                  location: this.state.location,
+                  council: this.state.council,
+                  charities: this.state.charities,
+                  isCouncilEmptyOfChar: this.state.isCouncilEmptyOfChar,
+              }
+          }} />
       );
     }
 
@@ -206,7 +419,7 @@ class Landing extends Component {
               }
           }}/>
       );
-  }
+    }
 
     var imgStyle = this.state.isMobileDevice
       ? {
@@ -248,10 +461,11 @@ class Landing extends Component {
       autoplay: true,
       dots: true,
       infinite: true,
-      speed: 500,
+      speed: 800,
       slidesToShow: 1,
       slidesToScroll: 1,
       pauseOnDotsHover: true,
+      pauseOnFocus: true,
       prevArrow: <CarouselPrevArrow />,
       nextArrow: <CarouselNextArrow />,
     };
@@ -281,7 +495,7 @@ class Landing extends Component {
         {/* search box */}
         <div id="searchBox" className="d-flex flex-column align-items-center justify-content-center py-5">
           <p className="text-center mb-3 h5-responsive font-weight-bold mx-5" style={{color:"#616161"}}>
-            Enter your preferred cause and location to find local charities
+            Enter your location and preferred cause to find local charities
           </p>
           <div className="row col col-12 d-flex align-items-center justify-content-center">
             <Select name="location"
@@ -296,14 +510,31 @@ class Landing extends Component {
               className="col col-10 col-sm-6 col-md-4 col-lg-3 mb-1 px-1 border-0"
               onChange={this.handleInputChangeOfCause}
               options={this.state.causes} />
-            <a className="col col-6 col-sm-4 col-md-3 col-lg-2 btn btn-success mx-3"
-              onClick={this.handleOnClickToSearch} 
+            <div className="col col-6 col-sm-4 col-md-4 col-lg-3 mx-2 d-flex justify-content-center"
+              onClick={this.handleSubmit} 
               onKeyPress={this.handleKeyPress}>
-              Find charities
-            </a>
-            <Link to="exploreCauses" spy={true} smooth={true} offset={-10} duration={400} className="col-12 d-flex justify-content-center">
-              <u className="small" style={{color:"#616161"}}>Haven't decided on the cause?</u>
-            </Link>
+              <a className="btn btn-success">
+                {!this.state.loading && <span>Find charities</span>}
+                {this.state.loading && <span>Loading...</span>}
+              </a>
+            </div>
+            {/* if cause or location not specified by user, display message */}
+            {
+                this.state.doneCharitySearch && this.state.charities.length === 0 &&
+                (valueCause === undefined || valueLocation === undefined) && 
+                <h6 className="col-12 d-flex justify-content-center">
+                    <span className="text-white p-2 mx-2" style={{background: "#d50525", borderRadius: "5px",}}>
+                      Please choose a cause and a location for us to find the right charity for you!
+                    </span>
+                </h6>
+            }
+            
+            <u className="col-12 d-flex justify-content-center small" style={{color:"#616161"}}>
+              <Link to="exploreCauses" spy={true} smooth={true} offset={-10} duration={400} className="">
+                Haven't decided on the cause?
+              </Link>
+            </u>
+            
           </div>
         </div>
 
@@ -312,15 +543,16 @@ class Landing extends Component {
           id="findCharity"
           className="row d-flex align-items-center justify-content-center text-center py-5"
           style={{ color: "#839094", background: "#f8f8f8" }}>
-          <div className="col-12 col-sm-10 col-md-4 col-lg-4 col-xl-4">
+          <div className="col-12">
             <img
               src={magnifyingGlass}
               alt="magnifying glass"
               className="py-3"/>
-            <p className="h3-responsive" style={{ color: "#616161", }}>Find the right charity</p>
+            <p className="h3-responsive" style={{ color: "#616161", }}>Find the right charity near you</p>
             <p className="h6-responsive px-3">
               Have a cause you want to support but not sure which local charity
-              to go to? Wondering if a charity has been making good use of
+              to go to? <br />
+              Wondering if a charity has been making good use of
               donations?
             </p>
             <Link to="searchBox" spy={true} smooth={true} offset={-5} duration={400} className="col-12 d-flex justify-content-center">
@@ -328,12 +560,12 @@ class Landing extends Component {
             </Link>
           </div>
           
-          <div className="col-12 col-sm-10 col-md-6 col-lg-6 col-xl-6 text-left my-3">          
+          <div className="col col-12 col-sm-10 col-md-9 col-lg-8 col-xl-6 text-left my-3">          
             <Slider {...settings}>
               <div>               
                 <Card reverse>
                     <CardImage className="img-fluid" src={local} />
-                    <CardBody>
+                    <CardBody style={causeCardStyle}>
                         <CardTitle>In your suburb</CardTitle>
                         <CardText>
                           It's easy to search for local charities that support a cause.
@@ -346,7 +578,7 @@ class Landing extends Component {
               <div>
                 <Card reverse>
                     <CardImage className="img-fluid" src={agedCare} />
-                    <CardBody>
+                    <CardBody style={causeCardStyle}>
                         <CardTitle>For your cause</CardTitle>
                         <CardText>
                           Only the charities that support your cause as their main
@@ -359,7 +591,7 @@ class Landing extends Component {
               <div>
                 <Card reverse>
                     <CardImage className="img-fluid" src={finance} />
-                    <CardBody>
+                    <CardBody style={causeCardStyle}>
                         <CardTitle>Financially transparent</CardTitle>
                         <CardText>
                           You can check how much each charity gets from
@@ -368,7 +600,7 @@ class Landing extends Component {
                         </CardText>
                     </CardBody>
                 </Card>
-              </div>
+              </div>{/* 
               <div>
                 <Card reverse>
                     <CardImage className="img-fluid" src={review} />
@@ -381,7 +613,7 @@ class Landing extends Component {
                         </CardText>
                     </CardBody>
                 </Card>
-              </div>
+              </div> */}
             </Slider>
           </div>
         </div>
