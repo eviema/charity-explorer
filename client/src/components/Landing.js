@@ -261,7 +261,7 @@ class Landing extends Component {
         <ScrollUpButton />
         {/* top of landing page */}
         <div
-          className="d-flex flex-column align-items-center justify-content-end justify-content-sm-center text-center white-text p-4"
+          className="d-flex flex-column align-items-center justify-content-center text-center white-text p-4"
           style={imgStyle}>
           <p className="h1-responsive font-weight-bold mt-4">
             Think Globally, Donate Locally
