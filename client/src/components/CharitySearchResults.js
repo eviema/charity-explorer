@@ -222,13 +222,13 @@ class CharitySearchResults extends Component {
                         <CardImage tag="div">
                             <div className="#26c6da cyan lighten-1 p-4 d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
                                 <div className="d-flex align-items-center">
-                                    <h5 className="h5-responsive">{charity.name}</h5>
                                     <Tooltip 
-                                        placement="right" tag="div" component="button" 
+                                        placement="left" tag="div" component="button" 
                                         componentClass="btn btn-link p-0 mb-1 mt-2"
                                         tooltipContent={charity.percUse + '% of all expenses of this charity went to charitable use.'}> 
-                                            <h5 className="h5-responsive text-white p-2 ml-4" style={cardPercStyle}>{charity.percUse}%</h5>
+                                            <span className="h1-responsive text-white p-2" style={cardPercStyle}>{charity.percUse}%</span>
                                     </Tooltip>
+                                    <h5 className="h5-responsive ml-4">{charity.name}</h5>
                                 </div>
                                 <a className="btn btn-primary" onClick={this.handleOnClickToCharityPage} >
                                     Learn more 
