@@ -216,11 +216,11 @@ class CharitySearchResults extends Component {
                 };
             }
             return (
-                <li key={index} className="col col-12 d-flex align-items-stretch mx-3 mb-3 px-0 hoverable"
+                <li key={index} className="col col-12 d-flex align-items-stretch mx-sm-3 mx-0 mb-3 px-0 hoverable"
                     onClick={() => this.handleOnClickToCharityPage(charity.ABN)} style={{cursor: "pointer"}}>
                     <Card cascade className="w-100">
                         <CardImage tag="div">
-                            <div className="#26c6da cyan lighten-1 p-4 d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
+                            <div className="#4DD0E1 cyan lighten-2 p-4 d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
                                 <div className="d-flex align-items-center">
                                     <Tooltip 
                                         placement="left" tag="div" component="button" 
@@ -228,7 +228,7 @@ class CharitySearchResults extends Component {
                                         tooltipContent={charity.percUse + '% of all expenses of this charity went to charitable use.'}> 
                                             <span className="h1-responsive text-white p-2" style={cardPercStyle}>{charity.percUse}%</span>
                                     </Tooltip>
-                                    <h5 className="h5-responsive ml-4">{charity.name}</h5>
+                                    <span className="h3-responsive ml-4">{charity.name}</span>
                                 </div>
                                 <a className="btn btn-primary" onClick={this.handleOnClickToCharityPage} >
                                     Learn more 
@@ -262,7 +262,7 @@ class CharitySearchResults extends Component {
                     <BreadcrumbItem active>Search results</BreadcrumbItem>
                 </Breadcrumb>
 
-                <div className="my-3 px-3 row d-flex justify-content-center">
+                <div className="my-3 mx-3 row d-flex justify-content-center">
                     <div className="col col-12 col-sm-12 col-md-12 col-lg-10 col-xl-8">
                         {/* back to search button */}
                         <a onClick={this.handleClickToSearch}
