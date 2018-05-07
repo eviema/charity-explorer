@@ -220,15 +220,15 @@ class CharitySearchResults extends Component {
                     onClick={() => this.handleOnClickToCharityPage(charity.ABN)} style={{cursor: "pointer"}}>
                     <Card cascade className="w-100">
                         <CardImage tag="div">
-                            <div className="#4DD0E1 cyan lighten-2 p-4 d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
+                            <div className="#4DD0E1 cyan lighten-2 p-3 d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
                                 <div className="d-flex align-items-center">
                                     <Tooltip 
                                         placement="left" tag="div" component="button" 
                                         componentClass="btn btn-link p-0 mb-1 mt-2"
                                         tooltipContent={charity.percUse + '% of all expenses of this charity went to charitable use.'}> 
-                                            <span className="h1-responsive text-white p-2" style={cardPercStyle}>{charity.percUse}%</span>
+                                            <span className="h2-responsive text-white p-2" style={cardPercStyle}>{charity.percUse}%</span>
                                     </Tooltip>
-                                    <span className="h3-responsive ml-4">{charity.name}</span>
+                                    <h3 className="h3-responsive ml-2 my-0">{charity.name}</h3>
                                 </div>
                                 <a className="btn btn-primary" onClick={this.handleOnClickToCharityPage} >
                                     Learn more 
