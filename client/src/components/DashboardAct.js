@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import axios from 'axios';
 import { Redirect } from 'react-router';
 import Select from 'react-select';
-import { Breadcrumb, BreadcrumbItem, Popover, PopoverBody, PopoverHeader } from "mdbreact";
+import { Breadcrumb, BreadcrumbItem, 
+      Popover, PopoverBody, PopoverHeader, 
+      Tooltip, } from "mdbreact";
 import Plot from 'react-plotly.js';
 import Collapsible from 'react-collapsible';
 import { Link, Element, scroller } from 'react-scroll';
@@ -250,7 +252,7 @@ class DashboardAct extends Component {
       y: causeNames,
       type: 'bar',
       orientation: 'h',
-      marker: {color: '#9575CD'},
+      marker: {color: '#00B8D4'},
       hoverinfo: 'x+y',
     };
 
@@ -410,31 +412,56 @@ class DashboardAct extends Component {
             {/* quick summary of causes in current location */}
             <div className="text-center mx-2 py-2" style={{background: "#fff", width:"90vw"}}>
               <img src={balanceSm} alt="smaller balance scale" className="img-responsive d-block d-sm-none mt-3 mx-auto"/>
-              <p className="h4-responsive my-3">In <strong>{valueLocation}</strong>,</p>
+              <p className="h3-responsive my-3">In <strong>{valueLocation}</strong>,</p>
               <div className="row d-flex align-items-center justify-content-center mb-3">
+                
                 <div className="col col-11 col-sm-3">
-                  <i className="fa fa-hand-holding-usd" style={{color:"#E57373"}}></i>
-                  <br />
+                  {/* <i className="fa fa-hand-holding-usd fa-lg" style={{color:"#E57373"}}></i>
+                  <br /> */}
                   {causesByLocation.length > 0 && 
                     <span>
-                      <strong>{causeRecvLeast.name}</strong> received the <strong>least</strong> donations and grants: 
-                      <br />
-                      ${causeRecvLeastAmtWithCommas}.
+                      <Link to="causeInfo" spy={true} smooth={true} offset={-100} duration={400}>
+                        <Tooltip 
+                            placement="top" tag="div" component="button" 
+                            componentClass="btn btn-link p-0 mb-1 mt-2"
+                            tooltipContent="Click to learn more"> 
+                              <strong className="h3-responsive font-weight-bold" style={{color: "#FFC107"}} 
+                                  onClick={() => this.handleClickOnCauseBar({name: `${causeRecvLeast.name}`})}>
+                                {causeRecvLeast.name}
+                              </strong>
+                        </Tooltip>
+                      </Link>
+                      received the <br />
+                      <strong className="h3-responsive font-weight-bold" style={{color: "#FFC107"}}>least</strong> <br />
+                      donations and grants: <br />
+                      <strong className="h3-responsive font-weight-bold" style={{color: "#FFC107"}}>${causeRecvLeastAmtWithCommas}</strong>.
                     </span>
                   }
                 </div>
                 <img src={balance} alt="balance scale" className="img-responsive d-none d-sm-block"/>
                 <div className="col col-11 col-sm-3 mt-3">
-                  <i className="fa fa-hand-holding-usd" style={{color:"#E57373"}}></i>
-                  <i className="fa fa-hand-holding-usd" style={{color:"#E57373"}}></i>
-                  <i className="fa fa-hand-holding-usd mr-3" style={{color:"#E57373"}}></i>
-                  <br />
+                  {/* <i className="fa fa-hand-holding-usd fa-lg" style={{color:"#E57373"}}></i>
+                  <i className="fa fa-hand-holding-usd fa-lg" style={{color:"#E57373"}}></i>
+                  <i className="fa fa-hand-holding-usd fa-lg mr-3" style={{color:"#E57373"}}></i>
+                  <br /> */}
                   {causesByLocation.length > 0 && 
-                    <span>
-                      <strong>{causeRecvMost.name}</strong> received the <strong>most</strong> donations and grants: 
-                      <br />
-                      ${causeRecvMostAmtWithCommas}.
-                    </span>
+                    <p>
+                      <Link to="causeInfo" spy={true} smooth={true} offset={-100} duration={400}>
+                        <Tooltip 
+                            placement="top" tag="div" component="button" 
+                            componentClass="btn btn-link p-0 mb-1 mt-2"
+                            tooltipContent="Click to learn more"> 
+                              <strong className="h3-responsive font-weight-bold" style={{color: "#8BC34A"}}
+                                  onClick={() => this.handleClickOnCauseBar({name: `${causeRecvMost.name}`})}>
+                                {causeRecvMost.name}
+                              </strong>
+                        </Tooltip>
+                      </Link>
+                      received the <br />
+                      <strong className="h3-responsive font-weight-bold" style={{color: "#8BC34A"}}>most</strong> <br />
+                      donations and grants: <br />
+                      <strong className="h3-responsive font-weight-bold" style={{color: "#8BC34A"}}>${causeRecvMostAmtWithCommas}</strong>.
+                    </p>
                   }
                 </div>
               </div>
