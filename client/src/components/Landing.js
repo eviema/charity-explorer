@@ -530,7 +530,7 @@ class Landing extends Component {
             }
             
             <u className="col-12 d-flex justify-content-center small" style={{color:"#616161"}}>
-              <Link to="exploreCauses" spy={true} smooth={true} offset={-10} duration={400} className="">
+              <Link to="exploreCauses" spy={true} smooth={true} offset={-10} duration={400}>
                 Haven't decided on the cause?
               </Link>
             </u>
