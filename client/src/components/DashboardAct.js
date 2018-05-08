@@ -369,7 +369,7 @@ class DashboardAct extends Component {
 
         {/* title: causes in location */}
         <div className="row d-flex align-items-center justify-content-center py-4 px-2 text-white" style={titleRowStyle}>
-          <p className="col-11 col-sm-10 col-md-8 col-lg-8 col-xl-8 px-5 text-center" style={{textShadow: "1px 1px 8px #212121"}}>
+          <p className="col-11 col-sm-10 col-md-8 col-lg-8 col-xl-8 text-center" style={{textShadow: "1px 1px 8px #212121"}}>
             <span className="h1-responsive font-weight-bold">
               Which cause matters to you?
             </span> 
@@ -520,7 +520,7 @@ class DashboardAct extends Component {
         <div id="causeInfo" className="element row d-flex align-items-center justify-content-center">
           
           {this.state.barClicked &&      
-            <div className="py-3 mx-3 mb-2" style={{width:"80vw"}}>
+            <div className="py-3 mb-2" style={{width:"80vw"}}>
               
               <p className="h4-responsive">Here's more about <strong>{this.state.causeName}</strong> in <strong>{valueLocation}</strong>:</p>
               <p style={{color: "#616161"}}>
@@ -528,7 +528,7 @@ class DashboardAct extends Component {
               </p>
               
               {/* infographics of local cause detailed info  */}
-              <div className="row d-flex flex-column align-items-center justify-content-center p-4 mt-2 mb-4 text-white mx-1" style={{background:"#00b8d4"}}>
+              <div className="row d-flex flex-column align-items-center justify-content-center p-4 mt-2 mb-4 text-white" style={{background:"#00b8d4"}}>
                 
                 <img src={totalIncome} alt="donations and grants received by this local cause" className="mb-3"/>
                 <h5 className="text-center"><span className="font-weight-bold">{this.state.causeName}</span> in <span className="font-weight-bold">{valueLocation}</span> received</h5>
@@ -579,9 +579,9 @@ class DashboardAct extends Component {
               </div>
 
               {/* charities for the cause in the suburb */}
-              <div className="row d-flex flex-column align-items-center justify-content-center p-4 mt-2 mb-4 text-white mx-1" style={{background:"#00BFA5"}}>
+              <div className="row d-flex flex-column align-items-center justify-content-center p-4 mt-2 mb-4 text-white" style={{background:"#00BFA5"}}>
                 
-                <img src={charity} alt="care" className="mx-3 my-3"/>
+                <img src={charity} alt="care" className="my-3"/>
                 <p className="text-center">
                   {this.state.causeCharityCount !== 1 && <span>
                       <span className="font-weight-bold h4-responsive">
