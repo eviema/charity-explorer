@@ -378,10 +378,7 @@ class DashboardAct extends Component {
       <div className="container-fluid" style={{ padding: "0", background: "#F3F3F3"}}>
         <ScrollUpButton />
         <Breadcrumb className="small mb-0">
-          <BreadcrumbItem>
-            <a href="/home">
-              <i className="fa fa-home" />
-            </a>
+          <BreadcrumbItem><a href="/home"><i className="fa fa-home" /></a>
           </BreadcrumbItem>
           <BreadcrumbItem active>Explore charitable causes</BreadcrumbItem>
         </Breadcrumb>
@@ -444,16 +441,18 @@ class DashboardAct extends Component {
                             placement="top" tag="div" component="button" 
                             componentClass="btn btn-link p-0 mb-1 mt-2"
                             tooltipContent="Click to learn more"> 
-                              <strong className="h3-responsive font-weight-bold" style={{color: "#FFC107"}} 
-                                  onClick={() => this.handleClickOnCauseBar({name: `${causeRecvLeast.name}`})}>
-                                {causeRecvLeast.name}
-                              </strong>
+                              <div onClick={() => this.handleClickOnCauseBar({name: `${causeRecvLeast.name}`})}>
+                                <strong className="h3-responsive font-weight-bold" style={{color: "#FFA000"}}>
+                                  {causeRecvLeast.name}
+                                </strong>
+                                <i className="fa fa-question-circle ml-1" style={{color: "#757575"}}></i>
+                              </div>
                         </Tooltip>
                       </Link>
                       received the <br />
-                      <strong className="h3-responsive font-weight-bold" style={{color: "#FFC107"}}>least</strong> <br />
+                      <strong className="h3-responsive font-weight-bold" style={{color: "#FFA000"}}>least</strong> <br />
                       donations and grants: <br />
-                      <strong className="h3-responsive font-weight-bold" style={{color: "#FFC107"}}>${causeRecvLeastAmtWithCommas}</strong>.
+                      <strong className="h3-responsive font-weight-bold" style={{color: "#FFA000"}}>${causeRecvLeastAmtWithCommas}</strong>.
                     </span>
                   }
                 </div>
@@ -470,16 +469,18 @@ class DashboardAct extends Component {
                             placement="top" tag="div" component="button" 
                             componentClass="btn btn-link p-0 mb-1 mt-2"
                             tooltipContent="Click to learn more"> 
-                              <strong className="h3-responsive font-weight-bold" style={{color: "#8BC34A"}}
-                                  onClick={() => this.handleClickOnCauseBar({name: `${causeRecvMost.name}`})}>
-                                {causeRecvMost.name}
-                              </strong>
+                              <div onClick={() => this.handleClickOnCauseBar({name: `${causeRecvMost.name}`})}>
+                                <strong className="h3-responsive font-weight-bold" style={{color: "#7CB342"}}>
+                                  {causeRecvMost.name}
+                                </strong>
+                                <i className="fa fa-question-circle ml-1" style={{color: "#757575"}}></i>
+                              </div>
                         </Tooltip>
                       </Link>
                       received the <br />
-                      <strong className="h3-responsive font-weight-bold" style={{color: "#8BC34A"}}>most</strong> <br />
+                      <strong className="h3-responsive font-weight-bold" style={{color: "#7CB342"}}>most</strong> <br />
                       donations and grants: <br />
-                      <strong className="h3-responsive font-weight-bold" style={{color: "#8BC34A"}}>${causeRecvMostAmtWithCommas}</strong>.
+                      <strong className="h3-responsive font-weight-bold" style={{color: "#7CB342"}}>${causeRecvMostAmtWithCommas}</strong>.
                     </div>
                   }
                 </div>
