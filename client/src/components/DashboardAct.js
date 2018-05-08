@@ -252,16 +252,16 @@ class DashboardAct extends Component {
       x: causesDonations,
       y: causeNames,
       type: 'bar',
-      name: "Donations received (A$)",
+      name: "Donations (A$)",
       orientation: 'h',
-      marker: {color: '#00B8D4'},
+      marker: {color: '#26C6DA'},
       hoverinfo: 'x+y',
     };
     var traceBar2Grants = {
       x: causesGrants,
       y: causeNames,
       type: 'bar',
-      name: "Grants received (A$)",
+      name: "Grants (A$)",
       orientation: 'h',
       marker: {color: '#8BC34A'},
       hoverinfo: 'x+y',
@@ -464,7 +464,7 @@ class DashboardAct extends Component {
                   <i className="fa fa-hand-holding-usd fa-lg mr-3" style={{color:"#E57373"}}></i>
                   <br /> */}
                   {causesByLocation.length > 0 && 
-                    <p>
+                    <div>
                       <Link to="causeInfo" spy={true} smooth={true} offset={-100} duration={400}>
                         <Tooltip 
                             placement="top" tag="div" component="button" 
@@ -480,7 +480,7 @@ class DashboardAct extends Component {
                       <strong className="h3-responsive font-weight-bold" style={{color: "#8BC34A"}}>most</strong> <br />
                       donations and grants: <br />
                       <strong className="h3-responsive font-weight-bold" style={{color: "#8BC34A"}}>${causeRecvMostAmtWithCommas}</strong>.
-                    </p>
+                    </div>
                   }
                 </div>
               </div>
@@ -489,7 +489,7 @@ class DashboardAct extends Component {
             {/* graph of causes in location */}
             <div id="causesGraph" className="row d-flex align-items-stretch justify-content-center py-2 mx-4">
               
-              <p className="h4-responsive mt-5 mx-2 text-center">Here are more charitable causes in <strong>{valueLocation}</strong>:</p>
+              <p className="h3-responsive mt-5 mx-2 text-center">Here are more charitable causes in <strong>{valueLocation}</strong>:</p>
               
               <p className="col-12 text-center mx-2">
                 Click on a bar in the graph to see details of
@@ -534,28 +534,54 @@ class DashboardAct extends Component {
           this.state.barClicked && <hr className="mx-4" />
         }
               
-        {/* details info of cause in location */}
+        {/* infographics - details info of cause in location */}
         <Element name="causeInfo" className="element"></Element>
         <div id="causeInfo" className="element row d-flex align-items-center justify-content-center">
           
           {this.state.barClicked &&      
             <div className="py-3 mb-2" style={{width:"80vw"}}>
               
-              <p className="h4-responsive">Here's more about <strong>{this.state.causeName}</strong> in <strong>{valueLocation}</strong>:</p>
+              <p className="h3-responsive">Here's more about <strong>{this.state.causeName}</strong> in <strong>{valueLocation}</strong>:</p>
               <p style={{color: "#616161"}}>
                 To see details of another cause, <Link to="causesGraph" spy={true} smooth={true} offset={-100} duration={400}><u><strong>click on a bar in the graph above</strong></u></Link>
               </p>
+
+              {/* cause subtypes */}
+              <div className="row d-flex flex-column align-items-center justify-content-center p-4 mt-2 mb-4 text-white" style={{background:"#00BCD4", borderRadius: "5px",}}>
+                    
+                <div className="row d-flex align-items-center justify-content-center mx-4 text-center">
+                  <img src={QA} alt="cause general info" className="mr-3"/>
+                  <h2>What is <span className="font-weight-bold">"{this.state.causeName}"?</span></h2>
+                </div>
+
+                <p className="mb-3 w-100 text-center">
+                  <span className="font-weight-bold h4-responsive">{this.state.causeCurrentDetails.length}</span>&nbsp;
+                  {this.state.causeCurrentDetails.length === 1 && <span>
+                      subcategory{" "}
+                    </span>}
+                  {this.state.causeCurrentDetails.length !== 1 && <span>
+                      subcategories{" "}
+                    </span>}
+                  of work:
+                </p>
+
+                <ul className="list-unstyled mb-0">{renderCauseSubtypes}</ul>
+
+              </div>
               
-              {/* infographics of local cause detailed info  */}
-              <div className="row d-flex flex-column align-items-center justify-content-center p-4 mt-2 mb-4 text-white" style={{background:"#00b8d4"}}>
-                
+              {/* detailed financial info */}
+              <div className="row d-flex flex-column align-items-center justify-content-center p-4 mt-2 mb-4 text-white" style={{background:"#00b8d4", borderRadius: "5px",}}>
+                                
+                {/* total received */}
                 <img src={totalIncome} alt="donations and grants received by this local cause" className="mb-3"/>
-                <h5 className="text-center"><span className="font-weight-bold">{this.state.causeName}</span> in <span className="font-weight-bold">{valueLocation}</span> received</h5>
+                <h5 className="text-center"><span className="font-weight-bold">{this.state.causeName}</span> in <span className="font-weight-bold">{valueLocation}</span></h5>
+                <h6>received</h6>
                 <h2 className="font-weight-bold">${causeTotalWithCommas}</h2>
-                in 2016*
-                
-                <hr className="my-3 mx-5 w-100" style={{border:"1px solid #E0E0E0"}}/>
-                
+                <Link to="why2016" spy={true} smooth={true} offset={-10} duration={400}>
+                  <small className="p-2 hoverable">in 2016*</small>
+                </Link>
+                                                
+                {/* how much from donations, how much from grants */}
                 <div className="row d-flex align-items-center justify-content-center w-100">
                   <div className="col col-12 col-sm-5 col-md-5 d-flex flex-column align-items-center justify-content-center text-center my-3">
                       <img src={people} alt="people" className="mb-3"/>
@@ -569,36 +595,11 @@ class DashboardAct extends Component {
                       <span>Government grants</span>
                   </div>
                 </div>
-
-                <hr className="my-3 mx-5 w-100" style={{border:"1px solid #E0E0E0"}}/>
-
-                {/* cause subtypes */}
-                <div className="row d-flex align-items-center justify-content-center mb-3">
-                    
-                    <div className="row d-flex align-items-center justify-content-center mx-4 text-center">
-                      <img src={QA} alt="cause general info" className="mr-3"/>
-                      <h2>What is <span className="font-weight-bold">"{this.state.causeName}"?</span></h2>
-                    </div>
-
-                    <p className="mb-3 w-100 text-center">
-                      <span className="font-weight-bold h4-responsive">{this.state.causeCurrentDetails.length}</span>&nbsp;
-                      {this.state.causeCurrentDetails.length === 1 && <span>
-                          subcategory{" "}
-                        </span>}
-                      {this.state.causeCurrentDetails.length !== 1 && <span>
-                          subcategories{" "}
-                        </span>}
-                      of work:
-                    </p>
-
-                    <ul className="list-unstyled mb-0">{renderCauseSubtypes}</ul>
-
-                </div>
                 
               </div>
 
               {/* charities for the cause in the suburb */}
-              <div className="row d-flex flex-column align-items-center justify-content-center p-4 mt-2 mb-4 text-white" style={{background:"#00BFA5"}}>
+              <div className="row d-flex flex-column align-items-center justify-content-center p-4 mt-2 mb-4 text-white" style={{background:"#00BFA5", borderRadius: "5px",}}>
                 
                 <img src={charity} alt="care" className="my-3"/>
                 <p className="text-center">
@@ -626,25 +627,28 @@ class DashboardAct extends Component {
           }
           
         </div>
+
         <hr className="mx-4" />
 
         {/* why 2016? */}
-        <Popover component="button" placement="right" popoverBody="*Why 2016?" className="btn btn-link btn-xs mx-4 mb-4" arrowClass="strzala">
-          <PopoverHeader>*Why 2016?</PopoverHeader>
-          <PopoverBody className="small">
-            <p>
-              We make every effort to show the latest information while
-              making sure it's reliable.
-            </p>
-            <p>
-              The data source we rely on is Australian Charities and
-              Not-for-profits Commission (ACNC), the regulatory body for
-              Australian charity sector, where the latest relevant data was
-              published for 2016.
-            </p>
-            <p>We'll update as soon as they do. Stay tuned!</p>
-          </PopoverBody>
-        </Popover>
+        <div id="why2016">        
+          <Popover component="button" placement="right" popoverBody="*Why 2016?" className="btn btn-link btn-xs mx-5 mb-4" arrowClass="strzala">
+            <PopoverHeader>*Why 2016?</PopoverHeader>
+            <PopoverBody className="small">
+              <p>
+                We make every effort to show the latest information while
+                making sure it's reliable.
+              </p>
+              <p>
+                The data source we rely on is Australian Charities and
+                Not-for-profits Commission (ACNC), the regulatory body for
+                Australian charity sector, where the latest relevant data was
+                published for 2016.
+              </p>
+              <p>We'll update as soon as they do. Stay tuned!</p>
+            </PopoverBody>
+          </Popover>
+        </div>
 
       </div>
     );
