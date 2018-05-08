@@ -175,7 +175,7 @@ class DashboardAct extends Component {
                              cause2TotalAmt = cause2.amtDonations + cause2.amtGrants;
                         return cause1TotalAmt - cause2TotalAmt;
                     });
-
+            
             this.setState({
                 causesByLocation: causesSortedByTotalAmt,
                 loading: false,
@@ -236,7 +236,8 @@ class DashboardAct extends Component {
     // causes 
     var { causesByLocation } = this.state;
     var causeNames = causesByLocation.map(entry => {return entry['name']}),
-        causeTotalAmts = causesByLocation.map(entry => {return entry['amtDonations'] + entry['amtGrants']});
+        causesDonations = causesByLocation.map(entry => {return entry['amtDonations']}),
+        causesGrants = causesByLocation.map(entry => {return entry['amtGrants']});
 
     // quick summary on top of plots
     if (causesByLocation.length !== 0) {
@@ -247,16 +248,26 @@ class DashboardAct extends Component {
     }
 
     // plot    
-    var traceBar = {
-      x: causeTotalAmts,
+    var traceBar1Donations = {
+      x: causesDonations,
       y: causeNames,
       type: 'bar',
+      name: "Donations received (A$)",
       orientation: 'h',
       marker: {color: '#00B8D4'},
       hoverinfo: 'x+y',
     };
+    var traceBar2Grants = {
+      x: causesGrants,
+      y: causeNames,
+      type: 'bar',
+      name: "Grants received (A$)",
+      orientation: 'h',
+      marker: {color: '#8BC34A'},
+      hoverinfo: 'x+y',
+    };
 
-    var plotData = [traceBar];
+    var plotData = [traceBar1Donations, traceBar2Grants];
     var plotLayout = {
       xaxis: {
         side: "top",
@@ -268,7 +279,15 @@ class DashboardAct extends Component {
         showgrid: false,
         autorange: 'reversed',
       }, 
-      showlegend: false,
+      legend: {
+        orientation: "h",
+        xanchor: "center",
+        yanchor: "top",
+        traceorder: "normal",
+        x: 0.5,
+        y: 1.2,
+      },
+      barmode: 'stack',
       autosize: true,
       margin: {
         l: 150,
