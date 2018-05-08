@@ -429,7 +429,7 @@ class Landing extends Component {
           backgroundSize: "cover",
           backgroundAttachment: "scroll",
           backgroundPosition: "bottom",
-          height: "90vh",
+          height: "85vh",
           width: "100vw",
           fontSize: ".9em",
         }
@@ -537,7 +537,7 @@ class Landing extends Component {
         </div>
 
         {/* website intro */}
-        <div id="websiteIntro" className="row d-flex align-items-center justify-content-center py-5 mx-0 w-100"
+        <div id="websiteIntro" className="row d-flex align-items-center justify-content-center pt-3 pb-5 mx-0 w-100"
           style={{ color: "#839094", background: "#f8f8f8" }}>                    
           <Slider {...settings} className="col-12 pb-4">
             {/* feature 1: find local charities for your cause */}
