@@ -411,7 +411,7 @@ class CharitySearchResults extends Component {
                         <div className="row d-flex justify-content-start align-items-start m-3">
 
                             {/* search results & sort-by dropdown */}
-                            <div className="col col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                            <div className="col col-12 col-sm-12 col-md-12 col-lg-8 col-xl-8">
 
                                 {/* sort by */}
                                 <div className="row d-flex align-items-center justify-content-start px-3 small">
@@ -473,7 +473,7 @@ class CharitySearchResults extends Component {
                             </div>
 
                             {/* filters */}
-                            <div className="col col-10 col-sm-10 col-md-3 col-lg-3 col-xl-3 p-3 m-3" style={{background: "#fff", borderRadius: "5px",}}>
+                            <div className="col col-10 col-sm-10 col-md-9 col-lg-3 col-xl-3 p-3 m-3" style={{background: "#fff", borderRadius: "5px",}}>
                                 {/* by tax deductibility */}
                                 <div>
                                     <p className="h6-responsive font-weight-bold">Tax deductibility</p>
