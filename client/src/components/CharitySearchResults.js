@@ -256,37 +256,48 @@ class CharitySearchResults extends Component {
         }
 
         return(
-            <div style={{background: "#F3F3F3"}}>
-                <Breadcrumb className="small mb-0">
+            <div style={{background: "#F3F3F3"}} className="container-fluid px-0">
+                <Breadcrumb className="small">
                     <BreadcrumbItem><a onClick={this.handleClickToSearch} style={{color: "#0275d8"}}><i className="fa fa-home"></i></a></BreadcrumbItem>
                     <BreadcrumbItem active>Search results</BreadcrumbItem>
                 </Breadcrumb>
 
-                <div className="my-3 mx-3 row d-flex justify-content-center">
-                    <div className="col col-12 col-sm-12 col-md-12 col-lg-10 col-xl-8">
-                        {/* back to search button */}
-                        <a onClick={this.handleClickToSearch}
-                            className="small">
-                            <u><strong>Back to search</strong></u>
-                        </a>
+                {/* title & top back-to-search button */}
+                <div className="row d-flex justify-content-center my-3 mx-3">                          
+                    {/* back to search button */}
+                    <a className="col col-12 col-md-10 small" onClick={this.handleClickToSearch}>
+                        <u><strong>Back to search</strong></u>
+                    </a>
 
-                        {/* charity results title */}
-                        <div className="row d-flex align-items-center justify-content-between px-3 mt-3">
-                            <div className="mb-2">
-                                {this.state.council !== '' && !this.state.isCouncilEmptyOfChar && 
-                                    <p>It seems no charities in {valueLocation} support {valueCause}.</p>
-                                }
-                                {this.state.council !== '' && this.state.isCouncilEmptyOfChar &&
-                                    <p>It seems no charities in {valueLocation} or in your local council support {valueCause}.</p>
-                                }
-                                <h5>
-                                    Charities supporting <strong>{valueCause}</strong> in&nbsp; 
-                                    {this.state.council !== '' && !this.state.isCouncilEmptyOfChar && <span><strong>{council}</strong>, your local council</span>}
-                                    {this.state.council !== '' && this.state.isCouncilEmptyOfChar && <strong>Greater Melbourne</strong>}
-                                    {this.state.council === '' && <strong>{valueLocation}</strong>}
-                                </h5>
-                            </div>
+                    {/* charity results title */}
+                    <div className="col col-12 col-md-10 mt-3">
+                        <div className="mb-2">
+                            {this.state.council !== '' && !this.state.isCouncilEmptyOfChar && 
+                                <p>It seems no charities in {valueLocation} support {valueCause}.</p>
+                            }
+                            {this.state.council !== '' && this.state.isCouncilEmptyOfChar &&
+                                <p>It seems no charities in {valueLocation} or in your local council support {valueCause}.</p>
+                            }
+                            <h5>
+                                Charities supporting <strong>{valueCause}</strong> in&nbsp; 
+                                {this.state.council !== '' && !this.state.isCouncilEmptyOfChar && <span><strong>{council}</strong>, your local council</span>}
+                                {this.state.council !== '' && this.state.isCouncilEmptyOfChar && <strong>Greater Melbourne</strong>}
+                                {this.state.council === '' && <strong>{valueLocation}</strong>}
+                            </h5>
                         </div>
+                    </div>
+                </div>
+
+                {/* search results, filters, sort-by */}
+                <div className="row d-flex justify-content-center align-items-center my-3 mx-3">
+
+                    {/* filters */}
+                    <div className="col col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                        <div className="border border-warning"></div>
+                    </div>
+                   
+                    {/* search results & sort-by dropdown */}
+                    <div className="col col-12 col-sm-12 col-md-7 col-lg-7 col-xl-7">
 
                         {/* sort by */}
                         <div className="row d-flex align-items-center justify-content-start px-3 small">
@@ -340,13 +351,18 @@ class CharitySearchResults extends Component {
                             </div>
                         </div>
 
-                        {/* back to search button */}
-                        <a onClick={this.handleClickToSearch}
-                            className="pb-4 small">
-                            <u><strong>Back to search</strong></u>
-                        </a>
                     </div>
+
                 </div>
+                
+                {/* back to search button */}
+                <div className="row d-flex justify-content-center my-3 mx-3">
+                    <a onClick={this.handleClickToSearch}
+                        className="col col-12 col-md-10 pb-4 small">
+                        <u><strong>Back to search</strong></u>
+                    </a>
+                </div>
+
             </div>
         );
 
