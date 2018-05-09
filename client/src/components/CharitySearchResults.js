@@ -322,7 +322,7 @@ class CharitySearchResults extends Component {
                 }
             }
             else {
-                charity.percUse = '< 10';
+                charity.percUse = '<10';
                 cardPercStyle = {
                     background:'#FF5722',
                     borderRadius: "5px",

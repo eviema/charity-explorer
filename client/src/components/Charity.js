@@ -356,7 +356,7 @@ class Charity extends Component {
             }
         }
         else {
-            percUse = '< 10'
+            percUse = '<10'
             percStyle = {
                 color:'#FF5722'
             }
