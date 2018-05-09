@@ -31,6 +31,7 @@ class DashboardAct extends Component {
       causeCurrentDetails: [],
       causeCurrentGlobalIssue: '',
       causeCurrentGlobalIssueDesc: '',
+      causeCurrentGlobalIssueDescSources: [],
       causeName: '',
       causeCharityCount: 0,
       causeDonations: 0,
@@ -198,10 +199,13 @@ class DashboardAct extends Component {
 
     axios.get('/api/causes/' + causeClickedName)
         .then((res) => {
+            var globalIssueDescSourcesString = res.data[0]["Global_problem_desc_source_links"],
+                globalIssueDescSourcesArray = globalIssueDescSourcesString.split(",");
             this.setState({
                 causeCurrentDetails: res.data,
                 causeCurrentGlobalIssue: res.data[0]["Global Problem"],
                 causeCurrentGlobalIssueDesc: res.data[0]["Global Problem description"],
+                causeCurrentGlobalIssueDescSources: globalIssueDescSourcesArray,
             });
 
         })
@@ -384,7 +388,17 @@ class DashboardAct extends Component {
             backgroundSize: "cover",
             backgroundPosition: "center",
             height: "40vh",
-        }
+    }
+
+    const { causeCurrentGlobalIssueDescSources } = this.state;
+    var causeCurrentGlobalLinkList = [];
+    for (var i = 0; i < causeCurrentGlobalIssueDescSources.length; i+=2) {
+      var currentLink = 
+        <a href={causeCurrentGlobalIssueDescSources[i+1]} target="_blank" rel="noopener noreferrer">
+          {causeCurrentGlobalIssueDescSources[i]}
+        </a>;
+      causeCurrentGlobalLinkList.push(currentLink);
+    }
     
     return (
       <div className="container-fluid" style={{ padding: "0", background: "#F3F3F3"}}>
@@ -662,8 +676,8 @@ class DashboardAct extends Component {
         <hr className="mx-4" />
 
         {/* why 2016? */}
-        <div id="why2016">        
-          <Popover component="button" placement="right" popoverBody="*Why 2016?" className="btn btn-link btn-xs mx-5 mb-4" arrowClass="strzala">
+        <div id="why2016" className="px-5 pb-4">        
+          <Popover component="button" placement="right" popoverBody="*Why 2016?" className="btn btn-link btn-xs py-0 mb-2" arrowClass="strzala">
             <PopoverHeader>*Why 2016?</PopoverHeader>
             <PopoverBody className="small">
               <p>
@@ -679,6 +693,16 @@ class DashboardAct extends Component {
               <p>We'll update as soon as they do. Stay tuned!</p>
             </PopoverBody>
           </Popover>
+          
+          {this.state.causeCurrentGlobalIssue !== '' && 
+            <Popover component="button" placement="right" popoverBody="Sources for global issue description" className="btn btn-link btn-xs py-0" arrowClass="strzala">
+              <PopoverHeader>Sources for global issue description</PopoverHeader>
+              <PopoverBody className="small">
+                <ul>{causeCurrentGlobalLinkList.map((link, index) => <li key={index}>{link}</li>)}</ul>
+              </PopoverBody>
+            </Popover>
+          }
+
         </div>
 
       </div>
