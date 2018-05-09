@@ -84,8 +84,6 @@ class Landing extends Component {
       isCouncilEmptyOfChar: false,
       isSearchClicked: isSearchClickedProp,
       isExploreCausesClicked: false,
-      isCauseCardClicked: false,
-      causeClicked: '',
       isMobileDevice: false,
     };
 
@@ -390,11 +388,19 @@ class Landing extends Component {
     });
   };
 
-  handleOnClickToCause(causeName) {
-    this.setState({
-      causeClicked: causeName,
-      isCauseCardClicked: true,
+  async handleOnClickToCause(causeName) {
+    await this.setState({ 
+        cause: {
+          value: causeName,
+          label: causeName
+        },
+        location: {
+          value: 'Greater Melbourne',
+          label: 'Greater Melbourne'
+        },
+        doneCharitySearch: false
     });
+    this.handleSubmit();
   };
 
   render() {
@@ -414,17 +420,6 @@ class Landing extends Component {
                   isCouncilEmptyOfChar: this.state.isCouncilEmptyOfChar,
               }
           }} />
-      );
-    }
-
-    if (this.state.isCauseCardClicked) {
-      return (
-          <Redirect to={{
-              pathname: '/charities/dashboardAct',
-              state: {
-                  causeName: this.state.causeClicked
-              }
-          }}/>
       );
     }
 
@@ -608,10 +603,14 @@ class Landing extends Component {
         <div id="exploreCauses" className="row d-flex flex-column justify-content-center align-items-center pt-5 mx-0 w-100">
         
           {/* cause intro title */}
-          <div className="row col-12 d-flex justify-content-center mb-3 w-100">
+          <div className="row col-12 d-flex flex-column align-items-center justify-content-center mb-3 w-100">
             <span className="text-center h3-responsive px-2"
               style={{ color: "#616161",}}>
               Which charitable cause do you feel connected to?
+            </span>
+            <span className="text-center h6-responsive p-2"
+              style={{ color: "#757575",}}>
+              Click on a cause to find charities in Greater Melbourne
             </span>
           </div>
 
@@ -712,7 +711,7 @@ class Landing extends Component {
               className="btn btn-outline-default"
               onClick={this.handleOnClickToExplore}
             >
-              See more in your local area
+              See more causes in your local area
             </a>
           </div>
 
