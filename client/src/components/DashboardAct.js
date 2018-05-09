@@ -563,7 +563,7 @@ class DashboardAct extends Component {
               <div className="row d-flex flex-column align-items-center justify-content-center p-4 mt-2 mb-4 text-white" style={{background:"#00BCD4", borderRadius: "5px",}}>
                     
                 <div className="d-flex align-items-center justify-content-center mx-4 text-center">
-                  <img src={QA} alt="cause general info" className="mr-3"/>
+                  <img src={QA} alt="cause general info" className="mr-3 d-none d-sm-block"/>
                   <h2>What is <span className="font-weight-bold">"{this.state.causeName}"?</span></h2>
                 </div>
 
@@ -595,7 +595,6 @@ class DashboardAct extends Component {
                         </p>
                       </div>  
                     </Collapsible>
-
                   </div>
                 }
 
