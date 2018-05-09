@@ -29,11 +29,12 @@ class DashboardAct extends Component {
       locationCurrent: {},
       causesByLocation: [],
       causeCurrentDetails: [],
+      causeCurrentGlobalIssue: '',
+      causeCurrentGlobalIssueDesc: '',
       causeName: '',
       causeCharityCount: 0,
       causeDonations: 0,
       causeGrants: 0,
-      // causeAmtRank: 0,
       barClicked: false,
       loading: false,
       redirecting: false,
@@ -197,9 +198,10 @@ class DashboardAct extends Component {
 
     axios.get('/api/causes/' + causeClickedName)
         .then((res) => {
-
             this.setState({
                 causeCurrentDetails: res.data,
+                causeCurrentGlobalIssue: res.data[0]["Global Problem"],
+                causeCurrentGlobalIssueDesc: res.data[0]["Global Problem description"],
             });
 
         })
@@ -215,7 +217,6 @@ class DashboardAct extends Component {
         causeCharityCount: this.state.causesByLocation[causeIndex].charityCount,
         causeDonations: this.state.causesByLocation[causeIndex].amtDonations,
         causeGrants: this.state.causesByLocation[causeIndex].amtGrants,
-        // causeAmtRank: causeIndex + 1,
     }); 
     
   } 
@@ -354,6 +355,17 @@ class DashboardAct extends Component {
         </li>
       );
     });
+
+    const globalTriggerWhenClosed = 
+      <a className="btn btn-default btn-sm mx-0">
+          See More
+          <i className="fa fa-angle-double-down fa-lg ml-2"></i>
+      </a>; 
+    const globalTriggerWhenOpen = 
+      <div className="btn btn-default btn-sm mx-0">
+          <span>See Less</span>
+          <i className="fa fa-angle-double-up fa-lg ml-2"></i>
+      </div>;
 
     // title row style
     const titleRowStyle = this.state.isMobileDevice 
@@ -550,7 +562,7 @@ class DashboardAct extends Component {
               {/* cause subtypes */}
               <div className="row d-flex flex-column align-items-center justify-content-center p-4 mt-2 mb-4 text-white" style={{background:"#00BCD4", borderRadius: "5px",}}>
                     
-                <div className="row d-flex align-items-center justify-content-center mx-4 text-center">
+                <div className="d-flex align-items-center justify-content-center mx-4 text-center">
                   <img src={QA} alt="cause general info" className="mr-3"/>
                   <h2>What is <span className="font-weight-bold">"{this.state.causeName}"?</span></h2>
                 </div>
@@ -560,13 +572,32 @@ class DashboardAct extends Component {
                   {this.state.causeCurrentDetails.length === 1 && <span>
                       subcategory{" "}
                     </span>}
-                  {this.state.causeCurrentDetails.length !== 1 && <span>
+                  {this.state.causeCurrentDetails.length >= 1 && <span>
                       subcategories{" "}
                     </span>}
                   of work:
                 </p>
 
                 <ul className="list-unstyled mb-0">{renderCauseSubtypes}</ul>
+
+                {this.state.causeCurrentGlobalIssue !== '' &&
+                  <div className="col col-10 text-center mt-5">
+                    <p className="h5-responsive">By donating to this cause, you help solving the global issue of</p>
+                    <p className="h4-responsive font-weight-bold">
+                      {this.state.causeCurrentGlobalIssue} <br />
+                    </p>
+                    <Collapsible trigger={globalTriggerWhenClosed}
+                                triggerWhenOpen={globalTriggerWhenOpen}
+                                transitionTime={200}>
+                      <div className="border border-white rounded-top" style={{background: "#fafafa", color:"#424242"}}>
+                        <p className="m-3 p-2 text-left">
+                          {this.state.causeCurrentGlobalIssueDesc}
+                        </p>
+                      </div>  
+                    </Collapsible>
+
+                  </div>
+                }
 
               </div>
               
