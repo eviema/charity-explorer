@@ -583,7 +583,7 @@ class DashboardAct extends Component {
                 {this.state.causeCurrentGlobalIssue !== '' &&
                   <div className="col col-10 text-center mt-5">
                     <p className="h5-responsive">By donating to this cause, you help solving the global issue of</p>
-                    <p className="h4-responsive font-weight-bold">
+                    <p className="h3-responsive font-weight-bold">
                       {this.state.causeCurrentGlobalIssue} <br />
                     </p>
                     <Collapsible trigger={globalTriggerWhenClosed}
