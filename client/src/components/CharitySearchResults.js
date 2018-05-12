@@ -396,7 +396,7 @@ class CharitySearchResults extends Component {
                         <div className="row d-flex justify-content-start m-3">                          
                             {/* back to search button */}
                             <div className="col col-12 small">
-                                <a onClick={this.handleClickToSearch}><u><strong>Back to search</strong></u></a>
+                                <a className="btn btn-info btn-sm mx-0" onClick={this.handleClickToSearch}>Back to search</a>
                             </div>
 
                             {/* charity results title */}
@@ -551,7 +551,7 @@ class CharitySearchResults extends Component {
                         {/* back to search button */}
                         <div className="row d-flex justify-content-start m-3">
                             <div className="col col-12 pb-4 small">
-                                <a onClick={this.handleClickToSearch}><u><strong>Back to search</strong></u></a>
+                                <a className="btn btn-info btn-sm mx-0" onClick={this.handleClickToSearch}>Back to search</a>
                             </div>
                         </div>
 
