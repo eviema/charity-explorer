@@ -405,7 +405,7 @@ class Landing extends Component {
 
   render() {
     if (this.state.isExploreCausesClicked) {
-      return <Redirect push to="/charities/dashboardAct" />;
+      return <Redirect push to="/causeExplorer" />;
     }
 
     if (this.state.doneCharitySearch && this.state.charities.length > 0) {
@@ -572,7 +572,7 @@ class Landing extends Component {
                 <p className="h6-responsive px-3">
                   Want to learn more about the causes supported by local charities? 
                 </p>
-                <a href="/charities/dashboardAct" className="btn btn-outline-info">Start Exploring</a>
+                <a href="/causeExplorer" className="btn btn-outline-info">Start Exploring</a>
               </div>
               <Card reverse className="col col-12 col-sm-10 col-md-6 col-lg-4 col-xl-4 px-0 mt-3">
                   <CardImage className="img-fluid" src={agedCare} />
