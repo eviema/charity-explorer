@@ -4,12 +4,12 @@ import axios from 'axios';
 import ScrollUpButton from 'react-scroll-up-button';
 import { Breadcrumb, BreadcrumbItem,
         Tooltip, } from 'mdbreact';   
+import Modal from 'react-responsive-modal';
 import { FacebookShareButton, FacebookIcon,
         TwitterShareButton, TwitterIcon,
         WhatsappShareButton, WhatsappIcon,
         TelegramShareButton, TelegramIcon, 
         RedditShareButton, RedditIcon, } from 'react-share';
-import { ReactTypeformEmbed } from 'react-typeform-embed';
 import { Link } from 'react-scroll';
 import Collapsible from 'react-collapsible';
 import GoogleMapReact from 'google-map-react';
@@ -22,10 +22,10 @@ import warningSign from '../assets/warning.png';
 import checkBadge from '../assets/badge.png';
 import cancelSign from '../assets/cancel.png';
 import idCard from '../assets/id-card.png';
-import quote from '../assets/quote.png';
-import people from '../assets/people.png';
-import donation from '../assets/donation.png';
-import address from '../assets/map.png';
+// import quote from '../assets/quote.png';
+// import people from '../assets/people.png';
+// import donation from '../assets/donation.png';
+// import address from '../assets/map.png';
 import pin from '../assets/pin.png';
 const keys = require("../config/keys");
 
@@ -64,13 +64,15 @@ class Charity extends Component {
             isShowShareButtonsClicked: false,
             isMobileDevice: false,
             isBackToSearchResultsClicked: false,
+            isModalOpen: false,
         }
         this.toggleTabs = this.toggleTabs.bind(this);
         this.refresh = this.refresh.bind(this);
         this.toggleReadMoreOrLess = this.toggleReadMoreOrLess.bind(this);
         this.toggleShowShareButtons = this.toggleShowShareButtons.bind(this);
-        this.openForm = this.openForm.bind(this);
         this.handleOnClickToSearchResults = this.handleOnClickToSearchResults.bind(this);
+        this.onOpenModal = this.onOpenModal.bind(this);
+        this.onCloseModal = this.onCloseModal.bind(this);
     }
 
     async componentDidMount() {
@@ -200,13 +202,21 @@ class Charity extends Component {
         });
     }
 
-    openForm() {
-        this.typeformEmbed.typeform.open();
-    }
-
     handleOnClickToSearchResults() {
         this.setState({
             isBackToSearchResultsClicked: true,
+        });
+    }
+
+    onOpenModal() {
+        this.setState({
+            isModalOpen: true,
+        });
+    }
+
+    onCloseModal() {
+        this.setState({
+            isModalOpen: false,
         });
     }
 
@@ -233,7 +243,10 @@ class Charity extends Component {
         const charityPageUrl = "https://charity-home-dev.appspot.com/charity/" + ABN,
             charityPageShareQuote = "Check out this charity in Melbourne: " + name + " ",
             charityPageShareHashtags = ["ThinkGloballyDonateLocally", "CharityStartsAtHome"];
-
+        
+        
+        const reportFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSf_zTDrQVnhSfQooCC9EzsK3_JTrE76jpYyj0i03LTZgRXtEw/viewform?entry.888040775=" + name.split(/[ ,]+/).join('+');
+        
         const charityCardStyle = this.state.isMobileDevice ? {
             backgroundImage:`url(${charityCardBg})`,
             backgroundRepeat: "no-repeat",
@@ -405,20 +418,10 @@ class Charity extends Component {
             <div style={{background: "#F3F3F3", width:"100%"}}>
                 <ScrollUpButton />
                 <Breadcrumb className="small mb-0">
-                    <BreadcrumbItem><a href="/home"><i className="fa fa-home"></i></a></BreadcrumbItem>
+                    <BreadcrumbItem><a href="/"><i className="fa fa-home"></i></a></BreadcrumbItem>
                     <BreadcrumbItem><a onClick={this.handleOnClickToSearchResults} style={{color: "#0275d8"}}>Search results</a></BreadcrumbItem>
                     <BreadcrumbItem active>{name}</BreadcrumbItem>
                 </Breadcrumb>
-
-                <ReactTypeformEmbed
-                    popup={true}
-                    autoOpen={false}
-                    url={'https://yifei2.typeform.com/to/Tqpj9h'}
-                    hideHeaders={true}
-                    hideFooter={true}
-                    style={{top: 100}}
-                    ref={(tf => this.typeformEmbed = tf)}
-                />
 
                 <div className="row d-flex justify-content-center">                                  
                     {/* charity detailed info */}
@@ -449,7 +452,7 @@ class Charity extends Component {
                                                                                 
                                         {!this.state.isShowShareButtonsClicked && 
                                             <a className="d-flex align-items-center mr-2 my-auto small" onClick={this.toggleShowShareButtons}>
-                                                <u className="d-none d-sm-block py-3">Share this page</u>
+                                                <u className="d-none d-sm-block py-3">Share</u>
                                                 <img src={share} alt="share" className="img-responsive mx-2 mr-3"/>
                                             </a>
                                         }
@@ -474,11 +477,18 @@ class Charity extends Component {
                                             </div>
                                         }
 
-                                        
-                                        <a className="d-flex align-items-center my-auto small" onClick={this.openForm}>
-                                            <u className="d-none d-sm-block py-3">Report Error</u>
+                                        <a className="d-flex align-items-center my-auto small" onClick={this.onOpenModal}>
+                                            <u className="d-none d-sm-block py-3">Report</u>
                                             <img src={reportError} alt="report error" className="img-responsive mx-2"/>
                                         </a>
+
+                                        <Modal open={this.state.isModalOpen} onClose={this.onCloseModal} center>
+                                            <h4>Report poor data</h4>
+                                            <h6>Please fill out
+                                                <a href={reportFormUrl} target="_blank" onClick={this.onCloseModal}> this form <i className="fa fa-external-link-alt"></i> </a> 
+                                                to let us know what doesn't look right
+                                            </h6>
+                                        </Modal>
                                     </div>
                                 </div>
                             </div>
@@ -614,8 +624,11 @@ class Charity extends Component {
                         {/* mission, target populations, finance, address */}
                         <div className="p-4" style={{color:"#212121", }}>
                             {/* mission */}
-                            <h4><img src={quote} alt="mission quote" className="mr-2"/> Mission statement</h4>
-                            <p className="pl-5">
+                            <h4 style={{fontWeight:"500", color:"#424242"}}>
+                                {/* <img src={quote} alt="mission quote" className="mr-2"/>  */}
+                                Mission statement
+                            </h4>
+                            <p>
                                 {desc.length <= 300 && desc}
                                 {desc.length > 300 && !isReadMoreDescClicked && 
                                     <span>
@@ -639,13 +652,19 @@ class Charity extends Component {
                             <hr />
 
                             {/* target populations */}
-                            <h4><img src={people} alt="target populations" className="mr-2"/> Target population(s)</h4>
-                            <ul className="list-unstyled pl-5">{renderPpltns}</ul>
+                            <h4 style={{fontWeight:"500", color:"#424242"}}>
+                                {/* <img src={people} alt="target populations" className="mr-2"/>  */}
+                                Target population(s)
+                            </h4>
+                            <ul className="list-unstyled">{renderPpltns}</ul>
                             <hr />
 
                             {/* finance */}
-                            <h4 id="finance"><img src={donation} alt="donation" className="mr-2"/>How much reached those in need</h4>
-                            <div className="pl-5">
+                            <h4 id="finance" style={{fontWeight:"500", color:"#424242"}}>
+                                {/* <img src={donation} alt="donation" className="mr-2"/> */}
+                                How much reached those in need
+                            </h4>
+                            <div>
                                 <div>
                                     <strong className="h3-responsive" style={percStyle}>
                                         {percUse}%
@@ -682,8 +701,11 @@ class Charity extends Component {
                             <hr />
 
                             {/* address */}
-                            <h4 id="address"><img src={address} alt="address" className="mr-2"/> Address</h4>
-                            <div className="pl-5">
+                            <h4 id="address" style={{fontWeight:"500", color:"#424242"}}>
+                                {/* <img src={address} alt="address" className="mr-2"/>  */}
+                                Address
+                            </h4>
+                            <div>
                                 <div className="my-2 mr-3 h6-responsive">{charityAddress}</div>
                                 <a href={directionsUrl} target="_blank"
                                     className="btn btn-outline-default m-0 btn-sm">

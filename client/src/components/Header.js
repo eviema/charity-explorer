@@ -8,6 +8,7 @@ import {
   NavItem
 } from "mdbreact";
 import { BrowserRouter as Router } from "react-router-dom";
+import logo from '../assets/websiteLogo.png';
 
 class Header extends Component {
     constructor(props) {
@@ -26,11 +27,8 @@ class Header extends Component {
     }
 
     render() {
-        if (window.location.pathname === "/") {
-            return <div />;
-        }
         var headerStyle =
-        window.location.pathname === "/home"
+        window.location.pathname === "/"
             ? {
                 position: "absolute",
                 top: "0",
@@ -38,17 +36,18 @@ class Header extends Component {
                 background: "rgba(0, 0, 0, 0)",
                 width: "100%",
                 boxShadow: "none",
-                padding: "2rem"
+                padding: "2rem",
             }
             : {
-                background: "rgba(96, 125, 139,1)",
-                padding: "1rem"
+                background: "#78909C",
+                // borderBottom: "5px solid #2bbbad",
+                padding: "1rem",
             };
         
         var navItemBackgroundStyle = 
             this.state.collapse
             ? {
-                background:"rgba(96, 125, 139, 1)",
+                background:"#78909C",
                 padding: "1rem"
             }
             : {}
@@ -56,17 +55,18 @@ class Header extends Component {
         return (
             <Router>
                 <Navbar dark expand="md" scrolling className="sticky-top" style={headerStyle}>
-                    <NavbarBrand href="/home">
-                        <strong>DonateNow</strong>
+                    <NavbarBrand href="/">
+                        {/* <strong>DonateNow</strong> */}
+                        <img src={logo} alt="Home" className="img-responsive"/>
                     </NavbarBrand>
                     { !this.state.isWideEnough && <NavbarToggler onClick = { this.onClick } />}
                     <Collapse isOpen = { this.state.collapse } navbar style={navItemBackgroundStyle}>
                         <NavbarNav right>
                             <NavItem>
-                                <a className="nav-link" href="/home">Home<span className="sr-only">(current)</span></a>
+                                <a className="nav-link" href="/">Home<span className="sr-only">(current)</span></a>
                             </NavItem>
                             <NavItem>
-                                <a className="nav-link" href="/charities/dashboardAct">Charitable causes</a>
+                                <a className="nav-link" href="/causeExplorer">Charitable causes</a>
                             </NavItem>
                             <NavItem>
                                 <a className="nav-link" href="/tipsForDonors">Tips for donors</a>

@@ -22,7 +22,7 @@ const About = () => {
       <ScrollUpButton />
       <Breadcrumb className="mb-0">
         <BreadcrumbItem>
-          <a href="/home">
+          <a href="/">
             <i className="fa fa-home fa-lg" />
           </a>
         </BreadcrumbItem>

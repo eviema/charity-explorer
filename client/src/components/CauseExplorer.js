@@ -257,7 +257,7 @@ class DashboardAct extends Component {
       x: causesDonations,
       y: causeNames,
       type: 'bar',
-      name: "Donations (A$)",
+      name: "Donations and bequests (A$)",
       orientation: 'h',
       marker: {color: '#26C6DA'},
       hoverinfo: 'x+y',
@@ -266,7 +266,7 @@ class DashboardAct extends Component {
       x: causesGrants,
       y: causeNames,
       type: 'bar',
-      name: "Grants (A$)",
+      name: "Government grants (A$)",
       orientation: 'h',
       marker: {color: '#8BC34A'},
       hoverinfo: 'x+y',
@@ -307,7 +307,7 @@ class DashboardAct extends Component {
     if (this.state.searchCharityClicked) {
         return (
             <Redirect to={{
-                pathname: '/home',
+                pathname: '/',
                 state: {
                     cause: {
                       value: this.state.causeName,
@@ -404,7 +404,7 @@ class DashboardAct extends Component {
       <div className="container-fluid" style={{ padding: "0", background: "#F3F3F3"}}>
         <ScrollUpButton />
         <Breadcrumb className="small mb-0">
-          <BreadcrumbItem><a href="/home"><i className="fa fa-home" /></a>
+          <BreadcrumbItem><a href="/"><i className="fa fa-home" /></a>
           </BreadcrumbItem>
           <BreadcrumbItem active>Explore charitable causes</BreadcrumbItem>
         </Breadcrumb>
@@ -417,7 +417,7 @@ class DashboardAct extends Component {
             </span> 
             <br />
             <span className="h5-responsive">
-              Discover charitable causes supported by charities in your suburb
+              Explore causes supported by charities in your suburb
             </span>
           </p>
         </div>
@@ -471,7 +471,7 @@ class DashboardAct extends Component {
                                 <strong className="h3-responsive font-weight-bold" style={{color: "#FFA000"}}>
                                   {causeRecvLeast.name}
                                 </strong>
-                                <i className="fa fa-question-circle ml-1" style={{color: "#757575"}}></i>
+                                <i className="far fa-question-circle ml-1" style={{color: "#757575"}}></i>
                               </div>
                         </Tooltip>
                       </Link>
@@ -499,7 +499,7 @@ class DashboardAct extends Component {
                                 <strong className="h3-responsive font-weight-bold" style={{color: "#7CB342"}}>
                                   {causeRecvMost.name}
                                 </strong>
-                                <i className="fa fa-question-circle ml-1" style={{color: "#757575"}}></i>
+                                <i className="far fa-question-circle ml-1" style={{color: "#757575"}}></i>
                               </div>
                         </Tooltip>
                       </Link>
@@ -516,7 +516,7 @@ class DashboardAct extends Component {
             {/* graph of causes in location */}
             <div id="causesGraph" className="row d-flex align-items-stretch justify-content-center py-2 mx-4">
               
-              <p className="h3-responsive mt-5 mx-2 text-center">Here are more charitable causes in <strong>{valueLocation}</strong>:</p>
+              <p className="h3-responsive mt-5 mx-2 text-center">Here are all charitable causes in <strong>{valueLocation}</strong>:</p>
               
               <p className="col-12 text-center mx-2">
                 Click on a bar in the graph to see details of

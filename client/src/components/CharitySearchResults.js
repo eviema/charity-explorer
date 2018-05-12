@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Redirect } from "react-router";
-import { Checkbox, CheckboxGroup } from 'react-checkbox-group';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
+import { RadioGroup, Radio } from 'react-radio-group';
 import { Card, CardBody, CardImage, CardTitle, CardText, 
         Breadcrumb, BreadcrumbItem, 
         Tooltip, } from 'mdbreact';
@@ -41,8 +41,8 @@ class CharitySearchResults extends Component {
             charitiesPerPage: 5,
             sortByConditions: conditions,
             sortByCondCurrent: {},
-            taxDeductFilterItems: [],
-            sizeFilterItems: [],
+            selectedTaxValue: 'taxAll',
+            selectedSizeValue: 'sizeAll',
             isMobileDevice: false, 
             isCharityCardClicked: false,
             isBackToSearchRequired: false,
@@ -53,6 +53,7 @@ class CharitySearchResults extends Component {
         this.handleFilter = this.handleFilter.bind(this);
         this.handleChangeOfTaxFilter = this.handleChangeOfTaxFilter.bind(this);
         this.handleChangeOfSizeFilter = this.handleChangeOfSizeFilter.bind(this);
+        this.handleClickToResetFilters = this.handleClickToResetFilters.bind(this);
         this.handleClickToSearch = this.handleClickToSearch.bind(this);
         this.handleOnClickToCharityPage = this.handleOnClickToCharityPage.bind(this);
     }
@@ -146,101 +147,89 @@ class CharitySearchResults extends Component {
         await this.setState({
             doneFilteringCharities: false,
         });
-       
-        const allFilterItems = this.state.taxDeductFilterItems.concat(this.state.sizeFilterItems);
-        var allCharitiesMatched = allFilterItems.length === 0 ? this.state.charities : [];
 
-        allFilterItems.forEach(filterItem => {
-            var charitiesMatched = [];
-            if (filterItem.slice(0,3) === 'tax') {
-                console.log('tax filter being handled', filterItem)
-                if (filterItem.slice(3) === 'Y') {
-                    this.state.charities.forEach(charity => {
-                        console.log(charity.dgrStatus)
-                        if (charity.dgrStatus === 'Y') {
-                            charitiesMatched.push(charity);
-                        }
-                    });
-                    charitiesMatched.forEach(charity => {
-                        if (!allCharitiesMatched.includes(charity)) {
-                            allCharitiesMatched.push(charity);
-                        }
-                    }); 
-                }
-                else if (filterItem.slice(3) === 'N') {
-                    this.state.charities.forEach(charity => {
-                        console.log(charity.dgrStatus)
-                        if (charity.dgrStatus === 'N') {
-                            charitiesMatched.push(charity);
-                        }
-                    });
-                    charitiesMatched.forEach(charity => {
-                        if (!allCharitiesMatched.includes(charity)) {
-                            allCharitiesMatched.push(charity);
-                        }
-                    }); 
-                }
-            }
-            else if (filterItem.slice(0,4) === 'size') {
-                console.log('size filter being handled', filterItem)
-                if (filterItem.slice(4) === 'L') {
-                    this.state.charities.forEach(charity => {
-                        console.log(charity.size)
-                        if (charity.size === 'Large') {
-                            charitiesMatched.push(charity);
-                        }
-                    });
-                    charitiesMatched.forEach(charity => {
-                        if (!allCharitiesMatched.includes(charity)) {
-                            allCharitiesMatched.push(charity);
-                        }
-                    }); 
-                }
-                else if (filterItem.slice(4) === 'M') {
-                    this.state.charities.forEach(charity => {
-                        console.log(charity.size)
-                        if (charity.size === 'Medium') {
-                            charitiesMatched.push(charity);
-                        }
-                    });
-                    charitiesMatched.forEach(charity => {
-                        if (!allCharitiesMatched.includes(charity)) {
-                            allCharitiesMatched.push(charity);
-                        }
-                    }); 
-                }
-                else if (filterItem.slice(4) === 'S') {
-                    this.state.charities.forEach(charity => {
-                        console.log(charity.size)
-                        if (charity.size === 'Small') {
-                            charitiesMatched.push(charity);
-                        }
-                    });
-                    charitiesMatched.forEach(charity => {
-                        if (!allCharitiesMatched.includes(charity)) {
-                            allCharitiesMatched.push(charity);
-                        }
-                    }); 
-                }
-            }
-        })
+        const { selectedTaxValue, selectedSizeValue } = this.state;
+        var allCharitiesMatched = [];
 
+        
+        if (selectedTaxValue === 'taxAll') {
+            allCharitiesMatched = this.state.charities;
+        }
+        else if (selectedTaxValue === 'taxY') {
+            this.state.charities.forEach(charity => {
+                if (charity.dgrStatus === 'Y') {
+                    if (!allCharitiesMatched.includes(charity)) {
+                        allCharitiesMatched.push(charity);
+                    }
+                }
+            }); 
+        }
+        else if (selectedTaxValue === 'taxN') {
+            this.state.charities.forEach(charity => {
+                if (charity.dgrStatus === 'N') {
+                    if (!allCharitiesMatched.includes(charity)) {
+                        allCharitiesMatched.push(charity);
+                    }
+                }
+            }); 
+        }
+
+        var newAllCharitiesMatched = [];
+        if (selectedSizeValue === 'sizeAll') {
+            newAllCharitiesMatched = allCharitiesMatched;
+        }
+        else if (selectedSizeValue === 'sizeL') {
+            allCharitiesMatched.forEach(charity => {
+                if (charity.size === 'Large') {
+                    if (!newAllCharitiesMatched.includes(charity)) {
+                        newAllCharitiesMatched.push(charity);
+                    }
+                }
+            });
+        } 
+        else if (selectedSizeValue === 'sizeM') {
+            allCharitiesMatched.forEach(charity => {
+                if (charity.size === 'Medium') {
+                    if (!newAllCharitiesMatched.includes(charity)) {
+                        newAllCharitiesMatched.push(charity);
+                    }
+                }
+            });
+        } 
+        else if (selectedSizeValue === 'sizeS') {
+            allCharitiesMatched.forEach(charity => {
+                if (charity.size === 'Small') {
+                    if (!newAllCharitiesMatched.includes(charity)) {
+                        newAllCharitiesMatched.push(charity);
+                    }
+                }
+            });
+        } 
+        
         this.setState({
             doneFilteringCharities: true,
-            charitiesFiltered: allCharitiesMatched,
+            charitiesFiltered: newAllCharitiesMatched,
         }); 
     }
 
-    async handleChangeOfTaxFilter(newFilterItems) {
+    async handleChangeOfTaxFilter(newValue) {
         await this.setState({
-            taxDeductFilterItems: newFilterItems
+            selectedTaxValue: newValue
         });
         this.handleFilter();
     }
 
-    async handleChangeOfSizeFilter(newFilterItems) {
+    async handleChangeOfSizeFilter(newValue) {
         await this.setState({
-            sizeFilterItems: newFilterItems
+            selectedSizeValue: newValue
+        });
+        this.handleFilter();
+    }
+
+    async handleClickToResetFilters() {
+        await this.setState({
+            selectedTaxValue: '',
+            selectedSizeValue: '',
         });
         this.handleFilter();
     }
@@ -257,7 +246,7 @@ class CharitySearchResults extends Component {
         if (this.state.isBackToSearchRequired) {
             return (
                 <Redirect to={{
-                    pathname: '/home',
+                    pathname: '/',
                     state: {
                         cause: this.state.cause,
                         location: this.state.location,
@@ -290,9 +279,32 @@ class CharitySearchResults extends Component {
         var { sortByCondCurrent } = this.state;
         var valueSortByCond = sortByCondCurrent && sortByCondCurrent.value;
 
-        var { taxDeductFilterItems, sizeFilterItems } = this.state;
+        var { selectedTaxValue, selectedSizeValue } = this.state;
         
         const { charities, charitiesFiltered, doneFilteringCharities, currentPage, charitiesPerPage } = this.state;
+
+        const charitySizeFilterTooltip = 
+            <table>
+                <tbody>
+                    <tr style={{borderBottom: "1px solid #fff"}}>
+                        <th>Size</th>
+                        <th >Annual Turnover</th>
+                    </tr>
+                    <tr style={{borderBottom: "1px solid #fff"}}>
+                        <th>Large</th>
+                        <th >$1 million or more</th>
+                    </tr>
+                    <tr style={{borderBottom: "1px solid #fff"}}>
+                        <td >Medium</td>
+                        <td >$250,000 to $999,999</td>
+                    </tr>
+                    <tr>
+                        <td >Small</td>
+                        <td >less than $250,000</td>
+                    </tr>
+                </tbody>
+            </table>
+        ;
 
         const { council } = this.state;
 
@@ -329,7 +341,7 @@ class CharitySearchResults extends Component {
                 };
             }
             return (
-                <li key={index} className="col col-12 d-flex align-items-stretch mx-sm-3 mx-0 mb-3 px-0 hoverable"
+                <li key={index} className="col col-12 d-flex align-items-stretch px-0 mb-3 hoverable"
                     onClick={() => this.handleOnClickToCharityPage(charity.ABN)} style={{cursor: "pointer"}}>
                     <Card cascade className="w-100">
                         <CardImage tag="div">
@@ -390,17 +402,9 @@ class CharitySearchResults extends Component {
                             {/* charity results title */}
                             <div className="col col-12 mt-3">
                                 <div className="mb-2">
-                                    {this.state.council !== '' && !this.state.isCouncilEmptyOfChar && 
-                                        <p>It seems no charities in {valueLocation} support {valueCause}.</p>
-                                    }
-                                    {this.state.council !== '' && this.state.isCouncilEmptyOfChar &&
-                                        <p>It seems no charities in {valueLocation} or in your local council support {valueCause}.</p>
-                                    }
                                     <h5>
-                                        Charities in&nbsp; 
-                                        {this.state.council !== '' && !this.state.isCouncilEmptyOfChar && <span><strong>{council}</strong>, your local council</span>}
-                                        {this.state.council !== '' && this.state.isCouncilEmptyOfChar && <strong>Greater Melbourne</strong>}
-                                        {this.state.council === '' && <strong>{valueLocation}</strong>}&nbsp; 
+                                        Search results for charities in&nbsp; 
+                                        <strong>{valueLocation}</strong>&nbsp; 
                                         that support <strong>{valueCause}</strong>
                                     </h5>
                                 </div>
@@ -442,12 +446,40 @@ class CharitySearchResults extends Component {
                                     </div>
                                 </div>
                                 
-                                {/* actual charity results */}
+                                {/* if no results for suburb & cause combo */}
+                                {this.state.council !== '' && !this.state.isCouncilEmptyOfChar && 
+                                    <div className="d-flex">
+                                        <p style={{background: "#01579B", padding:"1rem", borderRadius:"5px", color: "white"}}>
+                                            It seems no charities in {valueLocation} support {valueCause}. However, check out these charities in&nbsp;
+                                            {this.state.council !== '' && !this.state.isCouncilEmptyOfChar && <span><strong>{council}</strong>, your local council:</span>}
+                                            {this.state.council !== '' && this.state.isCouncilEmptyOfChar && <strong>Greater Melbourne:</strong>}
+                                        </p>
+                                    </div>
+                                }
+                                {this.state.council !== '' && this.state.isCouncilEmptyOfChar &&
+                                    <div className="d-flex">
+                                        <p style={{background: "#01579B", padding:"1rem", borderRadius:"5px", color: "white"}}>
+                                            It seems no charities in {valueLocation} or in your local council support {valueCause}. However, check out these charities in&nbsp;
+                                            {this.state.council !== '' && !this.state.isCouncilEmptyOfChar && <span><strong>{council}</strong>, your local council:</span>}
+                                            {this.state.council !== '' && this.state.isCouncilEmptyOfChar && <strong>Greater Melbourne:</strong>}
+                                        </p>
+                                    </div>
+                                }                                
+
+                                {/* actual charity results */}  
                                 {charityList.length > 0 &&
-                                    <ul className="row card-group list-unstyled mb-0 d-flex justify-content-center">{renderCharities}</ul>
+                                    <ul className="row card-group list-unstyled mx-0 px-0 mb-0 d-flex justify-content-center">{renderCharities}</ul>
                                 }
                                 {charityList.length === 0 && 
-                                    <p>We haven't got any exact matches for your search at the moment. </p>
+                                    <div className="my-4" style={{background: "#01579B", padding:"1rem", borderRadius:"5px", color: "white"}}>
+                                        <p className="mb-2 h5-responsive" style={{fontWeight:"600"}}>
+                                            Sorry, no results were found. 
+                                        </p>
+                                        <hr />
+                                        <p style={{fontWeight:"500"}}>Search Suggestions:</p>
+                                        <a onClick={this.handleClickToResetFilters}><u>Reset filters</u></a> <br />
+                                        <a onClick={this.handleClickToSearch}><u>Modify search</u></a>
+                                    </div>
                                 }
                                 
                                 {/* result range displayer and pagination */}
@@ -476,27 +508,41 @@ class CharitySearchResults extends Component {
                             <div className="col col-10 col-sm-10 col-md-9 col-lg-3 col-xl-3 p-3 m-3" style={{background: "#fff", borderRadius: "5px",}}>
                                 {/* by tax deductibility */}
                                 <div>
-                                    <p className="h6-responsive font-weight-bold">Tax deductibility</p>
-                                    <CheckboxGroup className="d-flex flex-column"
-                                        name="tax" value={taxDeductFilterItems} 
-                                        checkboxDepth={2} onChange={this.handleChangeOfTaxFilter}>
-                                        <label><Checkbox value="taxY"/> Yes</label>
-                                        <label><Checkbox value="taxN"/> No</label>
-                                    </CheckboxGroup>
+                                    <div className="h6-responsive font-weight-bold d-flex align-items-center">
+                                        Tax deductibility 
+                                        <Tooltip 
+                                            placement="right" tag="div" component="button" 
+                                            componentClass="btn btn-link p-0 mb-1 mt-2"
+                                            tooltipContent="Donations made to certain charities can be claimed in your tax return."> 
+                                                <i className="far fa-question-circle fa-sm"></i>
+                                        </Tooltip>
+                                    </div>
+                                    <RadioGroup name="tax" selectedValue={selectedTaxValue} onChange={this.handleChangeOfTaxFilter}>
+                                        <Radio value="taxAll" />  All <br />
+                                        <Radio value="taxY" />  Yes <br />
+                                        <Radio value="taxN" />  No
+                                    </RadioGroup>
                                 </div>
                                 
                                 <hr />
 
                                 {/* by charity size */}
                                 <div>
-                                    <p className="h6-responsive font-weight-bold">Charity size</p>
-                                    <CheckboxGroup className="d-flex flex-column"
-                                        name="size" value={sizeFilterItems} 
-                                        checkboxDepth={2} onChange={this.handleChangeOfSizeFilter}>
-                                        <label><Checkbox value="sizeL"/> Large</label>
-                                        <label><Checkbox value="sizeM"/> Medium</label>
-                                        <label><Checkbox value="sizeS"/> Small</label>
-                                    </CheckboxGroup>
+                                    <div className="h6-responsive font-weight-bold d-flex align-items-center">
+                                        Charity size
+                                        {<Tooltip 
+                                            placement="right" tag="div" component="button" 
+                                            componentClass="btn btn-link p-0 mb-1 mt-2"
+                                            tooltipContent={charitySizeFilterTooltip}> 
+                                                <i className="far fa-question-circle fa-sm"></i>
+                                        </Tooltip>}
+                                    </div>
+                                    <RadioGroup name="size" selectedValue={selectedSizeValue} onChange={this.handleChangeOfSizeFilter}>
+                                        <Radio value="sizeAll" />  All <br />
+                                        <Radio value="sizeL" />  Large <br />
+                                        <Radio value="sizeM" />  Medium <br />
+                                        <Radio value="sizeS" />  Small
+                                    </RadioGroup>
                                 </div>
                             </div>
 
