@@ -228,8 +228,8 @@ class CharitySearchResults extends Component {
 
     async handleClickToResetFilters() {
         await this.setState({
-            selectedTaxValue: '',
-            selectedSizeValue: '',
+            selectedTaxValue: 'taxAll',
+            selectedSizeValue: 'sizeAll',
         });
         this.handleFilter();
     }
