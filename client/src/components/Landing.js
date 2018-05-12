@@ -525,7 +525,7 @@ class Landing extends Component {
                         </span>
                     </h6>
                 }
-                <u className="col-12 d-flex justify-content-center text-white small" style={{textShadow: "1px 1px 4px #212121",}}>
+                <u className="col-12 d-flex justify-content-center text-white" style={{textShadow: "1px 1px 4px #212121", fontSize:"#.8em"}}>
                   <Link to="exploreCauses" spy={true} smooth={true} offset={-10} duration={400}>
                     Haven't decided on the cause?
                   </Link>
