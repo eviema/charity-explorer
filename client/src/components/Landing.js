@@ -551,7 +551,7 @@ class Landing extends Component {
                 <p className="h4-responsive" style={{ color: "#616161", }}>Find the right charity near you</p>
                 <p className="h6-responsive px-3">
                   Have a cause you want to support but not sure which local charity
-                  to go to? 
+                  to trust? 
                 </p>
                 <Link to="landingTop" spy={true} smooth={true} offset={-5} duration={400}>
                   <span className="btn btn-outline-info">Start searching</span>
@@ -606,11 +606,11 @@ class Landing extends Component {
           <div className="row col-12 d-flex flex-column align-items-center justify-content-center mb-3 w-100">
             <span className="text-center h3-responsive px-2"
               style={{ color: "#616161",}}>
-              Which charitable cause do you feel connected to?
+              Top 6 causes in Greater Melbourne
             </span>
             <span className="text-center h6-responsive p-2"
               style={{ color: "#757575",}}>
-              Click on a cause to find charities in Greater Melbourne
+              Start finding charities by selecting one cause below
             </span>
           </div>
 
