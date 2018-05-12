@@ -587,7 +587,7 @@ class Landing extends Component {
                   className="py-3"/>
                 <p className="h4-responsive" style={{ color: "#616161", }}>Tips for donors</p>
                 <p className="h6-responsive px-3">
-                  Would like a checklist of things to consider before donating? 
+                  Need a checklist of things to consider before donating? 
                 </p>
                 <a href="/tipsForDonors" className="btn btn-outline-info">View Tips</a>
               </div>
