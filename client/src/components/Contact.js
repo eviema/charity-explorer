@@ -8,7 +8,7 @@ const Contact =  () => {
         <div>
 
             <Breadcrumb className="small mb-0">
-                <BreadcrumbItem><a href="/home"><i className="fa fa-home"></i></a></BreadcrumbItem>
+                <BreadcrumbItem><a href="/"><i className="fa fa-home"></i></a></BreadcrumbItem>
                 <BreadcrumbItem active>Contact us</BreadcrumbItem>
             </Breadcrumb>
 

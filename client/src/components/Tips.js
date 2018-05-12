@@ -187,7 +187,7 @@ class Tips extends Component {
                     </ScrollableAnchor>
 
                     <div className="text-center mb-4">
-                        <a className="btn btn-info" href="/home">Let’s start giving!</a>
+                        <a className="btn btn-info" href="/">Let’s start giving!</a>
                     </div>
     
                 </div>
