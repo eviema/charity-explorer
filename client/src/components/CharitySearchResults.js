@@ -35,8 +35,8 @@ class CharitySearchResults extends Component {
             council: props.location.state.council,
             isCouncilEmptyOfChar: props.location.state.isCouncilEmptyOfChar,
             charities: props.location.state.charities,
+            charitiesDisplayed: props.location.state.charities,
             doneFilteringCharities: false, 
-            charitiesFiltered: [],
             currentPage: 1,
             charitiesPerPage: 5,
             sortByConditions: conditions,
@@ -103,7 +103,7 @@ class CharitySearchResults extends Component {
             sortByCondCurrent: condition
         });
 
-        var charitiesSorted = [].concat(this.state.charities);
+        var charitiesSorted = [].concat(this.state.charitiesDisplayed);
 
         switch (this.state.sortByCondCurrent.value) {
             case 'percUseHigh':
@@ -137,9 +137,10 @@ class CharitySearchResults extends Component {
         }
 
         this.setState({
-            charities: charitiesSorted,
+            charitiesDisplayed: charitiesSorted,
             currentPage: 1,
         });
+        
     }
 
     async handleFilter() {
@@ -208,7 +209,7 @@ class CharitySearchResults extends Component {
         
         this.setState({
             doneFilteringCharities: true,
-            charitiesFiltered: newAllCharitiesMatched,
+            charitiesDisplayed: newAllCharitiesMatched,
         }); 
     }
 
@@ -281,7 +282,7 @@ class CharitySearchResults extends Component {
 
         var { selectedTaxValue, selectedSizeValue } = this.state;
         
-        const { charities, charitiesFiltered, doneFilteringCharities, currentPage, charitiesPerPage } = this.state;
+        const { charities, charitiesDisplayed, currentPage, charitiesPerPage } = this.state;
 
         const charitySizeFilterTooltip = 
             <table>
@@ -310,8 +311,7 @@ class CharitySearchResults extends Component {
 
         const indexOfLastCharity = currentPage * charitiesPerPage;
         const indexOfFirstCharity = indexOfLastCharity - charitiesPerPage;
-        const charityList = doneFilteringCharities ? charitiesFiltered : charities;
-        const currentCharityList = charityList.slice(indexOfFirstCharity, indexOfLastCharity);
+        const currentCharityList = charitiesDisplayed.slice(indexOfFirstCharity, indexOfLastCharity);
 
         const renderCharities = currentCharityList.map((charity, index) => {
             var cardPercStyle = {};
@@ -334,7 +334,6 @@ class CharitySearchResults extends Component {
                 }
             }
             else {
-                charity.percUse = '<10';
                 cardPercStyle = {
                     background:'#FF5722',
                     borderRadius: "5px",
@@ -351,7 +350,11 @@ class CharitySearchResults extends Component {
                                         placement="left" tag="div" component="button" 
                                         componentClass="btn btn-link p-0 mb-1 mt-2"
                                         tooltipContent={charity.percUse + '% of all expenses of this charity went to charitable use.'}> 
-                                            <span className="h2-responsive text-white p-2" style={cardPercStyle}>{charity.percUse}%</span>
+                                            <span className="h2-responsive text-white p-2" style={cardPercStyle}>
+                                                {charity.percUse >= 10 && charity.percUse}
+                                                {charity.percUse < 10 && "<10"}
+                                                %
+                                            </span>
                                     </Tooltip>
                                     <h3 className="h3-responsive ml-2 my-0">{charity.name}</h3>
                                 </div>
@@ -429,7 +432,7 @@ class CharitySearchResults extends Component {
                                 {/* result range displayer and pagination */}
                                 <div className="row d-flex align-items-center justify-content-between px-3">
                                     <h6 className="small mb-0">
-                                        Showing {Math.min((currentPage - 1) * charitiesPerPage + 1, charityList.length)} to {Math.min(currentPage * charitiesPerPage, charityList.length)} of {charityList.length} results
+                                        Showing {Math.min((currentPage - 1) * charitiesPerPage + 1, charitiesDisplayed.length)} to {Math.min(currentPage * charitiesPerPage, charitiesDisplayed.length)} of {charitiesDisplayed.length} results
                                     </h6> 
 
                                     <div className="ml-2 mt-2">
@@ -439,7 +442,7 @@ class CharitySearchResults extends Component {
                                             activeLinkClass="bg-primary rounded text-white"
                                             activePage={currentPage}
                                             itemsCountPerPage={charitiesPerPage}
-                                            totalItemsCount={charityList.length}
+                                            totalItemsCount={charitiesDisplayed.length}
                                             pageRangeDisplayed={5}
                                             onChange={this.handleClickOnPageNumber}
                                         />
@@ -467,10 +470,10 @@ class CharitySearchResults extends Component {
                                 }                                
 
                                 {/* actual charity results */}  
-                                {charityList.length > 0 &&
+                                {charitiesDisplayed.length > 0 &&
                                     <ul className="row card-group list-unstyled mx-0 px-0 mb-0 d-flex justify-content-center">{renderCharities}</ul>
                                 }
-                                {charityList.length === 0 && 
+                                {charitiesDisplayed.length === 0 && 
                                     <div className="my-4" style={{background: "#01579B", padding:"1rem", borderRadius:"5px", color: "white"}}>
                                         <p className="mb-2 h5-responsive" style={{fontWeight:"600"}}>
                                             Sorry, no results were found. 
@@ -485,7 +488,7 @@ class CharitySearchResults extends Component {
                                 {/* result range displayer and pagination */}
                                 <div className="row d-flex align-items-center justify-content-between px-3">
                                     <h6 className="small mb-0">
-                                        Showing {Math.min((currentPage - 1) * charitiesPerPage + 1, charityList.length)} to {Math.min(currentPage * charitiesPerPage, charityList.length)} of {charityList.length} results
+                                        Showing {Math.min((currentPage - 1) * charitiesPerPage + 1, charitiesDisplayed.length)} to {Math.min(currentPage * charitiesPerPage, charitiesDisplayed.length)} of {charitiesDisplayed.length} results
                                     </h6>
 
                                     <div className="ml-2 mt-2">
@@ -495,7 +498,7 @@ class CharitySearchResults extends Component {
                                             activeLinkClass="bg-primary rounded text-white"
                                             activePage={currentPage}
                                             itemsCountPerPage={charitiesPerPage}
-                                            totalItemsCount={charityList.length}
+                                            totalItemsCount={charitiesDisplayed.length}
                                             pageRangeDisplayed={5}
                                             onChange={this.handleClickOnPageNumber}
                                         />
