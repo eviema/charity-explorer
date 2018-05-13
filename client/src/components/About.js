@@ -17,8 +17,7 @@ const About = () => {
         width: "100vw"
     };
 
-  return (
-    <div>
+  return <div>
       <ScrollUpButton />
       <Breadcrumb className="mb-0">
         <BreadcrumbItem>
@@ -49,24 +48,26 @@ const About = () => {
             {/* who we are */}
             <p className="h4-responsive font-weight-bold">DonateNow</p>
             <p>
-              DonateNow is an online information hub for Melburnians to find 
+              DonateNow is an online information hub for Melburnians to find
               local charities that support global causes they care about.
             </p>
             <div>
               Here they can:
               <ul>
                 <li>
-                  find out about local charities that support a cause 
-                  (e.g. what they do exactly, how much they receive, how much they give),
+                  find out about local charities that support a cause (e.g.
+                  what they do exactly, how much they receive, how much they
+                  give),
                 </li>
                 <li>
-                  discover which global causes are supported by charities in their local area
-                  (e.g. what they are, how much donations and grants they receive), and
+                  discover which global causes are supported by charities in
+                  their local area (e.g. what they are, how much donations and
+                  grants they receive), and
                 </li>
                 <li>
                   contact charities to discuss how they can do their share
-                  (e.g. by clicking to visit their websites or referring to their addresses and
-                  visiting in person).
+                  (e.g. by clicking to visit their websites or referring to
+                  their addresses and visiting in person).
                 </li>
               </ul>
             </div>
@@ -98,16 +99,27 @@ const About = () => {
             </p>
 
             {/* image crediting */}
-            <p className="h4-responsive font-weight-bold pt-3">Icon source</p>
-            <div>
-              All icons used for the website are made by <a href="https://www.flaticon.com/authors/vectors-market" title="Vectors Market" target="_blank" rel="noopener noreferrer">
+            <p className="h4-responsive font-weight-bold pt-3">
+              Icon sources
+            </p>
+            <p>
+              The DonateNow logo is a derivative work originally designed by
+              Ravi Poovaiah, Professor, IDC, IIT Bombay as the original
+              copyright holder. The copyright holder of this file, IIT Bombay,
+              allows anyone to use it for any purpose, provided that the
+              copyright holder is properly attributed. Redistribution,
+              derivative work, commercial use, and all other use is permitted.
+              Attribution: IIT Bombay
+            </p>
+            <p>
+              All icons used for the website except the DonateNow logo are made by <a href="https://www.flaticon.com/authors/vectors-market" title="Vectors Market" target="_blank" rel="noopener noreferrer">
                 Vectors Market
               </a> from <a href="https://www.flaticon.com/" title="Flaticon" target="_blank" rel="noopener noreferrer">
                 www.flaticon.com
               </a> under the license <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank" rel="noopener noreferrer">
                 CC 3.0 BY
               </a>.
-            </div>
+            </p>
 
             {/* copyright */}
             <p className="h4-responsive font-weight-bold pt-3">Copyright</p>
@@ -173,7 +185,7 @@ const About = () => {
           </div>
         </div>
       </div>
-                  </div>);
+    </div>;
 };
 
 export default About;
