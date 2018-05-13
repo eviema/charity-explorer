@@ -72,8 +72,8 @@ class Tips extends Component {
                                 <img src={binoculars} alt="binoculars" className="ml-xl-auto"/>
                             </p>
                             <p>
-                                There are plenty of causes for charity. This world needs as much help as it can to make it better and sustainable for everyone and everything. Pick a cause which draws you the most and is closest to your heart. Donating to that cause should help you feel proud of yourself and give you a good night’s sleep. 
-                                Once you have found the issue or cause that interests you, do thorough research on which non-profit organizations out there are working hard towards solving it. One of the best places to know this is <a href="/charitySearch">here</a>.
+                                There are plenty of causes for charity. This world needs as much help as it can to become a better and more sustainable place for its dwellers. <a href="/causeExplorer">Pick a cause</a> which draws you the most and is closest to your heart. Donating to that cause should help you feel proud of yourself and give you a good night’s sleep. 
+                                Once you have found the issue or cause that interests you, do thorough research on which non-profit organizations out there are working hard towards solving it.
                             </p>
                             <div className="row d-flex justify-content-center">
                                 <a className="btn btn-outline-info d-block d-sm-none" onClick={() => this.handleClickToAnchor('2')}>Next Tip</a>
