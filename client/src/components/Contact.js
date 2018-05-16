@@ -32,13 +32,13 @@ class Contact extends Component {
     render() {
 
         const contactBgStyle = {
-            minHeight:"80vh",
+            minHeight:"90vh",
+            width: "100vw",
             backgroundImage: `url(${contactBg})`,
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
             backgroundAttachment: "scroll",
             backgroundPosition: "bottom",
-            width: "100vw",
             position: "relative",
         };
 
@@ -50,9 +50,8 @@ class Contact extends Component {
             left: "0", 
             right: "0", 
             bottom: "0", 
-            backgroundColor: "rgba(0,0,0,0.5)", 
-            background: "linear-gradient(141deg, #4FC3F7, #4DD0E1)",
-            opacity: ".7",
+            background: "linear-gradient(141deg, #0277BD, #00838F)",
+            opacity: ".5",
             zIndex: "2", 
         };
 
