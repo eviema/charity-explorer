@@ -423,7 +423,7 @@ class Landing extends Component {
       );
     }
 
-    var imgStyle = this.state.isMobileDevice
+    const imgStyle = this.state.isMobileDevice
       ? {
           backgroundImage: `url(${landingBackground})`,
           backgroundRepeat: "no-repeat",
@@ -433,6 +433,7 @@ class Landing extends Component {
           height: "85vh",
           width: "100vw",
           fontSize: ".9em",
+          position: "relative",
         }
       : {
           backgroundImage: `url(${landingBackground})`,
@@ -442,7 +443,21 @@ class Landing extends Component {
           backgroundPosition: "bottom",
           height: "60vh",
           width: "100vw",
-        };
+          position: "relative",
+    };
+    
+    const landingTopOverlayStyle = {
+      position: "absolute", 
+      width: "100%", 
+      height: "100%", 
+      top: "0", 
+      left: "0", 
+      right: "0", 
+      bottom: "0", 
+      background: "linear-gradient(141deg, #006064, #01579B)",
+      opacity: ".6",
+      zIndex: "2", 
+    };
 
     var causeCardStyle = {
       position: "absolute",
@@ -478,7 +493,8 @@ class Landing extends Component {
         <div id="landingTop" className="row d-flex align-items-center justify-content-center p-4 mx-0 w-100"
           style={imgStyle}>
                   
-          <div className="col-12 d-flex flex-column align-items-center justify-content-center mt-5 white-text">
+          <div style={landingTopOverlayStyle}></div>
+          <div className="col-12 d-flex flex-column align-items-center justify-content-center mt-5 white-text" style={{zIndex: "3"}}>
             {/* slogan & quick intro */}
             <p className="h1-responsive font-weight-bold" style={{textShadow: "1px 1px 8px #212121",}}>
               Think Globally, Donate Locally
