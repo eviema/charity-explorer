@@ -71,6 +71,10 @@ class Contact extends Component {
                         <div className="col col-12 col-md-4 d-flex flex-column align-items-center justify-content-center z-depth-1 p-4" style={{background:"#0D47A1"}}>
                             <h4 className="text-white text-center mb-4">Contact Us</h4>
                             <div style={{color:"#E0E0E0"}}>
+                                <p>
+                                    <i className="far fa-user mr-3"></i>
+                                    <span>ACE Solutions</span>
+                                </p>
                                 <p className="d-flex">
                                     <i className="fa fa-map-pin mr-4"></i>
                                     <span>
