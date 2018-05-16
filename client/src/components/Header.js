@@ -39,7 +39,7 @@ class Header extends Component {
                 padding: "2rem",
             }
             : {
-                background: "#00B8D4",
+                background: "#546E7A",
                 // borderBottom: "5px solid #2bbbad",
                 padding: "1rem",
             };
@@ -47,7 +47,7 @@ class Header extends Component {
         var navItemBackgroundStyle = 
             this.state.collapse
             ? {
-                background:"#00B8D4",
+                background:"#546E7A",
                 padding: "1rem"
             }
             : {}
