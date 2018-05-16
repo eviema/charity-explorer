@@ -7,7 +7,7 @@ const Footer = () => {
     }
 
     return(
-        <footer className="page-footer font-small" style={{background: "#00B8D4"}}>
+        <footer className="page-footer font-small" style={{background: "#0097A7"}}>
             {<Container className="py-5">
                 <Row className="text-center d-flex justify-content-center">
                     <Col md="2">
@@ -27,7 +27,7 @@ const Footer = () => {
                     </Col>}
                 </Row>
             </Container>}
-            <div className="footer-copyright text-center py-4" style={{background: "#0097A7"}}>
+            <div className="footer-copyright text-center py-4" style={{background: "#00838F"}}>
                 <Container fluid>
                     &copy; {(new Date().getFullYear())} DonateNow
                     <br />
