@@ -7,7 +7,7 @@ import CharitySearchResults from './CharitySearchResults';
 import Charity from './Charity';
 import CauseExplorer from './CauseExplorer';
 import About from './About';
-import Contact from './Contact';
+// import Contact from './Contact';
 import Footer from './Footer';
 import Tips from './Tips';
 
@@ -26,7 +26,7 @@ class App extends Component {
                         <Route path="/causeExplorer" component={CauseExplorer} />
                         <Route path="/tipsForDonors" component={Tips} />
                         <Route path="/about" component={About}/>
-                        <Route path="/contact" component={Contact}/>
+                        {/* <Route path="/contact" component={Contact}/> */}
                         <Footer />
                     </div>
                 </BrowserRouter>
