@@ -454,7 +454,8 @@ class Landing extends Component {
       left: "0", 
       right: "0", 
       bottom: "0", 
-      background: "linear-gradient(141deg, #006064, #01579B)",
+      background: "rgba(0, 0, 0, .5)",
+      // background: "linear-gradient(141deg, #006064, #01579B)",
       opacity: ".6",
       zIndex: "2", 
     };
