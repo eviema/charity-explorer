@@ -46,9 +46,9 @@ const About = () => {
         <div className="row py-5 m-2 d-flex justify-content-center">
           <div className="col-12 col-sm-12 col-md-10 col-lg-8 col-xl-8">
             {/* who we are */}
-            <p className="h4-responsive font-weight-bold">DonateNow</p>
+            <p className="h4-responsive font-weight-bold">CharityNow</p>
             <p>
-              DonateNow is an online information hub for Melburnians to find
+              CharityNow is an online information hub for Melburnians to find
               local charities that support global causes they care about.
             </p>
             <div>
@@ -103,7 +103,7 @@ const About = () => {
               Icon sources
             </p>
             <p>
-              The DonateNow logo is a derivative work originally designed by
+              The CharityNow logo is a derivative work originally designed by
               Ravi Poovaiah, Professor, IDC, IIT Bombay as the original
               copyright holder. The copyright holder of this file, IIT Bombay,
               allows anyone to use it for any purpose, provided that the
@@ -112,7 +112,7 @@ const About = () => {
               Attribution: IIT Bombay
             </p>
             <p>
-              All icons used for the website except the DonateNow logo are made by <a href="https://www.flaticon.com/authors/vectors-market" title="Vectors Market" target="_blank" rel="noopener noreferrer">
+              All icons used for the website except the CharityNow logo are made by <a href="https://www.flaticon.com/authors/vectors-market" title="Vectors Market" target="_blank" rel="noopener noreferrer">
                 Vectors Market
               </a> from <a href="https://www.flaticon.com/" title="Flaticon" target="_blank" rel="noopener noreferrer">
                 www.flaticon.com

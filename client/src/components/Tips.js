@@ -262,7 +262,7 @@ class Tips extends Component {
                     <img src={tax} alt="save on tax" className="ml-xl-auto" />
                   </p>
                   <p>
-                    If a charity is registered by the Australian Tax Office as a “Deductible Gift Recipient Organization” then any donation more than $2 you make can be claimed in your tax return. “DonateNow” shows if the charity you wish to donate to falls under this category or not after you select a charity of your interest. For more information visit <a href="http://www.etax.com.au/claim-tax-deductible-donations" target="_blank" rel="noopener noreferrer">
+                    If a charity is registered by the Australian Tax Office as a “Deductible Gift Recipient Organization” then any donation more than $2 you make can be claimed in your tax return. “CharityNow” shows if the charity you wish to donate to falls under this category or not after you select a charity of your interest. For more information visit <a href="http://www.etax.com.au/claim-tax-deductible-donations" target="_blank" rel="noopener noreferrer">
                       http://www.etax.com.au/claim-tax-deductible-donations
                     </a>.
                   </p>
