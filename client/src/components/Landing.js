@@ -501,13 +501,13 @@ class Landing extends Component {
               Think Globally, Donate Locally
             </p>
             <span className="h4-responsive mt-1 d-none d-md-block" style={{textShadow: "1px 1px 8px #212121", borderBottom: "5px solid #2bbbad"}}>
-              Discover local charities that support the global cause you love
+              Discover trustworthy local charities for a global cause you love
             </span>
             <span className="h4-responsive mt-1 d-block d-md-none" style={{textShadow: "1px 1px 8px #212121", borderBottom: "5px solid #2bbbad"}}>
-              Discover local charities 
+              Discover trustworthy local charities 
             </span>
             <span className="h4-responsive mt-1 d-block d-md-none" style={{textShadow: "1px 1px 8px #212121", borderBottom: "5px solid #2bbbad"}}>
-              that support the cause you love
+              for a global cause you love
             </span>
             {/* search box */}
             <div id="searchBox" className="col-12 d-flex flex-column align-items-center justify-content-center mt-4 pt-3">
