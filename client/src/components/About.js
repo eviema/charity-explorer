@@ -116,7 +116,7 @@ const About = () => {
                 Vectors Market
               </a> from <a href="https://www.flaticon.com/" title="Flaticon" target="_blank" rel="noopener noreferrer">
                 www.flaticon.com
-              </a> under the license <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank" rel="noopener noreferrer">
+              </a> under the license <a href="https://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank" rel="noopener noreferrer">
                 CC 3.0 BY
               </a>.
             </p>
